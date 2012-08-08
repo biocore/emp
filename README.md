@@ -1,4 +1,4 @@
 isme14
 ======
 
-Data and analysis results for the International Society for Microbial Ecology 14 meeting
+Data and analysis results for the EMP analysis for International Society for Microbial Ecology 14 meeting
