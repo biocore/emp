@@ -218,7 +218,7 @@ def main():
     while not tree.Processed:
         # check if we have nodes to process, if so, shoot them off
         for node in to_process:
-            start_job(node, python_exe_fp, merge_otus_fp, wrap_call=local_job)
+            start_job(node, python_exe_fp, merge_otus_fp, wrap_call=torque_job)
                 
             wrapper_log_output.write(node.FullCommand)
             wrapper_log_output.write('\n')
