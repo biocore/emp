@@ -1,4 +1,14 @@
 #!/usr/bin/env python
+from __future__ import division
+
+__author__ = "Daniel McDonald"
+__copyright__ = "Copyright 2011, The QIIME Project"
+__credits__ = ["Daniel McDonald", "Greg Caporaso"]
+__license__ = "GPL"
+__version__ = "1.5.0-dev"
+__maintainer__ = "Daniel McDonald"
+__email__ = "mcdonadt@colorado.edu"
+__status__ = "Development"
 
 from os.path import basename, join
 from time import time
@@ -54,7 +64,7 @@ def mergeorder(items, working_dir):
     """Code taken from http://en.literateprograms.org/Merge_sort_(Python)"""
     if len(items) < 2:
         return items
-    middle = len(items) / 2
+    middle = int(len(items) / 2)
     left = mergeorder(items[:middle], working_dir)
     right = mergeorder(items[middle:], working_dir)
     return mergetree(left, right, working_dir)
