@@ -1,4 +1,14 @@
 #!/usr/bin/env python
+from __future__ import division
+
+__author__ = "Daniel McDonald"
+__copyright__ = "Copyright 2011, The QIIME Project"
+__credits__ = ["Daniel McDonald","Greg Caporaso"]
+__license__ = "GPL"
+__version__ = "1.5.0-dev"
+__maintainer__ = "Daniel McDonald"
+__email__ = "mcdonadt@colorado.edu"
+__status__ = "Development"
 
 from cogent.util.unit_test import TestCase, main
 from emp_isme14.parallel_merge_otu_tables import mergetree, mergeorder, \
