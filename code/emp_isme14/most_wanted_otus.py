@@ -18,6 +18,8 @@ from os import makedirs
 from os.path import basename, join, splitext
 from tempfile import NamedTemporaryFile
 
+from pylab import axes, figure, pie, savefig
+
 from biom.parse import parse_biom_table
 
 from cogent import DNA, LoadSeqs
