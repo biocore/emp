@@ -37,3 +37,7 @@ otu_table_mc2_1198.biom.gz
 otu_table_mc2_1530.biom.gz
 # uncompressed biom files (they can be big)
 otu_table*.biom
+
+.dropbox
+per_study_otu_tables.tgz
+readme_for_private_data.txt
