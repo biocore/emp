@@ -166,14 +166,12 @@ def generate_most_wanted_list(otu_table_fp, rep_set_fp, gg_fp, nt_fp,
     blast_results = open(join(blast_output_dir,
         splitext(basename(cand_gg_dis_rep_set_fp))[0] + '_blast_out.txt'), 'U')
     top_n_mw = []
-    processed_header = False
     for line in blast_results:
-        # Skip header.
-        if not processed_header:
-            processed_header = True
-            continue
-        line = line.strip().split('\t')
-        top_n_mw.append((line[0], line[1], float(line[2])))
+        # Skip headers.
+        line = line.strip()
+        if line and not line.startswith('#'):
+            line = line.split('\t')
+            top_n_mw.append((line[0], line[1], float(line[2])))
     top_n_mw = sorted(top_n_mw, key=itemgetter(2))[:top_n]
 
     # Write results out to tsv and HTML table.
