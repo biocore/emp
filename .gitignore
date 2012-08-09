@@ -32,5 +32,8 @@ otu_table_mc2_776.biom.gz
 otu_table_mc2_940.biom.gz
 otu_table_mc2_1033.biom.gz
 otu_table_mc2_1043.biom.gz
+otu_table_mc2_1197.biom.gz
 otu_table_mc2_1198.biom.gz
 otu_table_mc2_1530.biom.gz
+# uncompressed biom files (they can be big)
+otu_table*.biom
