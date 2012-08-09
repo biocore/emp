@@ -31,7 +31,7 @@ script_info['required_options'] = [
                 help=''),
     make_option('-r', '--gg_fp', type='existing_filepath',
                 help='the greengenes rep set fasta filepath'),
-    make_option('-t', '--nt_fp', type='existing_filepath',
+    make_option('-t', '--nt_fp', type='string',
                 help='the NCBI nt db filepath, MUST already be '
                 'blast-formatted with formatdb'),
     options_lookup['mapping_fp'],
