@@ -18,6 +18,8 @@ from os import makedirs
 from os.path import basename, join, splitext
 from tempfile import NamedTemporaryFile
 
+from pylab import axes, figure, pie, savefig
+
 from biom.parse import parse_biom_table
 
 from cogent import DNA, LoadSeqs
@@ -115,7 +117,7 @@ def generate_most_wanted_list(otu_table_fp, rep_set_fp, gg_fp, nt_fp,
     print "Running uclust to get list of sequences that don't hit the " + \
           "maximum GG similarity threshold.\n"
     uclust_output_dir = join(output_dir, 'most_wanted_candidates_%s_%s'
-            % (gg_fp, str(max_gg_similarity)))
+            % (basename(gg_fp), str(max_gg_similarity)))
     stdout, stderr, ret_val = qiime_system_call(
         'parallel_pick_otus_uclust_ref.py -i %s -o %s -r %s -s %s -O %d'
         % (candidate_rep_set_fp, uclust_output_dir, gg_fp,
@@ -128,7 +130,7 @@ def generate_most_wanted_list(otu_table_fp, rep_set_fp, gg_fp, nt_fp,
     print "Filtering candidate sequences to only include uclust failures.\n"
     cand_gg_dis_rep_set_fp = join(output_dir,
             add_filename_suffix(candidate_rep_set_fp,
-                                '_most_wanted_candidates_failures'))
+                                '_failures'))
     stdout, stderr, ret_val = qiime_system_call(
         'filter_fasta.py -f %s -s %s -o %s' % (candidate_rep_set_fp,
         join(uclust_output_dir,
@@ -166,14 +168,12 @@ def generate_most_wanted_list(otu_table_fp, rep_set_fp, gg_fp, nt_fp,
     blast_results = open(join(blast_output_dir,
         splitext(basename(cand_gg_dis_rep_set_fp))[0] + '_blast_out.txt'), 'U')
     top_n_mw = []
-    processed_header = False
     for line in blast_results:
-        # Skip header.
-        if not processed_header:
-            processed_header = True
-            continue
-        line = line.strip().split('\t')
-        top_n_mw.append((line[0], line[1], float(line[2])))
+        # Skip headers.
+        line = line.strip()
+        if line and not line.startswith('#'):
+            line = line.split('\t')
+            top_n_mw.append((line[0], line[1], float(line[2])))
     top_n_mw = sorted(top_n_mw, key=itemgetter(2))[:top_n]
 
     # Write results out to tsv and HTML table.
@@ -236,110 +236,3 @@ def generate_most_wanted_list(otu_table_fp, rep_set_fp, gg_fp, nt_fp,
     mw_html_f.write('</table>')
     mw_tsv_f.close()
     mw_html_f.close()
-
-#def generate_most_wanted_list_original(otu_table_fp, rep_set_fp, ref_seqs_fp,
-#        all_seqs_fp, mapping_fp, grouping_cat, output_dir, top_n):
-#    try:
-#        makedirs(output_dir)
-#    except OSError:
-#        pass
-#
-#    ref_seqs_db, ref_seqs_db_files_to_remove = \
-#            build_blast_db_from_fasta_path(ref_seqs_fp)
-#    all_seqs_db, all_seqs_db_files_to_remove = \
-#            build_blast_db_from_fasta_path(all_seqs_fp)
-#
-#    new_otus_stats = _generate_new_otus_stats(open(otu_table_fp, 'U'),
-#            open(rep_set_fp, 'U'), open(ref_seqs_fp, 'U'), ref_seqs_db,
-#            all_seqs_db, open(mapping_fp, 'U'), grouping_cat, top_n)
-#
-#    # Clean up blast db files.
-#    remove_files(ref_seqs_db_files_to_remove)
-#    remove_files(all_seqs_db_files_to_remove)
-#
-#    out_f = open(join(output_dir, 'top_%d_most_wanted_otus.txt' % top_n), 'w')
-#    output_header = 'OTU ID\tSequence\tTaxonomy\tNCBI nt closest match\n'
-#    out_f.write(output_header)
-#    for otu_id, seq, tax, _, _, _, _ in new_otus_stats:
-#        out_f.write('%s\t%s\t%s\t%s\n' % (otu_id, seq, tax, 'http://foo.com'))
-#    out_f.close()
-#
-#def _generate_new_otus_stats(otu_table_f, rep_set_f, ref_seqs_f, ref_seqs_db,
-#                             all_seqs_db, mapping_f, grouping_cat, top_n):
-#    mapping_dict, mapping_comments = parse_mapping_file_to_dict(mapping_f)
-#    group_map = {}
-#    for samp_id in mapping_dict:
-#        group_map[samp_id] = mapping_dict[samp_id][grouping_cat]
-#
-#    otu_table = parse_biom_table(otu_table_f)
-#    otu_ids = otu_table.ObservationIds
-#    samp_ids = otu_table.SampleIds
-#    gg_otus = [seq_id for seq_id, seq in MinimalFastaParser(ref_seqs_f)]
-#    new_otu_ids = set(otu_ids) - set(gg_otus)
-#
-#    new_otu_seqs = {}
-#    new_otu_seqs_lines = []
-#    for seq_id, seq in MinimalFastaParser(rep_set_f):
-#        seq_id = seq_id.strip().split()[0]
-#        if seq_id in new_otu_ids:
-#            new_otu_seqs[seq_id] = [seq]
-#            new_otu_seqs_lines.append('>%s\n%s\n' % (seq_id, seq))
-#
-#    # Get mapping of OTU to % dissimilarity based on BLAST against reference
-#    # seqs and all seqs (typically NCBI's nt database).
-#    ref_seqs_results = BlastResult(blast_seqs(new_otu_seqs_lines, Blastall,
-#            blast_db=ref_seqs_db, blast_mat_root='xxx',
-#            params={'-p':'blastn', '-m':'9'})['StdOut'])
-#    best_ref_seqs_hits = dict(ref_seqs_results.bestHitsByQuery(
-#                              field='% IDENTITY', n=1))
-#    for query, hits in best_ref_seqs_hits.items():
-#        if len(hits) < 1:
-#            percent_id = 0.0
-#            closest_seq_id = 'Unknown'
-#        else:
-#            percent_id = float(hits[0]['% IDENTITY'])
-#            closest_seq_id = hits[0]['SUBJECT ID']
-#        new_otu_seqs[query].append((100.0 - percent_id, closest_seq_id))
-#
-#    # TODO remove this duplicate code.
-#    all_seqs_results = BlastResult(blast_seqs(new_otu_seqs_lines, Blastall,
-#            blast_db=all_seqs_db, blast_mat_root='xxx',
-#            params={'-p':'blastn', '-m':'9'})['StdOut'])
-#    best_all_seqs_hits = dict(all_seqs_results.bestHitsByQuery(
-#                              field='% IDENTITY', n=1))
-#    for query, hits in best_all_seqs_hits.items():
-#        if len(hits) < 1:
-#            percent_id = 0.0
-#            closest_seq_id = 'Unknown'
-#        else:
-#            percent_id = float(hits[0]['% IDENTITY'])
-#            closest_seq_id = hits[0]['SUBJECT ID']
-#        # Track % dissimilarity and best hit ID.
-#        new_otu_seqs[query].append((100.0 - percent_id, closest_seq_id))
-#
-#    new_otus = []
-#    for otu_id in new_otu_ids:
-#        group_counts = defaultdict(int)
-#        counts = otu_table.observationData(otu_id)
-#        if len(counts) != len(samp_ids):
-#            raise ValueError("The number of observation counts does not match "
-#                             "the number of samples in the OTU table.")
-#        for samp_id, count in zip(samp_ids, counts):
-#            group_counts[group_map[samp_id]] += count
-#        num_groups = sum([1 for group, group_count in group_counts.items() \
-#                          if group_count > 0])
-#        total_count = sum(counts)
-#        taxonomy = otu_table.ObservationMetadata[
-#                       otu_table.getObservationIndex(otu_id)]['taxonomy']
-#        seq = new_otu_seqs[otu_id][0]
-#        ref_seqs_dissimilarity = new_otu_seqs[otu_id][1][0]
-#        all_seqs_dissimilarity = new_otu_seqs[otu_id][2][0]
-#        closest_seq_id = new_otu_seqs[otu_id][2][1]
-#        new_otus.append((otu_id, seq, taxonomy, closest_seq_id, num_groups,
-#            total_count, ref_seqs_dissimilarity, all_seqs_dissimilarity,
-#            group_counts))
-#
-#    # Sort by the number of groups the OTU is in first, then by abundance
-#    # (OTU counts), then by sequence dissimilarity to reference seqs, then by
-#    # sequence identity to NCBI's nt database.
-#    return sorted(new_otus, key=itemgetter(4, 5, 6, 7), reverse=True)[:top_n]
