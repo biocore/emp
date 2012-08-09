@@ -25,3 +25,10 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
+# private otu tables
+otu_table_mc2_1043.biom.gz
+otu_table_mc2_1098.biom.gz
+otu_table_mc2_714.biom.gz
+otu_table_mc2_940.biom.gz
+otu_table_mc2_1530.biom.gz
