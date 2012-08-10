@@ -23,7 +23,15 @@ options_lookup = get_options_lookup()
 script_info = {}
 script_info['brief_description'] = ""
 script_info['script_description'] = ""
-script_info['script_usage'] = [("", "", "")]
+script_info['script_usage'] = [("Generate plots for new diversity", "The "
+"following command generates two plots that compare new, or novel, OTUs in "
+"samples grouped by the mapping category 'Environment'. The plot '"
+"num_novel_otus_by_Environment.pdf compares the number of unique novel OTUs "
+"in each environment, and 'percent_novel_seqs_by_Environment.pdf' "
+"compares the percentage of novel sequences (i.e. sequences that were not "
+"that were assigned to a GG reference OTU) in each environment.",
+"%prog -i otu_table1.biom,otu_table2.biom -g ref_seqs.fasta -m map.txt -c "
+"Environment -o new_diversity_out")]
 script_info['output_description'] = ""
 
 script_info['required_options'] = [
