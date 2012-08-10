@@ -40,7 +40,7 @@ script_info['required_options'] = [
 ]
 script_info['optional_options'] = [
     make_option('-c', '--mapping_category', type='string',
-        help='[default: %default]', default='Sample_Type'),
+        help='[default: %default]', default='SAMPLE_TYPE'),
     make_option('-n', '--top_n', type='int', help='[default: %default]',
         default=100),
     make_option('--min_abundance', type='int', help='[default: %default]',
