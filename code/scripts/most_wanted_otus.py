@@ -14,6 +14,7 @@ from os.path import join
 
 from qiime.util import (parse_command_line_parameters, get_options_lookup,
                         make_option)
+from qiime.workflow import call_commands_serially, no_status_updates
 
 from emp_isme14.most_wanted_otus import generate_most_wanted_list
 
@@ -50,6 +51,17 @@ script_info['optional_options'] = [
         default=4),
     make_option('--max_gg_similarity', type='float',
         help='[default: %default]', default=0.80),
+    make_option('--e_value', type='float',
+        help='[default: %default]', default=1e-3),
+    make_option('--word_size', type='int', help='[default: %default]',
+        default=30),
+    make_option('-w', '--print_only', action='store_true',
+        help='Print the commands but don\'t call them -- useful for debugging '
+        '[default: %default]', default=False),
+    make_option('-f', '--force', action='store_true',
+        help='Force overwrite of existing output directory (note: existing '
+        'files in output_dir will not be removed) [default: %default]',
+        default=False),
     options_lookup['jobs_to_start']
 ]
 script_info['version'] = __version__
@@ -57,11 +69,22 @@ script_info['version'] = __version__
 def main():
     option_parser, opts, args = parse_command_line_parameters(**script_info)
 
-    generate_most_wanted_list(
-            opts.otu_table_fp, opts.rep_set_fp, opts.gg_fp, opts.nt_fp,
-            opts.mapping_fp, opts.mapping_category, opts.top_n,
-            opts.min_abundance, opts.max_abundance, opts.min_categories,
-            opts.max_gg_similarity, opts.jobs_to_start, opts.output_dir)
+    if opts.print_only:
+        command_handler = print_commands
+    else:
+        command_handler = call_commands_serially
+
+    if opts.verbose:
+        status_update_callback = print_to_stdout
+    else:
+        status_update_callback = no_status_updates
+
+    generate_most_wanted_list(opts.output_dir, opts.otu_table_fp,
+            opts.rep_set_fp, opts.gg_fp, opts.nt_fp, opts.mapping_fp,
+            opts.mapping_category, opts.top_n, opts.min_abundance,
+            opts.max_abundance, opts.min_categories, opts.max_gg_similarity,
+            opts.e_value, opts.word_size, opts.jobs_to_start, command_handler,
+            status_update_callback, opts.force)
 
 
 if __name__ == "__main__":
