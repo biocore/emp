@@ -72,7 +72,10 @@ def generate_new_diversity_plots(otu_table_fs, gg_f, mapping_f,
     percent_failures_result = defaultdict(list)
     num_new_otus_result = defaultdict(list)
     for samp_id in set(success_counts.keys() + failure_counts.keys()):
-        samp_type = sample_type_map[samp_id]
+        try:
+            samp_type = sample_type_map[samp_id]
+        except KeyError:
+            samp_type = 'Unknown'
         failure_count = failure_counts[samp_id]
         success_count = success_counts[samp_id]
         percent_failures = (failure_count /
@@ -81,14 +84,16 @@ def generate_new_diversity_plots(otu_table_fs, gg_f, mapping_f,
         num_new_otus_result[samp_type].append(len(set(new_otus[samp_id])))
 
     percent_failures_data = [(median(v), '%s (n=%d)' % (k, len(v)), v)
-                             for k, v in percent_failures_result.items()]
+                             for k, v in percent_failures_result.items()
+                             if k != 'Unknown']
     percent_failures_data.sort()
     percent_failures_plot = create_plot(percent_failures_data,
             mapping_category, '% Novel Seqs', '%% Novel Seqs by %s' %
             mapping_category)
 
     num_new_otus_data = [(median(v), '%s (n=%d)' % (k, len(v)), v)
-                         for k, v in num_new_otus_result.items()]
+                         for k, v in num_new_otus_result.items()
+                         if k != 'Unknown']
     num_new_otus_data.sort()
     num_new_otus_plot = create_plot(num_new_otus_data,
             mapping_category, 'Number of Novel OTUs',
