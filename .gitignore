@@ -41,3 +41,6 @@ otu_table*.biom
 .dropbox
 per_study_otu_tables.tgz
 readme_dropbox.txt
+master_mapping_file_private.txt.gz
+master_mapping_file_private.txt
+master_mapping_file.txt
