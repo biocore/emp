@@ -34,7 +34,7 @@ from qiime.util import (add_filename_suffix, parse_command_line_parameters,
         get_options_lookup, make_option, qiime_system_call)
 from qiime.workflow import generate_log_fp, WorkflowError, WorkflowLogger
 
-def generate_most_wanted_list(output_dir, otu_table_fps, rep_set_fps, gg_fp,
+def generate_most_wanted_list(output_dir, otu_table_fps, rep_set_fp, gg_fp,
         nt_fp, mapping_fp, mapping_category, top_n, min_abundance,
         max_abundance, min_categories, max_gg_similarity, e_value,
         word_size, jobs_to_start, command_handler, status_update_callback,
@@ -46,10 +46,6 @@ def generate_most_wanted_list(output_dir, otu_table_fps, rep_set_fps, gg_fp,
             raise WorkflowError("Output directory '%s' already exists. Please "
                     "choose a different directory, or force overwrite with -f."
                     % output_dir)
-
-    if len(otu_table_fps) != len(rep_set_fps):
-        raise WorkflowError("You must provide a representative set file for "
-                "each input OTU table.")
 
     logger = WorkflowLogger(generate_log_fp(output_dir))
     commands = []
@@ -103,41 +99,14 @@ def generate_most_wanted_list(output_dir, otu_table_fps, rep_set_fps, gg_fp,
             (master_otu_table_fp, master_otu_table_ms_fp, min_categories))])
 
     # Now that we have a filtered down OTU table of good candidate OTUs, filter
-    # the corresponding representative sets to include only these candidate
-    # sequences. Merge the resulting rep sets and remove any duplicates.
-    rep_sets_to_merge = []
-    for rep_set_fp in rep_set_fps:
-        filtered_rep_set_fp = join(output_dir, add_filename_suffix(
-                rep_set_fp, '_filtered'))
-        commands.append([('Filtering representative set to include only the '
-                'latest candidate OTUs',
-                'filter_fasta.py -f %s -o %s -b %s' %
-                (rep_set_fp, filtered_rep_set_fp, master_otu_table_ms_fp))])
-        rep_sets_to_merge.append(filtered_rep_set_fp)
-
-    master_rep_set_fp = join(output_dir, 'master_rep_set.fasta')
-    commands.append([('Combining filtered representative sets',
-            'cat %s > %s' %
-            (' '.join(rep_sets_to_merge), master_rep_set_fp))])
-
-    # Execute the commands we have so far, but keep the logger open because
-    # we're going to do more.
-    command_handler(commands, status_update_callback, logger,
-                    close_logger_on_success=False)
-    commands = []
-
-    logger.write("Removing duplicates from merged representative set.\n\n")
-    master_rep_set = {}
-    master_rep_set_f = open(master_rep_set_fp, 'U')
-    for seq_id, seq in MinimalFastaParser(master_rep_set_f):
-        seq_id = seq_id.strip().split()[0]
-        master_rep_set[seq_id] = seq
-    master_rep_set_f.close()
-
-    master_rep_set_f = open(master_rep_set_fp, 'w')
-    for seq_id, seq in master_rep_set.items():
-        master_rep_set_f.write('>%s\n%s\n' % (seq_id, seq))
-    master_rep_set_f.close()
+    # the corresponding representative set to include only these candidate
+    # sequences.
+    rep_set_cands_fp = join(output_dir,
+            add_filename_suffix(rep_set_fp, '_candidates'))
+    commands.append([('Filtering representative set to include only the '
+            'latest candidate OTUs',
+            'filter_fasta.py -f %s -o %s -b %s' %
+            (rep_set_fp, rep_set_cands_fp, master_otu_table_ms_fp))])
 
     # Find the otus that don't hit GG at a certain maximum similarity
     # threshold.
@@ -146,24 +115,25 @@ def generate_most_wanted_list(output_dir, otu_table_fps, rep_set_fps, gg_fp,
     commands.append([('Running uclust to get list of sequences that don\'t '
             'hit the maximum GG similarity threshold',
             'parallel_pick_otus_uclust_ref.py -i %s -o %s -r %s -s %s -O %d' %
-            (master_rep_set_fp, uclust_output_dir, gg_fp,
+            (rep_set_cands_fp, uclust_output_dir, gg_fp,
              str(max_gg_similarity), jobs_to_start))])
 
-    # Filter the master rep set to only include the failures from uclust.
-    filtered_master_rep_set_fp = join(output_dir,
-            add_filename_suffix(master_rep_set_fp, '_failures'))
+    # Filter the rep set to only include the failures from uclust.
+    rep_set_cands_failures_fp = join(output_dir,
+            add_filename_suffix(rep_set_cands_fp, '_failures'))
     commands.append([('Filtering candidate sequences to only include uclust '
             'failures',
             'filter_fasta.py -f %s -s %s -o %s' %
-            (master_rep_set_fp, join(uclust_output_dir,
-             splitext(basename(master_rep_set_fp))[0] + '_failures.txt'),
-             filtered_master_rep_set_fp))])
+            (rep_set_cands_fp, join(uclust_output_dir,
+             splitext(basename(rep_set_cands_fp))[0] + '_failures.txt'),
+             rep_set_cands_failures_fp))])
 
     # BLAST the failures against nt.
     blast_output_dir = join(output_dir, 'blast_output')
-    commands.append([('BLASTing candidate sequences against nt database',
+    commands.append([('BLASTing filtered candidate sequences against nt '
+            'database',
             'parallel_blast.py -i %s -o %s -r %s -D -e %f -w %d -O %d' %
-            (filtered_master_rep_set_fp, blast_output_dir, nt_fp, e_value,
+            (rep_set_cands_failures_fp, blast_output_dir, nt_fp, e_value,
              word_size, jobs_to_start))])
 
     # Execute the commands we have so far, but keep the logger open because
@@ -177,7 +147,7 @@ def generate_most_wanted_list(output_dir, otu_table_fps, rep_set_fps, gg_fp,
     logger.write("Reading in BLAST results, sorting by percent identity, "
                  "and picking the top %d OTUs.\n\n" % top_n)
     blast_results = open(join(blast_output_dir,
-        splitext(basename(filtered_master_rep_set_fp))[0] +
+        splitext(basename(rep_set_cands_failures_fp))[0] +
                           '_blast_out.txt'), 'U')
     top_n_mw = []
     for line in blast_results:
@@ -191,11 +161,11 @@ def generate_most_wanted_list(output_dir, otu_table_fps, rep_set_fps, gg_fp,
     # Read in our filtered down candidate seqs file and latest filtered and
     # collapsed OTU table. We'll need to compute some stats on these to include
     # in our report.
-    logger.write("Reading in candidate sequences and latest filtered and "
-                 "collapsed OTU table.\n\n")
+    logger.write("Reading in filtered candidate sequences and latest filtered "
+                 "and collapsed OTU table.\n\n")
     mw_seqs = {}
     for seq_id, seq in MinimalFastaParser(
-            open(filtered_master_rep_set_fp, 'U')):
+            open(rep_set_cands_failures_fp, 'U')):
         seq_id = seq_id.strip().split()[0]
         mw_seqs[seq_id] = seq
     master_otu_table_ms = parse_biom_table(open(master_otu_table_ms_fp, 'U'))
@@ -266,7 +236,7 @@ def generate_most_wanted_list(output_dir, otu_table_fps, rep_set_fps, gg_fp,
 
         mw_html_f.write('<tr><td>%s</td><td>%s</td><td>%s</td>'
                 '<td><a href="%s" target="_blank">%s</a></td><td>%s</td><td>'
-                '<img src="%s" width="200" height="200" /></td></tr>' %
+                '<img src="%s" width="300" height="300" /></td></tr>' %
                 (otu_id, '\n'.join(split_seq), tax, ncbi_link, gb_id,
                  percent_identity, pie_chart_fp))
     mw_html_f.write('</table>')

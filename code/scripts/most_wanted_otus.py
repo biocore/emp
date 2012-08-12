@@ -36,9 +36,12 @@ script_info['required_options'] = [
         'picking most wanted OTUs is not perfect because the OTU will need to '
         'show up in the specified abundance range in at least one per-study '
         'OTU table to even be considered a most wanted candidate.'),
-    make_option('-p', '--rep_set_fps', type='existing_filepaths',
-                help='paths to the representative sets accompanying the OTU '
-                'tables, in the same order as the OTU tables'),
+    make_option('-p', '--rep_set_fp', type='existing_filepath',
+                help='path to the master representative set fasta file '
+                'accompanying the OTU tables. This doesn\'t need to include '
+                'GG OTUs (they will be filtered out), but will need all other '
+                'rep seqs that are referenced in any of the input OTU tables. '
+                'This rep set MUST be a *set*, i.e. no duplicate entries'),
     make_option('-r', '--gg_fp', type='existing_filepath',
                 help='the greengenes rep set fasta filepath'),
     make_option('-t', '--nt_fp', type='existing_filepath',
@@ -89,7 +92,7 @@ def main():
         status_update_callback = no_status_updates
 
     generate_most_wanted_list(opts.output_dir, opts.otu_table_fps,
-            opts.rep_set_fps, opts.gg_fp, opts.nt_fp, opts.mapping_fp,
+            opts.rep_set_fp, opts.gg_fp, opts.nt_fp, opts.mapping_fp,
             opts.mapping_category, opts.top_n, opts.min_abundance,
             opts.max_abundance, opts.min_categories, opts.max_gg_similarity,
             opts.e_value, opts.word_size, opts.jobs_to_start, command_handler,
