@@ -50,14 +50,17 @@ def alpha_diversity_by_sample_type(adiv_fs, mapping_f,
                      for line in adiv_f if line.strip()][1:]
 
         for samp_id, adiv in adiv_data:
-            sample_type = sample_type_map[samp_id]
+            try:
+                sample_type = sample_type_map[samp_id]
+            except KeyError:
+                sample_type = 'Unknown'
             # TODO do we need to normalize this? how?
             #adiv = float(adiv) / sample_type_counts[sample_type]
             adiv = float(adiv)
             sample_type_to_adiv[sample_type].append(adiv)
 
     plotting_data = [(median(v), '%s (n=%d)' % (k, len(v)), v) for k, v in
-                     sample_type_to_adiv.items()]
+                     sample_type_to_adiv.items() if k != 'Unknown']
     plotting_data.sort()
 
     plot_fig = generate_box_plots([dist[2] for dist in
