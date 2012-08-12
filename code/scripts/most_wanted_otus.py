@@ -27,12 +27,24 @@ script_info['script_usage'] = [("", "", "")]
 script_info['output_description'] = ""
 
 script_info['required_options'] = [
-    options_lookup['otu_table_as_primary_input'],
+    make_option('-i','--otu_table_fps',type="existing_filepaths",
+        help='paths to the input OTU tables (i.e., the output from '
+        'make_otu_table.py). IMPORTANT: each OTU table will be filtered '
+        'separately to include OTUs at the specified abundances since we '
+        '(computationally) cannot merge the OTU tables before they have been '
+        'filtered and collapsed by the mapping category. Thus, this method of '
+        'picking most wanted OTUs is not perfect because the OTU will need to '
+        'show up in the specified abundance range in at least one per-study '
+        'OTU table to even be considered a most wanted candidate.'),
     make_option('-p', '--rep_set_fp', type='existing_filepath',
-                help=''),
+                help='path to the master representative set fasta file '
+                'accompanying the OTU tables. This doesn\'t need to include '
+                'GG OTUs (they will be filtered out), but will need all other '
+                'rep seqs that are referenced in any of the input OTU tables. '
+                'This rep set MUST be a *set*, i.e. no duplicate entries'),
     make_option('-r', '--gg_fp', type='existing_filepath',
                 help='the greengenes rep set fasta filepath'),
-    make_option('-t', '--nt_fp', type='string',
+    make_option('-t', '--nt_fp', type='existing_filepath',
                 help='the NCBI nt db filepath, MUST already be '
                 'blast-formatted with formatdb'),
     options_lookup['mapping_fp'],
@@ -79,7 +91,7 @@ def main():
     else:
         status_update_callback = no_status_updates
 
-    generate_most_wanted_list(opts.output_dir, opts.otu_table_fp,
+    generate_most_wanted_list(opts.output_dir, opts.otu_table_fps,
             opts.rep_set_fp, opts.gg_fp, opts.nt_fp, opts.mapping_fp,
             opts.mapping_category, opts.top_n, opts.min_abundance,
             opts.max_abundance, opts.min_categories, opts.max_gg_similarity,
