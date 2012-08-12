@@ -1,0 +1,14 @@
+	observed_species
+Tar.sand.2.488667	21180
+Temperate.rain.forest.488670	20418
+Boreal.coniferous.forest.488673	21752
+Agricultural.soil...soy.488669	54813
+Northern.peatlands.488672	20761
+Agricultural.soil...wheat.488663	32962
+Temperate.deciduous.forest.488668	24504
+Arctic.Tundra.1.488666	18059
+Arctic.Tundra.2.488671	19575
+Tar.sand.1.488674	28537
+Wetland.soil.488664	18343
+UW.community.garden.488665	2
+Compost.488662	10

@@ -27,14 +27,15 @@ pip-log.txt
 .mr.developer.cfg
 
 # non-emp-funded otu tables
-otu_table_mc2_714.biom.gz
-otu_table_mc2_776.biom.gz
-otu_table_mc2_940.biom.gz
-otu_table_mc2_1033.biom.gz
-otu_table_mc2_1043.biom.gz
-otu_table_mc2_1197.biom.gz
-otu_table_mc2_1198.biom.gz
-otu_table_mc2_1530.biom.gz
+*714*
+*776*
+*940*
+*1030*
+*1033*
+*1043*
+*1197*
+*1198*
+*1530*
 # uncompressed biom files (they can be big)
 otu_table*.biom
 
