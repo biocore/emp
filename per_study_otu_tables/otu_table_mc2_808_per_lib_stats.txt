@@ -1,0 +1,31 @@
+Num samples: 15
+Num otus: 76066
+Num observations (sequences): 2339211
+Table density (fraction of non-zero values): 2.0502
+
+Seqs/sample summary:
+ Min: 61
+ Max: 367712
+ Median: 155115.0
+ Mean: 155947.4
+ Std. dev.: 93791.3244956
+ Median Absolute Deviation: 36517.0
+ Default even sampling depth in
+  core_qiime_analyses.py (just a suggestion): 91231
+
+Seqs/sample detail:
+ HI.20.15a.414614: 61
+ HI.20.18a.414615: 649
+ HI.20.11a.414613: 91231
+ FL.3.16a.414618: 110353
+ FL.3.14a.414607: 118977
+ HI.20.11a.414621: 126727
+ FL.3.13a.414620: 144968
+ AK.19.12a.414608: 155115
+ UT.15.42.414609: 158002
+ UT.15.45.414619: 174235
+ UT.15.44.414611: 187043
+ AK.19.18a.414617: 191632
+ AK.19.12a.414616: 195510
+ AK.19.15a.414612: 316996
+ UT.15.42.414610: 367712
