@@ -42,3 +42,225 @@ parallel_alpha_diversity.py -i
 /home/caporaso/outbox/isme14/per_study_otu_tables/ -o
 /home/caporaso/outbox/isme14/per_study_alpha_diversity/ -m observed_species -O
 50
+
+# per library stats to determine even sampling depths for alpha diversity analyses
+per_library_stats.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1030.biom.gz > /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1030per_lib_stats.txt
+per_library_stats.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1031.biom.gz > /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1031per_lib_stats.txt
+per_library_stats.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1033.biom.gz > /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1033per_lib_stats.txt
+per_library_stats.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1034.biom.gz > /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1034per_lib_stats.txt
+per_library_stats.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1035.biom.gz > /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1035per_lib_stats.txt
+per_library_stats.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1036.biom.gz > /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1036per_lib_stats.txt
+per_library_stats.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1037.biom.gz > /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1037per_lib_stats.txt
+per_library_stats.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1038.biom.gz > /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1038per_lib_stats.txt
+per_library_stats.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1039.biom.gz > /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1039per_lib_stats.txt
+per_library_stats.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1043.biom.gz > /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1043per_lib_stats.txt
+per_library_stats.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1198.biom.gz > /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1198per_lib_stats.txt
+per_library_stats.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1222.biom.gz > /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1222per_lib_stats.txt
+per_library_stats.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1235.biom.gz > /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1235per_lib_stats.txt
+per_library_stats.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1240.biom.gz > /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1240per_lib_stats.txt
+per_library_stats.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1242.biom.gz > /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1242per_lib_stats.txt
+per_library_stats.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1288.biom.gz > /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1288per_lib_stats.txt
+per_library_stats.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1289.biom.gz > /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1289per_lib_stats.txt
+per_library_stats.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1453.biom.gz > /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1453per_lib_stats.txt
+per_library_stats.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1526.biom.gz > /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1526per_lib_stats.txt
+per_library_stats.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_550.biom.gz > /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_550per_lib_stats.txt
+per_library_stats.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_632.biom.gz > /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_632per_lib_stats.txt
+per_library_stats.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_638.biom.gz > /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_638per_lib_stats.txt
+per_library_stats.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_659.biom.gz > /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_659per_lib_stats.txt
+per_library_stats.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_662.biom.gz > /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_662per_lib_stats.txt
+per_library_stats.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_678.biom.gz > /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_678per_lib_stats.txt
+per_library_stats.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_714.biom.gz > /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_714per_lib_stats.txt
+per_library_stats.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_722.biom.gz > /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_722per_lib_stats.txt
+per_library_stats.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_723.biom.gz > /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_723per_lib_stats.txt
+per_library_stats.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_776.biom.gz > /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_776per_lib_stats.txt
+per_library_stats.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_808.biom.gz > /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_808per_lib_stats.txt
+per_library_stats.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_809.biom.gz > /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_809per_lib_stats.txt
+per_library_stats.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_810.biom.gz > /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_810per_lib_stats.txt
+per_library_stats.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_925.biom.gz > /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_925per_lib_stats.txt
+per_library_stats.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_933.biom.gz > /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_933per_lib_stats.txt
+per_library_stats.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_940.biom.gz > /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_940per_lib_stats.txt
+
+# review median sampling depths to choose a few even sampling depths (chose 2000, 5000, 10000, 100000)
+egrep 'Median:' per_study_otu_tables/otu_table_mc2_*txt | cut -d " " -f 3
+184428.0
+161750.0
+192244.0
+115110.0
+153603.0
+205470.0
+176121.5
+174977.0
+162163.0
+241056.5
+71323.5
+253385.5
+36670.0
+443665.0
+29766.0
+209326.0
+64390.5
+112400.0
+38381.5
+176641.0
+512909.0
+199861.0
+164048.5
+64095.0
+9374.5
+172540.0
+113837.0
+160868.5
+155115.0
+222248.0
+35.0
+14518.0
+195311.0
+30445.0
+
+
+# single rarefaction at four depths
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1030.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even2000/otu_table_mc2_1030.biom.gz -d 2000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1030.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even5000/otu_table_mc2_1030.biom.gz -d 5000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1030.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even10000/otu_table_mc2_1030.biom.gz -d 10000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1030.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even100000/otu_table_mc2_1030.biom.gz -d 100000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1031.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even2000/otu_table_mc2_1031.biom.gz -d 2000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1031.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even5000/otu_table_mc2_1031.biom.gz -d 5000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1031.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even10000/otu_table_mc2_1031.biom.gz -d 10000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1031.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even100000/otu_table_mc2_1031.biom.gz -d 100000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1033.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even2000/otu_table_mc2_1033.biom.gz -d 2000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1033.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even5000/otu_table_mc2_1033.biom.gz -d 5000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1033.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even10000/otu_table_mc2_1033.biom.gz -d 10000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1033.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even100000/otu_table_mc2_1033.biom.gz -d 100000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1034.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even2000/otu_table_mc2_1034.biom.gz -d 2000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1034.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even5000/otu_table_mc2_1034.biom.gz -d 5000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1034.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even10000/otu_table_mc2_1034.biom.gz -d 10000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1034.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even100000/otu_table_mc2_1034.biom.gz -d 100000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1035.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even2000/otu_table_mc2_1035.biom.gz -d 2000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1035.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even5000/otu_table_mc2_1035.biom.gz -d 5000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1035.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even10000/otu_table_mc2_1035.biom.gz -d 10000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1035.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even100000/otu_table_mc2_1035.biom.gz -d 100000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1036.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even2000/otu_table_mc2_1036.biom.gz -d 2000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1036.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even5000/otu_table_mc2_1036.biom.gz -d 5000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1036.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even10000/otu_table_mc2_1036.biom.gz -d 10000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1036.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even100000/otu_table_mc2_1036.biom.gz -d 100000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1037.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even2000/otu_table_mc2_1037.biom.gz -d 2000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1037.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even5000/otu_table_mc2_1037.biom.gz -d 5000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1037.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even10000/otu_table_mc2_1037.biom.gz -d 10000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1037.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even100000/otu_table_mc2_1037.biom.gz -d 100000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1038.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even2000/otu_table_mc2_1038.biom.gz -d 2000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1038.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even5000/otu_table_mc2_1038.biom.gz -d 5000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1038.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even10000/otu_table_mc2_1038.biom.gz -d 10000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1038.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even100000/otu_table_mc2_1038.biom.gz -d 100000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1039.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even2000/otu_table_mc2_1039.biom.gz -d 2000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1039.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even5000/otu_table_mc2_1039.biom.gz -d 5000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1039.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even10000/otu_table_mc2_1039.biom.gz -d 10000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1039.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even100000/otu_table_mc2_1039.biom.gz -d 100000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1043.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even2000/otu_table_mc2_1043.biom.gz -d 2000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1043.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even5000/otu_table_mc2_1043.biom.gz -d 5000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1043.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even10000/otu_table_mc2_1043.biom.gz -d 10000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1043.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even100000/otu_table_mc2_1043.biom.gz -d 100000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1222.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even2000/otu_table_mc2_1222.biom.gz -d 2000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1222.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even5000/otu_table_mc2_1222.biom.gz -d 5000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1222.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even10000/otu_table_mc2_1222.biom.gz -d 10000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1222.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even100000/otu_table_mc2_1222.biom.gz -d 100000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1235.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even2000/otu_table_mc2_1235.biom.gz -d 2000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1235.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even5000/otu_table_mc2_1235.biom.gz -d 5000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1235.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even10000/otu_table_mc2_1235.biom.gz -d 10000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1235.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even100000/otu_table_mc2_1235.biom.gz -d 100000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1240.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even2000/otu_table_mc2_1240.biom.gz -d 2000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1240.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even5000/otu_table_mc2_1240.biom.gz -d 5000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1240.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even10000/otu_table_mc2_1240.biom.gz -d 10000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1240.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even100000/otu_table_mc2_1240.biom.gz -d 100000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1242.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even2000/otu_table_mc2_1242.biom.gz -d 2000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1242.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even5000/otu_table_mc2_1242.biom.gz -d 5000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1242.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even10000/otu_table_mc2_1242.biom.gz -d 10000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1242.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even100000/otu_table_mc2_1242.biom.gz -d 100000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1288.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even2000/otu_table_mc2_1288.biom.gz -d 2000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1288.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even5000/otu_table_mc2_1288.biom.gz -d 5000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1288.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even10000/otu_table_mc2_1288.biom.gz -d 10000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1288.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even100000/otu_table_mc2_1288.biom.gz -d 100000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1289.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even2000/otu_table_mc2_1289.biom.gz -d 2000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1289.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even5000/otu_table_mc2_1289.biom.gz -d 5000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1289.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even10000/otu_table_mc2_1289.biom.gz -d 10000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1289.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even100000/otu_table_mc2_1289.biom.gz -d 100000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1453.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even2000/otu_table_mc2_1453.biom.gz -d 2000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1453.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even5000/otu_table_mc2_1453.biom.gz -d 5000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1453.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even10000/otu_table_mc2_1453.biom.gz -d 10000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1453.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even100000/otu_table_mc2_1453.biom.gz -d 100000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1526.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even2000/otu_table_mc2_1526.biom.gz -d 2000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1526.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even5000/otu_table_mc2_1526.biom.gz -d 5000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1526.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even10000/otu_table_mc2_1526.biom.gz -d 10000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_1526.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even100000/otu_table_mc2_1526.biom.gz -d 100000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_550.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even2000/otu_table_mc2_550.biom.gz -d 2000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_550.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even5000/otu_table_mc2_550.biom.gz -d 5000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_550.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even10000/otu_table_mc2_550.biom.gz -d 10000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_550.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even100000/otu_table_mc2_550.biom.gz -d 100000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_632.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even2000/otu_table_mc2_632.biom.gz -d 2000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_632.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even5000/otu_table_mc2_632.biom.gz -d 5000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_632.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even10000/otu_table_mc2_632.biom.gz -d 10000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_632.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even100000/otu_table_mc2_632.biom.gz -d 100000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_638.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even2000/otu_table_mc2_638.biom.gz -d 2000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_638.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even5000/otu_table_mc2_638.biom.gz -d 5000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_638.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even10000/otu_table_mc2_638.biom.gz -d 10000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_638.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even100000/otu_table_mc2_638.biom.gz -d 100000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_659.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even2000/otu_table_mc2_659.biom.gz -d 2000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_659.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even5000/otu_table_mc2_659.biom.gz -d 5000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_659.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even10000/otu_table_mc2_659.biom.gz -d 10000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_659.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even100000/otu_table_mc2_659.biom.gz -d 100000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_662.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even2000/otu_table_mc2_662.biom.gz -d 2000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_662.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even5000/otu_table_mc2_662.biom.gz -d 5000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_662.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even10000/otu_table_mc2_662.biom.gz -d 10000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_662.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even100000/otu_table_mc2_662.biom.gz -d 100000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_678.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even2000/otu_table_mc2_678.biom.gz -d 2000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_678.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even5000/otu_table_mc2_678.biom.gz -d 5000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_678.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even10000/otu_table_mc2_678.biom.gz -d 10000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_678.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even100000/otu_table_mc2_678.biom.gz -d 100000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_714.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even2000/otu_table_mc2_714.biom.gz -d 2000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_714.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even5000/otu_table_mc2_714.biom.gz -d 5000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_714.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even10000/otu_table_mc2_714.biom.gz -d 10000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_714.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even100000/otu_table_mc2_714.biom.gz -d 100000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_722.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even2000/otu_table_mc2_722.biom.gz -d 2000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_722.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even5000/otu_table_mc2_722.biom.gz -d 5000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_722.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even10000/otu_table_mc2_722.biom.gz -d 10000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_722.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even100000/otu_table_mc2_722.biom.gz -d 100000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_723.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even2000/otu_table_mc2_723.biom.gz -d 2000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_723.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even5000/otu_table_mc2_723.biom.gz -d 5000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_723.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even10000/otu_table_mc2_723.biom.gz -d 10000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_723.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even100000/otu_table_mc2_723.biom.gz -d 100000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_776.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even2000/otu_table_mc2_776.biom.gz -d 2000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_776.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even5000/otu_table_mc2_776.biom.gz -d 5000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_776.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even10000/otu_table_mc2_776.biom.gz -d 10000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_776.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even100000/otu_table_mc2_776.biom.gz -d 100000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_808.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even2000/otu_table_mc2_808.biom.gz -d 2000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_808.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even5000/otu_table_mc2_808.biom.gz -d 5000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_808.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even10000/otu_table_mc2_808.biom.gz -d 10000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_808.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even100000/otu_table_mc2_808.biom.gz -d 100000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_809.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even2000/otu_table_mc2_809.biom.gz -d 2000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_809.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even5000/otu_table_mc2_809.biom.gz -d 5000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_809.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even10000/otu_table_mc2_809.biom.gz -d 10000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_809.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even100000/otu_table_mc2_809.biom.gz -d 100000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_810.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even2000/otu_table_mc2_810.biom.gz -d 2000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_810.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even5000/otu_table_mc2_810.biom.gz -d 5000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_810.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even10000/otu_table_mc2_810.biom.gz -d 10000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_810.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even100000/otu_table_mc2_810.biom.gz -d 100000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_925.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even2000/otu_table_mc2_925.biom.gz -d 2000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_925.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even5000/otu_table_mc2_925.biom.gz -d 5000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_925.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even10000/otu_table_mc2_925.biom.gz -d 10000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_925.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even100000/otu_table_mc2_925.biom.gz -d 100000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_933.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even2000/otu_table_mc2_933.biom.gz -d 2000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_933.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even5000/otu_table_mc2_933.biom.gz -d 5000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_933.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even10000/otu_table_mc2_933.biom.gz -d 10000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_933.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even100000/otu_table_mc2_933.biom.gz -d 100000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_940.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even2000/otu_table_mc2_940.biom.gz -d 2000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_940.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even5000/otu_table_mc2_940.biom.gz -d 5000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_940.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even10000/otu_table_mc2_940.biom.gz -d 10000
+single_rarefaction.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/otu_table_mc2_940.biom.gz -o /home/caporaso/outbox/isme14/per_study_otu_tables_even100000/otu_table_mc2_940.biom.gz -d 100000
+
+# alpha diversity on full otu table and evenly sampling otu tables
+parallel_alpha_diversity.py -i /home/caporaso/outbox/isme14/per_study_otu_tables/ -o /home/caporaso/outbox/isme14/per_study_alpha_diversity/ -m observed_species -O 50
+
+parallel_alpha_diversity.py -i /home/caporaso/outbox/isme14/per_study_otu_tables_even2000/ -o /home/caporaso/outbox/isme14/per_study_alpha_diversity_even2000/ -m observed_species -O 50
+parallel_alpha_diversity.py -i /home/caporaso/outbox/isme14/per_study_otu_tables_even5000/ -o /home/caporaso/outbox/isme14/per_study_alpha_diversity_even5000/ -m observed_species -O 50
+parallel_alpha_diversity.py -i /home/caporaso/outbox/isme14/per_study_otu_tables_even10000/ -o /home/caporaso/outbox/isme14/per_study_alpha_diversity_even10000/ -m observed_species -O 50
+parallel_alpha_diversity.py -i /home/caporaso/outbox/isme14/per_study_otu_tables_even100000/ -o /home/caporaso/outbox/isme14/per_study_alpha_diversity_even100000/ -m observed_species -O 50
+
