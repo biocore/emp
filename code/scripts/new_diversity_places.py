@@ -13,6 +13,7 @@ __status__ = "Development"
 from glob import glob
 from os import makedirs
 from os.path import join
+from pickle import dump
 from qiime.util import (add_filename_suffix, parse_command_line_parameters,
         get_options_lookup, make_option, qiime_system_call)
 
@@ -56,6 +57,7 @@ def main():
     option_parser, opts, args = parse_command_line_parameters(**script_info)
 
     output_dir = opts.output_dir
+    mapping_category = opts.mapping_category
 
     try:
         makedirs(output_dir)
@@ -66,13 +68,23 @@ def main():
            num_new_otus_plot = generate_new_diversity_plots(
             [open(otu_table_fp, 'U') for otu_table_fp in opts.otu_table_fps],
             open(opts.gg_fasta_fp, 'U'), open(opts.mapping_fp, 'U'),
-            opts.mapping_category)
+            mapping_category, opts.verbose)
+
+    # Save plots as PDFs.
     percent_failures_plot.savefig(join(output_dir,
                                   'percent_novel_seqs_by_%s.pdf' %
-                                  opts.mapping_category))
+                                  mapping_category))
     num_new_otus_plot.savefig(join(output_dir,
                               'num_novel_otus_by_%s.pdf' %
-                              opts.mapping_category))
+                              mapping_category))
+
+    # Pickle plot raw data in case we need to load up the data again into new
+    # plots and interactively tweak them (it'll take too long to rerun the
+    # whole script for these tweaks).
+    dump(percent_failures_data, open(join(output_dir,
+            'percent_novel_seqs_by_%s.p' % mapping_category), 'wb'))
+    dump(num_new_otus_data, open(join(output_dir,
+            'num_novel_otus_by_%s.p' % mapping_category), 'wb'))
 
 # Not sure if we'll need the following code...
 #    # Filter otu table to include only new otus.

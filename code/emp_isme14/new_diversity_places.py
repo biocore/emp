@@ -16,6 +16,7 @@ from collections import defaultdict
 from operator import itemgetter
 from os import makedirs
 from os.path import join
+from pickle import load
 from tempfile import NamedTemporaryFile
 
 from numpy import median
@@ -36,7 +37,8 @@ from qiime.util import (parse_command_line_parameters, get_options_lookup,
                         make_option)
 
 def generate_new_diversity_plots(otu_table_fs, gg_f, mapping_f,
-                                 mapping_category='Sample_Type'):
+                                 mapping_category='Sample_Type',
+                                 verbose=False):
     mapping_dict, mapping_comments = parse_mapping_file_to_dict(mapping_f)
     sample_type_map = {}
     for samp_id in mapping_dict:
@@ -49,6 +51,7 @@ def generate_new_diversity_plots(otu_table_fs, gg_f, mapping_f,
     success_counts = defaultdict(int)
     failure_counts = defaultdict(int)
     new_otus = defaultdict(list)
+    processed_count = 0
     for otu_table_f in otu_table_fs:
         otu_table = parse_biom_table(otu_table_f)
         novel_otus = set(otu_table.ObservationIds) - set(gg_otus)
@@ -62,6 +65,9 @@ def generate_new_diversity_plots(otu_table_fs, gg_f, mapping_f,
             else:
                 for samp_id, count in zip(otu_table.SampleIds, counts):
                     success_counts[samp_id] += count
+        processed_count += 1
+        if verbose:
+            print "Processed %d OTU tables.\n" % processed_count
 
     percent_failures_result = defaultdict(list)
     num_new_otus_result = defaultdict(list)
@@ -74,31 +80,42 @@ def generate_new_diversity_plots(otu_table_fs, gg_f, mapping_f,
         percent_failures_result[samp_type].append(percent_failures)
         num_new_otus_result[samp_type].append(len(set(new_otus[samp_id])))
 
-    # TODO remove this duplicate code
     percent_failures_data = [(median(v), '%s (n=%d)' % (k, len(v)), v)
                              for k, v in percent_failures_result.items()]
     percent_failures_data.sort()
-    percent_failures_plot = generate_box_plots(
-            [e[2] for e in percent_failures_data],
-            x_tick_labels=[e[1] for e in percent_failures_data],
-            x_label=mapping_category,
-            y_label='% Novel Seqs',
-            title='%% Novel Seqs by %s' % mapping_category)
-    percent_failures_plot.tight_layout()
+    percent_failures_plot = create_plot(percent_failures_data,
+            mapping_category, '% Novel Seqs', '%% Novel Seqs by %s' %
+            mapping_category)
 
     num_new_otus_data = [(median(v), '%s (n=%d)' % (k, len(v)), v)
                          for k, v in num_new_otus_result.items()]
     num_new_otus_data.sort()
-    num_new_otus_plot = generate_box_plots(
-            [e[2] for e in num_new_otus_data],
-            x_tick_labels=[e[1] for e in num_new_otus_data],
-            x_label=mapping_category,
-            y_label='Number of Novel OTUs',
-            title='Number of Novel OTUs by %s' % mapping_category)
-    num_new_otus_plot.tight_layout()
+    num_new_otus_plot = create_plot(num_new_otus_data,
+            mapping_category, 'Number of Novel OTUs',
+            'Number of Novel OTUs by %s' % mapping_category)
 
     return percent_failures_data, percent_failures_plot, num_new_otus_data, \
            num_new_otus_plot
+
+def create_plot(raw_data, x_label, y_label, title):
+    plot = generate_box_plots(
+            [e[2] for e in raw_data],
+            x_tick_labels=[e[1] for e in raw_data],
+            x_label=x_label,
+            y_label=y_label,
+            title=title)
+    plot.tight_layout()
+    return plot
+
+def load_novel_otus_plot(output_dir, cat):
+    return create_plot(load(
+        open(join(output_dir, 'num_novel_otus_by_%s.p' % cat), 'rb')),
+        cat, 'Number of Novel OTUs', 'Number of Novel OTUs by %s' % cat)
+
+def load_novel_seqs_plot(output_dir, cat):
+    return create_plot(load(
+        open(join(output_dir, 'percent_novel_seqs_by_%s.p' % cat), 'rb')),
+        cat, '% Novel Seqs', '%% Novel Seqs by %s' % cat)
 
 # Not sure if we'll need the following code...
 #def summarize_unclassified(ts_f):
