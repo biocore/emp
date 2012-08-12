@@ -15,7 +15,7 @@ __status__ = "Development"
 from collections import defaultdict
 from operator import itemgetter
 from os import makedirs
-from os.path import basename, join, splitext
+from os.path import basename, join, normpath, splitext
 from tempfile import NamedTemporaryFile
 
 from pylab import axes, figure, pie, savefig
@@ -78,74 +78,25 @@ def generate_most_wanted_list(output_dir, otu_table_fps, rep_set_fp, gg_fp,
     # Write results out to tsv and HTML table.
     logger.write("Writing most wanted OTUs results to TSV and HTML "
                  "tables.\n\n")
+    output_img_dir = join(output_dir, 'img')
+    try:
+        makedirs(output_img_dir)
+    except OSError:
+        # It already exists, which is okay since we already know we are in
+        # 'force' mode from above.
+        pass
+
+    tsv_lines, html_lines, plot_fps = _format_top_n_results_table(top_n_mw,
+            mw_seqs, master_otu_table_ms, output_img_dir, mapping_category)
+
     mw_tsv_f = open(join(output_dir,
                     'top_%d_most_wanted_otus.txt' % top_n), 'w')
+    mw_tsv_f.write(tsv_lines)
+    mw_tsv_f.close()
+
     mw_html_f = open(join(output_dir,
                     'top_%d_most_wanted_otus.html' % top_n), 'w')
-    tsv_header = 'OTU ID\tSequence\tGreengenes taxonomy\t' + \
-                 'NCBI nt closest match\tNCBI nt % identity'
-    mw_tsv_f.write(tsv_header + '\n')
-
-    tsv_header += '\tAbundance by %s' % mapping_category
-    html_header = ''
-    for col in tsv_header.split('\t'):
-        html_header += '<th>%s</th>' % col
-    mw_html_f.write('<table><tr>' + html_header + '</tr>')
-
-    for otu_id, subject_id, percent_identity in top_n_mw:
-        # Grab all necessary information to be included in our report.
-        seq = mw_seqs[otu_id]
-
-        # Splitting code taken from
-        # http://code.activestate.com/recipes/496784-split-string-into-n-
-        #   size-pieces/
-        split_seq = [seq[i:i+20] for i in range(0, len(seq), 20)]
-
-        tax = master_otu_table_ms.ObservationMetadata[
-            master_otu_table_ms.getObservationIndex(otu_id)]['taxonomy']
-        gb_id = subject_id.split('|')[3]
-        ncbi_link = 'http://www.ncbi.nlm.nih.gov/nuccore/%s' % gb_id
-
-        # Compute the abundance of each most wanted OTU in each sample
-        # grouping and create a pie chart to go in the HTML table.
-        samp_types = master_otu_table_ms.SampleIds
-        counts = master_otu_table_ms.observationData(otu_id)
-        if len(counts) != len(samp_types):
-            raise WorkflowError("The number of observation counts does not "
-                                "match the number of samples in the OTU "
-                                "table.")
-
-        # Piechart code modified from matplotlib example:
-        # http://matplotlib.sourceforge.net/examples/pylab_examples/
-        #   pie_demo.html
-        figure(figsize=(6,6))
-        ax = axes([0.1, 0.1, 0.8, 0.8])
-        # Will auto-normalize the counts.
-        pie(counts, labels=samp_types, autopct='%1.1f%%', shadow=True)
-
-        output_img_dir = join(output_dir, 'img')
-        try:
-            makedirs(output_img_dir)
-        except OSError:
-            # It already exists, which is okay since we already know we are in
-            # 'force' mode from above.
-            pass
-
-        # We need a relative path to the image.
-        pie_chart_fp = join('img', 'abundance_by_%s_%s.png' %
-                            (mapping_category, otu_id))
-        savefig(join(output_dir, pie_chart_fp))
-
-        mw_tsv_f.write('%s\t%s\t%s\t%s\t%s\n' %
-                       (otu_id, seq, tax, gb_id, percent_identity))
-
-        mw_html_f.write('<tr><td>%s</td><td>%s</td><td>%s</td>'
-                '<td><a href="%s" target="_blank">%s</a></td><td>%s</td><td>'
-                '<img src="%s" width="300" height="300" /></td></tr>' %
-                (otu_id, '\n'.join(split_seq), tax, ncbi_link, gb_id,
-                 percent_identity, pie_chart_fp))
-    mw_html_f.write('</table>')
-    mw_tsv_f.close()
+    mw_html_f.write(html_lines)
     mw_html_f.close()
     logger.close()
 
@@ -265,3 +216,71 @@ def _get_rep_set_lookup(rep_set_f):
         seq_id = seq_id.strip().split()[0]
         result[seq_id] = seq
     return result
+
+def _format_top_n_results_table(top_n_mw, mw_seqs, master_otu_table_ms,
+                                output_img_dir, mapping_category):
+    tsv_lines = ''
+    html_lines = ''
+    plot_fps = []
+
+    tsv_header = 'OTU ID\tSequence\tGreengenes taxonomy\t' + \
+                 'NCBI nt closest match\tNCBI nt % identity'
+    tsv_lines += tsv_header + '\n'
+    tsv_header += '\tAbundance by %s' % mapping_category
+    html_header = ''
+    for col in tsv_header.split('\t'):
+        html_header += '<th>%s</th>' % col
+    html_lines += '<table><tr>' + html_header + '</tr>'
+
+    for otu_id, subject_id, percent_identity in top_n_mw:
+        # Grab all necessary information to be included in our report.
+        seq = mw_seqs[otu_id]
+
+        # Splitting code taken from
+        # http://code.activestate.com/recipes/496784-split-string-into-n-
+        #   size-pieces/
+        split_seq = [seq[i:i+20] for i in range(0, len(seq), 20)]
+
+        tax = master_otu_table_ms.ObservationMetadata[
+            master_otu_table_ms.getObservationIndex(otu_id)]['taxonomy']
+        gb_id = subject_id.split('|')[3]
+        ncbi_link = 'http://www.ncbi.nlm.nih.gov/nuccore/%s' % gb_id
+
+        # Compute the abundance of each most wanted OTU in each sample
+        # grouping and create a pie chart to go in the HTML table.
+        samp_types = master_otu_table_ms.SampleIds
+        counts = master_otu_table_ms.observationData(otu_id)
+        if len(counts) != len(samp_types):
+            raise WorkflowError("The number of observation counts does not "
+                                "match the number of samples in the OTU "
+                                "table.")
+
+        # Piechart code modified from matplotlib example:
+        # http://matplotlib.sourceforge.net/examples/pylab_examples/
+        #   pie_demo.html
+        figure(figsize=(6,6))
+        ax = axes([0.1, 0.1, 0.8, 0.8])
+
+        # Will auto-normalize the counts.
+        pie(counts, labels=samp_types, autopct='%1.1f%%', shadow=True)
+
+        # We need a relative path to the image.
+        pie_chart_filename = 'abundance_by_%s_%s.png' % (mapping_category,
+                                                         otu_id)
+        pie_chart_rel_fp = join(basename(normpath(output_img_dir)),
+                pie_chart_filename)
+        pie_chart_abs_fp = join(output_img_dir, pie_chart_filename)
+        savefig(pie_chart_abs_fp)
+        plot_fps.append(pie_chart_abs_fp)
+
+        tsv_lines += '%s\t%s\t%s\t%s\t%s\n' % (otu_id, seq, tax, gb_id,
+                                               percent_identity)
+
+        html_lines += ('<tr><td>%s</td><td>%s</td><td>%s</td>'
+            '<td><a href="%s" target="_blank">%s</a></td><td>%s</td><td>'
+            '<img src="%s" width="300" height="300" /></td></tr>' % (otu_id,
+            '\n'.join(split_seq), tax, ncbi_link, gb_id, percent_identity,
+            pie_chart_rel_fp))
+    html_lines += '</table>'
+
+    return tsv_lines, html_lines, plot_fps
