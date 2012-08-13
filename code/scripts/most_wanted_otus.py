@@ -67,6 +67,13 @@ script_info['optional_options'] = [
         help='[default: %default]', default=1e-3),
     make_option('--word_size', type='int', help='[default: %default]',
         default=30),
+    make_option('--merged_otu_table_fp', type='existing_filepath',
+                help='the merged master otu table after being summarized by '
+                '--mapping_category. Useful to not have to rerun the entire '
+                'analysis from the start if you already have this file. All '
+                'workflow steps will be skipped until the filtering of the '
+                'merged summarized otu table using --min_categories.',
+                default=None),
     make_option('-w', '--print_only', action='store_true',
         help='Print the commands but don\'t call them -- useful for debugging '
         '[default: %default]', default=False),
@@ -95,8 +102,9 @@ def main():
             opts.rep_set_fp, opts.gg_fp, opts.nt_fp, opts.mapping_fp,
             opts.mapping_category, opts.top_n, opts.min_abundance,
             opts.max_abundance, opts.min_categories, opts.max_gg_similarity,
-            opts.e_value, opts.word_size, opts.jobs_to_start, command_handler,
-            status_update_callback, opts.force)
+            opts.e_value, opts.word_size, opts.merged_otu_table_fp,
+            opts.jobs_to_start, command_handler, status_update_callback,
+            opts.force)
 
 
 if __name__ == "__main__":

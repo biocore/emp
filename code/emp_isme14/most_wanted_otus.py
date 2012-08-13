@@ -37,8 +37,8 @@ from qiime.workflow import generate_log_fp, WorkflowError, WorkflowLogger
 def generate_most_wanted_list(output_dir, otu_table_fps, rep_set_fp, gg_fp,
         nt_fp, mapping_fp, mapping_category, top_n, min_abundance,
         max_abundance, min_categories, max_gg_similarity, e_value,
-        word_size, jobs_to_start, command_handler, status_update_callback,
-        force):
+        word_size, merged_otu_table_fp, jobs_to_start, command_handler,
+        status_update_callback, force):
     try:
         makedirs(output_dir)
     except OSError:
@@ -53,7 +53,7 @@ def generate_most_wanted_list(output_dir, otu_table_fps, rep_set_fp, gg_fp,
             output_dir, otu_table_fps,
             rep_set_fp, gg_fp, nt_fp, mapping_fp, mapping_category,
             min_abundance, max_abundance, min_categories, max_gg_similarity,
-            e_value, word_size, jobs_to_start)
+            e_value, word_size, merged_otu_table_fp, jobs_to_start)
 
     # Execute the commands, but keep the logger open because
     # we're going to write additional status updates as we process the data.
@@ -103,57 +103,60 @@ def generate_most_wanted_list(output_dir, otu_table_fps, rep_set_fp, gg_fp,
 def _get_most_wanted_filtering_commands(output_dir, otu_table_fps, rep_set_fp,
         gg_fp, nt_fp, mapping_fp, mapping_category, min_abundance,
         max_abundance, min_categories, max_gg_similarity, e_value, word_size,
-        jobs_to_start):
+        merged_otu_table_fp, jobs_to_start):
     commands = []
     otu_tables_to_merge = []
 
-    for otu_table_fp in otu_table_fps:
-        # First filter to keep only new (non-GG) OTUs.
-        novel_otu_table_fp = join(output_dir, add_filename_suffix(otu_table_fp,
-                                                                  '_novel'))
-        commands.append([('Filtering out all GG reference OTUs',
-                'filter_otus_from_otu_table.py -i %s -o %s -e %s' %
-                (otu_table_fp, novel_otu_table_fp, gg_fp))])
+    if merged_otu_table_fp is None:
+        for otu_table_fp in otu_table_fps:
+            # First filter to keep only new (non-GG) OTUs.
+            novel_otu_table_fp = join(output_dir, add_filename_suffix(otu_table_fp,
+                                                                      '_novel'))
+            commands.append([('Filtering out all GG reference OTUs',
+                    'filter_otus_from_otu_table.py -i %s -o %s -e %s' %
+                    (otu_table_fp, novel_otu_table_fp, gg_fp))])
 
-        # Next filter to keep only abundant otus in the specified range
-        # (looking only at extremely abundant OTUs has the problem of yielding
-        # too many that are similar to stuff in the nt database).
-        novel_abund_otu_table_fp = join(output_dir,
-                add_filename_suffix(novel_otu_table_fp, '_min%d_max%d' %
-                (min_abundance, max_abundance)))
-        commands.append([('Filtering out all OTUs that do not fall within the '
-                'specified abundance threshold',
-                'filter_otus_from_otu_table.py -i %s -o %s -n %d -x %d' %
-                (novel_otu_table_fp, novel_abund_otu_table_fp, min_abundance,
-                 max_abundance))])
+            # Next filter to keep only abundant otus in the specified range
+            # (looking only at extremely abundant OTUs has the problem of yielding
+            # too many that are similar to stuff in the nt database).
+            novel_abund_otu_table_fp = join(output_dir,
+                    add_filename_suffix(novel_otu_table_fp, '_min%d_max%d' %
+                    (min_abundance, max_abundance)))
+            commands.append([('Filtering out all OTUs that do not fall within the '
+                    'specified abundance threshold',
+                    'filter_otus_from_otu_table.py -i %s -o %s -n %d -x %d' %
+                    (novel_otu_table_fp, novel_abund_otu_table_fp, min_abundance,
+                     max_abundance))])
 
-        # Remove samples from the table that aren't in the mapping file.
-        novel_abund_filtered_otu_table_fp = join(output_dir,
-                add_filename_suffix(novel_abund_otu_table_fp,
-                '_known_samples'))
-        commands.append([('Filtering out samples that are not in the mapping '
-                'file',
-                'filter_samples_from_otu_table.py -i %s -o %s '
-                '--sample_id_fp %s' % (novel_abund_otu_table_fp,
-                    novel_abund_filtered_otu_table_fp, mapping_fp))])
+            # Remove samples from the table that aren't in the mapping file.
+            novel_abund_filtered_otu_table_fp = join(output_dir,
+                    add_filename_suffix(novel_abund_otu_table_fp,
+                    '_known_samples'))
+            commands.append([('Filtering out samples that are not in the mapping '
+                    'file',
+                    'filter_samples_from_otu_table.py -i %s -o %s '
+                    '--sample_id_fp %s' % (novel_abund_otu_table_fp,
+                        novel_abund_filtered_otu_table_fp, mapping_fp))])
 
-        # Next, collapse by mapping_category.
-        otu_table_by_samp_type_fp = join(output_dir,
-                add_filename_suffix(novel_abund_filtered_otu_table_fp, '_%s' %
-                mapping_category))
-        commands.append([('Collapsing OTU table by %s' % mapping_category,
-                'summarize_otu_by_cat.py -c %s -o %s -m %s -i %s' %
-                (novel_abund_filtered_otu_table_fp, otu_table_by_samp_type_fp,
-                 mapping_category, mapping_fp))])
-        otu_tables_to_merge.append(otu_table_by_samp_type_fp)
+            # Next, collapse by mapping_category.
+            otu_table_by_samp_type_fp = join(output_dir,
+                    add_filename_suffix(novel_abund_filtered_otu_table_fp, '_%s' %
+                    mapping_category))
+            commands.append([('Collapsing OTU table by %s' % mapping_category,
+                    'summarize_otu_by_cat.py -c %s -o %s -m %s -i %s' %
+                    (novel_abund_filtered_otu_table_fp, otu_table_by_samp_type_fp,
+                     mapping_category, mapping_fp))])
+            otu_tables_to_merge.append(otu_table_by_samp_type_fp)
 
-    # Merge all collapsed OTU tables.
-    master_otu_table_fp = join(output_dir,
-            'master_otu_table_novel_min%d_max%d_%s.biom' %
-            (min_abundance, max_abundance, mapping_category))
-    commands.append([('Merging collapsed OTU tables',
-            'merge_otu_tables.py -i %s -o %s' %
-            (','.join(otu_tables_to_merge), master_otu_table_fp))])
+        # Merge all collapsed OTU tables.
+        master_otu_table_fp = join(output_dir,
+                'master_otu_table_novel_min%d_max%d_%s.biom' %
+                (min_abundance, max_abundance, mapping_category))
+        commands.append([('Merging collapsed OTU tables',
+                'merge_otu_tables.py -i %s -o %s' %
+                (','.join(otu_tables_to_merge), master_otu_table_fp))])
+    else:
+        master_otu_table_fp = merged_otu_table_fp
 
     # Filter to contain only otus in the specified minimum number of sample
     # types.
