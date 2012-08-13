@@ -74,6 +74,10 @@ script_info['optional_options'] = [
                 'workflow steps will be skipped until the filtering of the '
                 'merged summarized otu table using --min_categories.',
                 default=None),
+    make_option('--suppress_taxonomic_output', action='store_true',
+        help='Suppress the inclusion of taxonomy strings in the output '
+        'tables. If the input OTU tables do not have taxonomic information, '
+        'you must enable this option. [default: %default]', default=False),
     make_option('-w', '--print_only', action='store_true',
         help='Print the commands but don\'t call them -- useful for debugging '
         '[default: %default]', default=False),
@@ -103,8 +107,8 @@ def main():
             opts.mapping_category, opts.top_n, opts.min_abundance,
             opts.max_abundance, opts.min_categories, opts.max_gg_similarity,
             opts.e_value, opts.word_size, opts.merged_otu_table_fp,
-            opts.jobs_to_start, command_handler, status_update_callback,
-            opts.force)
+            opts.suppress_taxonomic_output, opts.jobs_to_start,
+            command_handler, status_update_callback, opts.force)
 
 
 if __name__ == "__main__":

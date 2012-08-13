@@ -37,8 +37,8 @@ from qiime.workflow import generate_log_fp, WorkflowError, WorkflowLogger
 def generate_most_wanted_list(output_dir, otu_table_fps, rep_set_fp, gg_fp,
         nt_fp, mapping_fp, mapping_category, top_n, min_abundance,
         max_abundance, min_categories, max_gg_similarity, e_value,
-        word_size, merged_otu_table_fp, jobs_to_start, command_handler,
-        status_update_callback, force):
+        word_size, merged_otu_table_fp, suppress_taxonomic_output,
+        jobs_to_start, command_handler, status_update_callback, force):
     try:
         makedirs(output_dir)
     except OSError:
@@ -87,7 +87,8 @@ def generate_most_wanted_list(output_dir, otu_table_fps, rep_set_fp, gg_fp,
         pass
 
     tsv_lines, html_lines, plot_fps = _format_top_n_results_table(top_n_mw,
-            mw_seqs, master_otu_table_ms, output_img_dir, mapping_category)
+            mw_seqs, master_otu_table_ms, output_img_dir, mapping_category,
+            suppress_taxonomic_output)
 
     mw_tsv_f = open(join(output_dir,
                     'top_%d_most_wanted_otus.txt' % top_n), 'w')
@@ -231,13 +232,16 @@ def _get_rep_set_lookup(rep_set_f):
     return result
 
 def _format_top_n_results_table(top_n_mw, mw_seqs, master_otu_table_ms,
-                                output_img_dir, mapping_category):
+                                output_img_dir, mapping_category,
+                                suppress_taxonomic_output):
     tsv_lines = ''
     html_lines = ''
     plot_fps = []
 
-    tsv_header = 'OTU ID\tSequence\tGreengenes taxonomy\t' + \
-                 'NCBI nt closest match\tNCBI nt % identity'
+    tsv_header = 'OTU ID\tSequence\t'
+    if not suppress_taxonomic_output:
+        tsv_header += 'Greengenes taxonomy\t'
+    tsv_header += 'NCBI nt closest match\tNCBI nt % identity'
     tsv_lines += tsv_header + '\n'
     tsv_header += '\tAbundance by %s' % mapping_category
     html_header = ''
@@ -254,8 +258,10 @@ def _format_top_n_results_table(top_n_mw, mw_seqs, master_otu_table_ms,
         #   size-pieces/
         split_seq = [seq[i:i+20] for i in range(0, len(seq), 20)]
 
-        tax = master_otu_table_ms.ObservationMetadata[
-            master_otu_table_ms.getObservationIndex(otu_id)]['taxonomy']
+        if not suppress_taxonomic_output:
+            tax = master_otu_table_ms.ObservationMetadata[
+                master_otu_table_ms.getObservationIndex(otu_id)]['taxonomy']
+
         gb_id = subject_id.split('|')[3]
         ncbi_link = 'http://www.ncbi.nlm.nih.gov/nuccore/%s' % gb_id
 
@@ -286,14 +292,19 @@ def _format_top_n_results_table(top_n_mw, mw_seqs, master_otu_table_ms,
         savefig(pie_chart_abs_fp)
         plot_fps.append(pie_chart_abs_fp)
 
-        tsv_lines += '%s\t%s\t%s\t%s\t%s\n' % (otu_id, seq, tax, gb_id,
-                                               percent_identity)
+        tsv_lines += '%s\t%s\t' % (otu_id, seq)
+        if not suppress_taxonomic_output:
+            tsv_lines += '%s\t' % tax
+        tsv_lines += '%s\t%s\n' % (gb_id, percent_identity)
 
-        html_lines += ('<tr><td>%s</td><td>%s</td><td>%s</td>'
-            '<td><a href="%s" target="_blank">%s</a></td><td>%s</td><td>'
-            '<img src="%s" width="300" height="300" /></td></tr>' % (otu_id,
-            '<br />'.join(split_seq), tax, ncbi_link, gb_id, percent_identity,
-            pie_chart_rel_fp))
+        html_lines += '<tr><td>%s</td><td>%s</td>' % (otu_id,
+                '<br />'.join(split_seq))
+        if not suppress_taxonomic_output:
+            html_lines += '<td>%s</td>' % tax
+        html_lines += ('<td><a href="%s" target="_blank">%s</a></td>'
+                       '<td>%s</td><td><img src="%s" width="300" height="300" '
+                       '/></td></tr>' % (ncbi_link, gb_id, percent_identity,
+                                         pie_chart_rel_fp))
     html_lines += '</table>'
 
     return tsv_lines, html_lines, plot_fps
