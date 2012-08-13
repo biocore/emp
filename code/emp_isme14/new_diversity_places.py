@@ -109,7 +109,10 @@ def create_plot(raw_data, x_label, y_label, title):
             x_label=x_label,
             y_label=y_label,
             title=title)
-    plot.tight_layout()
+    try:
+        plot.tight_layout()
+    except ValueError:
+        print "tight_layout() failed"
     return plot
 
 def load_novel_otus_plot(output_dir, cat):

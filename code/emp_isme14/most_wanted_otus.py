@@ -127,13 +127,23 @@ def _get_most_wanted_filtering_commands(output_dir, otu_table_fps, rep_set_fp,
                 (novel_otu_table_fp, novel_abund_otu_table_fp, min_abundance,
                  max_abundance))])
 
+        # Remove samples from the table that aren't in the mapping file.
+        novel_abund_filtered_otu_table_fp = join(output_dir,
+                add_filename_suffix(novel_abund_otu_table_fp,
+                '_known_samples'))
+        commands.append([('Filtering out samples that are not in the mapping '
+                'file',
+                'filter_samples_from_otu_table.py -i %s -o %s '
+                '--sample_id_fp %s' % (novel_abund_otu_table_fp,
+                    novel_abund_filtered_otu_table_fp, mapping_fp))])
+
         # Next, collapse by mapping_category.
         otu_table_by_samp_type_fp = join(output_dir,
-                add_filename_suffix(novel_abund_otu_table_fp, '_%s' %
+                add_filename_suffix(novel_abund_filtered_otu_table_fp, '_%s' %
                 mapping_category))
         commands.append([('Collapsing OTU table by %s' % mapping_category,
                 'summarize_otu_by_cat.py -c %s -o %s -m %s -i %s' %
-                (novel_abund_otu_table_fp, otu_table_by_samp_type_fp,
+                (novel_abund_filtered_otu_table_fp, otu_table_by_samp_type_fp,
                  mapping_category, mapping_fp))])
         otu_tables_to_merge.append(otu_table_by_samp_type_fp)
 
