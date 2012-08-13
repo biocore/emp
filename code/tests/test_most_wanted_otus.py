@@ -92,10 +92,16 @@ class MostWantedOtusTests(TestCase):
         obs = _format_top_n_results_table(self.top_n_mw, self.mw_seqs,
                 self.master_otu_table_ms, self.output_dir,
                 self.grouping_category)
-        obs = obs[1].replace(basename(normpath(self.output_dir)), 'foo')
-        obs = obs[2].replace(self.output_dir, 'foo')
-        exp = exp[1].replace(basename(normpath(self.output_dir)), 'foo')
-        exp = exp[2].replace(self.output_dir, 'foo')
+
+        obs_plot_paths = [fp.replace(self.output_dir, 'foo') for fp in obs[2]]
+        obs = (obs[0],
+               obs[1].replace(basename(normpath(self.output_dir)), 'foo'),
+               obs_plot_paths)
+
+        exp_plot_paths = [fp.replace(self.output_dir, 'foo') for fp in exp[2]]
+        exp = (exp[0],
+               exp[1].replace(basename(normpath(self.output_dir)), 'foo'),
+               exp_plot_paths)
         self.assertEqual(obs, exp)
 
 
@@ -146,7 +152,7 @@ exp_commands = ([[('Filtering out all GG reference OTUs', 'filter_otus_from_otu_
 
 exp_rep_set_lookup = {'New.CleanUp.ReferenceOTU999': 'ATACGGAGGGTGCAAGCGTTAATCGGAATTACTGGGCGTAAAGGGTGCGTAGGCGGATGTTTAAGTGGGATGTGAAATCCCCGGGCTTAACCTGGGGGCTGC', '102506': 'ATACGTATGGTGCAAGCGTTATCCGGATTTACTGGGTGTAAAGGGAGCGCAGGCGGTACGGCAAGTCTGATGTGAAAGTCCGGGGCTCAACCCCGGTACTGCAAACGTAGGGTGCAAGCGTTGTCCGGAATTACTGGGTGTAAAGGGAGCGTAGACGGCTGTGCAAGTCTGAAGTGAAAGGCATGGGCTCAACCTGTGGACTGC', 'New.CleanUp.ReferenceOTU972': 'ATACGGAGGGTGCAAGCGTTAATCGGAATTACTGGGCGTAAAGGGTGCGTAGGCGGATGTTTAAGTGGGATGTGAAATCCCCGGGCTTAACCTGGGGGCTGC', 'New.CleanUp.ReferenceOTU969': 'ATACGTAGGTCCCGAGCGTTGTCCGGATTTACTGGGTGTAAAGGGAGCGTAGACGGCATGGCAAGTCTGAAGTGAAAACCCAGGGCTCAACCCTGGGACTGC', 'New.CleanUp.ReferenceOTU964': 'ATACGGAGGATGCGAGCGTTATCCGGATTTATTGGGTTTAAAGGGTGCGTAGACGGCGAAGCAAGTCTGAAGTGAAAGCCCGGGGCTCAACCGCGGGACTGC', '10115': 'ATACGGAGGGTGCAAGCGTTAATCGGAATTACTGGGCGTAAAGCGCACGCAGGCGGTTTGTTAAGTTTGATGTGAAATCCCCGGGCTTAACCTGGGAACTGC', '10113': 'ATACGGAGGGTGCAAGCGTTAATCGGAATTACTGGGCGTAAAGCGCACGCAGGCGGTCTGTTAAGTCAGATGTGAAATCCCCGGGCTCCACCTGGGCACTGC'}
 
-exp_output_tables = ('OTU ID\tSequence\tGreengenes taxonomy\tNCBI nt closest match\tNCBI nt % identity\na\tAGT\tfoo;bar;baz\tT51700.1\t87.0\nb\tAAGGTT\tfoo;baz;bar\tZ700.1\t89.5\n', '<table><tr><th>OTU ID</th><th>Sequence</th><th>Greengenes taxonomy</th><th>NCBI nt closest match</th><th>NCBI nt % identity</th><th>Abundance by Environment</th></tr><tr><td>a</td><td>AGT</td><td>foo;bar;baz</td><td><a href="http://www.ncbi.nlm.nih.gov/nuccore/T51700.1" target="_blank">T51700.1</a></td><td>87.0</td><td><img src="most_wanted_otus_tests_output_dir_tvMNkP/abundance_by_Environment_a.png" width="300" height="300" /></td></tr><tr><td>b</td><td>AAGGTT</td><td>foo;baz;bar</td><td><a href="http://www.ncbi.nlm.nih.gov/nuccore/Z700.1" target="_blank">Z700.1</a></td><td>89.5</td><td><img src="most_wanted_otus_tests_output_dir_tvMNkP/abundance_by_Environment_b.png" width="300" height="300" /></td></tr></table>', ['/var/folders/ft/rhwwh4b503q3cj91l8rlfhfr0000gn/T/most_wanted_otus_tests_output_dir_tvMNkP/abundance_by_Environment_a.png', '/var/folders/ft/rhwwh4b503q3cj91l8rlfhfr0000gn/T/most_wanted_otus_tests_output_dir_tvMNkP/abundance_by_Environment_b.png'])
+exp_output_tables = ('OTU ID\tSequence\tGreengenes taxonomy\tNCBI nt closest match\tNCBI nt % identity\na\tAGT\tfoo;bar;baz\tT51700.1\t87.0\nb\tAAGGTT\tfoo;baz;bar\tZ700.1\t89.5\n', '<table border="border"><tr><th>OTU ID</th><th>Sequence</th><th>Greengenes taxonomy</th><th>NCBI nt closest match</th><th>NCBI nt % identity</th><th>Abundance by Environment</th></tr><tr><td>a</td><td>AGT</td><td>foo;bar;baz</td><td><a href="http://www.ncbi.nlm.nih.gov/nuccore/T51700.1" target="_blank">T51700.1</a></td><td>87.0</td><td><img src="foo/abundance_by_Environment_a.png" width="300" height="300" /></td></tr><tr><td>b</td><td>AAGGTT</td><td>foo;baz;bar</td><td><a href="http://www.ncbi.nlm.nih.gov/nuccore/Z700.1" target="_blank">Z700.1</a></td><td>89.5</td><td><img src="foo/abundance_by_Environment_b.png" width="300" height="300" /></td></tr></table>', ['foo/abundance_by_Environment_a.png', 'foo/abundance_by_Environment_b.png'])
 
 
 if __name__ == "__main__":

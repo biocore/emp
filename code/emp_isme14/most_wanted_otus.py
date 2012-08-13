@@ -51,9 +51,9 @@ def generate_most_wanted_list(output_dir, otu_table_fps, rep_set_fp, gg_fp,
     commands, blast_results_fp, rep_set_cands_failures_fp, \
         master_otu_table_ms_fp = _get_most_wanted_filtering_commands(
             output_dir, otu_table_fps,
-            rep_set_fp, gg_fp, nt_fp, min_abundance, max_abundance,
-            min_categories, max_gg_similarity, e_value, word_size,
-            jobs_to_start)
+            rep_set_fp, gg_fp, nt_fp, mapping_fp, mapping_category,
+            min_abundance, max_abundance, min_categories, max_gg_similarity,
+            e_value, word_size, jobs_to_start)
 
     # Execute the commands, but keep the logger open because
     # we're going to write additional status updates as we process the data.
@@ -230,7 +230,7 @@ def _format_top_n_results_table(top_n_mw, mw_seqs, master_otu_table_ms,
     html_header = ''
     for col in tsv_header.split('\t'):
         html_header += '<th>%s</th>' % col
-    html_lines += '<table><tr>' + html_header + '</tr>'
+    html_lines += '<table border="border"><tr>' + html_header + '</tr>'
 
     for otu_id, subject_id, percent_identity in top_n_mw:
         # Grab all necessary information to be included in our report.
@@ -279,7 +279,7 @@ def _format_top_n_results_table(top_n_mw, mw_seqs, master_otu_table_ms,
         html_lines += ('<tr><td>%s</td><td>%s</td><td>%s</td>'
             '<td><a href="%s" target="_blank">%s</a></td><td>%s</td><td>'
             '<img src="%s" width="300" height="300" /></td></tr>' % (otu_id,
-            '\n'.join(split_seq), tax, ncbi_link, gb_id, percent_identity,
+            '<br />'.join(split_seq), tax, ncbi_link, gb_id, percent_identity,
             pie_chart_rel_fp))
     html_lines += '</table>'
 
