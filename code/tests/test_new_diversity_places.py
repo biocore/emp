@@ -80,7 +80,8 @@ class NewDiversityPlacesTests(TestCase):
             [(2.0, 'Env1 (n=2)', [0, 4]), (3.0, 'Env2 (n=1)', [3])])
         obs = generate_new_diversity_plots(
                 [self.otu_table1_f, self.otu_table2_f], self.ref_seqs_f,
-                self.mapping_f, self.mapping_category)
+                self.mapping_f, self.mapping_category, 1)
+
         self.assertEqual(len(obs[0]), len(exp[0]))
         self.assertFloatEqual(obs[0][0][:2], exp[0][0][:2])
         self.assertFloatEqual(sorted(obs[0][0][2]), sorted(exp[0][0][2]))
@@ -105,6 +106,55 @@ class NewDiversityPlacesTests(TestCase):
         self.assertEqual(ax.get_xlabel(), "Environment")
         self.assertEqual(ax.get_ylabel(), "Number of Novel OTUs")
         self.assertEqual(len(ax.get_xticklabels()), 2)
+
+    def test_generate_new_diversity_plots_min_num_samples(self):
+        exp = ([(28.846153846153843, 'Env1 (n=2)', [0.0, 57.692307692307686])],
+               [(2.0, 'Env1 (n=2)', [0, 4])])
+        obs = generate_new_diversity_plots(
+                [self.otu_table1_f, self.otu_table2_f], self.ref_seqs_f,
+                self.mapping_f, self.mapping_category, 2)
+
+        self.assertEqual(len(obs[0]), len(exp[0]))
+        self.assertFloatEqual(obs[0][0][:2], exp[0][0][:2])
+        self.assertFloatEqual(sorted(obs[0][0][2]), sorted(exp[0][0][2]))
+
+        self.assertEqual(len(obs[2]), len(exp[1]))
+        self.assertFloatEqual(obs[2][0][:2], exp[1][0][:2])
+        self.assertFloatEqual(sorted(obs[2][0][2]), sorted(exp[1][0][2]))
+
+        ax = obs[1].get_axes()[0]
+        self.assertEqual(ax.get_title(), "% Novel Seqs by Environment")
+        self.assertEqual(ax.get_xlabel(), "Environment")
+        self.assertEqual(ax.get_ylabel(), "% Novel Seqs")
+        self.assertEqual(len(ax.get_xticklabels()), 1)
+
+        ax = obs[3].get_axes()[0]
+        self.assertEqual(ax.get_title(), "Number of Novel OTUs by Environment")
+        self.assertEqual(ax.get_xlabel(), "Environment")
+        self.assertEqual(ax.get_ylabel(), "Number of Novel OTUs")
+        self.assertEqual(len(ax.get_xticklabels()), 1)
+
+    def test_generate_new_diversity_plots_excluded_category_value(self):
+        exp = ([(57.142857142857139, 'Env2 (n=1)', [57.142857142857139])],
+               [(3.0, 'Env2 (n=1)', [3])])
+        obs = generate_new_diversity_plots(
+                [self.otu_table1_f, self.otu_table2_f], self.ref_seqs_f,
+                self.mapping_f, self.mapping_category, 1, ['Env1'])
+
+        self.assertFloatEqual(obs[0], exp[0])
+        self.assertFloatEqual(obs[2], exp[1])
+
+        ax = obs[1].get_axes()[0]
+        self.assertEqual(ax.get_title(), "% Novel Seqs by Environment")
+        self.assertEqual(ax.get_xlabel(), "Environment")
+        self.assertEqual(ax.get_ylabel(), "% Novel Seqs")
+        self.assertEqual(len(ax.get_xticklabels()), 1)
+
+        ax = obs[3].get_axes()[0]
+        self.assertEqual(ax.get_title(), "Number of Novel OTUs by Environment")
+        self.assertEqual(ax.get_xlabel(), "Environment")
+        self.assertEqual(ax.get_ylabel(), "Number of Novel OTUs")
+        self.assertEqual(len(ax.get_xticklabels()), 1)
 
 
 # Not sure if we'll need the following code...

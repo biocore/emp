@@ -46,7 +46,12 @@ script_info['required_options'] = [
 ]
 script_info['optional_options'] = [
     make_option('-c', '--mapping_category', type='string',
-                help='', default='SAMPLE_TYPE')
+                help='', default='SAMPLE_TYPE'),
+    make_option('-n', '--min_num_samples', type='int',
+                help='', default=11),
+    make_option('-e', '--category_values_to_exclude', type='string',
+                help='comma-separated list of values within '
+                '--mapping_category to exclude from the plots', default='NA')
 #    make_option('-l', '--taxonomic_levels', type='string',
 #                help='for summarize_taxa.py\'s output files (L2, L3, ...)',
 #                default='Kindom,Phylum,Class,Order,Family')
@@ -68,7 +73,8 @@ def main():
            num_new_otus_plot = generate_new_diversity_plots(
             [open(otu_table_fp, 'U') for otu_table_fp in opts.otu_table_fps],
             open(opts.gg_fasta_fp, 'U'), open(opts.mapping_fp, 'U'),
-            mapping_category, opts.verbose)
+            mapping_category, opts.min_num_samples,
+            opts.category_values_to_exclude.split(','), opts.verbose)
 
     # Save plots as PDFs.
     percent_failures_plot.savefig(join(output_dir,

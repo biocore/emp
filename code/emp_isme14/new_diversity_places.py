@@ -38,6 +38,8 @@ from qiime.util import (parse_command_line_parameters, get_options_lookup,
 
 def generate_new_diversity_plots(otu_table_fs, gg_f, mapping_f,
                                  mapping_category='Sample_Type',
+                                 min_num_samples=11,
+                                 category_values_to_exclude=['NA'],
                                  verbose=False):
     mapping_dict, mapping_comments = parse_mapping_file_to_dict(mapping_f)
     sample_type_map = {}
@@ -85,7 +87,9 @@ def generate_new_diversity_plots(otu_table_fs, gg_f, mapping_f,
 
     percent_failures_data = [(median(v), '%s (n=%d)' % (k, len(v)), v)
                              for k, v in percent_failures_result.items()
-                             if k != 'Unknown']
+                             if k != 'Unknown' and k not in
+                             category_values_to_exclude and
+                             len(v) >= min_num_samples]
     percent_failures_data.sort()
     percent_failures_plot = create_plot(percent_failures_data,
             mapping_category, '% Novel Seqs', '%% Novel Seqs by %s' %
@@ -93,7 +97,9 @@ def generate_new_diversity_plots(otu_table_fs, gg_f, mapping_f,
 
     num_new_otus_data = [(median(v), '%s (n=%d)' % (k, len(v)), v)
                          for k, v in num_new_otus_result.items()
-                         if k != 'Unknown']
+                         if k != 'Unknown' and k not in
+                         category_values_to_exclude and
+                         len(v) >= min_num_samples]
     num_new_otus_data.sort()
     num_new_otus_plot = create_plot(num_new_otus_data,
             mapping_category, 'Number of Novel OTUs',
