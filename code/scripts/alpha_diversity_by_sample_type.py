@@ -40,7 +40,12 @@ script_info['required_options'] = [
 ]
 script_info['optional_options'] = [
     make_option('-c', '--mapping_category', type='string',
-                help='', default='Sample_Type')
+                help='', default='Sample_Type'),
+    make_option('-n', '--min_num_samples', type='int',
+                help='', default=11),
+    make_option('-e', '--category_values_to_exclude', type='string',
+                help='comma-separated list of values within '
+                '--mapping_category to exclude from the plots', default='NA')
 ]
 script_info['version'] = __version__
 
@@ -50,7 +55,8 @@ def main():
     adiv_fs = [open(adiv_fp, 'U') for adiv_fp in opts.alpha_div_fps]
 
     plotting_data, plot_fig = alpha_diversity_by_sample_type(
-            adiv_fs, open(opts.mapping_fp, 'U'), opts.mapping_category)
+            adiv_fs, open(opts.mapping_fp, 'U'), opts.mapping_category,
+            opts.min_num_samples, opts.category_values_to_exclude.split(','))
     plot_fig.savefig(opts.output_fp)
 
 

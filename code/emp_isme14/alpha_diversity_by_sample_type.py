@@ -36,7 +36,14 @@ from qiime.util import (parse_command_line_parameters, get_options_lookup,
                         make_option)
 
 def alpha_diversity_by_sample_type(adiv_fs, mapping_f,
-                                   mapping_category='Sample_Type'):
+                                   mapping_category='Sample_Type',
+                                   min_num_samples=11,
+                                   category_values_to_exclude=None):
+    """Will exclude 'NA' category value by default if this parameter is not
+    provided"""
+    if category_values_to_exclude is None:
+        category_values_to_exclude = ['NA']
+
     mapping_dict, mapping_comments = parse_mapping_file_to_dict(mapping_f)
     sample_type_map = {}
     #sample_type_counts = defaultdict(int)
@@ -60,12 +67,21 @@ def alpha_diversity_by_sample_type(adiv_fs, mapping_f,
             sample_type_to_adiv[sample_type].append(adiv)
 
     plotting_data = [(median(v), '%s (n=%d)' % (k, len(v)), v) for k, v in
-                     sample_type_to_adiv.items() if k != 'Unknown']
+                     sample_type_to_adiv.items()
+                     if k != 'Unknown' and k not in
+                     category_values_to_exclude and
+                     len(v) >= min_num_samples]
     plotting_data.sort()
 
     plot_fig = generate_box_plots([dist[2] for dist in
             plotting_data], x_tick_labels=[dist[1] for dist in plotting_data],
             x_label=mapping_category, y_label='Alpha Diversity',
             title='Alpha Diversity by %s' % mapping_category)
-    tight_layout()
+    plot_fig.set_size_inches(12, 12)
+    try:
+        plot_fig.tight_layout()
+    except ValueError:
+        print "tight_layout() failed. Try making the plot figure larger " + \
+              "with Figure.set_size_inches(). The labels will be cut off " + \
+              "otherwise."
     return plotting_data, plot_fig

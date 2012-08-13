@@ -67,7 +67,7 @@ class AlphaDiversityBySampleTypeTests(TestCase):
         exp = [(2.0, 'Env2 (n=3)', [5.0, 2.0, 2.0]),
                (4.0, 'Env1 (n=5)', [7.0, 4.0, 0.0, 1.0, 9.0])]
         obs = alpha_diversity_by_sample_type(self.adiv_fs, self.mapping_f,
-                                             self.mapping_category)
+                                             self.mapping_category, 2)
         self.assertFloatEqual(obs[0], exp)
 
         ax = obs[1].get_axes()[0]
@@ -75,6 +75,31 @@ class AlphaDiversityBySampleTypeTests(TestCase):
         self.assertEqual(ax.get_xlabel(), "Environment")
         self.assertEqual(ax.get_ylabel(), "Alpha Diversity")
         self.assertEqual(len(ax.get_xticklabels()), 2)
+
+    def test_alpha_diversity_by_sample_type_min_num_samples(self):
+        exp = [(4.0, 'Env1 (n=5)', [7.0, 4.0, 0.0, 1.0, 9.0])]
+        obs = alpha_diversity_by_sample_type(self.adiv_fs, self.mapping_f,
+                                             self.mapping_category, 4)
+        self.assertFloatEqual(obs[0], exp)
+
+        ax = obs[1].get_axes()[0]
+        self.assertEqual(ax.get_title(), "Alpha Diversity by Environment")
+        self.assertEqual(ax.get_xlabel(), "Environment")
+        self.assertEqual(ax.get_ylabel(), "Alpha Diversity")
+        self.assertEqual(len(ax.get_xticklabels()), 1)
+
+    def test_alpha_diversity_by_sample_type_excluded_category_value(self):
+        exp = [(2.0, 'Env2 (n=3)', [5.0, 2.0, 2.0])]
+        obs = alpha_diversity_by_sample_type(self.adiv_fs, self.mapping_f,
+                                             self.mapping_category, 2,
+                                             ['Env1'])
+        self.assertFloatEqual(obs[0], exp)
+
+        ax = obs[1].get_axes()[0]
+        self.assertEqual(ax.get_title(), "Alpha Diversity by Environment")
+        self.assertEqual(ax.get_xlabel(), "Environment")
+        self.assertEqual(ax.get_ylabel(), "Alpha Diversity")
+        self.assertEqual(len(ax.get_xticklabels()), 1)
 
 
 adiv_1 = """

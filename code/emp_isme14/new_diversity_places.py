@@ -39,8 +39,13 @@ from qiime.util import (parse_command_line_parameters, get_options_lookup,
 def generate_new_diversity_plots(otu_table_fs, gg_f, mapping_f,
                                  mapping_category='Sample_Type',
                                  min_num_samples=11,
-                                 category_values_to_exclude=['NA'],
+                                 category_values_to_exclude=None,
                                  verbose=False):
+    """Will exclude 'NA' category value by default if this parameter is not
+    provided"""
+    if category_values_to_exclude is None:
+        category_values_to_exclude = ['NA']
+
     mapping_dict, mapping_comments = parse_mapping_file_to_dict(mapping_f)
     sample_type_map = {}
     for samp_id in mapping_dict:
