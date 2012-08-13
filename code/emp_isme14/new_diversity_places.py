@@ -109,10 +109,13 @@ def create_plot(raw_data, x_label, y_label, title):
             x_label=x_label,
             y_label=y_label,
             title=title)
+    plot.set_size_inches(12, 12)
     try:
         plot.tight_layout()
     except ValueError:
-        print "tight_layout() failed"
+        print "tight_layout() failed. Try making the plot figure larger " + \
+              "with Figure.set_size_inches(). The labels will be cut off " + \
+              "otherwise."
     return plot
 
 def load_novel_otus_plot(output_dir, cat):
