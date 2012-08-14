@@ -61,8 +61,12 @@ script_info['optional_options'] = [
         default=500),
     make_option('--min_categories', type='int', help='[default: %default]',
         default=4),
+    make_option('--num_categories_to_plot', type='int',
+        help='[default: %default]', default=8),
     make_option('--max_gg_similarity', type='float',
         help='[default: %default]', default=0.80),
+    make_option('--max_nt_similarity', type='float',
+        help='[default: %default]', default=0.97),
     make_option('--e_value', type='float',
         help='[default: %default]', default=1e-3),
     make_option('--word_size', type='int', help='[default: %default]',
@@ -105,10 +109,12 @@ def main():
     generate_most_wanted_list(opts.output_dir, opts.otu_table_fps,
             opts.rep_set_fp, opts.gg_fp, opts.nt_fp, opts.mapping_fp,
             opts.mapping_category, opts.top_n, opts.min_abundance,
-            opts.max_abundance, opts.min_categories, opts.max_gg_similarity,
-            opts.e_value, opts.word_size, opts.merged_otu_table_fp,
-            opts.suppress_taxonomic_output, opts.jobs_to_start,
-            command_handler, status_update_callback, opts.force)
+            opts.max_abundance, opts.min_categories,
+            opts.num_categories_to_plot, opts.max_gg_similarity,
+            opts.max_nt_similarity, opts.e_value, opts.word_size,
+            opts.merged_otu_table_fp, opts.suppress_taxonomic_output,
+            opts.jobs_to_start, command_handler, status_update_callback,
+            opts.force)
 
 
 if __name__ == "__main__":

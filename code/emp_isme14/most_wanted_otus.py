@@ -13,12 +13,14 @@ __status__ = "Development"
 """Contains functions used in the most_wanted_otus.py script."""
 
 from collections import defaultdict
+from itertools import cycle
 from operator import itemgetter
 from os import makedirs
 from os.path import basename, join, normpath, splitext
+from pickle import dump
 from tempfile import NamedTemporaryFile
 
-from pylab import axes, figure, pie, savefig
+from pylab import axes, figure, legend, pie, savefig
 
 from biom.parse import parse_biom_table
 
@@ -36,9 +38,10 @@ from qiime.workflow import generate_log_fp, WorkflowError, WorkflowLogger
 
 def generate_most_wanted_list(output_dir, otu_table_fps, rep_set_fp, gg_fp,
         nt_fp, mapping_fp, mapping_category, top_n, min_abundance,
-        max_abundance, min_categories, max_gg_similarity, e_value,
-        word_size, merged_otu_table_fp, suppress_taxonomic_output,
-        jobs_to_start, command_handler, status_update_callback, force):
+        max_abundance, min_categories, num_categories_to_plot,
+        max_gg_similarity, max_nt_similarity, e_value, word_size,
+        merged_otu_table_fp, suppress_taxonomic_output, jobs_to_start,
+        command_handler, status_update_callback, force):
     try:
         makedirs(output_dir)
     except OSError:
@@ -65,7 +68,8 @@ def generate_most_wanted_list(output_dir, otu_table_fps, rep_set_fp, gg_fp,
     # top n.
     logger.write("Reading in BLAST results, sorting by percent identity, "
                  "and picking the top %d OTUs.\n\n" % top_n)
-    top_n_mw = _get_top_n_blast_results(open(blast_results_fp, 'U'), top_n)
+    top_n_mw = _get_top_n_blast_results(open(blast_results_fp, 'U'), top_n,
+                                        max_nt_similarity)
 
     # Read in our filtered down candidate seqs file and latest filtered and
     # collapsed OTU table. We'll need to compute some stats on these to include
@@ -86,17 +90,31 @@ def generate_most_wanted_list(output_dir, otu_table_fps, rep_set_fp, gg_fp,
         # 'force' mode from above.
         pass
 
-    tsv_lines, html_lines, plot_fps = _format_top_n_results_table(top_n_mw,
-            mw_seqs, master_otu_table_ms, output_img_dir, mapping_category,
-            suppress_taxonomic_output)
+    tsv_lines, html_table_lines, mw_fasta_lines, plot_fps, plot_data_fps = \
+            _format_top_n_results_table(top_n_mw,
+                mw_seqs, master_otu_table_ms, output_img_dir, mapping_category,
+                suppress_taxonomic_output, num_categories_to_plot)
 
-    mw_tsv_f = open(join(output_dir,
-                    'top_%d_most_wanted_otus.txt' % top_n), 'w')
+    mw_tsv_rel_fp = 'most_wanted_otus.txt'
+    mw_tsv_fp = join(output_dir, mw_tsv_rel_fp)
+    mw_tsv_f = open(mw_tsv_fp, 'w')
     mw_tsv_f.write(tsv_lines)
     mw_tsv_f.close()
 
-    mw_html_f = open(join(output_dir,
-                    'top_%d_most_wanted_otus.html' % top_n), 'w')
+    mw_fasta_rel_fp = 'most_wanted_otus.fasta'
+    mw_fasta_fp = join(output_dir, mw_fasta_rel_fp)
+    mw_fasta_f = open(mw_fasta_fp, 'w')
+    mw_fasta_f.write(mw_fasta_lines)
+    mw_fasta_f.close()
+
+    html_dl_links = ('<a href="%s" target="_blank">Download table in tab-'
+            'separated value (TSV) format</a><br /><a href="%s" '
+            'target="_blank">Download OTU sequence data in FASTA format</a>' %
+            (mw_tsv_rel_fp, mw_fasta_rel_fp))
+    html_lines = '<div>%s<br /><br />%s<br />%s</div>' % (html_dl_links,
+                  html_table_lines, html_dl_links)
+    
+    mw_html_f = open(join(output_dir, 'most_wanted_otus.html'), 'w')
     mw_html_f.write(html_lines)
     mw_html_f.close()
     logger.close()
@@ -213,15 +231,23 @@ def _get_most_wanted_filtering_commands(output_dir, otu_table_fps, rep_set_fp,
     return commands, blast_results_fp, rep_set_cands_failures_fp, \
            master_otu_table_ms_fp
 
-def _get_top_n_blast_results(blast_results_f, top_n):
+def _get_top_n_blast_results(blast_results_f, top_n, max_nt_similarity):
     """blast_results should only contain a single hit per query sequence"""
     result = []
+    seen_otus = {}
     for line in blast_results_f:
         # Skip headers and comments.
         line = line.strip()
         if line and not line.startswith('#'):
-            line = line.split('\t')
-            result.append((line[0], line[1], float(line[2])))
+            otu_id, subject_id, percent_identity = line.split('\t')[:3]
+            percent_identity = float(percent_identity)
+
+            # Skip otus that are too similar to their subject, and skip
+            # duplicate query hits.
+            if ((percent_identity / 100.0) <= max_nt_similarity and
+                otu_id not in seen_otus):
+                result.append((otu_id, subject_id, percent_identity))
+                seen_otus[otu_id] = True
     return sorted(result, key=itemgetter(2))[:top_n]
 
 def _get_rep_set_lookup(rep_set_f):
@@ -233,25 +259,30 @@ def _get_rep_set_lookup(rep_set_f):
 
 def _format_top_n_results_table(top_n_mw, mw_seqs, master_otu_table_ms,
                                 output_img_dir, mapping_category,
-                                suppress_taxonomic_output):
+                                suppress_taxonomic_output,
+                                num_categories_to_plot):
     tsv_lines = ''
     html_lines = ''
+    mw_fasta_lines = ''
     plot_fps = []
+    plot_data_fps = []
 
-    tsv_header = 'OTU ID\tSequence\t'
+    tsv_lines += 'OTU ID\tSequence\t'
     if not suppress_taxonomic_output:
-        tsv_header += 'Greengenes taxonomy\t'
-    tsv_header += 'NCBI nt closest match\tNCBI nt % identity'
-    tsv_lines += tsv_header + '\n'
-    tsv_header += '\tAbundance by %s' % mapping_category
-    html_header = ''
-    for col in tsv_header.split('\t'):
-        html_header += '<th>%s</th>' % col
-    html_lines += '<table border="border"><tr>' + html_header + '</tr>'
+        tsv_lines += 'Greengenes taxonomy\t'
+    tsv_lines += 'NCBI nt closest match\tNCBI nt % identity\n'
+
+    html_lines += '<table border="border"><tr><th>OTU</th>'
+    if not suppress_taxonomic_output:
+        html_lines += '<th>Greengenes taxonomy</th>'
+    html_lines += ('<th>NCBI nt closest match</th><th>NCBI nt %% identity</th>'
+                   '<th>Abundance by %s</th></tr>' % mapping_category)
 
     for otu_id, subject_id, percent_identity in top_n_mw:
         # Grab all necessary information to be included in our report.
         seq = mw_seqs[otu_id]
+
+        mw_fasta_lines += '>%s\n%s\n' % (otu_id, seq)
 
         # Splitting code taken from
         # http://code.activestate.com/recipes/496784-split-string-into-n-
@@ -269,19 +300,16 @@ def _format_top_n_results_table(top_n_mw, mw_seqs, master_otu_table_ms,
         # grouping and create a pie chart to go in the HTML table.
         samp_types = master_otu_table_ms.SampleIds
         counts = master_otu_table_ms.observationData(otu_id)
-        if len(counts) != len(samp_types):
-            raise WorkflowError("The number of observation counts does not "
-                                "match the number of samples in the OTU "
-                                "table.")
+        plot_data = _format_pie_chart_data(samp_types, counts,
+                                           num_categories_to_plot)
 
         # Piechart code modified from matplotlib example:
         # http://matplotlib.sourceforge.net/examples/pylab_examples/
         #   pie_demo.html
-        figure(figsize=(6,6))
+        figure(figsize=(8,8))
         ax = axes([0.1, 0.1, 0.8, 0.8])
-
-        # Will auto-normalize the counts.
-        pie(counts, labels=samp_types, autopct='%1.1f%%', shadow=True)
+        patches = pie(plot_data[0], colors=plot_data[2], shadow=True)
+        legend(patches[0], plot_data[1])
 
         # We need a relative path to the image.
         pie_chart_filename = 'abundance_by_%s_%s.png' % (mapping_category,
@@ -292,19 +320,37 @@ def _format_top_n_results_table(top_n_mw, mw_seqs, master_otu_table_ms,
         savefig(pie_chart_abs_fp)
         plot_fps.append(pie_chart_abs_fp)
 
+        plot_data_fp = join(output_img_dir, 'abundance_by_%s_%s.p' %
+                (mapping_category, otu_id))
+        dump(plot_data, open(plot_data_fp, 'wb'))
+        plot_data_fps.append(plot_data_fp)
+
         tsv_lines += '%s\t%s\t' % (otu_id, seq)
         if not suppress_taxonomic_output:
             tsv_lines += '%s\t' % tax
         tsv_lines += '%s\t%s\n' % (gb_id, percent_identity)
 
-        html_lines += '<tr><td>%s</td><td>%s</td>' % (otu_id,
-                '<br />'.join(split_seq))
+        html_lines += '<tr><td><pre>&gt;%s\n%s</pre></td>' % (otu_id,
+                      '\n'.join(split_seq))
         if not suppress_taxonomic_output:
             html_lines += '<td>%s</td>' % tax
         html_lines += ('<td><a href="%s" target="_blank">%s</a></td>'
-                       '<td>%s</td><td><img src="%s" width="300" height="300" '
+                       '<td>%s</td><td><img src="%s" width="400" height="400" '
                        '/></td></tr>' % (ncbi_link, gb_id, percent_identity,
                                          pie_chart_rel_fp))
     html_lines += '</table>'
 
-    return tsv_lines, html_lines, plot_fps
+    return tsv_lines, html_lines, mw_fasta_lines, plot_fps, plot_data_fps
+
+def _format_pie_chart_data(labels, data, max_count):
+    if len(labels) != len(data):
+        raise ValueError("The number of labels does not match the number "
+                         "of counts.")
+    colors = cycle(['b', 'g', 'r', 'c', 'm', 'y', 'k', 'w'])
+    result = [(val, label, colors.next()) for val, label in zip(data, labels)]
+    result = sorted(result, key=itemgetter(0), reverse=True)[:max_count]
+    total = sum([e[0] for e in result])
+    result = [(val / total, label, color) for val, label, color in result]
+    return ([e[0] for e in result],
+            ['%s (%.2f%%)' % (e[1], e[0] * 100.0) for e in result],
+            [e[2] for e in result])

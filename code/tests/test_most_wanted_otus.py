@@ -29,7 +29,8 @@ from qiime.workflow import WorkflowError
 
 from emp_isme14.most_wanted_otus import (generate_most_wanted_list,
         _get_most_wanted_filtering_commands, _get_top_n_blast_results,
-        _get_rep_set_lookup, _format_top_n_results_table)
+        _get_rep_set_lookup, _format_top_n_results_table,
+        _format_pie_chart_data)
 
 class MostWantedOtusTests(TestCase):
     """Tests for the most_wanted_otus.py module."""
@@ -50,6 +51,7 @@ class MostWantedOtusTests(TestCase):
         self.top_n = 100
 
         self.blast_results_lines = blast_results.split('\n')
+        self.blast_results_dupes_lines = blast_results_dupes.split('\n')
         self.rep_set_lines = rep_set.split('\n')
         self.top_n_mw = [('a', 'gi|7|emb|T51700.1|', 87.0),
                          ('b', 'gi|8|emb|Z700.1|', 89.5)]
@@ -87,7 +89,25 @@ class MostWantedOtusTests(TestCase):
         exp = [('New.CleanUp.ReferenceOTU969', 'gi|16|emb|Z52700.1|', 90.0),
                 ('New.CleanUp.ReferenceOTU999', 'gi|7|emb|X51700.1|', 100.0),
                 ('New.CleanUp.ReferenceOTU972', 'gi|7|emb|T51700.1|', 100.0)]
-        obs = _get_top_n_blast_results(self.blast_results_lines, self.top_n)
+        obs = _get_top_n_blast_results(self.blast_results_lines, self.top_n,
+                                       1.0)
+        self.assertFloatEqual(obs, exp)
+
+    def test_get_top_n_blast_results_max_nt_similarity(self):
+        exp = [('New.CleanUp.ReferenceOTU969', 'gi|16|emb|Z52700.1|', 90.0)]
+        obs = _get_top_n_blast_results(self.blast_results_lines, self.top_n,
+                                       0.97)
+        self.assertFloatEqual(obs, exp)
+
+        obs = _get_top_n_blast_results(self.blast_results_lines, self.top_n,
+                                       0.90)
+        self.assertFloatEqual(obs, exp)
+
+    def test_get_top_n_blast_results_duplicate_blast_hits(self):
+        exp = [('New.CleanUp.ReferenceOTU969', 'gi|16|emb|Z52700.1|', 90.0),
+               ('New.CleanUp.ReferenceOTU972', 'gi|7|emb|T51700.1|', 95.0)]
+        obs = _get_top_n_blast_results(self.blast_results_dupes_lines,
+                                       2, 1.0)
         self.assertFloatEqual(obs, exp)
 
     def test_get_rep_set_lookup(self):
@@ -97,24 +117,53 @@ class MostWantedOtusTests(TestCase):
     def test_format_top_n_results_table(self):
         obs = _format_top_n_results_table(self.top_n_mw, self.mw_seqs,
                 self.master_otu_table_ms, self.output_dir,
-                self.grouping_category, False)
+                self.grouping_category, False, 8)
 
-        obs_plot_paths = [fp.replace(self.output_dir, 'foo') for fp in obs[2]]
+        obs_plot_paths = [fp.replace(self.output_dir, 'foo') for fp in obs[3]]
+        obs_plot_data_paths = [fp.replace(self.output_dir, 'foo')
+                               for fp in obs[4]]
         obs = (obs[0],
                obs[1].replace(basename(normpath(self.output_dir)), 'foo'),
-               obs_plot_paths)
+               obs[2],
+               obs_plot_paths,
+               obs_plot_data_paths)
         self.assertEqual(obs, exp_output_tables)
 
     def test_format_top_n_results_table_suppress_taxonomy(self):
         obs = _format_top_n_results_table(self.top_n_mw, self.mw_seqs,
                 self.master_otu_table_ms, self.output_dir,
-                self.grouping_category, True)
+                self.grouping_category, True, 8)
 
-        obs_plot_paths = [fp.replace(self.output_dir, 'foo') for fp in obs[2]]
+        obs_plot_paths = [fp.replace(self.output_dir, 'foo') for fp in obs[3]]
+        obs_plot_data_paths = [fp.replace(self.output_dir, 'foo')
+                               for fp in obs[4]]
         obs = (obs[0],
                obs[1].replace(basename(normpath(self.output_dir)), 'foo'),
-               obs_plot_paths)
+               obs[2],
+               obs_plot_paths,
+               obs_plot_data_paths)
         self.assertEqual(obs, exp_output_tables_suppressed_taxonomy)
+
+    def test_format_pie_chart_data(self):
+        exp = ([0.6666666666666666, 0.3333333333333333],
+               ['b (66.67%)', 'a (33.33%)'], ['g', 'b'])
+        obs = _format_pie_chart_data(['a', 'b'], [1, 2], 2)
+        self.assertFloatEqual(obs, exp)
+
+        obs = _format_pie_chart_data(['a', 'b'], [1.0, 2.0], 3)
+        self.assertFloatEqual(obs, exp)
+
+    def test_format_pie_chart_data_max_count(self):
+        exp = ([1.0], ['b (100.00%)'], ['g'])
+        obs = _format_pie_chart_data(['a', 'b'], [1, 2], 1)
+        self.assertFloatEqual(obs, exp)
+
+    def test_format_pie_chart_data_cycle_colors(self):
+        exp = ([0.4, 0.2, 0.2, 0.2], ['i (40.00%)', 'b (20.00%)',
+                'g (20.00%)', 'h (20.00%)'], ['b', 'g', 'k', 'w'])
+        obs = _format_pie_chart_data(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
+            'i'], [1, 2, 1, 1, 1, 1, 2, 2, 4], 4)
+        self.assertFloatEqual(obs, exp)
 
 
 rep_set = """
@@ -153,6 +202,25 @@ New.CleanUp.ReferenceOTU972	gi|7|emb|T51700.1|	100.00	11	0	0	92	102	367	357	0.25
 New.CleanUp.ReferenceOTU969	gi|16|emb|Z52700.1|	90.00	13	0	0	33	45	1604	1616	0.016	26.3
 """
 
+blast_results_dupes = """
+# BLASTN 2.2.22 [Sep-27-2009]
+# Query: New.CleanUp.ReferenceOTU999
+# Database: small_nt
+# Fields: Query id, Subject id, % identity, alignment length, mismatches, gap openings, q. start, q. end, s. start, s. end, e-value, bit score
+New.CleanUp.ReferenceOTU999	gi|7|emb|X51700.1|	100.00	11	0	0	92	102	367	357	0.25	22.3
+# BLASTN 2.2.22 [Sep-27-2009]
+# Query: New.CleanUp.ReferenceOTU972
+# Database: small_nt
+# Fields: Query id, Subject id, % identity, alignment length, mismatches, gap openings, q. start, q. end, s. start, s. end, e-value, bit score
+New.CleanUp.ReferenceOTU972	gi|7|emb|T51700.1|	95.00	11	0	0	92	102	367	357	0.25	22.3
+New.CleanUp.ReferenceOTU972	gi|7|emb|T51700.1|	95.00	11	0	0	92	102	367	357	0.27	22.3
+# BLASTN 2.2.22 [Sep-27-2009]
+# Query: New.CleanUp.ReferenceOTU969
+# Database: small_nt
+# Fields: Query id, Subject id, % identity, alignment length, mismatches, gap openings, q. start, q. end, s. start, s. end, e-value, bit score
+New.CleanUp.ReferenceOTU969	gi|16|emb|Z52700.1|	90.00	13	0	0	33	45	1604	1616	0.016	26.3
+"""
+
 exp_txt = """OTU ID	Sequence	Taxonomy	NCBI nr closest match
 New.CleanUp.ReferenceOTU972	ATACGGAGGGTGCAAGCGTTAATCGGAATTACTGGGCGTAAAGGGTGCGTAGGCGGATGTTTAAGTGGGATGTGAAATCCCCGGGCTTAACCTGGGGGCTGC	foo;bar;baz	http://foo.com
 New.CleanUp.ReferenceOTU969	ATACGTAGGTCCCGAGCGTTGTCCGGATTTACTGGGTGTAAAGGGAGCGTAGACGGCATGGCAAGTCTGAAGTGAAAACCCAGGGCTCAACCCTGGGACTGC	foo;bar;baz	http://foo.com
@@ -166,9 +234,9 @@ exp_commands_merged_master_otu_table = ([[('Filtering OTU table to include only 
 
 exp_rep_set_lookup = {'New.CleanUp.ReferenceOTU999': 'ATACGGAGGGTGCAAGCGTTAATCGGAATTACTGGGCGTAAAGGGTGCGTAGGCGGATGTTTAAGTGGGATGTGAAATCCCCGGGCTTAACCTGGGGGCTGC', '102506': 'ATACGTATGGTGCAAGCGTTATCCGGATTTACTGGGTGTAAAGGGAGCGCAGGCGGTACGGCAAGTCTGATGTGAAAGTCCGGGGCTCAACCCCGGTACTGCAAACGTAGGGTGCAAGCGTTGTCCGGAATTACTGGGTGTAAAGGGAGCGTAGACGGCTGTGCAAGTCTGAAGTGAAAGGCATGGGCTCAACCTGTGGACTGC', 'New.CleanUp.ReferenceOTU972': 'ATACGGAGGGTGCAAGCGTTAATCGGAATTACTGGGCGTAAAGGGTGCGTAGGCGGATGTTTAAGTGGGATGTGAAATCCCCGGGCTTAACCTGGGGGCTGC', 'New.CleanUp.ReferenceOTU969': 'ATACGTAGGTCCCGAGCGTTGTCCGGATTTACTGGGTGTAAAGGGAGCGTAGACGGCATGGCAAGTCTGAAGTGAAAACCCAGGGCTCAACCCTGGGACTGC', 'New.CleanUp.ReferenceOTU964': 'ATACGGAGGATGCGAGCGTTATCCGGATTTATTGGGTTTAAAGGGTGCGTAGACGGCGAAGCAAGTCTGAAGTGAAAGCCCGGGGCTCAACCGCGGGACTGC', '10115': 'ATACGGAGGGTGCAAGCGTTAATCGGAATTACTGGGCGTAAAGCGCACGCAGGCGGTTTGTTAAGTTTGATGTGAAATCCCCGGGCTTAACCTGGGAACTGC', '10113': 'ATACGGAGGGTGCAAGCGTTAATCGGAATTACTGGGCGTAAAGCGCACGCAGGCGGTCTGTTAAGTCAGATGTGAAATCCCCGGGCTCCACCTGGGCACTGC'}
 
-exp_output_tables = ('OTU ID\tSequence\tGreengenes taxonomy\tNCBI nt closest match\tNCBI nt % identity\na\tAGT\tfoo;bar;baz\tT51700.1\t87.0\nb\tAAGGTT\tfoo;baz;bar\tZ700.1\t89.5\n', '<table border="border"><tr><th>OTU ID</th><th>Sequence</th><th>Greengenes taxonomy</th><th>NCBI nt closest match</th><th>NCBI nt % identity</th><th>Abundance by Environment</th></tr><tr><td>a</td><td>AGT</td><td>foo;bar;baz</td><td><a href="http://www.ncbi.nlm.nih.gov/nuccore/T51700.1" target="_blank">T51700.1</a></td><td>87.0</td><td><img src="foo/abundance_by_Environment_a.png" width="300" height="300" /></td></tr><tr><td>b</td><td>AAGGTT</td><td>foo;baz;bar</td><td><a href="http://www.ncbi.nlm.nih.gov/nuccore/Z700.1" target="_blank">Z700.1</a></td><td>89.5</td><td><img src="foo/abundance_by_Environment_b.png" width="300" height="300" /></td></tr></table>', ['foo/abundance_by_Environment_a.png', 'foo/abundance_by_Environment_b.png'])
+exp_output_tables = ('OTU ID\tSequence\tGreengenes taxonomy\tNCBI nt closest match\tNCBI nt % identity\na\tAGT\tfoo;bar;baz\tT51700.1\t87.0\nb\tAAGGTT\tfoo;baz;bar\tZ700.1\t89.5\n', '<table border="border"><tr><th>OTU</th><th>Greengenes taxonomy</th><th>NCBI nt closest match</th><th>NCBI nt % identity</th><th>Abundance by Environment</th></tr><tr><td><pre>&gt;a\nAGT</pre></td><td>foo;bar;baz</td><td><a href="http://www.ncbi.nlm.nih.gov/nuccore/T51700.1" target="_blank">T51700.1</a></td><td>87.0</td><td><img src="foo/abundance_by_Environment_a.png" width="400" height="400" /></td></tr><tr><td><pre>&gt;b\nAAGGTT</pre></td><td>foo;baz;bar</td><td><a href="http://www.ncbi.nlm.nih.gov/nuccore/Z700.1" target="_blank">Z700.1</a></td><td>89.5</td><td><img src="foo/abundance_by_Environment_b.png" width="400" height="400" /></td></tr></table>', '>a\nAGT\n>b\nAAGGTT\n', ['foo/abundance_by_Environment_a.png', 'foo/abundance_by_Environment_b.png'], ['foo/abundance_by_Environment_a.p', 'foo/abundance_by_Environment_b.p'])
 
-exp_output_tables_suppressed_taxonomy = ('OTU ID\tSequence\tNCBI nt closest match\tNCBI nt % identity\na\tAGT\tT51700.1\t87.0\nb\tAAGGTT\tZ700.1\t89.5\n', '<table border="border"><tr><th>OTU ID</th><th>Sequence</th><th>NCBI nt closest match</th><th>NCBI nt % identity</th><th>Abundance by Environment</th></tr><tr><td>a</td><td>AGT</td><td><a href="http://www.ncbi.nlm.nih.gov/nuccore/T51700.1" target="_blank">T51700.1</a></td><td>87.0</td><td><img src="foo/abundance_by_Environment_a.png" width="300" height="300" /></td></tr><tr><td>b</td><td>AAGGTT</td><td><a href="http://www.ncbi.nlm.nih.gov/nuccore/Z700.1" target="_blank">Z700.1</a></td><td>89.5</td><td><img src="foo/abundance_by_Environment_b.png" width="300" height="300" /></td></tr></table>', ['foo/abundance_by_Environment_a.png', 'foo/abundance_by_Environment_b.png'])
+exp_output_tables_suppressed_taxonomy = ('OTU ID\tSequence\tNCBI nt closest match\tNCBI nt % identity\na\tAGT\tT51700.1\t87.0\nb\tAAGGTT\tZ700.1\t89.5\n', '<table border="border"><tr><th>OTU</th><th>NCBI nt closest match</th><th>NCBI nt % identity</th><th>Abundance by Environment</th></tr><tr><td><pre>&gt;a\nAGT</pre></td><td><a href="http://www.ncbi.nlm.nih.gov/nuccore/T51700.1" target="_blank">T51700.1</a></td><td>87.0</td><td><img src="foo/abundance_by_Environment_a.png" width="400" height="400" /></td></tr><tr><td><pre>&gt;b\nAAGGTT</pre></td><td><a href="http://www.ncbi.nlm.nih.gov/nuccore/Z700.1" target="_blank">Z700.1</a></td><td>89.5</td><td><img src="foo/abundance_by_Environment_b.png" width="400" height="400" /></td></tr></table>', '>a\nAGT\n>b\nAAGGTT\n', ['foo/abundance_by_Environment_a.png', 'foo/abundance_by_Environment_b.png'], ['foo/abundance_by_Environment_a.p', 'foo/abundance_by_Environment_b.p'])
 
 
 if __name__ == "__main__":
