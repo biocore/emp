@@ -20,7 +20,7 @@ from os.path import basename, join, normpath, splitext
 from pickle import dump
 from tempfile import NamedTemporaryFile
 
-from pylab import axes, figure, legend, pie, savefig
+from pylab import axes, figlegend, figure, legend, pie, savefig
 
 from biom.parse import parse_biom_table
 
@@ -31,6 +31,7 @@ from cogent.parse.blast import BlastResult
 from cogent.parse.fasta import MinimalFastaParser
 from cogent.util.misc import remove_files
 
+from qiime.colors import data_colors, data_color_order
 from qiime.parse import parse_mapping_file_to_dict
 from qiime.util import (add_filename_suffix, parse_command_line_parameters,
         get_options_lookup, make_option, qiime_system_call)
@@ -267,18 +268,19 @@ def _format_top_n_results_table(top_n_mw, mw_seqs, master_otu_table_ms,
     plot_fps = []
     plot_data_fps = []
 
-    tsv_lines += 'OTU ID\tSequence\t'
+    tsv_lines += '#\tOTU ID\tSequence\t'
     if not suppress_taxonomic_output:
         tsv_lines += 'Greengenes taxonomy\t'
     tsv_lines += 'NCBI nt closest match\tNCBI nt % identity\n'
 
-    html_lines += '<table border="border"><tr><th>OTU</th>'
+    html_lines += ('<table id="most_wanted_otus_table" border="border">'
+                   '<tr><th>#</th><th>OTU</th>')
     if not suppress_taxonomic_output:
         html_lines += '<th>Greengenes taxonomy</th>'
-    html_lines += ('<th>NCBI nt closest match</th><th>NCBI nt %% identity</th>'
+    html_lines += ('<th>NCBI nt closest match</th>'
                    '<th>Abundance by %s</th></tr>' % mapping_category)
 
-    for otu_id, subject_id, percent_identity in top_n_mw:
+    for mw_num, (otu_id, subject_id, percent_identity) in enumerate(top_n_mw):
         # Grab all necessary information to be included in our report.
         seq = mw_seqs[otu_id]
 
@@ -287,7 +289,7 @@ def _format_top_n_results_table(top_n_mw, mw_seqs, master_otu_table_ms,
         # Splitting code taken from
         # http://code.activestate.com/recipes/496784-split-string-into-n-
         #   size-pieces/
-        split_seq = [seq[i:i+20] for i in range(0, len(seq), 20)]
+        split_seq = [seq[i:i+40] for i in range(0, len(seq), 40)]
 
         if not suppress_taxonomic_output:
             tax = master_otu_table_ms.ObservationMetadata[
@@ -303,13 +305,14 @@ def _format_top_n_results_table(top_n_mw, mw_seqs, master_otu_table_ms,
         plot_data = _format_pie_chart_data(samp_types, counts,
                                            num_categories_to_plot)
 
-        # Piechart code modified from matplotlib example:
+        # Piechart code based on:
         # http://matplotlib.sourceforge.net/examples/pylab_examples/
         #   pie_demo.html
+        # http://www.saltycrane.com/blog/2006/12/example-pie-charts-using-
+        #   python-and/
         figure(figsize=(8,8))
         ax = axes([0.1, 0.1, 0.8, 0.8])
         patches = pie(plot_data[0], colors=plot_data[2], shadow=True)
-        legend(patches[0], plot_data[1])
 
         # We need a relative path to the image.
         pie_chart_filename = 'abundance_by_%s_%s.png' % (mapping_category,
@@ -320,24 +323,31 @@ def _format_top_n_results_table(top_n_mw, mw_seqs, master_otu_table_ms,
         savefig(pie_chart_abs_fp)
         plot_fps.append(pie_chart_abs_fp)
 
+        # Write out pickled data for easy plot editing post-creation.
         plot_data_fp = join(output_img_dir, 'abundance_by_%s_%s.p' %
                 (mapping_category, otu_id))
         dump(plot_data, open(plot_data_fp, 'wb'))
         plot_data_fps.append(plot_data_fp)
 
-        tsv_lines += '%s\t%s\t' % (otu_id, seq)
+        tsv_lines += '%d\t%s\t%s\t' % (mw_num + 1, otu_id, seq)
         if not suppress_taxonomic_output:
             tsv_lines += '%s\t' % tax
         tsv_lines += '%s\t%s\n' % (gb_id, percent_identity)
 
-        html_lines += '<tr><td><pre>&gt;%s\n%s</pre></td>' % (otu_id,
-                      '\n'.join(split_seq))
+        html_lines += '<tr><td>%d</td><td><pre>&gt;%s\n%s</pre></td>' % (
+                mw_num + 1, otu_id, '\n'.join(split_seq))
         if not suppress_taxonomic_output:
             html_lines += '<td>%s</td>' % tax
-        html_lines += ('<td><a href="%s" target="_blank">%s</a></td>'
-                       '<td>%s</td><td><img src="%s" width="400" height="400" '
-                       '/></td></tr>' % (ncbi_link, gb_id, percent_identity,
-                                         pie_chart_rel_fp))
+        html_lines += ('<td><a href="%s" target="_blank">%s</a> '
+                '(%s%% sim.)</td>' % (ncbi_link, gb_id, percent_identity))
+
+        # Create the legend as a table- couldn't get mpl to correctly
+        # plot legend side-by-side the pie chart and don't have time to mess
+        # with it anymore.
+        legend_html = _format_legend_html(plot_data)
+        html_lines += ('<td><table><tr><td><img src="%s" width="300" '
+                'height="300" /></td><td>%s</td></tr></table></tr>' % (
+                pie_chart_rel_fp, legend_html))
     html_lines += '</table>'
 
     return tsv_lines, html_lines, mw_fasta_lines, plot_fps, plot_data_fps
@@ -346,7 +356,7 @@ def _format_pie_chart_data(labels, data, max_count):
     if len(labels) != len(data):
         raise ValueError("The number of labels does not match the number "
                          "of counts.")
-    colors = cycle(['b', 'g', 'r', 'c', 'm', 'y', 'k', 'w'])
+    colors = cycle([data_colors[color].toHex() for color in data_color_order])
     result = [(val, label, colors.next()) for val, label in zip(data, labels)]
     result = sorted(result, key=itemgetter(0), reverse=True)[:max_count]
     total = sum([e[0] for e in result])
@@ -354,3 +364,10 @@ def _format_pie_chart_data(labels, data, max_count):
     return ([e[0] for e in result],
             ['%s (%.2f%%)' % (e[1], e[0] * 100.0) for e in result],
             [e[2] for e in result])
+
+def _format_legend_html(plot_data):
+    result = '<table class="most_wanted_otus_legend">'
+    for val, label, color in zip(plot_data[0], plot_data[1], plot_data[2]):
+        result += ('<tr><td bgcolor="%s" width="50">&nbsp;</td>'
+                   '<td>%s</td></tr>' % (color, label))
+    return result + '</table>'

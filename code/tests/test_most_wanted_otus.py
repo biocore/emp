@@ -30,7 +30,7 @@ from qiime.workflow import WorkflowError
 from emp_isme14.most_wanted_otus import (generate_most_wanted_list,
         _get_most_wanted_filtering_commands, _get_top_n_blast_results,
         _get_rep_set_lookup, _format_top_n_results_table,
-        _format_pie_chart_data)
+        _format_pie_chart_data, _format_legend_html)
 
 class MostWantedOtusTests(TestCase):
     """Tests for the most_wanted_otus.py module."""
@@ -146,7 +146,7 @@ class MostWantedOtusTests(TestCase):
 
     def test_format_pie_chart_data(self):
         exp = ([0.6666666666666666, 0.3333333333333333],
-               ['b (66.67%)', 'a (33.33%)'], ['g', 'b'])
+               ['b (66.67%)', 'a (33.33%)'], ['#0000ff', '#ff0000'])
         obs = _format_pie_chart_data(['a', 'b'], [1, 2], 2)
         self.assertFloatEqual(obs, exp)
 
@@ -154,16 +154,28 @@ class MostWantedOtusTests(TestCase):
         self.assertFloatEqual(obs, exp)
 
     def test_format_pie_chart_data_max_count(self):
-        exp = ([1.0], ['b (100.00%)'], ['g'])
+        exp = ([1.0], ['b (100.00%)'], ['#0000ff'])
         obs = _format_pie_chart_data(['a', 'b'], [1, 2], 1)
         self.assertFloatEqual(obs, exp)
 
     def test_format_pie_chart_data_cycle_colors(self):
-        exp = ([0.4, 0.2, 0.2, 0.2], ['i (40.00%)', 'b (20.00%)',
-                'g (20.00%)', 'h (20.00%)'], ['b', 'g', 'k', 'w'])
+        exp = ([0.5, 0.5], ['a (50.00%)', '4 (50.00%)'],
+               ['#ff0000', '#ff0000'])
         obs = _format_pie_chart_data(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
-            'i'], [1, 2, 1, 1, 1, 1, 2, 2, 4], 4)
+            'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+            'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4'],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+             0, 0, 0, 0, 0, 0, 0, 1], 2)
         self.assertFloatEqual(obs, exp)
+
+    def test_format_legend_html(self):
+        exp = ('<table class="most_wanted_otus_legend"><tr><td bgcolor='
+            '"#0000ff" width="50">&nbsp;</td><td>b (66.67%)</td></tr><tr><td '
+            'bgcolor="#ff0000" width="50">&nbsp;</td><td>a (33.33%)</td></tr>'
+            '</table>')
+        obs = _format_legend_html(([0.6666666666666666, 0.3333333333333333],
+               ['b (66.67%)', 'a (33.33%)'], ['#0000ff', '#ff0000']))
+        self.assertEqual(obs, exp)
 
 
 rep_set = """
@@ -234,10 +246,9 @@ exp_commands_merged_master_otu_table = ([[('Filtering OTU table to include only 
 
 exp_rep_set_lookup = {'New.CleanUp.ReferenceOTU999': 'ATACGGAGGGTGCAAGCGTTAATCGGAATTACTGGGCGTAAAGGGTGCGTAGGCGGATGTTTAAGTGGGATGTGAAATCCCCGGGCTTAACCTGGGGGCTGC', '102506': 'ATACGTATGGTGCAAGCGTTATCCGGATTTACTGGGTGTAAAGGGAGCGCAGGCGGTACGGCAAGTCTGATGTGAAAGTCCGGGGCTCAACCCCGGTACTGCAAACGTAGGGTGCAAGCGTTGTCCGGAATTACTGGGTGTAAAGGGAGCGTAGACGGCTGTGCAAGTCTGAAGTGAAAGGCATGGGCTCAACCTGTGGACTGC', 'New.CleanUp.ReferenceOTU972': 'ATACGGAGGGTGCAAGCGTTAATCGGAATTACTGGGCGTAAAGGGTGCGTAGGCGGATGTTTAAGTGGGATGTGAAATCCCCGGGCTTAACCTGGGGGCTGC', 'New.CleanUp.ReferenceOTU969': 'ATACGTAGGTCCCGAGCGTTGTCCGGATTTACTGGGTGTAAAGGGAGCGTAGACGGCATGGCAAGTCTGAAGTGAAAACCCAGGGCTCAACCCTGGGACTGC', 'New.CleanUp.ReferenceOTU964': 'ATACGGAGGATGCGAGCGTTATCCGGATTTATTGGGTTTAAAGGGTGCGTAGACGGCGAAGCAAGTCTGAAGTGAAAGCCCGGGGCTCAACCGCGGGACTGC', '10115': 'ATACGGAGGGTGCAAGCGTTAATCGGAATTACTGGGCGTAAAGCGCACGCAGGCGGTTTGTTAAGTTTGATGTGAAATCCCCGGGCTTAACCTGGGAACTGC', '10113': 'ATACGGAGGGTGCAAGCGTTAATCGGAATTACTGGGCGTAAAGCGCACGCAGGCGGTCTGTTAAGTCAGATGTGAAATCCCCGGGCTCCACCTGGGCACTGC'}
 
-exp_output_tables = ('OTU ID\tSequence\tGreengenes taxonomy\tNCBI nt closest match\tNCBI nt % identity\na\tAGT\tfoo;bar;baz\tT51700.1\t87.0\nb\tAAGGTT\tfoo;baz;bar\tZ700.1\t89.5\n', '<table border="border"><tr><th>OTU</th><th>Greengenes taxonomy</th><th>NCBI nt closest match</th><th>NCBI nt % identity</th><th>Abundance by Environment</th></tr><tr><td><pre>&gt;a\nAGT</pre></td><td>foo;bar;baz</td><td><a href="http://www.ncbi.nlm.nih.gov/nuccore/T51700.1" target="_blank">T51700.1</a></td><td>87.0</td><td><img src="foo/abundance_by_Environment_a.png" width="400" height="400" /></td></tr><tr><td><pre>&gt;b\nAAGGTT</pre></td><td>foo;baz;bar</td><td><a href="http://www.ncbi.nlm.nih.gov/nuccore/Z700.1" target="_blank">Z700.1</a></td><td>89.5</td><td><img src="foo/abundance_by_Environment_b.png" width="400" height="400" /></td></tr></table>', '>a\nAGT\n>b\nAAGGTT\n', ['foo/abundance_by_Environment_a.png', 'foo/abundance_by_Environment_b.png'], ['foo/abundance_by_Environment_a.p', 'foo/abundance_by_Environment_b.p'])
+exp_output_tables = ('#\tOTU ID\tSequence\tGreengenes taxonomy\tNCBI nt closest match\tNCBI nt % identity\n1\ta\tAGT\tfoo;bar;baz\tT51700.1\t87.0\n2\tb\tAAGGTT\tfoo;baz;bar\tZ700.1\t89.5\n', '<table id="most_wanted_otus_table" border="border"><tr><th>#</th><th>OTU</th><th>Greengenes taxonomy</th><th>NCBI nt closest match</th><th>Abundance by Environment</th></tr><tr><td>1</td><td><pre>&gt;a\nAGT</pre></td><td>foo;bar;baz</td><td><a href="http://www.ncbi.nlm.nih.gov/nuccore/T51700.1" target="_blank">T51700.1</a> (87.0% sim.)</td><td><table><tr><td><img src="foo/abundance_by_Environment_a.png" width="300" height="300" /></td><td><table class="most_wanted_otus_legend"><tr><td bgcolor="#0000ff" width="50">&nbsp;</td><td>Env2 (66.67%)</td></tr><tr><td bgcolor="#ff0000" width="50">&nbsp;</td><td>Env1 (33.33%)</td></tr></table></td></tr></table></tr><tr><td>2</td><td><pre>&gt;b\nAAGGTT</pre></td><td>foo;baz;bar</td><td><a href="http://www.ncbi.nlm.nih.gov/nuccore/Z700.1" target="_blank">Z700.1</a> (89.5% sim.)</td><td><table><tr><td><img src="foo/abundance_by_Environment_b.png" width="300" height="300" /></td><td><table class="most_wanted_otus_legend"><tr><td bgcolor="#0000ff" width="50">&nbsp;</td><td>Env2 (71.43%)</td></tr><tr><td bgcolor="#ff0000" width="50">&nbsp;</td><td>Env1 (28.57%)</td></tr></table></td></tr></table></tr></table>', '>a\nAGT\n>b\nAAGGTT\n', ['foo/abundance_by_Environment_a.png', 'foo/abundance_by_Environment_b.png'], ['foo/abundance_by_Environment_a.p', 'foo/abundance_by_Environment_b.p'])
 
-exp_output_tables_suppressed_taxonomy = ('OTU ID\tSequence\tNCBI nt closest match\tNCBI nt % identity\na\tAGT\tT51700.1\t87.0\nb\tAAGGTT\tZ700.1\t89.5\n', '<table border="border"><tr><th>OTU</th><th>NCBI nt closest match</th><th>NCBI nt % identity</th><th>Abundance by Environment</th></tr><tr><td><pre>&gt;a\nAGT</pre></td><td><a href="http://www.ncbi.nlm.nih.gov/nuccore/T51700.1" target="_blank">T51700.1</a></td><td>87.0</td><td><img src="foo/abundance_by_Environment_a.png" width="400" height="400" /></td></tr><tr><td><pre>&gt;b\nAAGGTT</pre></td><td><a href="http://www.ncbi.nlm.nih.gov/nuccore/Z700.1" target="_blank">Z700.1</a></td><td>89.5</td><td><img src="foo/abundance_by_Environment_b.png" width="400" height="400" /></td></tr></table>', '>a\nAGT\n>b\nAAGGTT\n', ['foo/abundance_by_Environment_a.png', 'foo/abundance_by_Environment_b.png'], ['foo/abundance_by_Environment_a.p', 'foo/abundance_by_Environment_b.p'])
-
+exp_output_tables_suppressed_taxonomy = ('#\tOTU ID\tSequence\tNCBI nt closest match\tNCBI nt % identity\n1\ta\tAGT\tT51700.1\t87.0\n2\tb\tAAGGTT\tZ700.1\t89.5\n', '<table id="most_wanted_otus_table" border="border"><tr><th>#</th><th>OTU</th><th>NCBI nt closest match</th><th>Abundance by Environment</th></tr><tr><td>1</td><td><pre>&gt;a\nAGT</pre></td><td><a href="http://www.ncbi.nlm.nih.gov/nuccore/T51700.1" target="_blank">T51700.1</a> (87.0% sim.)</td><td><table><tr><td><img src="foo/abundance_by_Environment_a.png" width="300" height="300" /></td><td><table class="most_wanted_otus_legend"><tr><td bgcolor="#0000ff" width="50">&nbsp;</td><td>Env2 (66.67%)</td></tr><tr><td bgcolor="#ff0000" width="50">&nbsp;</td><td>Env1 (33.33%)</td></tr></table></td></tr></table></tr><tr><td>2</td><td><pre>&gt;b\nAAGGTT</pre></td><td><a href="http://www.ncbi.nlm.nih.gov/nuccore/Z700.1" target="_blank">Z700.1</a> (89.5% sim.)</td><td><table><tr><td><img src="foo/abundance_by_Environment_b.png" width="300" height="300" /></td><td><table class="most_wanted_otus_legend"><tr><td bgcolor="#0000ff" width="50">&nbsp;</td><td>Env2 (71.43%)</td></tr><tr><td bgcolor="#ff0000" width="50">&nbsp;</td><td>Env1 (28.57%)</td></tr></table></td></tr></table></tr></table>', '>a\nAGT\n>b\nAAGGTT\n', ['foo/abundance_by_Environment_a.png', 'foo/abundance_by_Environment_b.png'], ['foo/abundance_by_Environment_a.p', 'foo/abundance_by_Environment_b.p'])
 
 if __name__ == "__main__":
     main()
