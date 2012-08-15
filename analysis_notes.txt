@@ -264,3 +264,17 @@ parallel_alpha_diversity.py -i /home/caporaso/outbox/isme14/per_study_otu_tables
 parallel_alpha_diversity.py -i /home/caporaso/outbox/isme14/per_study_otu_tables_even10000/ -o /home/caporaso/outbox/isme14/per_study_alpha_diversity_even10000/ -m observed_species -O 50
 parallel_alpha_diversity.py -i /home/caporaso/outbox/isme14/per_study_otu_tables_even100000/ -o /home/caporaso/outbox/isme14/per_study_alpha_diversity_even100000/ -m observed_species -O 50
 
+parallel_align_seqs_pynast.py -i /home/caporaso/outbox/isme14/new_refseqs.fna
+-o /home/caporaso/outbox/isme14/new_refseqs_pynast_aligned/ -O 200
+
+echo "filter_alignment.py -i
+/home/caporaso/outbox/isme14/new_refseqs_pynast_aligned/new_refseqs_aligned.fasta
+-o /home/caporaso/outbox/isme14/new_refseqs_pynast_aligned/" | qsub -keo -N
+emp_align -l pvmem=64gb -q memroute
+
+echo "export OMP_NUM_THREADS=8; cd
+/home/caporaso/outbox/isme14/new_refseqs_pynast_aligned/;
+/home/mcdonald/bin/FastTreeMP -nt -gamma -fastest -no2nd -spr 4 -pseudo
+new_refseqs_aligned_pfiltered.fasta > new_refseqs_aligned_pfiltered.tre" |
+qsub -k oe -N emptree -l pvmem=64gb -q memroute
+
