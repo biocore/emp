@@ -278,3 +278,6 @@ echo "export OMP_NUM_THREADS=8; cd
 new_refseqs_aligned_pfiltered.fasta > new_refseqs_aligned_pfiltered.tre" |
 qsub -k oe -N emptree -l pvmem=64gb -q memroute
 
+parallel_assign_taxonomy_rdp.py -i
+/home/caporaso/outbox/isme14/new_refseqs.fna -o
+/home/caporaso/outbox/isme14/rdp_assigned_tax/ -O 200 --rdp_max_memory 3500
