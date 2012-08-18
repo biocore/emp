@@ -323,7 +323,7 @@ def _format_top_n_results_table(top_n_mw, mw_seqs, master_otu_table_ms,
         pie_chart_rel_fp = join(basename(normpath(output_img_dir)),
                 pie_chart_filename)
         pie_chart_abs_fp = join(output_img_dir, pie_chart_filename)
-        savefig(pie_chart_abs_fp)
+        savefig(pie_chart_abs_fp, transparent=True)
         plot_fps.append(pie_chart_abs_fp)
 
         # Write out pickled data for easy plot editing post-creation.
