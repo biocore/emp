@@ -1,0 +1,56 @@
+body {
+    font-family: helvetica;
+    font-size: 10pt;
+}
+
+img {
+    border: none;
+    width: 150px;
+    height: 150px;
+}
+
+table#most_wanted_otus_table{
+    width: 100%;
+    border-spacing: 1px;
+    background-color: #ddd;
+}
+
+table#most_wanted_otus_table tr{
+    width: 100%;
+/*    border: 1px solid black;*/
+}
+
+table#most_wanted_otus_table tr:nth-child(odd){
+    background-color: #e1f9fe;
+}
+
+table#most_wanted_otus_table tr:nth-child(even){
+    background-color: #fff;
+}
+
+table#most_wanted_otus_table tr:nth-child(even) table tr{
+    background-color: #fff;
+}
+
+th {
+    font-family: helvetica;
+    background-color: #eee;
+}
+
+ul {
+    list-style-type: none;
+/*    font-size: 8pt;*/
+}
+
+ul li {
+    width: 100%;
+    height: 100%;
+}
+
+div.key {
+    border: 1px solid black;
+    margin-right: .5em;
+    float: left;
+    width: 15px;
+    height: 15px;
+}

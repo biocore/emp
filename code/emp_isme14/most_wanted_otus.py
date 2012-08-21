@@ -3,7 +3,7 @@ from __future__ import division
 
 __author__ = "Jai Ram Rideout"
 __copyright__ = "Copyright 2012, The QIIME project"
-__credits__ = ["Jai Ram Rideout", "Greg Caporaso"]
+__credits__ = ["Jai Ram Rideout", "Greg Caporaso", "Meg Pirrung"]
 __license__ = "GPL"
 __version__ = "1.5.0-dev"
 __maintainer__ = "Jai Ram Rideout"
@@ -36,6 +36,9 @@ from qiime.parse import parse_mapping_file_to_dict
 from qiime.util import (add_filename_suffix, parse_command_line_parameters,
         get_options_lookup, make_option, qiime_system_call)
 from qiime.workflow import generate_log_fp, WorkflowError, WorkflowLogger
+
+html_header = '<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"> <title>Most Wanted OTUs</title><link rel="stylesheet" type="text/css" href="most_wanted_otus.css"></head><body>'
+html_footer = '</body></html>'
 
 def generate_most_wanted_list(output_dir, otu_table_fps, rep_set_fp, gg_fp,
         nt_fp, mapping_fp, mapping_category, top_n, min_abundance,
@@ -112,8 +115,8 @@ def generate_most_wanted_list(output_dir, otu_table_fps, rep_set_fp, gg_fp,
             'separated value (TSV) format</a><br /><a href="%s" '
             'target="_blank">Download OTU sequence data in FASTA format</a>' %
             (mw_tsv_rel_fp, mw_fasta_rel_fp))
-    html_lines = '<div>%s<br /><br />%s<br />%s</div>' % (html_dl_links,
-                  html_table_lines, html_dl_links)
+    html_lines = '%s<div>%s<br /><br />%s<br />%s</div>%s' % (html_header, html_dl_links,
+                  html_table_lines, html_dl_links, html_footer)
     
     mw_html_f = open(join(output_dir, 'most_wanted_otus.html'), 'w')
     mw_html_f.write(html_lines)
@@ -320,7 +323,7 @@ def _format_top_n_results_table(top_n_mw, mw_seqs, master_otu_table_ms,
         pie_chart_rel_fp = join(basename(normpath(output_img_dir)),
                 pie_chart_filename)
         pie_chart_abs_fp = join(output_img_dir, pie_chart_filename)
-        savefig(pie_chart_abs_fp)
+        savefig(pie_chart_abs_fp, transparent=True)
         plot_fps.append(pie_chart_abs_fp)
 
         # Write out pickled data for easy plot editing post-creation.
@@ -366,8 +369,14 @@ def _format_pie_chart_data(labels, data, max_count):
             [e[2] for e in result])
 
 def _format_legend_html(plot_data):
-    result = '<table class="most_wanted_otus_legend">'
+    result = '<ul class="most_wanted_otus_legend">'
     for val, label, color in zip(plot_data[0], plot_data[1], plot_data[2]):
-        result += ('<tr><td bgcolor="%s" width="50">&nbsp;</td>'
-                   '<td>%s</td></tr>' % (color, label))
-    return result + '</table>'
+        result += ('<li><div class="key" style="background-color:%s"></div>%s</li>' % (color,label))
+    return result + '</ul>'
+
+# def _format_legend_html(plot_data):
+#     result = '<table class="most_wanted_otus_legend">'
+#     for val, label, color in zip(plot_data[0], plot_data[1], plot_data[2]):
+#         result += ('<tr><td bgcolor="%s" width="50">&nbsp;</td>'
+#                    '<td>%s</td></tr>' % (color, label))
+#     return result + '</table>'
