@@ -279,5 +279,43 @@ new_refseqs_aligned_pfiltered.fasta > new_refseqs_aligned_pfiltered.tre" |
 qsub -k oe -N emptree -l pvmem=64gb -q memroute
 
 parallel_assign_taxonomy_rdp.py -i
-/home/caporaso/outbox/isme14/new_refseqs.fna -o
-/home/caporaso/outbox/isme14/rdp_assigned_tax/ -O 200 --rdp_max_memory 3500
+/home/shared/emp-isme14/ucrss_fast_r5/new_refseqs.fna -o
+/home/shared/emp-isme14/rdp_assigned_tax_c0.5/ -c 0.50 -t
+/scratch/caporaso/gg_otus_4feb2011/taxonomies/greengenes_tax_rdp_train_w_genus.txt
+-O 200
+
+
+cd /Users/caporaso/outbox/isme14/per_study_otu_tables; add_taxa.py -i otu_table_mc2_1030.biom -o otu_table_mc2_1030_w_tax.biom -t /home/shared/emp-isme14/rdp_assigned_tax_c0.5/new_refseqs_tax_assignments.txt; gzip otu_table_mc2_1030_w_tax.biom
+cd /Users/caporaso/outbox/isme14/per_study_otu_tables; add_taxa.py -i otu_table_mc2_1031.biom -o otu_table_mc2_1031_w_tax.biom -t /home/shared/emp-isme14/rdp_assigned_tax_c0.5/new_refseqs_tax_assignments.txt; gzip otu_table_mc2_1031_w_tax.biom
+cd /Users/caporaso/outbox/isme14/per_study_otu_tables; add_taxa.py -i otu_table_mc2_1033.biom -o otu_table_mc2_1033_w_tax.biom -t /home/shared/emp-isme14/rdp_assigned_tax_c0.5/new_refseqs_tax_assignments.txt; gzip otu_table_mc2_1033_w_tax.biom
+cd /Users/caporaso/outbox/isme14/per_study_otu_tables; add_taxa.py -i otu_table_mc2_1034.biom -o otu_table_mc2_1034_w_tax.biom -t /home/shared/emp-isme14/rdp_assigned_tax_c0.5/new_refseqs_tax_assignments.txt; gzip otu_table_mc2_1034_w_tax.biom
+cd /Users/caporaso/outbox/isme14/per_study_otu_tables; add_taxa.py -i otu_table_mc2_1035.biom -o otu_table_mc2_1035_w_tax.biom -t /home/shared/emp-isme14/rdp_assigned_tax_c0.5/new_refseqs_tax_assignments.txt; gzip otu_table_mc2_1035_w_tax.biom
+cd /Users/caporaso/outbox/isme14/per_study_otu_tables; add_taxa.py -i otu_table_mc2_1036.biom -o otu_table_mc2_1036_w_tax.biom -t /home/shared/emp-isme14/rdp_assigned_tax_c0.5/new_refseqs_tax_assignments.txt; gzip otu_table_mc2_1036_w_tax.biom
+cd /Users/caporaso/outbox/isme14/per_study_otu_tables; add_taxa.py -i otu_table_mc2_1037.biom -o otu_table_mc2_1037_w_tax.biom -t /home/shared/emp-isme14/rdp_assigned_tax_c0.5/new_refseqs_tax_assignments.txt; gzip otu_table_mc2_1037_w_tax.biom
+cd /Users/caporaso/outbox/isme14/per_study_otu_tables; add_taxa.py -i otu_table_mc2_1038.biom -o otu_table_mc2_1038_w_tax.biom -t /home/shared/emp-isme14/rdp_assigned_tax_c0.5/new_refseqs_tax_assignments.txt; gzip otu_table_mc2_1038_w_tax.biom
+cd /Users/caporaso/outbox/isme14/per_study_otu_tables; add_taxa.py -i otu_table_mc2_1039.biom -o otu_table_mc2_1039_w_tax.biom -t /home/shared/emp-isme14/rdp_assigned_tax_c0.5/new_refseqs_tax_assignments.txt; gzip otu_table_mc2_1039_w_tax.biom
+cd /Users/caporaso/outbox/isme14/per_study_otu_tables; add_taxa.py -i otu_table_mc2_1043.biom -o otu_table_mc2_1043_w_tax.biom -t /home/shared/emp-isme14/rdp_assigned_tax_c0.5/new_refseqs_tax_assignments.txt; gzip otu_table_mc2_1043_w_tax.biom
+cd /Users/caporaso/outbox/isme14/per_study_otu_tables; add_taxa.py -i otu_table_mc2_1222.biom -o otu_table_mc2_1222_w_tax.biom -t /home/shared/emp-isme14/rdp_assigned_tax_c0.5/new_refseqs_tax_assignments.txt; gzip otu_table_mc2_1222_w_tax.biom
+cd /Users/caporaso/outbox/isme14/per_study_otu_tables; add_taxa.py -i otu_table_mc2_1235.biom -o otu_table_mc2_1235_w_tax.biom -t /home/shared/emp-isme14/rdp_assigned_tax_c0.5/new_refseqs_tax_assignments.txt; gzip otu_table_mc2_1235_w_tax.biom
+cd /Users/caporaso/outbox/isme14/per_study_otu_tables; add_taxa.py -i otu_table_mc2_1240.biom -o otu_table_mc2_1240_w_tax.biom -t /home/shared/emp-isme14/rdp_assigned_tax_c0.5/new_refseqs_tax_assignments.txt; gzip otu_table_mc2_1240_w_tax.biom
+cd /Users/caporaso/outbox/isme14/per_study_otu_tables; add_taxa.py -i otu_table_mc2_1242.biom -o otu_table_mc2_1242_w_tax.biom -t /home/shared/emp-isme14/rdp_assigned_tax_c0.5/new_refseqs_tax_assignments.txt; gzip otu_table_mc2_1242_w_tax.biom
+cd /Users/caporaso/outbox/isme14/per_study_otu_tables; add_taxa.py -i otu_table_mc2_1288.biom -o otu_table_mc2_1288_w_tax.biom -t /home/shared/emp-isme14/rdp_assigned_tax_c0.5/new_refseqs_tax_assignments.txt; gzip otu_table_mc2_1288_w_tax.biom
+cd /Users/caporaso/outbox/isme14/per_study_otu_tables; add_taxa.py -i otu_table_mc2_1289.biom -o otu_table_mc2_1289_w_tax.biom -t /home/shared/emp-isme14/rdp_assigned_tax_c0.5/new_refseqs_tax_assignments.txt; gzip otu_table_mc2_1289_w_tax.biom
+cd /Users/caporaso/outbox/isme14/per_study_otu_tables; add_taxa.py -i otu_table_mc2_1453.biom -o otu_table_mc2_1453_w_tax.biom -t /home/shared/emp-isme14/rdp_assigned_tax_c0.5/new_refseqs_tax_assignments.txt; gzip otu_table_mc2_1453_w_tax.biom
+cd /Users/caporaso/outbox/isme14/per_study_otu_tables; add_taxa.py -i otu_table_mc2_1526.biom -o otu_table_mc2_1526_w_tax.biom -t /home/shared/emp-isme14/rdp_assigned_tax_c0.5/new_refseqs_tax_assignments.txt; gzip otu_table_mc2_1526_w_tax.biom
+cd /Users/caporaso/outbox/isme14/per_study_otu_tables; add_taxa.py -i otu_table_mc2_550.biom -o otu_table_mc2_550_w_tax.biom -t /home/shared/emp-isme14/rdp_assigned_tax_c0.5/new_refseqs_tax_assignments.txt; gzip otu_table_mc2_550_w_tax.biom
+cd /Users/caporaso/outbox/isme14/per_study_otu_tables; add_taxa.py -i otu_table_mc2_632.biom -o otu_table_mc2_632_w_tax.biom -t /home/shared/emp-isme14/rdp_assigned_tax_c0.5/new_refseqs_tax_assignments.txt; gzip otu_table_mc2_632_w_tax.biom
+cd /Users/caporaso/outbox/isme14/per_study_otu_tables; add_taxa.py -i otu_table_mc2_638.biom -o otu_table_mc2_638_w_tax.biom -t /home/shared/emp-isme14/rdp_assigned_tax_c0.5/new_refseqs_tax_assignments.txt; gzip otu_table_mc2_638_w_tax.biom
+cd /Users/caporaso/outbox/isme14/per_study_otu_tables; add_taxa.py -i otu_table_mc2_659.biom -o otu_table_mc2_659_w_tax.biom -t /home/shared/emp-isme14/rdp_assigned_tax_c0.5/new_refseqs_tax_assignments.txt; gzip otu_table_mc2_659_w_tax.biom
+cd /Users/caporaso/outbox/isme14/per_study_otu_tables; add_taxa.py -i otu_table_mc2_662.biom -o otu_table_mc2_662_w_tax.biom -t /home/shared/emp-isme14/rdp_assigned_tax_c0.5/new_refseqs_tax_assignments.txt; gzip otu_table_mc2_662_w_tax.biom
+cd /Users/caporaso/outbox/isme14/per_study_otu_tables; add_taxa.py -i otu_table_mc2_678.biom -o otu_table_mc2_678_w_tax.biom -t /home/shared/emp-isme14/rdp_assigned_tax_c0.5/new_refseqs_tax_assignments.txt; gzip otu_table_mc2_678_w_tax.biom
+cd /Users/caporaso/outbox/isme14/per_study_otu_tables; add_taxa.py -i otu_table_mc2_714.biom -o otu_table_mc2_714_w_tax.biom -t /home/shared/emp-isme14/rdp_assigned_tax_c0.5/new_refseqs_tax_assignments.txt; gzip otu_table_mc2_714_w_tax.biom
+cd /Users/caporaso/outbox/isme14/per_study_otu_tables; add_taxa.py -i otu_table_mc2_722.biom -o otu_table_mc2_722_w_tax.biom -t /home/shared/emp-isme14/rdp_assigned_tax_c0.5/new_refseqs_tax_assignments.txt; gzip otu_table_mc2_722_w_tax.biom
+cd /Users/caporaso/outbox/isme14/per_study_otu_tables; add_taxa.py -i otu_table_mc2_723.biom -o otu_table_mc2_723_w_tax.biom -t /home/shared/emp-isme14/rdp_assigned_tax_c0.5/new_refseqs_tax_assignments.txt; gzip otu_table_mc2_723_w_tax.biom
+cd /Users/caporaso/outbox/isme14/per_study_otu_tables; add_taxa.py -i otu_table_mc2_776.biom -o otu_table_mc2_776_w_tax.biom -t /home/shared/emp-isme14/rdp_assigned_tax_c0.5/new_refseqs_tax_assignments.txt; gzip otu_table_mc2_776_w_tax.biom
+cd /Users/caporaso/outbox/isme14/per_study_otu_tables; add_taxa.py -i otu_table_mc2_808.biom -o otu_table_mc2_808_w_tax.biom -t /home/shared/emp-isme14/rdp_assigned_tax_c0.5/new_refseqs_tax_assignments.txt; gzip otu_table_mc2_808_w_tax.biom
+cd /Users/caporaso/outbox/isme14/per_study_otu_tables; add_taxa.py -i otu_table_mc2_809.biom -o otu_table_mc2_809_w_tax.biom -t /home/shared/emp-isme14/rdp_assigned_tax_c0.5/new_refseqs_tax_assignments.txt; gzip otu_table_mc2_809_w_tax.biom
+cd /Users/caporaso/outbox/isme14/per_study_otu_tables; add_taxa.py -i otu_table_mc2_810.biom -o otu_table_mc2_810_w_tax.biom -t /home/shared/emp-isme14/rdp_assigned_tax_c0.5/new_refseqs_tax_assignments.txt; gzip otu_table_mc2_810_w_tax.biom
+cd /Users/caporaso/outbox/isme14/per_study_otu_tables; add_taxa.py -i otu_table_mc2_925.biom -o otu_table_mc2_925_w_tax.biom -t /home/shared/emp-isme14/rdp_assigned_tax_c0.5/new_refseqs_tax_assignments.txt; gzip otu_table_mc2_925_w_tax.biom
+cd /Users/caporaso/outbox/isme14/per_study_otu_tables; add_taxa.py -i otu_table_mc2_933.biom -o otu_table_mc2_933_w_tax.biom -t /home/shared/emp-isme14/rdp_assigned_tax_c0.5/new_refseqs_tax_assignments.txt; gzip otu_table_mc2_933_w_tax.biom
+cd /Users/caporaso/outbox/isme14/per_study_otu_tables; add_taxa.py -i otu_table_mc2_940.biom -o otu_table_mc2_940_w_tax.biom -t /home/shared/emp-isme14/rdp_assigned_tax_c0.5/new_refseqs_tax_assignments.txt; gzip otu_table_mc2_940_w_tax.biom
