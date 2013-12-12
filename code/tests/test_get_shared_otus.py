@@ -13,7 +13,7 @@ __status__ = "Development"
 from cogent.util.unit_test import TestCase, main
 from biom.parse import parse_biom_table
 
-from emp_isme14.get_shared_otus import get_shared_otus
+from emp.get_shared_otus import get_shared_otus
 
 class TopLevelTest(TestCase):
 

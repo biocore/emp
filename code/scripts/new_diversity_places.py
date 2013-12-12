@@ -17,7 +17,7 @@ from pickle import dump
 from qiime.util import (add_filename_suffix, parse_command_line_parameters,
         get_options_lookup, make_option, qiime_system_call)
 
-from emp_isme14.new_diversity_places import generate_new_diversity_plots
+from emp.new_diversity_places import generate_new_diversity_plots
 
 options_lookup = get_options_lookup()
 

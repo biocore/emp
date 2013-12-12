@@ -35,7 +35,7 @@ from qiime.colors import data_colors, data_color_order
 from qiime.parse import parse_mapping_file_to_dict
 from qiime.util import (add_filename_suffix, parse_command_line_parameters,
         get_options_lookup, make_option, qiime_system_call)
-from qiime.workflow import generate_log_fp, WorkflowError, WorkflowLogger
+from qiime.workflow.util import generate_log_fp, WorkflowError, WorkflowLogger
 
 html_header = '<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"> <title>Most Wanted OTUs</title><link rel="stylesheet" type="text/css" href="most_wanted_otus.css"></head><body>'
 html_footer = '</body></html>'

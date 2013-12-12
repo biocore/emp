@@ -25,9 +25,9 @@ from cogent.util.misc import remove_files
 from cogent.util.unit_test import TestCase, main
 from qiime.test import initiate_timeout, disable_timeout
 from qiime.util import get_qiime_temp_dir, get_tmp_filename
-from qiime.workflow import WorkflowError
+from qiime.workflow.util import WorkflowError
 
-from emp_isme14.most_wanted_otus import (generate_most_wanted_list,
+from emp.most_wanted_otus import (generate_most_wanted_list,
         _get_most_wanted_filtering_commands, _get_top_n_blast_results,
         _get_rep_set_lookup, _format_top_n_results_table,
         _format_pie_chart_data, _format_legend_html)

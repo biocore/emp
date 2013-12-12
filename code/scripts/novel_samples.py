@@ -15,7 +15,7 @@ from csv import writer
 from qiime.util import (get_options_lookup, make_option,
                         parse_command_line_parameters, qiime_open)
 
-from emp_isme14.novel_samples import compute_sample_novelty
+from emp.novel_samples import compute_sample_novelty
 
 options_lookup = get_options_lookup()
 

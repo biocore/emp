@@ -14,9 +14,9 @@ from os.path import join
 
 from qiime.util import (parse_command_line_parameters, get_options_lookup,
                         make_option)
-from qiime.workflow import call_commands_serially, no_status_updates
+from qiime.workflow.util import call_commands_serially, no_status_updates
 
-from emp_isme14.most_wanted_otus import generate_most_wanted_list
+from emp.most_wanted_otus import generate_most_wanted_list
 
 options_lookup = get_options_lookup()
 

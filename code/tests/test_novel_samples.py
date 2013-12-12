@@ -14,7 +14,7 @@ __status__ = "Development"
 
 from cogent.util.unit_test import TestCase, main
 
-from emp_isme14.novel_samples import compute_sample_novelty
+from emp.novel_samples import compute_sample_novelty
 
 class NovelSamplesTests(TestCase):
     def setUp(self):

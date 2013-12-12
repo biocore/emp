@@ -13,7 +13,7 @@ __status__ = "Development"
 from qiime.util import (parse_command_line_parameters, get_options_lookup,
                         make_option)
 
-from emp_isme14.alpha_diversity_by_sample_type import (
+from emp.alpha_diversity_by_sample_type import (
         alpha_diversity_by_sample_type)
 
 options_lookup = get_options_lookup()

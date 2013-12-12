@@ -19,9 +19,9 @@ from cogent.util.misc import remove_files
 from cogent.util.unit_test import TestCase, main
 from qiime.test import initiate_timeout, disable_timeout
 from qiime.util import get_qiime_temp_dir, get_tmp_filename
-from qiime.workflow import WorkflowError
+from qiime.workflow.util import WorkflowError
 
-from emp_isme14.alpha_diversity_by_sample_type import (
+from emp.alpha_diversity_by_sample_type import (
         alpha_diversity_by_sample_type)
 
 class AlphaDiversityBySampleTypeTests(TestCase):
