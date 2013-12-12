@@ -1,4 +1,4 @@
-isme14
-======
+Earth Microbiome Project
+========================
 
-Data and analysis results for the EMP analysis for International Society for Microbial Ecology 14 meeting
+Data and analysis results for the Earth Microbiome Project.
