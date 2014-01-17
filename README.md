@@ -7,13 +7,13 @@ Organization of this repository
 -------------------------------
 
 * ``data/`` data files used for downstream analysis (biom tables, trees, mapping files, etc)
-  * ``data-urls.txt`` : URLs where large data files can be found (e.g., BIOM and tree files) - these are not stored in the repository, due to space limitations
+  * ``data-urls.txt`` URLs where large data files can be found (e.g., BIOM and tree files) - these are not stored in the repository, due to space limitations
     * ``emp-or.tre.gz`` newick-formatted tree corresponding to open reference (or) biom table
     * ``emp-or.biom.gz`` open-reference (or) biom table
     * ``emp-cr.biom.gz`` closed-reference (cr) biom table
-  * ``sample-map.txt.gz`` : sample metadata (i.e., mapping) file for all samples in biom table
+  * ``sample-map.txt.gz`` sample metadata (i.e., mapping) file for all samples in biom table
   * ``observation-map.txt.gz`` observation (OTU) metadata (e.g., taxonomy assignments) for open reference (or) biom table
-  * ``refseqs.fna.gz`` : the new reference sequence collection resulting from open reference (or) OTU picking [COMING SOON]
+  * ``refseqs.fna.gz`` the new reference sequence collection resulting from open reference (or) OTU picking [COMING SOON]
 
 * ``code`` code developed for EMP analysis
 
