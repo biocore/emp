@@ -13,7 +13,7 @@ Organization of this repository
     * ``emp-cr.biom.gz`` closed-reference (cr) biom table
   * ``sample-map.txt.gz`` : sample metadata (i.e., mapping) file for all samples in biom table
   * ``observation-map.txt.gz`` observation (OTU) metadata (e.g., taxonomy assignments) for open reference (or) biom table
-  * ``refseqs.fna.gz`` : the new reference sequence collection resulting from open reference (or) OTU picking
+  * ``refseqs.fna.gz`` : the new reference sequence collection resulting from open reference (or) OTU picking [COMING SOON]
 
 * ``code`` code developed for EMP analysis
 
