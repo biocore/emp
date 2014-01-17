@@ -24,9 +24,9 @@ Organization of this repository
 File name abbreviation conventions
 ----------------------------------
 
-``or`` refers to [open-reference OTU picking](http://qiime.org/tutorials/otu_picking.html#open-reference-otu-picking)
-``cr`` refers to [closed reference OTU picking](http://qiime.org/tutorials/otu_picking.html#closed-reference-otu-picking))
-``refseqs`` refers to reference sequence collections that could be used in reference-based OTU picking
+* ``or`` refers to [open-reference OTU picking](http://qiime.org/tutorials/otu_picking.html#open-reference-otu-picking)
+* ``cr`` refers to [closed reference OTU picking](http://qiime.org/tutorials/otu_picking.html#closed-reference-otu-picking))
+* ``refseqs`` refers to reference sequence collections that could be used in reference-based OTU picking
 
 Finding older data
 ------------------
