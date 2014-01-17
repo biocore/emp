@@ -7,10 +7,10 @@ Organization of this repository
 -------------------------------
 
 * ``data/`` data files used for downstream analysis (biom tables, trees, mapping files, etc)
-  * ``biom-urls.txt`` : URLs where BIOM tables can be found - these are not stored in the repository, due to space limitations (``or`` refers to [open-reference OTU picking](http://qiime.org/tutorials/otu_picking.html#open-reference-otu-picking); ``cr`` refers to [closed reference OTU picking](http://qiime.org/tutorials/otu_picking.html#closed-reference-otu-picking))
-  * ``master_mapping_file.txt.gz`` : sample metadata for all samples in biom table
-  * ``new_refseqs.fna.gz`` the new reference sequence collection resulting from open reference (or) OTU picking
-  * ``emp-or-tax-assignments.txt.gz`` taxonomy assignments for open reference (or) biom table
+  * ``data-urls.txt`` : URLs where large data files can be found (e.g., BIOM and tree files) - these are not stored in the repository, due to space limitations
+  * ``sample-map.txt.gz`` : sample metadata (i.e., mapping) file for all samples in biom table
+  * ``refseqs.fna.gz`` : the new reference sequence collection resulting from open reference (or) OTU picking
+  * ``observation-map.txt.gz`` observation (OTU) metadata (e.g., taxonomy assignments) for open reference (or) biom table
   * ``emp-or.tre.gz`` newick-formatted tree for open reference (or) biom table
 
 * ``code`` code developed for EMP analysis
@@ -19,6 +19,12 @@ Organization of this repository
 
 * ``presentations`` collection of presentations on EMP
 
+File name abbreviation conventions
+----------------------------------
+
+``or`` refers to [open-reference OTU picking](http://qiime.org/tutorials/otu_picking.html#open-reference-otu-picking)
+``cr`` refers to [closed reference OTU picking](http://qiime.org/tutorials/otu_picking.html#closed-reference-otu-picking))
+``refseqs`` refers to reference sequence collections that could be used in reference-based OTU picking
 
 Finding older data
 ------------------
