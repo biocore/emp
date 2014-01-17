@@ -9,7 +9,7 @@ The EMP is open science: anyone can get involved. The EMP data set is generated 
 
 If you're interested in getting involved in [EMP data analyses](https://github.com/EarthMicrobiomeProject/emp/issues) you should begin by reviewing the [open issues](https://github.com/EarthMicrobiomeProject/emp/issues). These describe analyses that we're interested in performing across studies. If you're interested in working on one of these analyses, or have ideas for other analyses that should be performed, you should get in touch with Greg Caporaso (gregcaporaso@gmail.com), the Chief Data Analyst for the EMP. 
 
-Additional information is available on the [Earth Microbiome Project website](www.earthmicrobiome.org)
+Additional information is available on the [Earth Microbiome Project website](www.earthmicrobiome.org).
 
 Organization of this repository
 -------------------------------
