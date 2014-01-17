@@ -3,7 +3,13 @@ Earth Microbiome Project
 
 <div style="float: right; margin-left: 30px;"><img title="The EMP logo was designed by Eamonn Maguire of Antarctic Design." style="float: right;margin-left: 30px;" src="http://www.earthmicrobiome.org/files/2011/01/EMP-green-small.png" align=right /></div>
 
-The [Earth Microbiome Project](www.earthmicrobiome.org) (EMP) is a systematic attempt to characterize the global microbial taxonomic and functional diversity for the benefit of the planet and mankind. The EMP is open science. All raw data is publicly available in the [EMP portal](http://www.microbio.me/emp) to the [QIIME](www.qiime.org) database.
+The [Earth Microbiome Project](www.earthmicrobiome.org) (EMP) is a systematic attempt to characterize the global microbial taxonomic and functional diversity for the benefit of the planet and mankind. 
+
+The EMP is open science: anyone can get involved. The EMP data set is generated from samples that individual researchers have compiled and donated to the EMP. These data sets represent individual EMP studies. In addition to the individual studies, we are performing a cross-study meta-analysis. All per-study raw data is publicly available in the [EMP portal](http://www.microbio.me/emp) to the [QIIME](www.qiime.org) database. This repository contains the processed, combined (i.e., across study) EMP data for the EMP meta-analysis as well as code developed specifically for the EMP meta-analyses, and new results as they are generated.
+
+If you're interested in getting involved in [EMP data analyses](https://github.com/EarthMicrobiomeProject/emp/issues) you should begin by reviewing the open issues. These describe analyses that we're interested in performing across studies. If you're interested in working on one of these analyses, or have ideas for other analyses that should be performed, you should get in touch with Greg Caporaso (gregcaporaso@gmail.com), the Chief Data Analyst for the EMP. 
+
+Additional information is available on the [Earth Microbiome Project website](www.earthmicrobiome.org)
 
 Organization of this repository
 -------------------------------
