@@ -7,7 +7,7 @@ Organization of this repository
 -------------------------------
 
 * ``data/`` data files used for downstream analysis (biom tables, trees, mapping files, etc)
-  * ``data-urls.txt`` URLs where large data files can be found (e.g., BIOM and tree files) - these are not stored in the repository, due to space limitations
+  * ``data-urls.txt`` URLs where large data files can be found (e.g., BIOM and tree files). These are not stored in the repository, due to space limitations. You can download all of these files by running ``wget -i data-urls.txt`` from this directory.
     * ``emp-or.tre.gz`` newick-formatted tree corresponding to open reference (or) biom table
     * ``emp-or.biom.gz`` open-reference (or) biom table
     * ``emp-cr.biom.gz`` closed-reference (cr) biom table
