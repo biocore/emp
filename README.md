@@ -1,7 +1,7 @@
 Earth Microbiome Project
 ========================
 
-Data and analysis results for the Earth Microbiome Project.
+The [Earth Microbiome Project](www.earthmicrobiome.org) (EMP) is a systematic attempt to characterize the global microbial taxonomic and functional diversity for the benefit of the planet and mankind. The EMP is open science. All raw data is publicly available in the [EMP portal](http://www.microbio.me/emp) to the [QIIME](www.qiime.org) database. ![EMP logo](http://www.earthmicrobiome.org/files/2011/01/EMP-green-small.png "EMP logo")
 
 Organization of this repository
 -------------------------------
@@ -25,7 +25,7 @@ File name abbreviation conventions
 ----------------------------------
 
 * ``or`` refers to [open-reference OTU picking](http://qiime.org/tutorials/otu_picking.html#open-reference-otu-picking)
-* ``cr`` refers to [closed reference OTU picking](http://qiime.org/tutorials/otu_picking.html#closed-reference-otu-picking)
+* ``cr`` refers to [closed-reference OTU picking](http://qiime.org/tutorials/otu_picking.html#closed-reference-otu-picking)
 * ``refseqs`` refers to reference sequence collections that could be used in reference-based OTU picking
 
 Finding older data
