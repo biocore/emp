@@ -1,4 +1,4 @@
-https://dl.dropboxusercontent.com/u/2868868/emp/2014.01.17/emp-cr.biom.gz
-https://dl.dropboxusercontent.com/u/2868868/emp/2014.01.17/emp-or.biom.gz
-https://dl.dropboxusercontent.com/u/2868868/emp/2014.01.17/emp-or.tre.gz
-https://dl.dropboxusercontent.com/u/2868868/emp/2014.01.17/refseqs.fna.gz
+ftp://thebeast.colorado.edu/pub/EarthMicrobiomeProject/current/emp-cr.biom.gz
+ftp://thebeast.colorado.edu/pub/EarthMicrobiomeProject/current/emp-or.biom.gz
+ftp://thebeast.colorado.edu/pub/EarthMicrobiomeProject/current/emp-or.tre.gz
+ftp://thebeast.colorado.edu/pub/EarthMicrobiomeProject/current/refseqs.fna.gz
