@@ -1,7 +1,8 @@
-ftp://ftp.microbio.me/emp/latest/closed_ref_table.biom.gz
-ftp://ftp.microbio.me/emp/latest/mapping_file.txt.gz
-ftp://ftp.microbio.me/emp/latest/open_ref_table_mc2.biom.gz
-ftp://ftp.microbio.me/emp/latest/open_ref_table_mc2_w_tax.biom.gz
-ftp://ftp.microbio.me/emp/latest/open_ref_table_mc2_w_tax_no_pynast_failures.biom.gz
-ftp://ftp.microbio.me/emp/latest/rep_set.fna.gz
-ftp://ftp.microbio.me/emp/latest/rep_set.tre.gz
+ftp://ftp.microbio.me/emp/latest/emp-cr.biom.gz
+ftp://ftp.microbio.me/emp/latest/emp-or-mc2.biom.gz
+ftp://ftp.microbio.me/emp/latest/emp-or-mc2-w-tax.biom.gz
+ftp://ftp.microbio.me/emp/latest/emp-or-mc2-w-tax-no-pynast-failures.biom.gz
+ftp://ftp.microbio.me/emp/latest/emp-or.tre.gz
+ftp://ftp.microbio.me/emp/latest/observation-map.txt.gz
+ftp://ftp.microbio.me/emp/latest/refseqs.fna.gz
+ftp://ftp.microbio.me/emp/latest/sample-map.txt.gz
