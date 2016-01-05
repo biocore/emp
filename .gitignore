@@ -49,3 +49,6 @@ per_study_alpha_diversity_even.tgz
 
 # vim swap files
 .*.swp
+
+# ipynb checkpoints 
+ipynb/.ipynb_checkpoints
