@@ -7,11 +7,11 @@ gilbertjack@anl.gov
 Rob Knight
 ----------
 
-Department of Chemistry and Biochemistry, University of Colorado at
-Boulder, Boulder, CO, USA Rob.Knight@colorado.edu
+Department of Computer Science and Engineering, University of California San Diego
+San Diego, CA, USA robknight@ucsd.edu
 
 Janet Jansson
 -------------
 
-Lawrence Berkeley National Laboratory, Earth Sciences Division Berkeley,
-CA USA jrjansson@lbl.gov
+Pacific Northwest National Laboratory, Earth and Biological Sciences Directorate,
+Richland, WA, USA Janet.Jansson@pnnl.gov
