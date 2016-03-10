@@ -31,10 +31,15 @@ Closed-reference OTU picking
 
 97% OTUs are picked in the initial EMP analyses using a closed-reference
 OTU picking protocol against the Greengenes database pre-clustered at
-97% identify (this Greengenes reference collection build is available
-here:
-<http://greengenes.lbl.gov/Download/Sequence_Data/Fasta_data_files/Caporaso_Reference_OTUs/gg_otus_4feb2011.tgz>.
-This is done using pick\_closed\_reference\_otus.py. This process works
+97% identify. (The current version of Greengenes was released in May, 
+2013 and is avaiable to download from [the GG website]
+(http://greengenes.secondgenome.com/downloads/database/13_5), 
+and also distributed as [a github repo]
+(https://github.com/biocore/qiime-default-reference)
+and as [a conda recipie]
+(https://bioconda.github.io/recipes/qiime-default-reference/README.html).)
+This is done using the qiime script [pick\_closed\_reference\_otus.py]
+(http://qiime.org/scripts/pick_closed_reference_otus.html). This process works
 as follows. Reads are pre-sorted by abundance in QIIME so the most
 frequently occurring sequences will be chosen as OTU centroid sequences.
 Each read is then searched against the Greengenes reference sequences
@@ -48,6 +53,7 @@ least 97% identity are discarded. Taxonomy is assigned to each OTU based
 on the reference sequence defining that OTU, and the Greengenes
 reference tree (also provided in the reference collection build linked
 above) can then be used for pylogenetic diversity analyses.
+
 Closed-reference OTU picking has pros and cons, and future EMP runs will
 apply the open-reference OTU picking process described here:
 <http://qiime.org/tutorials/open_reference_illumina_processing.html#option-2-subsampled-open-reference-otu-picking>
