@@ -1,7 +1,8 @@
 #### Version 4\_13
 
-Primers for paired-end 16s community sequencing on the Illumina HiSeq
-platform using bacteria/archaeal primers 515F/806R. Please see this
+## Primers for amplicon community sequencing
+
+Please see this
 article: [Caporaso JG, Lauber CL, Walters WA, Berg-Lyons D, Huntley J,
 Fierer N, Owens SM, Betley J, Fraser L, Bauer M, Gormley N, Gilbert JA,
 Smith G, Knight R. 2012. Ultra-high-throughput microbial community
@@ -21,15 +22,17 @@ Download Links
     Protocol](https://dl.dropboxusercontent.com/u/68839641/emp_website/515f_806_16S_illumina_amplification_protocol_version_6_15.doc)
 -   [Old 16S Illumina Amplification
     Protocol](http://press.igsb.anl.gov/earthmicrobiome/files/2013/04/515f_806_16S_illumina_amplification_protocol_version_4_13.doc)
--   [Old Illumina HiSeq 16S Primer
+-   [Old Illumina 16S Primer
     Sequences](ftp://ftp.metagenomics.anl.gov/data/misc/EMP/SupplementaryFile1_barcoded_primers_515F_806R.txt)
     (515f - 806r)
--   [New Illumina HiSeq 16S Primer
+-   [New Illumina 16S Primer
     Sequences](https://dl.dropboxusercontent.com/u/68839641/emp_website/515f_806rb_new.xls)
     (515f - 806rB)
--   [New Illumina HiSeq 16S Primer
+-   [New Illumina 16S Primer
     Sequences](https://dl.dropboxusercontent.com/u/68839641/emp_website/515f_926r_new.xlsx)
     (515f - 926r)
+-   [Illumina 18S Primer - Coming soon](#)
+-   [Illumina ITS 1/2 Primer - Coming soon](#)
 -   [Primer Ordering and
     Resuspension](http://press.igsb.anl.gov/earthmicrobiome/files/2013/04/EMP_primer_ordering_and_resuspension.doc)
 
