@@ -3,13 +3,13 @@ EMP membership is defined by participation
 
 **Project Management and Steering Committee** comprises:
 
-**Jack A. Gilbert**, **Folker Meyer** and **Rick Stevens** from Argonne
-National Laboratory and University of Chicago, **Jonathan Eisen**
-(University of California, Davis), **Jed Fuhrman** (University of
-Southern California), **Janet Jansson** (Lawrence Berkley National
-Laboratory), **Rob Knight** and **Noah Fierer** (University of Colorado,
-Boulder), **Mark Bailey** (Center for Ecology and Hydrology, UK),
-**George Kowalchuk** (Netherlands Institute of Ecology), .
+- **Jack A. Gilbert**, **Folker Meyer** and **Rick Stevens** from Argonne National Laboratory and University of Chicago
+- **Jonathan Eisen** (University of California, Davis)
+- **Jed Fuhrman** (University of Southern California)
+- **Janet Jansson** (Pacific Northwest National Laboratory)
+- **Rob Knight** and **Noah Fierer** (University of Colorado, Boulder)
+- **Mark Bailey** (Center for Ecology and Hydrology, UK)
+- **George Kowalchuk** (Netherlands Institute of Ecology)
 
 The **Advisory Board** comprises:
 
@@ -33,8 +33,7 @@ not limited to:
 Caporaso, Greg, gregcaporaso@gmail.com, Northern Arizona University,
 USA.
 
-- Balaji, Pavan, <balaji@mcs.anl.gov>, Argonne National Laboratory and
-University of Chicago, USA.
+- Balaji, Pavan, <balaji@mcs.anl.gov>, Argonne National Laboratory and University of Chicago, USA
 - Brown, C. Titus, <ctb@msu.edu> Michigan State University, USA
 - Brown, Chris (Triplett Group), University of Florida, Gainesville
 - Chen, Ting, <tingchen@usc.edu>, University of Southern California, USA
@@ -51,7 +50,7 @@ University of Chicago, USA.
 - Kolker, Eugene, eugene.kolker@seattlechildrens.org, Seattle Children's Hospital
 - Konstantindis, Konstantinos, <kostas@ce.gatech.edu>, Georgia Institute of Technology
 - Kostka, Joel, <jkostka@ocean.fsu.edu>, Florida State Univerisity
-- Ley, Ruth, Cornell University. 
+- Ley, Ruth, Cornell University
 - Mackelprang, Rachel, <rmackelprang@lbl.gov>, DOE, Joint Genome Institute
 - McHardy, Alice, <mchardy@mpi-inf.mpg.de>, Max Planck Institute for Informatics, Saarbrücken, Germany
 - O'Dor, Ronald, Dalhousie University, Canada
