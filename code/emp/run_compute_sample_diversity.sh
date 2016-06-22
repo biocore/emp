@@ -14,7 +14,7 @@ compute_sample_div_script_fp=$3
 iqr_offset=$4
 keep_unique_samples="$5"
 metrics=('PD_whole_tree' 'chao1' 'observed_otus' 'shannon')
-sampling_depths=('1000' '10000' '100000' '1000000')
+sampling_depths=('1000' '10000' '30000' '100000' '1000000')
 
 printf "\t"
 for metric in "${metrics[@]}"

@@ -149,6 +149,10 @@ def main():
     # only samples found in both files)
     else:
         sample_ids_filter = intersect(sample_ids_gg, sample_ids_si)
+    samples_in_gg_not_silva = list(set(sample_ids_gg) - set(sample_ids_si))
+    samples_in_silva_not_gg = list(set(sample_ids_si) - set(sample_ids_gg))
+    print "samples_in_gg_not_silva = ", samples_in_gg_not_silva
+    print "samples_in_silva_not_gg = ", samples_in_silva_not_gg
     # associate metric values with sample IDs
     metric_gg = get_metrics(gg_alpha_fp, sample_ids_filter, metric)
     metric_si = get_metrics(si_alpha_fp, sample_ids_filter, metric)
@@ -156,6 +160,9 @@ def main():
     outliers = compute_outliers(metric_gg, metric_si, offset)
     ratio_outliers = float(len(outliers))/float(len(sample_ids_filter))*100.0
     sys.stdout.write("{0:.2f}".format(ratio_outliers))
+
+    print "outliers = ", outliers
+    print ""
 
 
 if __name__ == '__main__':

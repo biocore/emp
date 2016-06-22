@@ -10,7 +10,7 @@
 
 import sys
 import os
-from subprocess import Popen, PIPE
+import glob
 
 from numpy import array, mean, zeros
 import matplotlib as mpl
@@ -32,16 +32,22 @@ def color_bp(bp, color):
         plt.setp(x, color=c)
     for x in bp['whiskers']:
         plt.setp(x, color=c)
-    for x in bp['fliers']: 
+    for x in bp['fliers']:
         plt.setp(x, color=c)
     for x in bp['caps']:
         plt.setp(x, color=c)
 
 
-# code (modified) from https://github.com/samfway/biotm/blob/master/plotting/grouped_box.py
 def make_separated_box(ax, data, labels=None, colors=None,
                        xticklabels=[], width=0.8, legend_pos=0,
                        dot_mean=False, mean_color='w'):
+    """Make separated box plot.
+
+    Notes
+    -----
+    code (modified) from
+    https://github.com/samfway/biotm/blob/master/plotting/grouped_box.py
+    """
     if labels and len(data) != len(labels):
         raise ValueError('Number of labels must match ',
                          'size of data matrix.')
@@ -65,6 +71,9 @@ def make_separated_box(ax, data, labels=None, colors=None,
     for i in xrange(num_groups):
         color = colors[i]
         for j in xrange(num_points):
+            if not data[i][j]:
+                current_pos += 1.6
+                continue
             bp = ax.boxplot(data[i][j], positions=[current_pos],
                             widths=[width], patch_artist=True)
             xticks.append(current_pos)
@@ -72,9 +81,9 @@ def make_separated_box(ax, data, labels=None, colors=None,
             color_bp(bp, color)
             if dot_mean:
                 means = [mean(data[i][j])]
-                ax.plot([current_pos], means, linestyle='None', 
-                    marker='o', markerfacecolor=mean_color,
-                    markeredgecolor='k')
+                ax.plot([current_pos], means, linestyle='None',
+                        marker='o', markerfacecolor=mean_color,
+                        markeredgecolor='k')
             current_pos += 1.6
         current_pos += 2
 
@@ -91,179 +100,205 @@ def make_separated_box(ax, data, labels=None, colors=None,
 
 
 def legend_hack(ax, labels, colors, legend_pos):
-    """ Hack a legend onto a plot. 
-    """ 
+    """ Hack a legend onto a plot.
+
+    Notes
+    -----
+    code (modified) from
+    https://github.com/samfway/biotm/blob/master/plotting/grouped_box.py
+    """
     handles = []
     for i, l in enumerate(labels):
-        temp = plt.Line2D(range(1), range(1), 
+        temp = plt.Line2D(range(1), range(1),
                           linewidth=2,
                           color=colors[i])
         handles.append(temp)
-    #plt.legend(handles, labels, numpoints=1, loc=legend_pos)
-    lgd = plt.legend(handles, labels, numpoints=1, bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
-    #lgd = plt.legend(handles, labels, numpoints=1, bbox_to_anchor=(0, -0.7), loc='lower left', borderaxespad=0.)
+    lgd = plt.legend(handles, labels, numpoints=1,
+                     bbox_to_anchor=(0., 1.02, 1., .102), ncol=2,
+                     mode="expand", loc=3, borderaxespad=0.)
     for handle in handles:
         handle.set_visible(False)
 
-    return lgd 
+    return lgd
 
-def main():
-    """Run single rarefaction on EMP tables & plot
+
+def parse_mapping_file(mapping_file_fp, mapping_column):
+    """Parse the mapping file into a dict.
+
+    Parameters
+    ----------
+    mapping_file: string
+        path to mapping file
+    mapping_column: string
+        column ID in mapping file
+
+    Returns
+    -------
+    mapping_dict: dictionary
+        Dictionary with sample IDs as keys and mapping data as list in value
+    mapping_column:
+        Column in mapping file for which to use samples (e.g., EMPO_2)
     """
-    gg_biom_fp = sys.argv[1]
-    gg_tree_fp = sys.argv[2]
-    si_biom_fp = sys.argv[3]
-    si_tree_fp = sys.argv[4]
-    outdir_dp = sys.argv[5]
-    # e.g., "PD_whole_tree,chao1,observed_otus,shannon"
-    alpha_metrics = sys.argv[6]
-    data = {}
-    data[gg_biom_fp] = gg_tree_fp
-    data[si_biom_fp] = si_tree_fp
-    sample_depths = ['1000', '10000', '30000', '100000', '1000000', '2000000']
-    for key, value in data.iteritems():
-        biom_fp = key
-        tree_fp = value
-        if not os.path.isfile(biom_fp):
-            raise ValueError("%s doesn't exist" % biom_fp)
-        if not os.path.isfile(tree_fp):
-            raise ValueError("%s doesn't exist" % tree_fp)
-        name = os.path.dirname(biom_fp).split('/')[-1]
-        outdir = os.path.join(outdir_dp, name)
-        if not os.path.exists(outdir):
-            os.makedirs(outdir)
-        for depth in sample_depths:
-            if not os.path.isfile(os.path.join(outdir, "otu_table_even%s.biom" % depth)):
-                single_rare_command = ["single_rarefaction.py",
-                                       "-i",
-                                       biom_fp,
-                                       "-o",
-                                       os.path.join(outdir, "otu_table_even%s.biom" % depth),
-                                       "-d",
-                                       depth]
-                print "[command] = %s" % single_rare_command
-                proc = Popen(single_rare_command,
-                             stdout=PIPE,
-                             stderr=PIPE,
-                             close_fds=True)
-                proc.wait()
-                stdout, stderr = proc.communicate()
-                if stderr:
-                    print stderr
+    mapping_dict = {}
+    field_idx = None
+    options = set()
+    with open(mapping_file_fp) as f:
+        for line in f:
+            line = line.strip().split('\t')
+            if line[0] == "#SampleID":
+                if mapping_column in line:
+                    field_idx = line.index(mapping_column)-1
+                else:
+                    raise ValueError(
+                        "Column %s not in %s" % (
+                            mapping_column, mapping_file_fp))
+                continue
+            if line[0].lower() not in mapping_dict:
+                mapping_dict[line[0].lower()] = line[1:]
+                options.add(line[field_idx+1])
             else:
-                print "Skipping %s, already exists" % os.path.join(outdir, "otu_table_even%s.biom" % depth)
+                raise ValueError("Duplicate sample IDs %s" % line[0].lower())
+    return mapping_dict, options, field_idx
 
-    labels = []
-    for key, value in data.iteritems():
-        biom_fp = key
-        tree_fp = value
-        name = os.path.dirname(biom_fp).split('/')[-1]
-        labels.append(name)
-        outdir = os.path.join(outdir_dp, name)
-        for depth in sample_depths:
-            if not os.path.isfile(os.path.join(outdir, "alpha_div_even%s.txt" % depth)):
-                alpha_div_command = ["alpha_diversity.py",
-                                     "-i",
-                                     os.path.join(outdir, "otu_table_even%s.biom" % depth),
-                                     "-o",
-                                     os.path.join(outdir, "alpha_div_even%s.txt" % depth),
-                                     "-t",
-                                     tree_fp,
-                                     "-m",
-                                     alpha_metrics]
-                print "[command] = %s" % alpha_div_command
-                proc = Popen(alpha_div_command,
-                             stdout=PIPE,
-                             stderr=PIPE,
-                             close_fds=True)
-                proc.wait()
-                stdout, stderr = proc.communicate()
-                if stderr:
-                    print stderr
-            else:
-                print "Skipping %s, already exists" % os.path.join(outdir, "alpha_div_even%s.txt" % depth)
 
-    num_groups = len(data)
-    num_time_points = len(sample_depths)
-    xticklabels = sample_depths
-    data_oo = zeros((num_groups, num_time_points), dtype=list)
-    data_pd = zeros((num_groups, num_time_points), dtype=list)
-    data_ch = zeros((num_groups, num_time_points), dtype=list)
-    data_sh = zeros((num_groups, num_time_points), dtype=list)
+def generate_plots(sample_depths, labels, ylabel, data, output_dir,
+                   field_value, lgd=True):
+    """Plot box plots for alpha diversity at different rarefied depths.
 
-    print "Computing graphs ..."
-    for i, (key, value) in enumerate(data.items()):
-        for j, depth in enumerate(sample_depths):
-            biom_fp = key
-            name = os.path.dirname(biom_fp).split('/')[-1]
-            outdir = os.path.join(outdir_dp, name)
-            file_s = os.path.join(outdir, "alpha_div_even%s.txt" % depth)
-            pd_list = []
-            oo_list = []
-            ch_list = []
-            sh_list = []
-            with open(file_s, 'U') as collection:
-                next(collection)
-                for line in collection:
-                    line = line.strip().split()
-                    pd_whole_tree = float(line[1])
-                    chao1 = float(line[2])
-                    observed_otus = float(line[3])
-                    shannon = float(line[4])
-                    pd_list.append(pd_whole_tree)
-                    oo_list.append(observed_otus)
-                    ch_list.append(chao1)
-                    sh_list.append(shannon)
-                data_oo[i][j] = oo_list
-                data_pd[i][j] = pd_list
-                data_ch[i][j] = ch_list
-                data_sh[i][j] = sh_list                  
-
-    # observed OTUs
+    Parameters
+    ----------
+    sample_depths: list
+        List of rarefaction depths used as xticklabels
+    labels: list
+        List of methods tested (e.g., Greengenes and Silva databases)
+    ylabel: string
+        Alpha diversity metric
+    data: numpy.array
+        Alpha diversity for a specified metric for all methods
+    output_dir: string
+        path to output directory
+    field_value: string
+        Field value for which samples were chosen
+    lgd: boolean
+        If True, plot legend otherwise don't
+    """
     fig = plt.figure()
     ax = fig.add_subplot(111)
-    #ax.set_title('Study %s: Alpha rarefaction at various depths (sequences/sample)' % study)
-    ax.set_xticklabels(xticklabels, rotation=40, ha='center')
-    ax.set_ylabel('observed_otus')
-    ax.set_xlabel('sampling depths (# of samples)')
-    lgd = make_separated_box(ax, data_oo, labels, xticklabels=xticklabels, legend_pos='lower right')
-    lgd = None
-
-    plots_dir = os.path.join(outdir_dp, name, "plots")
+    ax.set_xticklabels(sample_depths, rotation=40, ha='center')
+    ax.set_ylabel(ylabel)
+    ax.set_xlabel('sampling depth (# of samples)')
+    if lgd:
+        make_separated_box(ax, data, labels, xticklabels=sample_depths,
+                           legend_pos='lower right')
+    else:
+        lgd = None
+    plots_dir = os.path.join(output_dir, "plots")
     if not os.path.exists(plots_dir):
         os.makedirs(plots_dir)
-    fig.savefig(os.path.join(plots_dir, 'observed_otus.png'), bbox_inches='tight')
+    if field_value != 'None':
+        fig.savefig(os.path.join(
+            plots_dir, '%s_%s.png' % (field_value, ylabel)),
+            bbox_inches='tight')
+    else:
+        fig.savefig(os.path.join(plots_dir, '%s.png' % ylabel),
+                    bbox_inches='tight')
 
-    # PD_whole_tree
-    fig = plt.figure()
-    ax = fig.add_subplot(111)
-    ax.set_xticklabels(labels, rotation=40, ha='center')
-    ax.set_ylabel("Faith's phylogenetic diversity (PD_whole_tree)")
-    ax.set_xlabel('sampling depth (# of samples)')
-    lgd = make_separated_box(ax, data_pd, labels, xticklabels=xticklabels, legend_pos='lower right')
-    
-    fig.savefig(os.path.join(plots_dir, 'pd_whole_tree.png'), bbox_extra_artists=(lgd,), bbox_inches='tight')
 
-    # Shannon
-    fig = plt.figure()
-    ax = fig.add_subplot(111)
-    ax.set_xticklabels(labels, rotation=40, ha='center')
-    ax.set_ylabel("Shannon index")
-    ax.set_xlabel('sampling depth (# of samples)')
-    lgd = make_separated_box(ax, data_sh, labels, xticklabels=xticklabels, legend_pos='lower right')
-    
-    fig.savefig(os.path.join(plots_dir, 'shannon.png'), bbox_extra_artists=(lgd,), bbox_inches='tight')
+def compute_data(metric, num_groups, num_time_points, groups, sample_depths,
+                 labels, mapping_column, field_value, mapping_dict, field_idx):
+    """Parse alpha diversity files for certain metric.
 
-    # chao1
-    fig = plt.figure()
-    ax = fig.add_subplot(111)
-    ax.set_xticklabels(labels, rotation=40, ha='center')
-    ax.set_ylabel("Chao1 index")
-    ax.set_xlabel('sampling depth (# of samples)')
-    lgd = make_separated_box(ax, data_ch, labels, xticklabels=xticklabels, legend_pos='lower right')
-    
-    fig.savefig(os.path.join(plots_dir, 'chao1.png'), bbox_extra_artists=(lgd,), bbox_inches='tight')
+    Parameters
+    ----------
+    metric: string
+        Alpha diversity metric (e.g., PD_whole_tree)
+    num_groups: integer
+        Number of methods (e.g., Greengenes and Silva = 2)
+    num_time_points: integer
+        Number of rarefaction depths
+    groups: list
+        List of directory paths to alpha diversity results for all methods
+    sample_depths: list
+        List of rarefaction depths
+    labels: list
+        Labels for all groups
+    mapping_column: string
+        Column in mapping file for which to use samples (e.g., EMPO_2)
+    field_value: string
+        One option from mapping_column column (e.g., Non-Saline)
+    mapping_dict: dictionary
+        Dictionary with sample IDs as keys and mapping data as list in value
+    field_idx: integer
+        Index in mapping file for mapping_column
+
+    Returns
+    -------
+    data: numpy.array
+        Alpha diversity for a specified metric for all methods
+    """
+    data = zeros((num_groups, num_time_points), dtype=list)
+    for i, group_dp in enumerate(groups):
+        for j, depth in enumerate(sample_depths):
+            labels.add(group_dp.split('/')[-1])
+            file_s = glob.glob("%s/*_%s.txt" % (group_dp, depth))[0]
+            values = []
+            alpha_metrics_idx = {}
+            with open(file_s, 'U') as collection:
+                line = collection.readline().strip().split('\t')
+                for local_metric in line:
+                    alpha_metrics_idx[local_metric] =\
+                        line.index(local_metric)+1
+                if metric not in alpha_metrics_idx:
+                    raise ValueError(
+                        "%s is not in the file %s" % (metric, file_s))
+                for line in collection:
+                    line = line.strip().split()
+                    sample_id = line[0].lower()
+                    # Don't put sample in graph if not correct field value
+                    if mapping_column != 'None':
+                        if mapping_dict[sample_id][field_idx] != field_value:
+                            continue
+                    idx = alpha_metrics_idx[metric]
+                    value = float(line[idx])
+                    values.append(value)
+                data[i][j] = values
+    return data
+
+
+def main():
+    """Plot alpha diversity using set of rarefied BIOM tables
+    """
+    alpha_dp = sys.argv[1]
+    mapping_file = sys.argv[2]
+    # e.g., EMPO_1
+    mapping_column = sys.argv[3]
+    # e.g., Host-associated
+    field_value = sys.argv[4]
+    # output directory
+    output_dp = sys.argv[5]
+    # alpha metrics to graph
+    alpha_metrics = sys.argv[6].split(',')
+    # number of groups
+    groups = sorted(glob.glob("%s/*" % alpha_dp))
+    num_groups = len(groups)
+    # rarefied sample depths
+    sample_depths = ['1000', '10000', '30000', '100000', '1000000', '2000000']
+    mapping_dict = {}
+    field_idx = None
+    if mapping_column != 'None':
+        mapping_dict, options, field_idx = parse_mapping_file(
+            mapping_file, mapping_column)
+    labels = set()
+    num_time_points = len(sample_depths)
+    print("Computing graphs ...")
+    for metric in alpha_metrics:
+        data = compute_data(
+            metric, num_groups, num_time_points, groups, sample_depths,
+            labels, mapping_column, field_value, mapping_dict, field_idx)
+        generate_plots(
+            sample_depths, sorted(list(labels)), metric, data, output_dp,
+            field_value, lgd=True)
+
 
 if __name__ == '__main__':
     main()
-
