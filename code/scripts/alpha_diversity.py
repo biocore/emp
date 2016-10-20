@@ -9,7 +9,7 @@
 #-----------------------------------------------------------------------------
 
 """
-Alpha diversity PD_whole_tree.
+Alpha diversity using skbio.
 """
 
 import click
