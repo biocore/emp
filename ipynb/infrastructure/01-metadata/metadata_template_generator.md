@@ -33,11 +33,12 @@ import re
 
 
 ```python
+# download data files from https://github.com/biocore/emp/tree/master/data/MIxS
 # required fields for Qiita, EBI, and MIMS (general)
-qiita_ebi_mims_path = '../data/MIxS/Qiita_EBI_MIMS_v1.xlsx'
+qiita_ebi_mims_path = 'Qiita_EBI_MIMS_v1.xlsx'
 
 # required fields for environmental packages
-migs_mims_path = '../data/MIxS/MIGS_MIMS_v4.xls'
+migs_mims_path = 'MIxS/MIGS_MIMS_v4.xls'
 
 # list one environmental package e.g. soil or multiple e.g. soil,water (one recommended)
 list_of_env_pkg = 'soil'
