@@ -17,9 +17,9 @@ Gives for each OTU:
 * taxonomy (Greengenes)
 
 ```
-# input: 
+# input:
 path_table: emp_deblur_100bp.subset_2k.rare_5000.biom
-# output: 
+# output:
 path_otu_summary: otu_summary.emp_deblur_100bp.subset_2k.rare_5000.tsv
 ```
 
@@ -72,10 +72,9 @@ otu_trading_card.ipynb<br>
 
 ```
 # input:
-path_map = '~/emp/metadata-refine/emp_qiime_mapping_subset_2k.tsv'
-path_otus = '~/emp/analyses-otus/otu_summary.emp_deblur_100bp.subset_2k.rare_5000.tsv'
-path_rdp = '~/emp/analyses-otus/otu_seqs_top_500_prev.emp_deblur_100bp.subset_2k.rare_5000.tsv'
+path_map = 'input-tsv/emp_qiime_mapping_subset_2k.tsv'
+path_otus = 'input-tsv/otu_summary.emp_deblur_100bp.subset_2k.rare_5000.tsv'
+path_rdp = 'input-tsv/otu_seqs_top_500_prev.emp_deblur_100bp.subset_2k.rare_5000.tsv'
 # output:
-# macros.tex and plots in a new subdirectory for each OTU
+# macros.tex, plots and otu_trading_card.html in a new subdirectory for each OTU
 ```
-
