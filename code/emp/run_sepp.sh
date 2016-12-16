@@ -2,6 +2,7 @@
 
 # USAGE: run_sepp.sh [input fragments file] [output prefix]
 # Assumes SEPP is installed and run_sepp.py is part of the PATH
+# the reference tree/alignment files can be found on //ftp.microbio.me/emp/latest/otu_info/greengenes_sepp_pipeline
 
 # Should point to a fast tmp location which may be removed after the run
 tmpssd=`mktemp -d`
