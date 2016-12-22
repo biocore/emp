@@ -6,7 +6,7 @@ def get_empo_cat_color(empocat=None, returndict=False):
     
     output: either a color for passed empocat or the dictionay if returndict=True"""
     
-    empo_cat_color={'EMP sample': 'white',
+    empo_cat_color={'EMP sample': 'grey',
                     'Host-associated': '#fb9a99',
                     'Free-living': '#e31a1c',
                     'Animal': '#b2df8a',
