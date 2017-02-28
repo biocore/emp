@@ -1,6 +1,6 @@
-Description of the notebooks in this directory: subdirectory, notebook name, primary output, input files, subset of EMP used (if applicable), figure/table generated (if applicable).										
+Description of the notebooks in this directory: subdirectory, notebook filename, primary output, input files, subset of EMP used (if applicable), figure/table generated (if applicable).										
 										
-Subdirectory	|	Code	|	Output	|	Input (biom or mapping file)	|	Subset	|	Figure/Table
+Subdirectory	|	Filename	|	Output	|	Input	|	Subset	|	Figure/Table
 :-----:	|	-----	|	-----	|	-----	|	-----	|	-----
 01	|	metadata_refine.ipynb	|	Merged mapping files	|	Many input files	|	n/a	|	n/a
 01	|	map_samples_by_empo.ipynb	|	Map	|	emp_qiime_mapping_qc_filtered.tsv	|	qc_filtered	|	Fig 1b
