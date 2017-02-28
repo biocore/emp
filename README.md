@@ -3,9 +3,9 @@ Earth Microbiome Project
 
 <div style="float: right; margin-left: 30px;"><img title="The EMP logo was designed by Eamonn Maguire of Antarctic Design." style="float: right;margin-left: 30px;" src="http://www.earthmicrobiome.org/files/2011/01/EMP-green-small.png" align=right /></div>
 
-The [Earth Microbiome Project](www.earthmicrobiome.org) (EMP) is a systematic attempt to characterize the global microbial taxonomic and functional diversity for the benefit of the planet and mankind. 
+The [Earth Microbiome Project](www.earthmicrobiome.org) (EMP) is a systematic attempt to characterize global microbial taxonomic and functional diversity for the benefit of the planet and humankind.
 
-The EMP is open science: anyone can get involved. The EMP data set is generated from samples that individual researchers have compiled and donated to the EMP. These data sets represent individual EMP studies. In addition to the individual studies, we are performing a cross-study meta-analysis. All per-study raw data is publicly available in the [EMP Portal](https://qiita.ucsd.edu/emp/) of the [Qiita](https://qiita.ucsd.edu/) database. This GitHub repository contains links to the processed, combined (across studies) EMP data for the EMP meta-analysis as well as code developed specifically for the EMP meta-analyses, and new results as they are generated.
+The EMP is open science: anyone can get involved. The EMP data set is generated from samples that individual researchers have compiled and donated to the EMP. The samples from each group of researchers represent individual EMP studies. In addition to analyses being done by contributing researchers on the individual studies, we are performing a cross-study meta-analysis. All per-study raw data is publicly available through the [EMP Portal](https://qiita.ucsd.edu/emp/) of the [Qiita](https://qiita.ucsd.edu/) database. This GitHub repository contains resources for the EMP meta-analysis: links to the processed, combined (across studies) EMP data on our [FTP site](ftp://ftp.microbio.me/emp/latest); code developed specifically for the EMP meta-analyses; and results of initial analyses, with new results added as they are generated.
 
 If you're interested in getting involved in [EMP data analyses](https://github.com/EarthMicrobiomeProject/emp/issues) you should begin by reviewing the [open issues](https://github.com/EarthMicrobiomeProject/emp/issues). These describe analyses that we're interested in performing across studies. If you're interested in working on one of these analyses, or have ideas for other analyses that should be performed, you should get in touch with [Luke Thompson] (lukethompson@gmail.com), the project leader for the EMP. 
 
@@ -37,8 +37,10 @@ Organization of this repository
 * `results/` diversity analyses and high-level results (e.g., figures and tables that are useful for presentations)
     - `results_locations.txt` links to where large results files can be found (e.g., alpha- and beta-diversity results)
 
-* `scripts/` utility scripts (e.g., for generating metadata templates)
-    - `01-metadata/`
+* `scripts/` utility scripts and EMP code other than notebooks
+    - `01-metadata-templates/`
+    - `02-colors-and-styles/`
+    - `03-phylogenetic-placement/`
 
 File name abbreviation conventions
 ----------------------------------
