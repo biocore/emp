@@ -5,39 +5,48 @@ Earth Microbiome Project
 
 The [Earth Microbiome Project](www.earthmicrobiome.org) (EMP) is a systematic attempt to characterize the global microbial taxonomic and functional diversity for the benefit of the planet and mankind. 
 
-The EMP is open science: anyone can get involved. The EMP data set is generated from samples that individual researchers have compiled and donated to the EMP. These data sets represent individual EMP studies. In addition to the individual studies, we are performing a cross-study meta-analysis. All per-study raw data is publicly available in the [EMP portal](http://www.microbio.me/emp) to the [QIIME](www.qiime.org) database. This repository contains the processed, combined (i.e., across study) EMP data for the EMP meta-analysis as well as code developed specifically for the EMP meta-analyses, and new results as they are generated.
+The EMP is open science: anyone can get involved. The EMP data set is generated from samples that individual researchers have compiled and donated to the EMP. These data sets represent individual EMP studies. In addition to the individual studies, we are performing a cross-study meta-analysis. All per-study raw data is publicly available in the [EMP Portal](https://qiita.ucsd.edu/emp/) of the [Qiita](https://qiita.ucsd.edu/) database. This GitHub repository contains links to the processed, combined (across studies) EMP data for the EMP meta-analysis as well as code developed specifically for the EMP meta-analyses, and new results as they are generated.
 
-If you're interested in getting involved in [EMP data analyses](https://github.com/EarthMicrobiomeProject/emp/issues) you should begin by reviewing the [open issues](https://github.com/EarthMicrobiomeProject/emp/issues). These describe analyses that we're interested in performing across studies. If you're interested in working on one of these analyses, or have ideas for other analyses that should be performed, you should get in touch with Greg Caporaso (gregcaporaso@gmail.com), the Chief Data Analyst for the EMP. 
+If you're interested in getting involved in [EMP data analyses](https://github.com/EarthMicrobiomeProject/emp/issues) you should begin by reviewing the [open issues](https://github.com/EarthMicrobiomeProject/emp/issues). These describe analyses that we're interested in performing across studies. If you're interested in working on one of these analyses, or have ideas for other analyses that should be performed, you should get in touch with [Luke Thompson] (lukethompson@gmail.com), the project leader for the EMP. 
 
 Additional information is available on the [Earth Microbiome Project website](www.earthmicrobiome.org).
 
 Organization of this repository
 -------------------------------
 
-* ``data/`` data files used for downstream analysis (biom tables, trees, mapping files, etc)
-  * ``data-urls.txt`` URLs where large data files can be found (e.g., BIOM and tree files). These are not stored in the repository, due to space limitations. You can download all of these files by running ``wget -i data-urls.txt`` from this directory.
-    * ``emp-or.tre.gz`` newick-formatted tree corresponding to open reference (or) biom table
-    * ``emp-or-mc2.biom.gz`` open-reference (or) biom table
-    * ``emp-or-mc2-w-tax.biom.gz`` open-reference (or) biom table with taxonomy assignments
-    * ``emp-or-mc2-w-tax-no-pynast-failures.biom.gz`` open-reference (or) biom table with taxonomy assignments, not including the OTUs failed to align using PyNAST
-    * ``emp-cr.biom.gz`` closed-reference (cr) biom table
-    * ``refseqs.fna.gz`` the new reference sequence collection resulting from open reference (or) OTU picking
-  	* ``sample-map.txt.gz`` sample metadata (i.e., mapping) file for all samples in biom table
-  	* ``observation-map.txt.gz`` observation (OTU) metadata (e.g., taxonomy assignments) for open reference (or) biom table
+* `data/` data files used for downstream analysis (biom tables, trees, mapping files, etc)
+    - `data_locations.txt` links to where large data files can be found (e.g., BIOM and tree files)
+    - `MIxS/` Excel files describing MIxS, EBI, and Qiita metadata standard requirements; used to generate metadata templates
+    - `sequence-lookup/` files used for the EMP Trading Cards (sequence lookup) notebooks (e.g., RDP taxonomy files)
 
-* ``code`` code developed for EMP analysis
+* `ipynb/` IPython notebooks developed for meta-analysis of EMP data (Thompson et al., in prep.)
+    - `01-metadata-processing/`
+    - `02-sequence-processing/`
+    - `03-otu-picking/`
+    - `04-rarefaction-and-subsets/`
+    - `05-alpha-diversity/`
+    - `06-beta-diversity/`
+    - `07-environmental-covariation/`
+    - `08-cooccurrence-and-nestedness/`
+    - `09-sequence-lookup/`
 
-* ``results`` high-level results (e.g., figures, etc that are useful for presentations)
+* `legacy/` code, results, and website documents from the early phase of the EMP (2010-2013)
 
-* ``presentations`` collection of presentations on EMP
+* `presentations/` collection of presentations on the EMP
+
+* `results/` diversity analyses and high-level results (e.g., figures and tables that are useful for presentations)
+    - `results_locations.txt` links to where large results files can be found (e.g., alpha- and beta-diversity results)
+
+* `scripts/` utility scripts (e.g., for generating metadata templates)
+    - `01-metadata/`
 
 File name abbreviation conventions
 ----------------------------------
 
-* ``or`` refers to [open-reference OTU picking](http://qiime.org/tutorials/otu_picking.html#open-reference-otu-picking)
-* ``cr`` refers to [closed-reference OTU picking](http://qiime.org/tutorials/otu_picking.html#closed-reference-otu-picking)
-* ``refseqs`` refers to reference sequence collections that could be used in reference-based OTU picking
-* ``mc2`` refers to minimum sequence count in an OTU to be included equals to 2
+* `or` refers to [open-reference OTU picking](http://qiime.org/tutorials/otu_picking.html#open-reference-otu-picking)
+* `cr` refers to [closed-reference OTU picking](http://qiime.org/tutorials/otu_picking.html#closed-reference-otu-picking)
+* `refseqs` refers to reference sequence collections that could be used in reference-based OTU picking
+* `mc2` refers to minimum sequence count in an OTU to be included equals to 2
 
 Finding older data
 ------------------
