@@ -1,8 +1,7 @@
-#### Contents of `emp/ipynb`										
+Description of the notebooks in this directory: subdirectory, notebook name, primary output, input files, subset of EMP used (if applicable), figure/table generated (if applicable).										
 										
-Directory	|	Code	|	Output	|	Input (biom or mapping file)	|	Subset	|	Figure/Table
+Subdirectory	|	Code	|	Output	|	Input (biom or mapping file)	|	Subset	|	Figure/Table
 :-----:	|	-----	|	-----	|	-----	|	-----	|	-----
-01	|	empcolors.py	|	n/a	|	n/a	|	n/a	|	all
 01	|	metadata_refine.ipynb	|	Merged mapping files	|	Many input files	|	n/a	|	n/a
 01	|	map_samples_by_empo.ipynb	|	Map	|	emp_qiime_mapping_qc_filtered.tsv	|	qc_filtered	|	Fig 1b
 01	|	physicochemical_pairplot.ipynb	|	Physicochemical pairplot	|	emp_qiime_mapping_qc_filtered.tsv	|	qc_filtered	|	Fig S1
