@@ -1,4 +1,0 @@
-SampleID	Number of novel OTUs	Percent novel sequences
-B	4	57.692307692307686
-C	3	57.142857142857139
-A	0	0.0

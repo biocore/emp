@@ -1,0 +1,5 @@
+	observed_species
+S4	1
+S5	2
+S6	2
+S7	9
