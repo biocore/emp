@@ -1,0 +1,9 @@
+ftp://ftp.microbio.me/emp/latest/emp-cr.biom.gz
+ftp://ftp.microbio.me/emp/latest/emp-or-mc2.biom.gz
+ftp://ftp.microbio.me/emp/latest/emp-or-mc2-w-tax.biom.gz
+ftp://ftp.microbio.me/emp/latest/emp-or-mc2-w-tax-no-pynast-failures.biom.gz
+ftp://ftp.microbio.me/emp/latest/emp-or.tre.gz
+ftp://ftp.microbio.me/emp/latest/observation-map.txt.gz
+ftp://ftp.microbio.me/emp/latest/refseqs.fna.gz
+ftp://ftp.microbio.me/emp/latest/sample-map.txt.gz
+ftp://ftp.microbio.me/emp/latest/otu_info/greengenes_sepp_pipeline
