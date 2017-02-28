@@ -1,6 +1,6 @@
-ftp://ftp.microbio.me/
+ftp://ftp.microbio.me/emp/latest/results/
 
-emp/latest/results/beta_diversity/deblur:
+beta_diversity/deblur:
 emp_deblur_unifrac_dist.tar.gz                    emp_deblur_unifrac_pc.tar.gz
 md5sum.txt
 
@@ -18,4 +18,5 @@ alpha_diversity/deblur/emp.90:
 emp.90.min25.deblur.withtax.onlytree_1000.txt     emp.90.min25.deblur.withtax.onlytree_30000.txt
 emp.90.min25.deblur.withtax.onlytree_10000.txt    emp.90.min25.deblur.withtax.onlytree_5000.txt
 emp.90.min25.deblur.withtax.onlytree_100000.txt
+
 

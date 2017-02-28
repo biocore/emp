@@ -1,0 +1,94 @@
+ftp://ftp.microbio.me/emp/latest/
+
+emp_ontology/empo_v2.csv                                              mapping_files/emp_qiime_mapping_subset_10k.tsv
+mapping_files/README.md                                               mapping_files/emp_qiime_mapping_subset_2k.tsv
+mapping_files/emp_qiime_mapping_all_emp.tsv                           mapping_files/emp_qiime_mapping_subset_5k.tsv
+mapping_files/emp_qiime_mapping_qc_filtered.tsv                       otu_distributions/otu_summary.emp_deblur_90bp.subset_2k.rare_5000.tsv
+
+otu_info/deblur:
+emp.100.min25.deblur.seq.fa                      emp100.5000_1000_rxbl_placement_pruned75.tog.tre
+emp.150.min25.deblur.seq.fa                      emp150.5000_1000_rxbl_placement_pruned75.tog.tre
+emp.90.min25.deblur.seq.fa                       emp90.5000_1000_rxbl_placement_pruned75.tog.tre
+
+otu_info/greengenes_13_8:
+97_otu_map.txt           97_otus.fasta            97_otus_aligned.fasta
+97_otu_taxonomy.txt      97_otus.tree             97_otus_unannotated.tree
+
+otu_info/greengenes_sepp_pipeline:
+sepp-package.zip
+
+otu_info/open_ref:
+rep_set_ms2.fna rep_set_ms2.tre
+
+otu_info/silva_123:
+97_otus.tre                   Silva_123_notes.txt           taxonomy
+97_otus_16S.fasta             core_alignment_SILVA123.fasta
+
+otu_tables/closed_ref_greengenes:
+emp_cr_gg_13_8.qc_filtered.biom                   emp_cr_gg_13_8.subset_2k.biom
+emp_cr_gg_13_8.qc_filtered.rare_10000.biom        emp_cr_gg_13_8.subset_2k.rare_10000.biom
+emp_cr_gg_13_8.qc_filtered.rare_10000.summary.txt emp_cr_gg_13_8.subset_2k.rare_10000.summary.txt
+emp_cr_gg_13_8.qc_filtered.summary.txt            emp_cr_gg_13_8.subset_2k.summary.txt
+emp_cr_gg_13_8.subset_10k.biom                    emp_cr_gg_13_8.subset_5k.biom
+emp_cr_gg_13_8.subset_10k.rare_10000.biom         emp_cr_gg_13_8.subset_5k.rare_10000.biom
+emp_cr_gg_13_8.subset_10k.rare_10000.summary.txt  emp_cr_gg_13_8.subset_5k.rare_10000.summary.txt
+emp_cr_gg_13_8.subset_10k.summary.txt             emp_cr_gg_13_8.subset_5k.summary.txt
+
+otu_tables/closed_ref_silva:
+emp_cr_silva_16S_123.qc_filtered.biom                   emp_cr_silva_16S_123.subset_2k.biom
+emp_cr_silva_16S_123.qc_filtered.rare_10000.biom        emp_cr_silva_16S_123.subset_2k.rare_10000.biom
+emp_cr_silva_16S_123.qc_filtered.rare_10000.summary.txt emp_cr_silva_16S_123.subset_2k.rare_10000.summary.txt
+emp_cr_silva_16S_123.qc_filtered.summary.txt            emp_cr_silva_16S_123.subset_2k.summary.txt
+emp_cr_silva_16S_123.subset_10k.biom                    emp_cr_silva_16S_123.subset_5k.biom
+emp_cr_silva_16S_123.subset_10k.rare_10000.biom         emp_cr_silva_16S_123.subset_5k.rare_10000.biom
+emp_cr_silva_16S_123.subset_10k.rare_10000.summary.txt  emp_cr_silva_16S_123.subset_5k.rare_10000.summary.txt
+emp_cr_silva_16S_123.subset_10k.summary.txt             emp_cr_silva_16S_123.subset_5k.summary.txt
+
+otu_tables/deblur:
+emp_deblur_100bp.qc_filtered.biom                  emp_deblur_150bp.subset_2k.biom
+emp_deblur_100bp.qc_filtered.rare_5000.biom        emp_deblur_150bp.subset_2k.rare_5000.biom
+emp_deblur_100bp.qc_filtered.rare_5000.summary.txt emp_deblur_150bp.subset_2k.rare_5000.summary.txt
+emp_deblur_100bp.qc_filtered.summary.txt           emp_deblur_150bp.subset_2k.summary.txt
+emp_deblur_100bp.subset_10k.biom                   emp_deblur_150bp.subset_5k.biom
+emp_deblur_100bp.subset_10k.rare_5000.biom         emp_deblur_150bp.subset_5k.rare_5000.biom
+emp_deblur_100bp.subset_10k.rare_5000.summary.txt  emp_deblur_150bp.subset_5k.rare_5000.summary.txt
+emp_deblur_100bp.subset_10k.summary.txt            emp_deblur_150bp.subset_5k.summary.txt
+emp_deblur_100bp.subset_2k.biom                    emp_deblur_90bp.qc_filtered.biom
+emp_deblur_100bp.subset_2k.rare_5000.biom          emp_deblur_90bp.qc_filtered.rare_5000.biom
+emp_deblur_100bp.subset_2k.rare_5000.summary.txt   emp_deblur_90bp.qc_filtered.rare_5000.summary.txt
+emp_deblur_100bp.subset_2k.summary.txt             emp_deblur_90bp.qc_filtered.summary.txt
+emp_deblur_100bp.subset_5k.biom                    emp_deblur_90bp.subset_10k.biom
+emp_deblur_100bp.subset_5k.rare_5000.biom          emp_deblur_90bp.subset_10k.rare_5000.biom
+emp_deblur_100bp.subset_5k.rare_5000.summary.txt   emp_deblur_90bp.subset_10k.rare_5000.summary.txt
+emp_deblur_100bp.subset_5k.summary.txt             emp_deblur_90bp.subset_10k.summary.txt
+emp_deblur_150bp.qc_filtered.biom                  emp_deblur_90bp.subset_2k.biom
+emp_deblur_150bp.qc_filtered.rare_5000.biom        emp_deblur_90bp.subset_2k.rare_5000.biom
+emp_deblur_150bp.qc_filtered.rare_5000.summary.txt emp_deblur_90bp.subset_2k.rare_5000.summary.txt
+emp_deblur_150bp.qc_filtered.summary.txt           emp_deblur_90bp.subset_2k.summary.txt
+emp_deblur_150bp.subset_10k.biom                   emp_deblur_90bp.subset_5k.biom
+emp_deblur_150bp.subset_10k.rare_5000.biom         emp_deblur_90bp.subset_5k.rare_5000.biom
+emp_deblur_150bp.subset_10k.rare_5000.summary.txt  emp_deblur_90bp.subset_5k.rare_5000.summary.txt
+emp_deblur_150bp.subset_10k.summary.txt            emp_deblur_90bp.subset_5k.summary.txt
+
+otu_tables/open_ref_greengenes:
+emp_or_gg_13_8.qc_filtered.biom                   emp_or_gg_13_8.subset_2k.biom
+emp_or_gg_13_8.qc_filtered.rare_10000.biom        emp_or_gg_13_8.subset_2k.rare_10000.biom
+emp_or_gg_13_8.qc_filtered.rare_10000.summary.txt emp_or_gg_13_8.subset_2k.rare_10000.summary.txt
+emp_or_gg_13_8.qc_filtered.summary.txt            emp_or_gg_13_8.subset_2k.summary.txt
+emp_or_gg_13_8.subset_10k.biom                    emp_or_gg_13_8.subset_5k.biom
+emp_or_gg_13_8.subset_10k.rare_10000.biom         emp_or_gg_13_8.subset_5k.rare_10000.biom
+emp_or_gg_13_8.subset_10k.rare_10000.summary.txt  emp_or_gg_13_8.subset_5k.rare_10000.summary.txt
+emp_or_gg_13_8.subset_10k.summary.txt             emp_or_gg_13_8.subset_5k.summary.txt
+
+otu_tables/picrust:
+README_PICRUSt.txt             emp_cr_gg_13_8.normalized.biom nsti_per_sample.tsv
+cog_predictions.biom           ko_predictions.biom            rfam_predictions.biom
+
+otu_tables/unfiltered_tables:
+emp.100.min25.deblur.withtax.onlytree.biom        emp_cr_gg_13_8.biom
+emp.100.min25.deblur.withtax.onlytree.summary.txt emp_cr_gg_13_8.summary.txt
+emp.150.min25.deblur.withtax.onlytree.biom        emp_cr_silva_16S_123.biom
+emp.150.min25.deblur.withtax.onlytree.summary.txt emp_cr_silva_16S_123.summary.txt
+emp.90.min25.deblur.withtax.onlytree.biom         emp_or_gg_13_8.biom
+emp.90.min25.deblur.withtax.onlytree.summary.txt  emp_or_gg_13_8.summary.txt
+
