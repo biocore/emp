@@ -6,7 +6,7 @@ Subdirectory	|	Filename	|	Output	|	Input	|	Subset	|	Figure/Table	|	Notes
 01-metadata-processing	|	map_samples_by_empo.ipynb	|	Map	|	emp_qiime_mapping_qc_filtered.tsv	|	qc_filtered	|	Fig 1b	|	
 01-metadata-processing	|	physicochemical_pairplot.ipynb	|	Physicochemical pairplot	|	emp_qiime_mapping_qc_filtered.tsv	|	qc_filtered	|	Fig S1	|	
 02-sequence-processing	|	sequence_length.ipynb	|	Sequence length	|	length_filtered_seqs_adaptor_cleanup.csv	|	all_emp	|	Fig S2	|	
-02-sequence-processing	|	observationTable.ipynb	|	Sequence and OTU information	|	Biom files and summary files	|	n/a	|	n/a	|	
+02-sequence-processing	|	observation_table.ipynb	|	Sequence and OTU information	|	Biom files and summary files	|	n/a	|	n/a	|	
 03-otu-picking	|		|		|		|		|		|	
 04-rarefaction-and-subsets	|	subset_samples_by_empo_and_study.ipynb	|	Subsets	|	emp_qiime_mapping_all_emp	|	all_emp	|	Fig S13	|	
 05-alpha-diversity	|	alpha_diversity_boxplots.ipynb	|	Alpha-diversity boxplots	|	emp_deblur_90bp.qc_filtered.biom, closed-ref gg and silva tables	|	qc_filtered	|	Figs 1c, S4	|	
