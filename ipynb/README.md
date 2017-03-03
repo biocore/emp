@@ -20,7 +20,7 @@ Subdirectory	|	Filename	|	Output	|	Input	|	Subset	|	Figure/Table	|	Notes
 07	|	entropy_plots.ipynb	|	Entropy	|	emp_deblur_90bp.subset_2k.rare_5000.biom	|	subset_2k	|	Fig 3b	|	
 07	|	salinity_heatmap.ipynb	|	Salinity heatmap	|	emp_deblur_90bp.qc_filtered.biom	|	qc_filtered	|	Fig S8	|	
 08	|	nestedness_binary_heatmaps.ipynb	|	Nestedness heatmaps	|	emp_deblur_90bp.subset_2k.rare_5000.biom	|	subset_2k	|	Fig 2a	|	Additional code [here](https://github.com/jladau/JavaSource/tree/master/Autocorrelation/src/edu/ucsf/Nestedness) and [here](https://github.com/jladau/JavaSource/tree/master/Shared/src/edu/ucsf/base)
-08	|	nestedness_nodf_plots.ipynb	|	Nestedness NODF plots	|	emp_deblur_90bp.subset_2k.rare_5000.biom	|	subset_2k	|	Figs 2b, S11	|	
+08	|	nestedness_nodf_plots.ipynb	|	Nestedness NODF plots	|	emp_deblur_90bp.subset_2k.rare_5000.biom	|	subset_2k	|	Figs 2b, S11	|	Additional code [here](https://github.com/jladau/JavaSource/tree/master/Autocorrelation/src/edu/ucsf/Nestedness) and [here](https://github.com/jladau/JavaSource/tree/master/Shared/src/edu/ucsf/base)
 08	|	n/a	|	Co-occurrence	|	emp_deblur_90bp.subset_2k.rare_5000.biom	|	subset_2k	|	Fig 2c	|	
 09	|	otu_prevalence.ipynb	|	Tag sequence histogram	|	emp_deblur_90bp.qc_filtered.rare_5000.biom	|	qc_filtered	|	Fig S3	|	
 09	|	summarize_otu_distributions.ipynb	|	Table of tag sequence distributions	|	emp_deblur_90bp.subset_2k.rare_5000.biom	|	subset_2k	|	Table 1	|	
