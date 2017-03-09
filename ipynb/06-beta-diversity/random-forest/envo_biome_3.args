@@ -1,0 +1,7 @@
+--input_otu_table deblur.txt
+--metadata map.txt
+--fields envo_biome_3
+--category envo_biome_3::anthropogenic_terrestrial_biome,marine_biome,freshwater_biome,forest_biome,shrubland_biome,tundra_biome
+--models rf
+--otus_key taxonomy
+--debug T

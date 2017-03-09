@@ -1,0 +1,7 @@
+--input_otu_table deblur.txt
+--metadata map.txt
+--fields envo_biome_4
+--category envo_biome_4::dense_settlement_biome,cropland_biome,marine_benthic_biome,freshwater_lake_biome,village_biome,freshwater_river_biome,rangeland_biome,broadleaf_forest_biome
+--models rf
+--otus_key taxonomy
+--debug T

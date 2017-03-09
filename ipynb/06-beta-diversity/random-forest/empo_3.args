@@ -1,0 +1,7 @@
+--input_otu_table deblur.txt
+--metadata map.txt
+--fields empo_3
+--category empo_3::Animal_distal_gut,Animal_surface,Animal_secretion,Soil_non.saline,Water_non.saline,Surface_saline,Animal_corpus,Water_saline,Sediment_saline,Sediment_non.saline,Surface_non.saline,Plant_corpus,Plant_surface,Plant_rhizosphere,Hypersaline_saline,Animal_proximal_gut,Aerosol_non.saline
+--models rf
+--otus_key taxonomy
+--debug T

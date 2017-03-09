@@ -19,7 +19,7 @@ Organization of this repository
     - `MIxS/` Excel files describing MIxS, EBI, and Qiita metadata standard requirements; used to generate metadata templates
     - `sequence-lookup/` files used for the EMP Trading Cards (sequence lookup) notebooks (e.g., RDP taxonomy files)
 
-* `ipynb/` IPython notebooks developed for meta-analysis of EMP data (Thompson et al., in prep.)
+* `ipynb/` IPython notebooks and scripts (Python, Java, R, Bash) developed for meta-analysis of EMP data (Thompson et al., in prep.)
     - `01-metadata-processing/`
     - `02-sequence-processing/`
     - `03-otu-picking/`
@@ -37,7 +37,7 @@ Organization of this repository
 * `results/` diversity analyses and high-level results (e.g., figures and tables that are useful for presentations)
     - `results_locations.txt` links to where large results files can be found (e.g., alpha- and beta-diversity results)
 
-* `scripts/` utility scripts and EMP code other than notebooks
+* `scripts/` utility scripts and code not specific to particular analyses
     - `01-metadata-templates/`
     - `02-colors-and-styles/`
     - `03-phylogenetic-placement/`

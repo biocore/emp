@@ -1,0 +1,6 @@
+--input_otu_table deblur.txt
+--metadata map.txt
+--fields env_feature
+--category env_feature::alkaline_habitat,animal.associated_habitat,anthropogenic_environmental_material,city,coral_reef,forest_soil,fresh_water,freshwater_habitat,freshwater_lake,hot_spring,human.associated_habitat,hydrothermal_vent,insecta.associated_habitat,intertidal_zone,kelp_forest,marine_habitat,nest_of_bird,pond,rice_field,vineyard
+--models rf
+--otus_key taxonomy
