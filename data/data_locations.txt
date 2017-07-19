@@ -1,4 +1,4 @@
-ftp://ftp.microbio.me/emp/latest/
+ftp://ftp.microbio.me/emp/release1/
 
 emp_ontology/empo_v2.csv
 
