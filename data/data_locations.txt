@@ -1,10 +1,14 @@
-ftp://ftp.microbio.me/emp/latest/
+ftp://ftp.microbio.me/emp/release1/
 
-emp_ontology/empo_v2.csv
+README
+about_mapping_files.md
+about_otu_tables.pdf
 
-mapping_files/README.md                           mapping_files/emp_qiime_mapping_subset_2k.tsv
+emp_ontology/empo_v3.csv
+
 mapping_files/emp_qiime_mapping_all_emp.tsv       mapping_files/emp_qiime_mapping_subset_5k.tsv
 mapping_files/emp_qiime_mapping_qc_filtered.tsv   mapping_files/emp_qiime_mapping_subset_10k.tsv
+mapping_files/emp_qiime_mapping_subset_2k.tsv
 
 otu_distributions/otu_summary.emp_deblur_90bp.subset_2k.rare_5000.tsv
 
