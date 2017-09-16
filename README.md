@@ -38,7 +38,7 @@ The EMP catalogue is a diverse and standardized set of thousands of microbiomes 
     
     ctx=Pick_closed-reference_OTUs-illumina-16S-v4-66f541
     
-    # Query 1: "Show me all the genera which were observed at pH > 8."
+    # Query 1: "Show me all the genera that were observed at pH > 8."
     # First we search for samples with pH > 8, then select the features from those 
     # samples, then summarize the taxonomy of those features, then grep for just 
     # the genera and count them.
