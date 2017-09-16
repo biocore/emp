@@ -52,3 +52,7 @@ per_study_alpha_diversity_even.tgz
 
 # ipynb checkpoints 
 ipynb/.ipynb_checkpoints
+
+# emacs files
+scripts/sequence-lookup/get_v4_region.py~
+
