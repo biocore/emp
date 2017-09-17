@@ -2,7 +2,7 @@
 
 Code to generate the figures in "A communal catalogue reveals Earth’s multiscale microbial diversity", *Nature* (2017), by Thompson et al.
 
-Unless otherwise noted, the mapping file for all analysis is emp_qiime_mapping_qc_filtered.tsv available at ftp://ftp.microbio.me/emp/release1/mapping_files/emp_qiime_mapping_qc_filtered.tsv.
+Unless otherwise noted, the mapping file for all analyses is emp_qiime_mapping_qc_filtered.tsv available at ftp://ftp.microbio.me/emp/release1/mapping_files/emp_qiime_mapping_qc_filtered.tsv.
 
 #### Figure 1. Environment type and provenance of EMP samples included in this meta-analysis. 
 
