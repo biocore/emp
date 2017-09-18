@@ -10,13 +10,17 @@ Input data files for generating the figures below are found in several places:
 * The mapping file (metadata) for analyses unless otherwise noted is `emp_qiime_mapping_qc_filtered.tsv` in `data/mapping_files`.
 * Smaller data files (<100 GB) are also stored in `data`.
 
-#### Primary processing: generation of sequence observation tables from demultiplexed sequence data
+#### Amplicon sequence processing: generation of OTU/sequence observation tables from demultiplexed fasta data
 
 This section describes the commands to download the raw sequence data from EBI and perform OTU picking using different methods, including generating phylogenetic trees and taxonomies for reference sequences, if necessary.
 
-**Step 1. Download sequences.** Sequences can be downloaded directly from EBI using the script `download_ebi_fasta.sh` or `download_ebi_fastq.sh` in `code/download-sequences`, depending on whether fasta or fastq sequences are desired. Fasta sequences are used by the steps below. The sequences from EBI are demultiplexed and minimally quality filtered according to the default parameters of the QIIME 1 command [split_libraries_fastq.py](http://qiime.org/scripts/split_libraries_fastq.html).
+**Step 1. Download sequences.** 
 
-**Step 2. OTU picking and Deblur.** Four separate OTU picking procedures were run on the EMP Release 1 data: closed-reference using Greengenes 13.8, closed-reference using Silva 123, open-reference using Greengenes 13.8, and de novo using Deblur.
+Sequences can be downloaded directly from EBI using the script `download_ebi_fasta.sh` or `download_ebi_fastq.sh` in `code/download-sequences`, depending on whether fasta or fastq sequences are desired. Fasta sequences are used by the steps below. The sequences from EBI are demultiplexed and minimally quality filtered according to the default parameters of the QIIME 1 command [split_libraries_fastq.py](http://qiime.org/scripts/split_libraries_fastq.html).
+
+**Step 2. OTU picking and Deblur.** 
+
+Four separate OTU picking procedures were run on the EMP Release 1 data: closed-reference using Greengenes 13.8, closed-reference using Silva 123, open-reference using Greengenes 13.8, and de novo using Deblur.
 
 *Closed-reference Greengenes 13.8.* Closed-reference OTU picking against Greengenes 13.8 was done using the QIIME 1 script [pick_closed_reference_otus.py](http://qiime.org/scripts/pick_closed_reference_otus.html).
 
@@ -32,25 +36,43 @@ This section describes the commands to download the raw sequence data from EBI a
 
 *Deblur tree.* Deblur sequences were inserted into the Greengenes reference tree using [SEPP](https://github.com/smirarab/sepp). The code for this method is in `code/phylogenetic-placement/run_sepp.sh`.
 
+**Step 4. Rarefaction**
+
+
+**Step 5. Subsets of tables**
+
+
+#### Metadata processing
+
+QIIME mapping files were downloaded from https://qiita.ucsd.edu and refined to fix errors, standardize formatting, and add fields specific for this investigation. The IPython notebook for this metadata processing is `metadata_refine.ipynb` in `code/01-metadata`.
+
 #### Figure 1. Environment type and provenance of EMP samples included in this meta-analysis. 
 
 ![](images/figure1_samples.png)
 
-**Figure 1a.** Generated from mapping file column `empo_3` using Google Charts [Sankey Diagram](https://developers.google.com/chart/interactive/docs/gallery/sankey).
+**Figure 1a.** 
 
-**Figure 1b.** Generated from mapping file columns `latitude_deg` and `longitude_deg` using IPython Notebook `map_samples_by_empo.ipynb` in `code/01-metadata-processing`.
+Generated from mapping file column `empo_3` using Google Charts [Sankey Diagram](https://developers.google.com/chart/interactive/docs/gallery/sankey).
+
+**Figure 1b.** 
+
+Generated from mapping file columns `latitude_deg` and `longitude_deg` using IPython notebook `map_samples_by_empo.ipynb` in `code/01-metadata`.
 
 #### Figure 2. Alpha-diversity, beta-diversity, and predicted average 16S rRNA gene copy number. 
 
 ![](images/figure2_abdiv.png)
 
-**Figure 2a.** Alpha-diversity for the Deblur 90-bp table (QC-filtered) subset was run using the commands in ``.
+**Figure 2a.**
 
-**Figure 2b.** 
+Alpha-diversity for the Deblur 90-bp table (QC-filtered) subset was run using the script `alpha_diversity.py` in `code/05-alpha-diversity`. The results for the Deblur 90-bp table rarefied to 5000 sequences per sample were added to the mapping file as the columns adiv_observed_otus, adiv_chao1, adiv_shannon, and adiv_faith_pd.
 
-**Figure 2c.** 
+**Figure 2b.**
 
-**Figure 2d.** 
+
+
+**Figure 2c.**
+
+**Figure 2d.**
 
 #### Figure 3.
 
@@ -71,3 +93,11 @@ This section describes the commands to download the raw sequence data from EBI a
 **Figure 4b.** 
 
 **Figure 4c.** 
+
+
+
+#### Figure S1.
+
+![](images/figureS1_physicochemical.png)
+
+The pairplot of physicochemical metadata was generated using IPython notebook `physicochemical_pairplot.ipynb` in `code/01-metadata`.
