@@ -52,11 +52,11 @@ QIIME mapping files were downloaded from https://qiita.ucsd.edu and refined to f
 
 **Figure 1a.** 
 
-Generated from mapping file column `empo_3` using Google Charts [Sankey Diagram](https://developers.google.com/chart/interactive/docs/gallery/sankey).
+Sankey generated from mapping file column `empo_3` using Google Charts [Sankey Diagram](https://developers.google.com/chart/interactive/docs/gallery/sankey).
 
 **Figure 1b.** 
 
-Generated from mapping file columns `latitude_deg` and `longitude_deg` using IPython notebook `map_samples_by_empo.ipynb` in `code/01-metadata`.
+Map generated from mapping file columns `latitude_deg` and `longitude_deg` using IPython notebook `map_samples_by_empo.ipynb` in `code/01-metadata`.
 
 #### Figure 2. Alpha-diversity, beta-diversity, and predicted average 16S rRNA gene copy number. 
 
