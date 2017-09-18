@@ -2,20 +2,19 @@
 
 Code to generate the figures in "A communal catalogue reveals Earth’s multiscale microbial diversity", *Nature* (2017), by Thompson et al. This manuscript describes the meta-analysis of EMP 16S Release 1, the first 97 studies subjected to 16S rRNA amplicon sequencing through the [Earth Microbiome Project](http://www.earthmicrobiome.org).
 
-Notes:
+Input data files for generating the figures below are found in several places:
 
-* The most heavily used data files are stored in `data`. All data files listed in `data/ftp_contents.txt` are available from ftp://ftp.microbio.me/emp/release1.
-* The mapping file (metadata) for analyses unless otherwise noted is `data/mapping_files/emp_qiime_mapping_qc_filtered.tsv`.
+* All data files (except sequences) required to generate the figures below are available from ftp://ftp.microbio.me/emp/release1; full contents are listed in `data/ftp_contents.txt`. 
+* All data files (except sequences) for this manuscript are archived with Zenodo, available from the DOI http://doi.org/.
+* Sequences files are available directly from EBI (see below).
+* The mapping file (metadata) for analyses unless otherwise noted is `emp_qiime_mapping_qc_filtered.tsv` in `data/mapping_files`.
+* Smaller data files (<100 GB) are also stored in `data`.
 
 #### Primary processing: generation of sequence observation tables from demultiplexed sequence data
 
 This section describes the commands to download the raw sequence data from EBI and perform OTU picking using different methods, including generating phylogenetic trees and taxonomies for reference sequences, if necessary.
 
 **Step 1. Download sequences.** Sequences can be downloaded directly from EBI using the script `download_ebi_fasta.sh` or `download_ebi_fastq.sh` in `code/download-sequences`, depending on whether fasta or fastq sequences are desired. Fasta sequences are used by the steps below. The sequences from EBI are demultiplexed and minimally quality filtered according to the default parameters of the QIIME 1 command [split_libraries_fastq.py](http://qiime.org/scripts/split_libraries_fastq.html).
-
-```
-bash download_ebi_fasta.sh
-```
 
 **Step 2. OTU picking and Deblur.** Four separate OTU picking procedures were run on the EMP Release 1 data: closed-reference using Greengenes 13.8, closed-reference using Silva 123, open-reference using Greengenes 13.8, and de novo using Deblur.
 
@@ -39,13 +38,13 @@ bash download_ebi_fasta.sh
 
 **Figure 1a.** Generated from mapping file column `empo_3` using Google Charts [Sankey Diagram](https://developers.google.com/chart/interactive/docs/gallery/sankey).
 
-**Figure 1b.** Generated from mapping file columns `latitude_deg` and `longitude_deg` using IPython Notebook [map_samples_by_empo.ipynb](https://github.com/biocore/emp/blob/master/ipynb/01-metadata-processing/map_samples_by_empo.ipynb).
+**Figure 1b.** Generated from mapping file columns `latitude_deg` and `longitude_deg` using IPython Notebook `map_samples_by_empo.ipynb` in `code/01-metadata-processing`.
 
 #### Figure 2. Alpha-diversity, beta-diversity, and predicted average 16S rRNA gene copy number. 
 
 ![](images/figure2_abdiv.png)
 
-**Figure 2a.** 
+**Figure 2a.** Alpha-diversity for the Deblur 90-bp table (QC-filtered) subset was run using the commands in ``.
 
 **Figure 2b.** 
 
