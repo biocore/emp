@@ -46,7 +46,9 @@ Four separate OTU picking procedures were run on the EMP Release 1 data: closed-
 
 QIIME mapping files were downloaded from https://qiita.ucsd.edu and refined to fix errors, standardize formatting, and add fields specific for this investigation. The IPython notebook for this metadata processing is `metadata_refine.ipynb` in `code/01-metadata`.
 
-### Figure 1. Environment type and provenance of EMP samples included in this meta-analysis. 
+### Analyses
+
+#### Figure 1. Environment type and provenance of EMP samples included in this meta-analysis. 
 
 ![](images/figure1_samples.png)
 
@@ -58,7 +60,7 @@ Sankey generated from mapping file column `empo_3` using Google Charts [Sankey D
 
 Map generated from mapping file columns `latitude_deg` and `longitude_deg` using IPython notebook `map_samples_by_empo.ipynb` in `code/01-metadata`.
 
-### Figure 2. Alpha-diversity, beta-diversity, and predicted average 16S rRNA gene copy number. 
+#### Figure 2. Alpha-diversity, beta-diversity, and predicted average 16S rRNA gene copy number. 
 
 ![](images/figure2_abdiv.png)
 
@@ -74,7 +76,7 @@ Alpha-diversity for the Deblur 90-bp table (QC-filtered) subset was run using th
 
 **Figure 2d.**
 
-### Figure 3.
+#### Figure 3.
 
 ![](images/figure3_nestedness.png)
 
@@ -84,7 +86,7 @@ Alpha-diversity for the Deblur 90-bp table (QC-filtered) subset was run using th
 
 **Figure 3c.** 
 
-### Figure 4.
+#### Figure 4.
 
 ![](images/figure4_entropy.png)
 
@@ -96,7 +98,7 @@ Alpha-diversity for the Deblur 90-bp table (QC-filtered) subset was run using th
 
 
 
-### Figure S1.
+#### Figure S1.
 
 ![](images/figureS1_physicochemical.png)
 
