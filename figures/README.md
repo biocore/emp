@@ -72,11 +72,13 @@ Alpha-diversity for the Deblur 90-bp table (QC-filtered) subset was run using th
 
 **Figure 2b**
 
-
-
 **Figure 2c**
 
 **Figure 2d**
+
+<!--
+Ken's repo: https://github.com/klocey/emp_macroeco
+-->
 
 #### Figure 3. Nestedness of community composition
 
@@ -87,6 +89,23 @@ Alpha-diversity for the Deblur 90-bp table (QC-filtered) subset was run using th
 **Figure 3b** 
 
 **Figure 3c** 
+
+<!--
+A GitHub repository that can be used to easily replicate the results is located here:
+
+https://github.com/jladau/Nestedness.EMP
+
+As noted in the repository, the data files that were used are posted at this Dropbox link:
+
+https://www.dropbox.com/s/velnv86z1l81ilx/nestedness_emp_data.tar.gz?dl=0
+
+Is there an EMP GitHub repository where the data can be posted, or alternatively, can you point to where these files are already posted? For consistency with the file naming conventions that I used, some of the files in Dropbox are renamed as follows (they have also each been rarefied to 5000 reads):
+
+otu_subset.emp_deblur_90bp.subset_2k.lt_1.0_pc_samp.biom -> Global.Global2000Subset.BacteriaSubset1.EMP.biom
+otu_subset.emp_deblur_90bp.subset_2k.lt_5.0_pc_samp.biom -> Global.Global2000Subset.BacteriaSubset5.EMP.biom
+otu_subset.emp_deblur_90bp.subset_2k.lt_10.0_pc_samp.biom -> Global.Global2000Subset.BacteriaSubset10.EMP.biom
+emp_deblur_90bp.subset_2k.rare_5000.biom -> Global.Global2000Subset.Bacteria.EMP.biom
+-->
 
 #### Figure 4. Specificity of tag sequences for environment
 
