@@ -44,6 +44,26 @@ Deblur and OTU tables were rarefied (subsampled) to generate equal numbers of ob
 
 Deblur and OTU tables were subset to generate tables with more even representation across sample types and studies, used in many of the analyses as described below. Subsetting of the tables is accomplished by running the IPython notebooks `observation_table.ipynb` and `subset_samples_by_empo_and_study.ipynb` in `code/04-rarefaction-and-subsets`.
 
+<!--
+REDBIOM
+    # assuming an interactive job
+    
+    cp /home/mcdonadt/emp-create-redbiomdb/emp-redbiom.rdb /localscratch/
+    
+    /home/mcdonadt/redis-3.2.6/src/redis-server --daemonize yes --dbfilename /localscratch/emp-redbiom.rdb
+    /home/mcdonadt/webdis/webdis &
+    
+    source activate redbiom
+    
+    export REDBIOM_HOST=http://127.0.0.1:7379
+    
+    # IMPORTANT, redis will not service requests until the database is loaded, and it takes a few minutes. redbiom queries during that time will error with a confusing error (hadn't encountered this before...)
+    
+    # memory foot print is like 18.5GB
+    
+    # recommending using redis / webdis out of my home right now to avoid compilation, but i think just pointing to redbiom readme would be fine?
+-->
+
 ### Metadata processing
 
 QIIME mapping files were downloaded from https://qiita.ucsd.edu and refined to fix errors, standardize formatting, and add fields specific for this investigation. The IPython notebook for this metadata processing is `metadata_refine.ipynb` in `code/01-metadata`.
