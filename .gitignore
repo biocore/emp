@@ -52,6 +52,11 @@ per_study_alpha_diversity_even.tgz
 
 # ipynb checkpoints 
 code/.ipynb_checkpoints
+code/01-metadata/.ipynb_checkpoints
+code/02-sequence-processing/.ipynb_checkpoints
+code/04-rarefaction-and-subsets/.ipynb_checkpoints
+code/08-cooccurrence-and-nestedness/.ipynb_checkpoints
+code/predicted-rrna-copy-number/.ipynb_checkpoints
 
 # emacs files
 scripts/sequence-lookup/get_v4_region.py~
