@@ -3,23 +3,73 @@ Earth Microbiome Project
 
 <div style="float: right; margin-left: 30px;"><img title="The EMP logo was designed by Eamonn Maguire of Antarctic Design." style="float: right;margin-left: 30px;" src="http://www.earthmicrobiome.org/files/2011/01/EMP-green-small.png" align=right /></div>
 
-The [Earth Microbiome Project](www.earthmicrobiome.org) (EMP) is a systematic attempt to characterize global microbial taxonomic and functional diversity for the benefit of the planet and humankind.
+The Earth Microbiome Project (EMP) is a systematic attempt to characterize global microbial taxonomic and functional diversity for the benefit of the planet and humankind. Most of the data generated to this point are from 16S rRNA amplicon surveys, but the project also includes data from 18S and ITS amplicons, metagenomics, and metabolomics. For more information about the EMP -- people, publications, news, protocols and standards, and more -- please see the [EMP website](http://www.earthmicrobiome.org/).
 
-The EMP is open science: anyone can get involved. The EMP data set is generated from samples that individual researchers have compiled and donated to the EMP. The samples from each group of researchers represent individual EMP studies. In addition to analyses being done by contributing researchers on the individual studies, we are performing a cross-study meta-analysis. All per-study raw data is publicly available through the [EMP Portal](https://qiita.ucsd.edu/emp/) of the [Qiita](https://qiita.ucsd.edu/) database. This GitHub repository contains resources for the EMP meta-analysis: links to the processed, combined (across studies) EMP data on our [FTP site](ftp://ftp.microbio.me/emp/latest); code developed specifically for the EMP meta-analyses; and results of initial analyses, with new results added as they are generated.
+This GitHub repository describes the EMP catalogue and how to use it. The EMP dataset is generated from samples that individual researchers have compiled and contributed to the EMP. Samples from each group of researchers represent individual EMP studies. In addition to analyses being done by contributing researchers on the individual studies, we are performing cross-study meta-analyses. A meta-analysis of the first 97 16S rRNA amplicon studies in the EMP (Release 1) is currently under review.
 
-If you're interested in getting involved in [EMP data analyses](https://github.com/EarthMicrobiomeProject/emp/issues) you should begin by reviewing the [open issues](https://github.com/EarthMicrobiomeProject/emp/issues). These describe analyses that we're interested in performing across studies. If you're interested in working on one of these analyses, or have ideas for other analyses that should be performed, you should get in touch with [Luke Thompson] (lukethompson@gmail.com), the project leader for the EMP. 
+Getting involved
+----------------
 
-Additional information is available on the [Earth Microbiome Project website](www.earthmicrobiome.org).
+There are several ways to get involved with the EMP:
+
+* **Use the EMP catalogue in your own research.** Download the whole catalogue or just a few studies, merge and analyze them with your own data, or query the catalogue. Please skip to the next section for detailed instructions.
+* **Join the analysis team.** If you are interested in getting involved with EMP meta-analyses, you can begin by reviewing the open [issues](https://github.com/EarthMicrobiomeProject/emp/issues) on this GitHub page. You can add comments to an existing issue to propose your ideas, or create a new issue entirely. Note that the initial meta-analysis of the EMP has been completed and is currently under review. You can view the existing meta-analysis [code](https://github.com/biocore/emp/tree/master/ipynb) and [results](https://github.com/biocore/emp/tree/master/results).
+* **Contribute samples.** We are not currently soliciting samples for the EMP. If you have an idea for samples you might like to submit in the future, you may [email](mailto:lukethompson@gmail.com) the project leader for the EMP, Dr. Luke Thompson.
+
+Using the EMP catalogue
+-----------------------
+
+The EMP catalogue is a diverse and standardized set of thousands of microbiomes for use by the public. Here are some of the ways you can use this resource:
+
+* **Download EMP Release 1 from our FTP site.** EMP Release 1 contains merged and quality-filtered mapping files, BIOM tables, OTU/sequence information, and alpha/beta-diversity results for ~25,000 samples in 97 studies of the initial meta-analysis of the EMP. The [FTP site](ftp://ftp.microbio.me/emp/release1) contains README files about its contents, and the individual files are listed [here](https://github.com/biocore/emp/blob/master/data/data_locations.txt).
+* **Download individual studies from the Qiita EMP Portal.** For each study, you can download metadata (mapping file), feature tables (BIOM file), and demultiplexed raw sequence files. Like the rest of Qiita, the [EMP Portal](https://qiita.ucsd.edu/emp/) requires the Google Chrome browser.
+* **Merge your data with all or part of the EMP dataset.** If you sequenced your sample using the [EMP 16S rRNA primers](http://www.earthmicrobiome.org/protocols-and-standards/16s/) and picked OTUs using either [Deblur](http://msystems.asm.org/content/2/2/e00191-16) or closed-reference against Greengenes 13.8 or Silva 123, you can merge your BIOM table with the relevant merged EMP Release 1 BIOM table or one of the individual per-study BIOM tables from Qiita. Basic instructions for [initial processing](http://www.earthmicrobiome.org/protocols-and-standards/initial-qiime-processing/) of your data are provided. You can then use [QIIME1](http://qiime.org/) or [QIIME2](https://qiime2.org/) to merge the BIOM tables and mapping files.
+* **Query the EMP catalogue using Redbiom.** [Redbiom](https://github.com/biocore/redbiom) is a command-line tool that allows users to query the Qiita database, including EMP studies. It allows you to find samples based on the sequences or taxa they contain or on sample metadata, and to export selected sample data and metadata. Once you have Redbiom [installed](https://github.com/biocore/redbiom#installation), you can carry out queries such as those described here:
+
+    ```
+    # First, summarize the contexts available. A context represents a partition by 
+    # processing parameters (e.g., closed-reference OTU picking) and preparation 
+    # (e.g., 16S V4).
+    
+    redbiom summarize contexts | cut -f 1,2,3
+    
+    # Create a variable for the context. For this example, we will use the closed-
+    # reference 16S V4 context by setting a local bash variable "ctx". 
+    
+    ctx=Pick_closed-reference_OTUs-illumina-16S-v4-66f541
+    
+    # Query 1: "Show me all the genera that were observed at pH > 8."
+    # First we search for samples with pH > 8, then select the features from those 
+    # samples, then summarize the taxonomy of those features, then grep for just 
+    # the genera and count them.
+    
+    redbiom search metadata "where ph > 8" | redbiom select features-from-samples \
+    --context $ctx | redbiom summarize taxonomy --context $ctx | grep g__ | wc -l
+    
+    # Answer: There are 1423 genera found in samples with pH > 8.
+    
+    # Query 2: "Show me all sites where Pyrobaculum are found." 
+    # First we search for features that are genus Pyrobaculum, then search for 
+    # samples containing those features, then fetch sample metadata for those 
+    # samples and output the metadata file, then grab the columns for latitude and 
+    # longitude (note: these are not guaranteed to reside in columns 10 and 11).
+    
+    redbiom search taxon --context $ctx g__Pyrobaculum | redbiom search features \
+    --context $ctx | redbiom fetch sample-metadata --context $ctx \
+    --output g__Pyrobaculum_metadata.txt; cut g__Pyrobaculum_metadata.txt -f 10,11
+    ```
 
 Organization of this repository
 -------------------------------
+
+This repository contains the following directories:
 
 * `data/` data files used for downstream analysis (biom tables, trees, mapping files, etc)
     - `data_locations.txt` links to where large data files can be found (e.g., BIOM and tree files)
     - `MIxS/` Excel files describing MIxS, EBI, and Qiita metadata standard requirements; used to generate metadata templates
     - `sequence-lookup/` files used for the EMP Trading Cards (sequence lookup) notebooks (e.g., RDP taxonomy files)
 
-* `ipynb/` IPython notebooks developed for meta-analysis of EMP data (Thompson et al., in prep.)
+* `ipynb/` IPython notebooks and scripts (Python, Java, R, Bash) developed for meta-analysis of EMP data (Thompson et al., in prep.)
     - `01-metadata-processing/`
     - `02-sequence-processing/`
     - `03-otu-picking/`
@@ -37,7 +87,7 @@ Organization of this repository
 * `results/` diversity analyses and high-level results (e.g., figures and tables that are useful for presentations)
     - `results_locations.txt` links to where large results files can be found (e.g., alpha- and beta-diversity results)
 
-* `scripts/` utility scripts and EMP code other than notebooks
+* `scripts/` utility scripts and code not specific to particular analyses
     - `01-metadata-templates/`
     - `02-colors-and-styles/`
     - `03-phylogenetic-placement/`
@@ -45,14 +95,18 @@ Organization of this repository
 File name abbreviation conventions
 ----------------------------------
 
-* `or` refers to [open-reference OTU picking](http://qiime.org/tutorials/otu_picking.html#open-reference-otu-picking)
+Some abbreviations used in this repository:
+
+* `demux` is shorthand for "demultiplexed", which describes the fastq data after it is split into per-sample fastq files using barcodes
+* `deblur` refers to the exact-sequence de novo OTU picking method [Deblur](https://github.com/cuttlefishh/deblur)
 * `cr` refers to [closed-reference OTU picking](http://qiime.org/tutorials/otu_picking.html#closed-reference-otu-picking)
+* `or` refers to [open-reference OTU picking](http://qiime.org/tutorials/otu_picking.html#open-reference-otu-picking)
 * `refseqs` refers to reference sequence collections that could be used in reference-based OTU picking
 * `mc2` refers to minimum sequence count in an OTU to be included equals to 2
 
 Finding older data
 ------------------
 
-If you're looking for data generated and used for the ISME 14 EMP presentations, [see here](https://github.com/EarthMicrobiomeProject/emp/tree/isme14).
+If you're looking for data generated and used for the ISME 14 EMP presentations, look [here](https://github.com/EarthMicrobiomeProject/emp/tree/isme14).
 
 

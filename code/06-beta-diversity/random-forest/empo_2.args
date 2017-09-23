@@ -1,0 +1,5 @@
+--input_otu_table deblur.txt
+--metadata map.txt
+--fields empo_2
+--models rf
+--otus_key taxonomy
