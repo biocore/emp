@@ -39,6 +39,7 @@ pip-log.txt
 # uncompressed biom files (they can be big)
 otu_table*.biom
 
+.DS_Store
 .dropbox
 per_study_otu_tables.tgz
 readme_dropbox.txt
