@@ -22,17 +22,17 @@ Sequences can be downloaded directly from EBI using the script `download_ebi_fas
 
 Four separate OTU picking procedures were run on the EMP Release 1 data: de novo using Deblur, closed-reference using Greengenes 13.8, closed-reference using Silva 123, and open-reference using Greengenes 13.8.
 
-*Deblur.* Deblur sOTU (tag sequence) picking was done using a pre-release version of [Deblur](https://github.com/biocore/deblur). That workflow can be called from the script `run_deblur_emp_original.sh` in `code/03-otu-picking/deblur`. The analogous workflow using the published distribution of Deblur can be called from the script `run_deblur_emp_new.sh`.
+*Deblur.* Deblur sOTU (tag sequence) picking was done using a pre-release version of [Deblur](https://github.com/biocore/deblur). That workflow can be called from the script `run_deblur_emp_original.sh` in `code/03-otu-picking-and-trees/deblur`. The analogous workflow using the published distribution of Deblur can be called from the script `run_deblur_emp_new.sh`.
 
-*Closed-reference Greengenes 13.8.* Closed-reference OTU picking against Greengenes 13.8 was done using the QIIME 1 script [pick_closed_reference_otus.py](http://qiime.org/scripts/pick_closed_reference_otus.html).
+*Closed-reference Greengenes 13.8.* Closed-reference OTU picking against Greengenes 13.8 was done using the QIIME 1 script [pick_closed_reference_otus.py](http://qiime.org/scripts/pick_closed_reference_otus.html). The workflow can be called from the notebook `closed_reference_otu_picking.ipynb` in `code/03-otu-picking-and-trees/closed-ref`.
 
-*Closed-reference Silva 123.* Closed-reference OTU picking against Silva 123 16S was done using the QIIME 1 script [pick_closed_reference_otus.py](http://qiime.org/scripts/pick_closed_reference_otus.html).
+*Closed-reference Silva 123.* Closed-reference OTU picking against Silva 123 16S was done using the QIIME 1 script [pick_closed_reference_otus.py](http://qiime.org/scripts/pick_closed_reference_otus.html). The workflow can be called from the notebook `closed_reference_otu_picking.ipynb` in `code/03-otu-picking-and-trees/closed-ref`.
 
-*Open-reference Greengenes 13.8.* Closed-reference OTU picking against Greengenes 13.8 was done using the QIIME 1 script [pick_open_reference_otus.py](http://qiime.org/scripts/pick_open_reference_otus.html).
+*Open-reference Greengenes 13.8.* Closed-reference OTU picking against Greengenes 13.8 was done using the QIIME 1 script [pick_open_reference_otus.py](http://qiime.org/scripts/pick_open_reference_otus.html). The workflow can be called from the notebook `open_reference_otu_picking.ipynb` in `code/03-otu-picking-and-trees/open-ref`.
 
 **Step 3. Phylogenetic trees**
 
-*Deblur tree.* Deblur sequences were inserted into the Greengenes reference tree using [SEPP](https://github.com/smirarab/sepp). The code for this method is in `code/phylogenetic-placement/run_sepp.sh`.
+*Deblur tree.* Deblur sequences were inserted into the Greengenes reference tree using [SEPP](https://github.com/smirarab/sepp). The code for this method is in `code/03-otu-picking-and-trees/run_sepp.sh`.
 
 *Open-reference tree.* Reference sequences from the open-reference OTU picking were aligned using [PyNAST](https://biocore.github.io/pynast/) and the tree built using [FastTree](https://www.msi.umn.edu/sw/fasttree).
 
