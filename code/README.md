@@ -1,4 +1,4 @@
 ## code
 
-Code for reproducing sequence processing, data analysis, and figure generation. Use of this code is described in `../figures`.
+Code for reproducing sequence processing, data analysis, and figure generation. The use of this code is described in the top-level direcotry `figures`.
 
