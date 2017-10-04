@@ -55,6 +55,8 @@ per_study_alpha_diversity_even.tgz
 code/01-metadata/.ipynb_checkpoints
 code/02-sequence-processing/.ipynb_checkpoints
 code/03-otu-picking-trees/.ipynb_checkpoints
+code/03-otu-picking-trees/closed-ref/.ipynb_checkpoints
+code/03-otu-picking-trees/open-ref/.ipynb_checkpoints
 code/04-subsets-prevalence/.ipynb_checkpoints
 code/05-alpha-diversity/.ipynb_checkpoints
 code/06-beta-diversity/.ipynb_checkpoints
