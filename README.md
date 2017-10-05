@@ -64,45 +64,23 @@ Organization of this repository
 
 This repository contains the following directories:
 
-* `data/` data files used for downstream analysis (biom tables, trees, mapping files, etc)
-    - `data_locations.txt` links to where large data files can be found (e.g., BIOM and tree files)
-    - `MIxS/` Excel files describing MIxS, EBI, and Qiita metadata standard requirements; used to generate metadata templates
-    - `sequence-lookup/` files used for the EMP Trading Cards (sequence lookup) notebooks (e.g., RDP taxonomy files)
-
-* `ipynb/` IPython notebooks and scripts (Python, Java, R, Bash) developed for meta-analysis of EMP data (Thompson et al., in prep.)
-    - `01-metadata-processing/`
-    - `02-sequence-processing/`
-    - `03-otu-picking/`
-    - `04-rarefaction-and-subsets/`
-    - `05-alpha-diversity/`
-    - `06-beta-diversity/`
-    - `07-environmental-covariation/`
-    - `08-cooccurrence-and-nestedness/`
-    - `09-sequence-lookup/`
-
-* `legacy/` code, results, and website documents from the early phase of the EMP (2010-2013)
-
-* `presentations/` collection of presentations on the EMP
-
-* `results/` diversity analyses and high-level results (e.g., figures and tables that are useful for presentations)
-    - `results_locations.txt` links to where large results files can be found (e.g., alpha- and beta-diversity results)
-
-* `scripts/` utility scripts and code not specific to particular analyses
-    - `01-metadata-templates/`
-    - `02-colors-and-styles/`
-    - `03-phylogenetic-placement/`
+* `code` IPython notebooks and scripts (Python, Java, R, Bash) developed for meta-analysis of EMP data; this code is used in the top-level directory `figures`.
+* `data` Data files used for processing and downstream analysis.
+* `figures` Instructions to generate the figures in "A communal catalogue reveals Earth’s multiscale microbial diversity", Thompson et al., Nature (2017).
+* `legacy` Early code, results, and website documents from the initial phase of the EMP (2010-2013).
+* `presentations` Collection of presentations on the EMP.
 
 File name abbreviation conventions
 ----------------------------------
 
 Some abbreviations used in this repository:
 
-* `demux` is shorthand for "demultiplexed", which describes the fastq data after it is split into per-sample fastq files using barcodes
-* `deblur` refers to the exact-sequence de novo OTU picking method [Deblur](https://github.com/cuttlefishh/deblur)
-* `cr` refers to [closed-reference OTU picking](http://qiime.org/tutorials/otu_picking.html#closed-reference-otu-picking)
-* `or` refers to [open-reference OTU picking](http://qiime.org/tutorials/otu_picking.html#open-reference-otu-picking)
-* `refseqs` refers to reference sequence collections that could be used in reference-based OTU picking
-* `mc2` refers to minimum sequence count in an OTU to be included equals to 2
+* `demux` is shorthand for "demultiplexed", which describes the fastq data after it is split into per-sample fastq files using barcodes.
+* `deblur` refers to the exact-sequence de novo OTU picking method [Deblur](https://github.com/cuttlefishh/deblur).
+* `cr` refers to [closed-reference OTU picking](http://qiime.org/tutorials/otu_picking.html#closed-reference-otu-picking).
+* `or` refers to [open-reference OTU picking](http://qiime.org/tutorials/otu_picking.html#open-reference-otu-picking).
+* `refseqs` refers to reference sequence collections that could be used in reference-based OTU picking.
+* `mc2` refers to minimum sequence count in an OTU to be included equals to 2.
 
 Finding older data
 ------------------

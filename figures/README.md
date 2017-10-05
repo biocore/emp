@@ -1,6 +1,8 @@
 ## figures
 
-Code to generate the figures in "A communal catalogue reveals Earth’s multiscale microbial diversity", Thompson et al., *Nature* (2017). This manuscript describes the meta-analysis of EMP 16S Release 1, the first 97 studies subjected to 16S rRNA amplicon sequencing through the [Earth Microbiome Project](http://www.earthmicrobiome.org).
+Instructions to generate the figures in "A communal catalogue reveals Earth’s multiscale microbial diversity", Thompson et al., *Nature* (2017). This manuscript describes the meta-analysis of EMP 16S Release 1, the first 97 studies subjected to 16S rRNA amplicon sequencing through the [Earth Microbiome Project](http://www.earthmicrobiome.org).
+
+Code and notebooks for generating these figures are in the top-level directory `code`, as described below.
 
 Input data files for generating the figures below are found in several places:
 
@@ -16,7 +18,12 @@ This section describes the commands to download the raw sequence data from EBI a
 
 #### 1.1 Download demultiplexed fasta sequence files
 
-Per-study sequence files can be downloaded directly from EBI using the scripts `download_ebi_fasta.sh` (FASTA) and `download_ebi_fastq.sh` (FASTQ) in `code/download-sequences`. Fasta sequences are used by the steps below. The sequences from EBI were demultiplexed and minimally quality filtered using the QIIME 1 command [split_libraries_fastq.py](http://qiime.org/scripts/split_libraries_fastq.html) with Phred quality threshold of 3 and default parameters.
+Per-study sequence files can be downloaded directly from EBI using scripts in `code/download-sequences`:
+
+* `download_ebi_fasta.sh` (FASTA) 
+* `download_ebi_fastq.sh` (FASTQ) 
+
+Fasta sequences are used by the steps below. The sequences from EBI were demultiplexed and minimally quality filtered using the QIIME 1 command [split_libraries_fastq.py](http://qiime.org/scripts/split_libraries_fastq.html) with Phred quality threshold of 3 and default parameters.
 
 #### 1.2 Generation of OTU/sequence observation tables
 
@@ -24,29 +31,46 @@ Four separate OTU picking procedures were run on the EMP Release 1 data: de novo
 
 ##### 1.2.1 Deblur (de novo sequence variant determination)
 
-Deblur sOTU (tag sequence or amplicon sequence variant) picking was done using a pre-release version of [Deblur](https://github.com/biocore/deblur). That workflow can be called from the script `run_deblur_emp_original.sh` in `code/03-otu-picking-trees/deblur`. The analogous workflow using the published distribution of Deblur can be called from the script `run_deblur_emp_new.sh`.
+Deblur code for picking sOTUs (a.k.a. tag sequences or amplicon sequence variants) is in `code/03-otu-picking-trees/deblur`:
 
-##### 1.2.2 Closed-reference Greengenes 13.8
+* `run_deblur_emp_original.sh` (pre-release version used for this meta-analysis)
+* `run_deblur_emp_new.sh` (using published Deblur version)
 
-Closed-reference OTU picking against Greengenes 13.8 was done using the QIIME 1 script [pick_closed_reference_otus.py](http://qiime.org/scripts/pick_closed_reference_otus.html). The workflow can be called from the notebook `closed_reference_otu_picking.ipynb` in `code/03-otu-picking-trees/closed-ref`.
+Code and documentation for Deblur can be found on [GitHub](https://github.com/biocore/deblur), and the manuscript describing Deblur is available from [mSystems](http://msystems.asm.org/content/2/2/e00191-16).
 
-##### 1.2.3 Closed-reference Silva 123
+##### 1.2.2 Closed-reference against Greengenes 13.8
 
-Closed-reference OTU picking against Silva 123 16S was done using the QIIME 1 script [pick_closed_reference_otus.py](http://qiime.org/scripts/pick_closed_reference_otus.html). The workflow can be called from the notebook `closed_reference_otu_picking.ipynb` in `code/03-otu-picking-trees/closed-ref`.
+Closed-reference OTU picking against Greengenes 13.8 (97% OTUs) was done using the QIIME 1 script [pick_closed_reference_otus.py](http://qiime.org/scripts/pick_closed_reference_otus.html) with code in `code/03-otu-picking-trees/closed-ref`:
 
-##### 1.2.4 Open-reference Greengenes 13.8
+* `closed_reference_otu_picking.ipynb`
 
-Closed-reference OTU picking against Greengenes 13.8 was done using the QIIME 1 script [pick_open_reference_otus.py](http://qiime.org/scripts/pick_open_reference_otus.html). The workflow can be called from the notebook `open_reference_otu_picking.ipynb` in `code/03-otu-picking-trees/open-ref`.
+##### 1.2.3 Closed-reference against Silva 123
+
+Closed-reference OTU picking against Silva 123 16S (97% OTUs) was done using the QIIME 1 script [pick_closed_reference_otus.py](http://qiime.org/scripts/pick_closed_reference_otus.html) with code in `code/03-otu-picking-trees/closed-ref`:
+
+* `closed_reference_otu_picking.ipynb`
+
+##### 1.2.4 Open-reference against Greengenes 13.8
+
+Open-reference OTU picking against Greengenes 13.8 was done using the QIIME 1 script [pick_open_reference_otus.py](http://qiime.org/scripts/pick_open_reference_otus.html) with code in `code/03-otu-picking-trees/open-ref`:
+
+* `open_reference_otu_picking.ipynb`
 
 #### 1.3 Phylogenetic trees
 
 ##### 1.3.1 Deblur
 
-Deblur sequences were inserted into the Greengenes reference tree using [SEPP](https://github.com/smirarab/sepp). The code for this method is in `code/03-otu-picking-trees/run_sepp.sh`.
+Deblur sequences were inserted into the Greengenes reference tree using [SEPP](https://github.com/smirarab/sepp). The code for this method is in `code/03-otu-picking-trees/deblur`:
+
+* `run_sepp.sh`
 
 ##### 1.3.2 Closed-reference Greengenes 13.8
 
+The reference tree for Greengenes 13.8 (97% OTUs) was `97_otus.tree`, available from the [EMP FTP site](ftp://ftp.microbio.me/emp/release1/otu_info/greengenes_13_8/) and the [Greengenes FTP site](ftp://greengenes.microbio.me/greengenes_release/gg_13_5/gg_13_8_otus.tar.gz).
+
 ##### 1.3.3 Closed-reference Silva 123
+
+The reference tree for Silva 123 16S (97% OTUs) was `97_otus.tre`, available from the [EMP FTP site](ftp://ftp.microbio.me/emp/release1/otu_info/silva_123/) and the [Silva website](https://www.arb-silva.de/documentation/release-123/).
 
 ##### 1.3.4 Open-reference Greengenes 13.8
 
@@ -58,31 +82,29 @@ Deblur and OTU tables were rarefied (subsampled) to generate equal numbers of ob
 
 #### 1.5 Subsets of tables
 
-Deblur and OTU tables were subset to generate tables with more even representation across sample types and studies, used in many of the analyses as described below. Subsetting of the tables is accomplished by running the IPython notebooks `observation_table.ipynb` and `subset_samples_by_empo_and_study.ipynb` in `code/04-subsets-prevalence`.
+Deblur/OTU tables were subset to generate tables with more even representation across sample types and studies, used in many of the analyses as described below. Subsetting of the tables is accomplished by running the following IPython notebooks in `code/04-subsets-prevalence`:
 
-<!--
-REDBIOM
-    # assuming an interactive job
-    
-    cp /home/mcdonadt/emp-create-redbiomdb/emp-redbiom.rdb /localscratch/
-    
-    /home/mcdonadt/redis-3.2.6/src/redis-server --daemonize yes --dbfilename /localscratch/emp-redbiom.rdb
-    /home/mcdonadt/webdis/webdis &
-    
-    source activate redbiom
-    
-    export REDBIOM_HOST=http://127.0.0.1:7379
-    
-    # IMPORTANT, redis will not service requests until the database is loaded, and it takes a few minutes. redbiom queries during that time will error with a confusing error (hadn't encountered this before...)
-    
-    # memory foot print is like 18.5GB
-    
-    # recommending using redis / webdis out of my home right now to avoid compilation, but i think just pointing to redbiom readme would be fine?
--->
+* `observation_table.ipynb`
+* `subset_samples_by_empo_and_study.ipynb`
 
 ### 2 Metadata processing
 
-QIIME mapping files were downloaded from https://qiita.ucsd.edu and refined to fix errors, standardize formatting, and add fields specific for this investigation. The IPython notebook for this metadata processing is `metadata_refine.ipynb` in `code/01-metadata`.
+QIIME mapping files were downloaded from [Qiita](https://qiita.microbio.me) and refined to fix errors, standardize formatting, and add fields specific for this investigation. 
+
+Three IPython notebooks are provided to curate study metadata (step 1), refine sample metadata (step 2), and generate new sample information files for those studies to upload to Qiita (step 3). These notebooks are located in `code/01-metadata`:
+
+* `metadata_refine_step1_studies.ipynb`
+* `metadata_refine_step2_samples.ipynb`
+* `metadata_refine_step3_qiita.ipynb`
+
+A notebook for looking up higher (less semantically granular) terms for a given ENVO biome term, which is incorporated in step 2 above, is in `code/01-metadata`:
+
+* `envo_hierarchy_lookup.ipynb`
+
+A metadata template generator, for future metadata collection, is provided as a Python script and a Markdown version of an IPython notebook in `code/01-metadata`:
+
+* `metadata_template_generator.md`
+* `metadata_template_generator.py`
 
 ### 3 Generating figures
 
@@ -187,4 +209,25 @@ The histogram of median sequence length after trimming (output of split_librarie
 #### 3.11 Subsets and EMP Trading Cards (Extended Data Fig. 7)
 
 ![](images/figureED7_cards.png)
+
+
+<!--
+REDBIOM
+    # assuming an interactive job
+    
+    cp /home/mcdonadt/emp-create-redbiomdb/emp-redbiom.rdb /localscratch/
+    
+    /home/mcdonadt/redis-3.2.6/src/redis-server --daemonize yes --dbfilename /localscratch/emp-redbiom.rdb
+    /home/mcdonadt/webdis/webdis &
+    
+    source activate redbiom
+    
+    export REDBIOM_HOST=http://127.0.0.1:7379
+    
+    # IMPORTANT, redis will not service requests until the database is loaded, and it takes a few minutes. redbiom queries during that time will error with a confusing error (hadn't encountered this before...)
+    
+    # memory foot print is like 18.5GB
+    
+    # recommending using redis / webdis out of my home right now to avoid compilation, but i think just pointing to redbiom readme would be fine?
+-->
 
