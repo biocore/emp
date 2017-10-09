@@ -2,15 +2,16 @@
 
 Instructions to generate the figures in "A communal catalogue reveals Earth’s multiscale microbial diversity", Thompson et al., *Nature* (2017). This manuscript describes the meta-analysis of EMP 16S Release 1, the first 97 studies subjected to 16S rRNA amplicon sequencing through the [Earth Microbiome Project](http://www.earthmicrobiome.org).
 
-Code and notebooks for generating these figures are in the top-level directory `code`, as described below.
+Source data (ready-to-plot) for the main figures (and notebooks for isolating the source data from other processed files) are in `figures/figure-data`.
 
-Input data files for generating the figures below are found in several places:
+Raw and processed data files for generating the figures are found in several places:
 
-* All data files (except sequences) required to generate the figures below are available from ftp://ftp.microbio.me/emp/release1; full contents are listed in `data/ftp_contents.txt`. 
-* All data files (except sequences) for this manuscript are archived with Zenodo, available from DOI [XXX](http://doi.org/XXX).
+* All data files (except sequences) required to generate the figures are in `data` and/or available from ftp://ftp.microbio.me/emp/release1. FTP directory contents are listed in `data/ftp_contents.txt`.
+* For archival purposes, sample metadata, observation tables and information (trees and taxonomies), alpha- and beta-diversity results, and observation summaries for trading cards are archived at Zenodo with DOI [XXX](http://doi.org/XXX).
 * Sequences files are available directly from EBI (see below).
 * The mapping file (metadata) for analyses unless otherwise noted is `emp_qiime_mapping_qc_filtered.tsv` in `data/mapping_files`.
-* Select smaller data files (<100 GB) are also stored in `data`.
+
+Code and notebooks for data processing and figure generation are in the top-level directory `code`, as described below.
 
 ### 1 Amplicon sequence processing
 
@@ -89,7 +90,7 @@ Deblur/OTU tables were subset to generate tables with more even representation a
 
 ### 2 Metadata processing
 
-QIIME mapping files were downloaded from [Qiita](https://qiita.microbio.me) and refined to fix errors, standardize formatting, and add fields specific for this investigation. 
+This section describes how metadata were refined to enable interoperability and meta-analysis. QIIME mapping files were downloaded from [Qiita](https://qiita.microbio.me/emp) and refined to fix errors, standardize formatting, and add fields specific for this meta-analysis. 
 
 Three IPython notebooks are provided to curate study metadata (step 1), refine sample metadata (step 2), and generate new sample information files for those studies to upload to Qiita (step 3). These notebooks are located in `code/01-metadata`:
 
@@ -97,16 +98,18 @@ Three IPython notebooks are provided to curate study metadata (step 1), refine s
 * `metadata_refine_step2_samples.ipynb`
 * `metadata_refine_step3_qiita.ipynb`
 
-A notebook for looking up higher (less semantically granular) terms for a given ENVO biome term, which is incorporated in step 2 above, is in `code/01-metadata`:
+A notebook for looking up higher (less semantically granular) terms for a given ENVO biome term (climbing up the hierarchy), which is incorporated in step 2 above, is in `code/01-metadata`:
 
 * `envo_hierarchy_lookup.ipynb`
 
 A metadata template generator, for future metadata collection, is provided as a Python script and a Markdown version of an IPython notebook in `code/01-metadata`:
 
-* `metadata_template_generator.md`
 * `metadata_template_generator.py`
+* `metadata_template_generator.md`
 
 ### 3 Generating figures
+
+This section describes the code for generating each figure from the observation and metadata tables produced above. Figures are numbered as in Thompson et al. (2017).
 
 #### 3.1 Environment type and provenance of EMP samples included in this meta-analysis (Fig. 1)
 
@@ -114,69 +117,91 @@ A metadata template generator, for future metadata collection, is provided as a 
 
 ##### 3.1.1. Sankey diagram (Fig. 1a)
 
-Sankey generated from mapping file column `empo_3` using Google Charts [Sankey Diagram](https://developers.google.com/chart/interactive/docs/gallery/sankey). Here is the current version of the Sankey diagram: https://jsfiddle.net/aqxw0cqz/8/. Note that you can turn on the text labels by changing line 61.
+The Sankey diagram was generated from mapping file column `empo_3` using Google Charts [Sankey Diagram](https://developers.google.com/chart/interactive/docs/gallery/sankey). Code for this version of the Sankey diagram is at https://jsfiddle.net/aqxw0cqz/8/ (note: text labels can be turned on by changing line 61).
 
 ##### 3.1.2 World map (Fig. 1b)
 
-Map generated from mapping file columns `latitude_deg` and `longitude_deg` using IPython notebook `map_samples_by_empo.ipynb` in `code/01-metadata`.
+The world map was generated using the Python [Basemap](https://pypi.python.org/pypi/basemap) package from mapping file columns `latitude_deg` and `longitude_deg` using an IPython notebook in `code/01-metadata`:
+
+* `map_samples_by_empo.ipynb`
 
 #### 3.2 Alpha-diversity, beta-diversity, and predicted average 16S rRNA gene copy number (Fig. 2)
 
 ![](images/figure2_abdiv.png)
 
-##### 3.2.1 Alpha-diversity boxplots (Fig. 2a)
+##### 3.2.1 Alpha-diversity (Fig. 2a-b)
 
-Alpha-diversity for the Deblur 90-bp table (QC-filtered) subset was run using the script `alpha_diversity.py` in `code/05-alpha-diversity`. The results for the Deblur 90-bp table rarefied to 5000 sequences per sample were added to the mapping file as the columns adiv_observed_otus, adiv_chao1, adiv_shannon, and adiv_faith_pd.
+Alpha-diversity code is contained in `code/05-alpha-diversity`. Alpha-diversity for the Deblur 90-bp table (QC-filtered) subset was run using a script in `code/05-alpha-diversity`:
 
-##### 3.2.2 Alpha-diversity vs. pH and temperature (Fig. 2b)
+* `alpha_diversity.py`
 
-<!--
-Ken's repo: https://github.com/klocey/emp_macroeco
--->
+The results for the Deblur 90-bp table rarefied to 5000 sequences per sample were added to the mapping file as the columns adiv_observed_otus, adiv_chao1, adiv_shannon, and adiv_faith_pd.
 
-##### 3.2.3 Beta-diversity principal coordinates (Fig. 2c)
+Alpha-diversity boxplots were generated using an IPython notebook:
 
+* `alpha_diversity_boxplots.ipynb`
 
-##### 3.2.4 Predicted average 16S rRNA copy number (Fig. 2d)
+Scatter plots and maximum likelihood estimation (MLE) fits of alpha-diversity versus pH and temperature were generated using an IPython notebook:
 
+* `mle_curve_fits.ipynb.ipynb`
+
+Additional code for macroecological analyses of the EMP data are at https://github.com/klocey/emp_macroeco.
+
+##### 3.2.2 Beta-diversity principal coordinates (Fig. 2c)
+
+Beta-diversity code is contained in `code/06-beta-diversity`. Code for performing 'Snappy' UniFrac and principal coordinates analysis on the EMP Deblur 90-bp biom table (QC-filtered subset and rarefied to 5000 observations per sample) are in a Markdown file:
+
+* `unifrac_and_principal_coordinates.md`
+
+##### 3.2.3 Predicted average 16S rRNA copy number (Fig. 2d)
+
+Code for estimating average 16S rRNA copy number is in `code/07-env-effects-corr`:
+
+* `rrna_copy_number_analysis.ipynb`
 
 #### 3.3 Nestedness of community composition (Fig. 3)
 
 ![](images/figure3_nestedness.png)
 
-##### 3.3.1 Nestedness binary heatmap of all samples (Fig. 3a)
+##### 3.3.1 Nestedness analysis (Fig. 3a-c)
 
-##### 3.3.2 Nestedness binary heatmap of EMPO level 2 classes (Fig. 3b)
-
-##### 3.3.3 NODF scores vs. taxonomic level (Fig. 3c)
-
-<!--
 A GitHub repository that can be used to easily replicate the results is located here:
 
-https://github.com/jladau/Nestedness.EMP
+* https://github.com/jladau/Nestedness.EMP
 
 As noted in the repository, the data files that were used are posted at this Dropbox link:
 
-https://www.dropbox.com/s/velnv86z1l81ilx/nestedness_emp_data.tar.gz?dl=0
+* https://www.dropbox.com/s/velnv86z1l81ilx/nestedness_emp_data.tar.gz?dl=0
 
-Is there an EMP GitHub repository where the data can be posted, or alternatively, can you point to where these files are already posted? For consistency with the file naming conventions that I used, some of the files in Dropbox are renamed as follows (they have also each been rarefied to 5000 reads):
+For consistency with the file naming conventions that were used, the biom tables in Dropbox are renamed as follows (they have also each been rarefied to 5000 reads):
 
-otu_subset.emp_deblur_90bp.subset_2k.lt_1.0_pc_samp.biom -> Global.Global2000Subset.BacteriaSubset1.EMP.biom
-otu_subset.emp_deblur_90bp.subset_2k.lt_5.0_pc_samp.biom -> Global.Global2000Subset.BacteriaSubset5.EMP.biom
-otu_subset.emp_deblur_90bp.subset_2k.lt_10.0_pc_samp.biom -> Global.Global2000Subset.BacteriaSubset10.EMP.biom
-emp_deblur_90bp.subset_2k.rare_5000.biom -> Global.Global2000Subset.Bacteria.EMP.biom
--->
+    emp_deblur_90bp.subset_2k.rare_5000.biom -> Global.Global2000Subset.Bacteria.EMP.biom
+    otu_subset.emp_deblur_90bp.subset_2k.lt_1.0_pc_samp.biom -> Global.Global2000Subset.BacteriaSubset1.EMP.biom
+    otu_subset.emp_deblur_90bp.subset_2k.lt_5.0_pc_samp.biom -> Global.Global2000Subset.BacteriaSubset5.EMP.biom
+    otu_subset.emp_deblur_90bp.subset_2k.lt_10.0_pc_samp.biom -> Global.Global2000Subset.BacteriaSubset10.EMP.biom
+
+##### 3.3.2 Nestedness figure generation (Fig. 3a-c)
+
+Code for plotting the nestedness binary heatmaps and NODF statistics is in `code/08-cooccurrence-nestedness`:
+
+* `nestedness_binary_heatmaps.ipynb`
+* `nestedness_nodf_plots.ipynb`
 
 #### 3.4 Specificity of tag sequences for environment (Fig. 4)
 
 ![](images/figure4_entropy.png)
 
-##### 3.4.1 EMPO level 3 distribution of genera and tag sequences (Fig. 4a)
+##### 3.4.1 Environment distribution of genera and tag sequences (Fig. 4a)
 
-##### 3.4.2 Entropy of EMPO level 3 distribution vs. taxonomic level (Fig. 4b)
+Code for generating plots of EMPO level 3 distribution for genera and tag sequences is in `code/09-specificity-entropy`:
 
-##### 3.4.3 Entropy of EMPO level 3 distribution vs. branch length (Fig. 4c)
+* `entropy_environment_by_taxon.ipynb`
 
+##### 3.4.2 Entropy plots (Fig. 4b-c)
+
+Code for generating plots of entropy of EMPO level 3 distribution vs. taxonomic level and branch length is in `code/09-specificity-entropy`:
+
+* `R_entropy_plots`
 
 #### 3.5 Physicochemical properties of the EMP samples (Extended Data Fig. 1)
 
@@ -188,46 +213,82 @@ The pairplot of physicochemical metadata was generated using IPython notebook `p
 
 ![](images/figureED2_seqsdiv.png)
 
-The histogram of median sequence length after trimming (output of split_libraries.py, i.e., sequences downloaded from EBI) was generated using IPython notebook `sequence_length.ipynb` in `code/02-sequence-processing`.
+The histogram of median sequence length after trimming (output of split_libraries.py, i.e., sequences downloaded from EBI) was generated using an IPython notebook in `code/02-sequence-processing`:
+
+* `sequence_length.ipynb`
+
+Alpha-diversity boxplots were generated using an IPython notebook in `code/05-alpha-diversity`:
+
+* `alpha_diversity_boxplots.ipynb`
+
+Beta-diversity code is contained in `code/06-beta-diversity` (see above).
 
 #### 3.7 Sequence length effects on observed diversity patterns (Extended Data Fig. 3)
 
 ![](images/figureED3_trimming.png)
 
+Alpha-diversity histograms were generated using an IPython notebook in `code/05-alpha-diversity`:
+
+* `alpha_diversity_90bp_100bp_150bp.ipynb`
+
+Beta-diversity Procrustes code and notebook are in `code/06-beta-diversity`:
+
+* **JON'S CODE IN barnacle:/home/jgsanders/emp/procrustes_90_150**
+
 #### 3.8 Tag sequence prevalence patterns (Extended Data Fig. 4)
 
 ![](images/figureED4_prevalence.png)
+
+**NEED TO DESCRIBE OTU SUMMARY CODE BC PREVALENCE NOTEBOOK USES IT**
+
+Code for generating prevalence plots is in `code/04-subsets-prevalence`:
+
+* `otu_prevalence.ipynb`
 
 #### 3.9 Environmental effect sizes, sample classification, and correlation patterns (Extended Data Fig. 5)
 
 ![](images/figureED5_environmental.png)
 
-#### 3.10 NODF scores of nestedness across samples by taxonomic level (Extended Data Fig. 6)
+##### 3.9.1 Effect size (Extended Data Fig. 5a-b)
+
+Code for calculating and plotting effect sizes is in `code/07-env-effects-corr`:
+
+* `clean_map_emp.py`
+* `effect_size_rda.ipynb`
+* `effect_size_main.ipynb`
+
+##### 3.9.2 Sample classification (Extended Data Fig. 5c-g)
+
+Code for carrying out random forest analysis and SourceTracker2 analysis are in `code/06-beta-diversity`:
+
+* `random-forest/`
+* `sourcetracker_mapping_file_and_execution.ipynb`
+* `sourcetracker_mixing_proportions.ipynb`
+
+##### 3.9.3 Correlation patterns of alpha-diversity with latitude (Extended Data Fig. 5h)
+
+Code for investigations of alpha-diversity covariation with latitude is in `code/07-env-effects-corr`:
+
+* **JON'S CODE FROM BARNACLE**
+
+#### 3.10 Nestedness NODF scores of alternate sets of sequences or samples (Extended Data Fig. 6)
 
 ![](images/figureED6_nodf.png)
+
+Code for plotting the NODF statistics with the most prevalent sequences removed and of alternate 2000-sample subsets is in `code/08-cooccurrence-nestedness`:
+
+* `nestedness_otu_subsets.ipynb`
 
 #### 3.11 Subsets and EMP Trading Cards (Extended Data Fig. 7)
 
 ![](images/figureED7_cards.png)
 
+##### 3.11.1 Subsets (Extended Data Fig. 7a)
 
-<!--
-REDBIOM
-    # assuming an interactive job
-    
-    cp /home/mcdonadt/emp-create-redbiomdb/emp-redbiom.rdb /localscratch/
-    
-    /home/mcdonadt/redis-3.2.6/src/redis-server --daemonize yes --dbfilename /localscratch/emp-redbiom.rdb
-    /home/mcdonadt/webdis/webdis &
-    
-    source activate redbiom
-    
-    export REDBIOM_HOST=http://127.0.0.1:7379
-    
-    # IMPORTANT, redis will not service requests until the database is loaded, and it takes a few minutes. redbiom queries during that time will error with a confusing error (hadn't encountered this before...)
-    
-    # memory foot print is like 18.5GB
-    
-    # recommending using redis / webdis out of my home right now to avoid compilation, but i think just pointing to redbiom readme would be fine?
--->
+Code for generating random subsets of samples evenly distributed by environment and study, plus a summary figure, is in `code/04-subsets-prevalence`:
+
+* `summarize_observation_counts.ipynb`
+* `subset_samples_by_empo_and_study.ipynb`
+
+##### 3.11.2 Trading cards (Extended Data Fig. 7b)
 
