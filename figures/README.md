@@ -30,7 +30,7 @@ Any adapter contamination was removed using the code in `code/02-sequence-proces
 
 * `adaptor_cleanup.ipynb`
 
-#### 1.2 Generation of OTU/sequence observation tables
+#### 1.2 Generate sequence/OTU observation tables
 
 Four separate OTU picking procedures were run on the EMP Release 1 data: de novo using Deblur, closed-reference using Greengenes 13.8, closed-reference using Silva 123, and open-reference using Greengenes 13.8.
 
@@ -61,7 +61,7 @@ Open-reference OTU picking against Greengenes 13.8 was done using the QIIME 1 sc
 
 * `open_reference_otu_picking.ipynb`
 
-#### 1.3 Phylogenetic trees
+#### 1.3 Phylogenetic trees of sequences/OTUs
 
 ##### 1.3.1 Deblur
 
@@ -121,7 +121,9 @@ This section describes the code for generating each figure from the observation 
 
 ##### 3.1.1. Sankey diagram (Fig. 1a)
 
-The Sankey diagram was generated from mapping file column `empo_3` using Google Charts [Sankey Diagram](https://developers.google.com/chart/interactive/docs/gallery/sankey). Code for this version of the Sankey diagram is at https://jsfiddle.net/aqxw0cqz/8/ (note: text labels can be turned on by changing line 61).
+The Sankey diagram was generated from mapping file column `empo_3` using Google Charts [Sankey Diagram](https://developers.google.com/chart/interactive/docs/gallery/sankey). Code for this version of the Sankey diagram is linked (note: text labels can be turned on by changing line 61):
+
+* https://jsfiddle.net/aqxw0cqz/8/
 
 ##### 3.1.2 World map (Fig. 1b)
 
@@ -135,7 +137,7 @@ The world map was generated using the Python [Basemap](https://pypi.python.org/p
 
 ##### 3.2.1 Alpha-diversity (Fig. 2a-b)
 
-Alpha-diversity code is contained in `code/05-alpha-diversity`. Alpha-diversity for the Deblur 90-bp table (QC-filtered) subset was run using a script in `code/05-alpha-diversity`:
+Alpha-diversity code is contained in `code/05-alpha-diversity`. Alpha-diversity for the Deblur 90-bp table (QC-filtered subset) was run using a script in `code/05-alpha-diversity`:
 
 * `alpha_diversity.py`
 
