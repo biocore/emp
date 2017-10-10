@@ -89,7 +89,7 @@ Deblur and OTU tables were rarefied (subsampled) to generate equal numbers of ob
 
 Deblur/OTU tables were subset to generate tables with more even representation across sample types and studies, used in many of the analyses as described below. Subsetting of the tables is accomplished by running the following IPython notebooks in `code/04-subsets-prevalence`:
 
-* `observation_table.ipynb`
+* `summarize_observation_counts.ipynb`
 * `subset_samples_by_empo_and_study.ipynb`
 
 ### 2 Metadata processing
@@ -147,7 +147,7 @@ Alpha-diversity boxplots were generated using an IPython notebook:
 
 Scatter plots and maximum likelihood estimation (MLE) fits of alpha-diversity versus pH and temperature were generated using an IPython notebook:
 
-* `mle_curve_fits.ipynb.ipynb`
+* `mle_curve_fits.ipynb`
 
 Additional code for macroecological analyses of the EMP data are at https://github.com/klocey/emp_macroeco.
 
@@ -265,9 +265,10 @@ Code for calculating and plotting effect sizes is in `code/07-env-effects-corr`:
 
 ##### 3.9.2 Sample classification (Extended Data Fig. 5c-g)
 
-Code for carrying out random forest analysis and SourceTracker2 analysis are in `code/06-beta-diversity`:
+Code for carrying out random forest analysis and SourceTracker2 analysis, and plotting results, are in `code/06-beta-diversity`:
 
 * `random-forest/`
+* `rf_confusion_matrix.ipynb`
 * `sourcetracker_mapping_file_and_execution.ipynb`
 * `sourcetracker_mixing_proportions.ipynb`
 

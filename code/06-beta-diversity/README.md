@@ -13,5 +13,6 @@ Code is used in the following section numbers of `figures/README.md`.
 **3.9.2:**
 
 * `random-forest/`
+* `rf_confusion_matrix.ipynb`
 * `sourcetracker_mapping_file_and_execution.ipynb`
 * `sourcetracker_mixing_proportions.ipynb`

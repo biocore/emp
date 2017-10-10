@@ -1,0 +1,3 @@
+	Free-living	Host-associated
+Free-living	0.9	0.1
+Host-associated	0.06	0.94

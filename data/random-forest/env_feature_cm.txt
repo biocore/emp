@@ -1,0 +1,20 @@
+	alkaline_habitat	animal-associated_habitat	anthropogenic_environmental_material	city	coral_reef	forest_soil	fresh_water	freshwater_habitat	freshwater_lake	hot_spring	human-associated_habitat	hydrothermal_vent	insecta-associated_habitat	kelp_forest	marine_habitat	nest_of_bird	pond	rice_field	vineyard
+alkaline_habitat	1.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+animal-associated_habitat	0.0	0.96	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.03	0.0	0.0	0.0	0.0	0.01	0.0	0.0	0.0
+anthropogenic_environmental_material	0.0	0.05	0.17	0.01	0.0	0.0	0.0	0.0	0.0	0.0	0.76	0.0	0.01	0.0	0.0	0.0	0.0	0.0	0.0
+city	0.0	0.0	0.0	1.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+coral_reef																			
+forest_soil	0.0	0.01	0.0	0.0	0.0	0.97	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.01
+fresh_water	0.0	0.0	0.0	0.0	0.0	0.0	1.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+freshwater_habitat	0.0	0.04	0.0	0.0	0.0	0.0	0.0	0.75	0.1	0.0	0.0	0.1	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+freshwater_lake	0.0	0.14	0.0	0.0	0.0	0.0	0.0	0.0	0.84	0.0	0.0	0.01	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+hot_spring	0.0	0.06	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.94	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+human-associated_habitat	0.0	0.02	0.01	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.96	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+hydrothermal_vent																			
+insecta-associated_habitat	0.0	0.25	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.04	0.0	0.69	0.0	0.0	0.0	0.0	0.0	0.01
+kelp_forest	0.0	0.01	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.99	0.0	0.0	0.0	0.0	0.0
+marine_habitat	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	1.0	0.0	0.0	0.0	0.0
+nest_of_bird	0.0	0.33	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.02	0.0	0.0	0.0	0.0	0.64	0.0	0.0	0.0
+pond	0.0	0.07	0.0	0.0	0.0	0.0	0.0	0.03	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.89	0.0	0.0
+rice_field	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	1.0	0.0
+vineyard	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	1.0

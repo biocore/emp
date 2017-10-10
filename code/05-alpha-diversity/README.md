@@ -6,6 +6,7 @@ Code is used in the following section numbers of `figures/README.md`.
 
 * `alpha_diversity.py`
 * `alpha_diversity_boxplots.ipynb`
+* `mle_curve_fits.ipynb`
 
 **3.6:**
 

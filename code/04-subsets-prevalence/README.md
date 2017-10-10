@@ -2,16 +2,11 @@
 
 Code is used in the following section numbers of `figures/README.md`.
 
-**1.5:**
+**1.5 & 3.11:**
 
-* `observation_table.ipynb`
-* `subset_samples_by_empo_and_study.ipynb`
+* `summarize_observation_counts.ipynb` (summarize the number of sequence/OTUs for each sample)
+* `subset_samples_by_empo_and_study.ipynb` (randomly subsample the samples by environment and study)
 
 **3.8:**
 
 * `otu_prevalence.ipynb`
-
-**3.11:**
-
-* `summarize_observation_counts.ipynb` (summarize the number of sequence/OTUs for each sample)
-* `subset_samples_by_empo_and_study.ipynb` (randomly subsample the samples by environment and study)

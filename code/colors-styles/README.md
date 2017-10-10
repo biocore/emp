@@ -1,2 +1,3 @@
 ## code/colors-styles
-Code is used in the following section numbers of `figures/README.md`.
+
+`empcolors.py` designates colors for EMPO categories and is used in multiple scripts and notebooks.
