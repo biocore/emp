@@ -8,8 +8,8 @@ Raw and processed data files for generating the figures are found in several pla
 
 * All data files (except sequences) required to generate the figures are in `data` and/or available from ftp://ftp.microbio.me/emp/release1. FTP directory contents are listed in `data/ftp_contents.txt`.
 * For archival purposes, sample metadata, observation tables and information (trees and taxonomies), alpha- and beta-diversity results, and observation summaries for trading cards are archived at Zenodo with DOI [XXX](http://doi.org/XXX).
-* Sequences files are available directly from EBI (see below).
-* The mapping file (metadata) for analyses unless otherwise noted is `emp_qiime_mapping_qc_filtered.tsv` in `data/mapping_files`.
+* Sequence files are available directly from EBI (see below).
+* The mapping file (metadata) for analyses, unless otherwise noted, is `emp_qiime_mapping_qc_filtered.tsv` in `data/mapping_files`.
 
 Code and notebooks for data processing and figure generation are in the top-level directory `code`, as described below.
 
@@ -207,7 +207,9 @@ Code for generating plots of entropy of EMPO level 3 distribution vs. taxonomic 
 
 ![](images/figureED1_physicochemical.png)
 
-The pairplot of physicochemical metadata was generated using IPython notebook `physicochemical_pairplot.ipynb` in `code/01-metadata`.
+The pairplot of physicochemical metadata was generated using an IPython notebook in `code/01-metadata`:
+
+* `physicochemical_pairplot.ipynb`
 
 #### 3.6 Sequence length, database effects, and beta-diversity patterns (Extended Data Fig. 2)
 
@@ -233,13 +235,13 @@ Alpha-diversity histograms were generated using an IPython notebook in `code/05-
 
 Beta-diversity Procrustes code and notebook are in `code/06-beta-diversity`:
 
-* **JON'S CODE IN barnacle:/home/jgsanders/emp/procrustes_90_150**
+* `procrustes_90_150.ipynb`
 
 #### 3.8 Tag sequence prevalence patterns (Extended Data Fig. 4)
 
 ![](images/figureED4_prevalence.png)
 
-**NEED TO DESCRIBE OTU SUMMARY CODE BC PREVALENCE NOTEBOOK USES IT**
+See section 3.11.2 for code to summarize sequence/OTU distributions.
 
 Code for generating prevalence plots is in `code/04-subsets-prevalence`:
 
@@ -269,7 +271,7 @@ Code for carrying out random forest analysis and SourceTracker2 analysis are in 
 
 Code for investigations of alpha-diversity covariation with latitude is in `code/07-env-effects-corr`:
 
-* **JON'S CODE FROM BARNACLE**
+* `latitudinal_diversity.ipynb`
 
 #### 3.10 Nestedness NODF scores of alternate sets of sequences or samples (Extended Data Fig. 6)
 
@@ -287,8 +289,30 @@ Code for plotting the NODF statistics with the most prevalent sequences removed 
 
 Code for generating random subsets of samples evenly distributed by environment and study, plus a summary figure, is in `code/04-subsets-prevalence`:
 
-* `summarize_observation_counts.ipynb`
-* `subset_samples_by_empo_and_study.ipynb`
+* `summarize_observation_counts.ipynb` (summarize the number of sequence/OTUs for each sample)
+* `subset_samples_by_empo_and_study.ipynb` (randomly subsample the samples by environment and study)
 
 ##### 3.11.2 Trading cards (Extended Data Fig. 7b)
+
+IPython notebooks for generating sequence/OTU distribution statistics, LaTeX macros, and charts for EMP Trading Cards is in `code/10-sequence-lookup`:
+
+* `summarize_otu_distributions.ipynb` (generate summary statistics for each sequence/OTU)
+* `otu_entropy.ipynb` (determine which sequences have the most skewed environment distributions)
+* `otu_trading_cards.ipynb` (generate LaTeX macros and charts for trading cards)
+
+Python code and HTML and TeX markup for rendering EMP Trading Cards as webpages or PDF are provided in these folders:
+
+* `trading-card-latex`
+* `trading-card-html`
+
+##### 3.11.3 Utility code for sequence lookup
+
+The distribution of any Deblur sequence, as a function of any metadata variable, can be plotted using this notebook in `code/10-sequence-lookup`:
+
+* `otu_scatter_plots.ipynb`
+
+Deblur sequence utility scripts are also in `code/10-sequence-lookup`:
+
+* `get_v4_region.py` (extract the V4 region of an input 16S sequence, specifying the desired length, e.g., to match 90-bp or 150-bp Deblur sequences)
+* `verify_amplicon_type.py` (guess the amplicon type, e.g., 16S V4, using the first few basepairs of a multi-FASTA file)
 
