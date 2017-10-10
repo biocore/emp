@@ -1,6 +1,0 @@
---input_otu_table deblur.txt
---metadata map.txt
---fields env_material
---category env_material::air,avian_egg_product,biofilm,dust,excreta,feces,fresh_water,lake_sediment,marine_sediment,microbial_mat,mucus,organic_material,rhizosphere,saliva,sea_water,sebum,sediment,soil,stream_sediment,travertine
---models rf
---otus_key taxonomy

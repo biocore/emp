@@ -1,0 +1,16 @@
+	Aerosol (non-saline)	Animal corpus	Animal distal gut	Animal proximal gut	Animal secretion	Animal surface	Plant rhizosphere	Plant surface	Sediment (non-saline)	Sediment (saline)	Soil (non-saline)	Surface (non-saline)	Surface (saline)	Water (non-saline)	Water (saline)
+Aerosol (non-saline)	0.75	0	0.25	0	0	0	0	0	0	0	0	0	0	0	0
+Animal corpus	0	0.98	0	0	0	0	0	0	0	0	0	0	0	0	0
+Animal distal gut	0	0	0.89	0.01	0.01	0.05	0	0	0	0	0.02	0	0	0.02	0
+Animal proximal gut	0	0	0.03	0.97	0	0	0	0	0	0	0	0	0	0	0
+Animal secretion	0	0.01	0.08	0	0.67	0.17	0	0	0	0	0.03	0.03	0	0	0
+Animal surface	0.01	0	0.05	0	0.08	0.83	0	0	0	0	0	0.01	0	0.01	0
+Plant rhizosphere	0	0	0	0	0	0	0.98	0	0	0	0.02	0	0	0	0
+Plant surface	0	0	0	0	0	0	0	0.99	0	0	0	0	0	0	0
+Sediment (non-saline)	0	0	0	0	0	0	0	0	0.97	0	0.01	0.01	0	0	0
+Sediment (saline)	0	0.01	0	0	0	0	0	0	0	0.98	0	0	0	0	0
+Soil (non-saline)	0	0	0.01	0	0	0.01	0.09	0.01	0.1	0.01	0.7	0.01	0	0.04	0.01
+Surface (non-saline)	0.01	0	0.03	0	0.05	0.25	0	0.01	0.01	0	0.03	0.61	0	0	0.01
+Surface (saline)	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Water (non-saline)	0	0	0.06	0	0	0.01	0	0	0.01	0	0.02	0	0.01	0.89	0
+Water (saline)	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0.99
