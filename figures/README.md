@@ -26,6 +26,10 @@ Per-study sequence files can be downloaded directly from EBI using scripts in `c
 
 Fasta sequences are used by the steps below. The sequences from EBI were demultiplexed and minimally quality filtered using the QIIME 1 command [split_libraries_fastq.py](http://qiime.org/scripts/split_libraries_fastq.html) with Phred quality threshold of 3 and default parameters.
 
+Any adapter contamination was removed using the code in `code/02-sequence-processing`:
+
+* `adaptor_cleanup.ipynb`
+
 #### 1.2 Generation of OTU/sequence observation tables
 
 Four separate OTU picking procedures were run on the EMP Release 1 data: de novo using Deblur, closed-reference using Greengenes 13.8, closed-reference using Silva 123, and open-reference using Greengenes 13.8.
