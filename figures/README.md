@@ -1,6 +1,6 @@
 ## figures
 
-Instructions to generate the figures in "A communal catalogue reveals Earth’s multiscale microbial diversity", Thompson et al., *Nature* (2017). This manuscript describes the meta-analysis of EMP 16S Release 1, the first 97 studies subjected to 16S rRNA amplicon sequencing through the [Earth Microbiome Project](http://www.earthmicrobiome.org).
+Instructions to generate the figures in Thompson et al., "A communal catalogue reveals Earth’s multiscale microbial diversity" (*Nature*, 2017, [doi:10.1038/nature24621](http://doi.org/10.1038/nature24621)). This manuscript describes the meta-analysis of EMP 16S Release 1, the first 97 studies subjected to 16S rRNA amplicon sequencing through the [Earth Microbiome Project](http://www.earthmicrobiome.org).
 
 Source data (ready-to-plot) for the main figures (and notebooks for isolating the source data from other processed files) are in `figures/figure-data`.
 
