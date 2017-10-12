@@ -1,0 +1,7 @@
+	anthropogenic_terrestrial_biome	forest_biome	freshwater_biome	marine_biome	shrubland_biome	tundra_biome
+anthropogenic_terrestrial_biome	0.95	0.0	0.04	0.01	0.0	0.0
+forest_biome	0.45	0.48	0.01	0.06	0.01	0.0
+freshwater_biome	0.18	0.0	0.81	0.02	0.0	0.0
+marine_biome	0.01	0.0	0.0	0.99	0.0	0.0
+shrubland_biome	0.51	0.04	0.03	0.01	0.4	0.0
+tundra_biome	0.2	0.04	0.38	0.04	0.0	0.34

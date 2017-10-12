@@ -1,0 +1,220 @@
+name: biome
+is_a: environmental system
+name: terrestrial biome
+is_a: biome
+name: marine biome
+is_a: aquatic biome
+name: freshwater biome
+is_a: aquatic biome
+name: Large river biome
+is_a: freshwater river biome
+name: Large river headwater biome
+is_a: freshwater river biome
+name: Large river delta biome
+is_a: freshwater river biome
+name: Small river biome
+is_a: freshwater river biome
+name: Large lake biome
+is_a: freshwater lake biome
+name: Small lake biome
+is_a: freshwater lake biome
+name: Xeric basin biome
+is_a: freshwater biome
+name: aquatic biome
+is_a: biome
+name: concentration basin mediterranean sea biome
+is_a: mediterranean sea biome
+name: estuarine biome
+is_a: marine biome
+name: marine salt marsh biome
+is_a: marine biome
+name: marine pelagic biome
+is_a: marine biome
+name: marine benthic biome
+is_a: marine biome
+name: marine neritic benthic zone biome
+is_a: marine benthic biome
+name: marine bathyal zone biome
+is_a: marine benthic biome
+name: marine abyssal zone biome
+is_a: marine benthic biome
+name: marine hadal zone biome
+is_a: marine benthic biome
+name: marine reef biome
+is_a: marine benthic biome
+name: marine hydrothermal vent biome
+is_a: marine benthic biome
+name: neritic pelagic zone biome
+is_a: marine pelagic biome
+name: oceanic pelagic zone biome
+is_a: marine pelagic biome
+name: oceanic sea surface microlayer biome
+is_a: oceanic pelagic zone biome
+name: oceanic epipelagic zone biome
+is_a: oceanic pelagic zone biome
+name: oceanic mesopelagic zone biome
+is_a: oceanic pelagic zone biome
+name: oceanic bathypelagic zone biome
+is_a: oceanic pelagic zone biome
+name: oceanic abyssopelagic zone biome
+is_a: oceanic pelagic zone biome
+name: oceanic hadal pelagic zone biome
+is_a: oceanic pelagic zone biome
+name: oceanic benthopelagic zone biome
+is_a: oceanic pelagic zone biome
+name: neritic sea surface microlayer biome
+is_a: neritic pelagic zone biome
+name: neritic epipelagic zone biome
+is_a: neritic pelagic zone biome
+name: neritic mesopelagic zone biome
+is_a: neritic pelagic zone biome
+name: epeiric sea biome
+is_a: marine biome
+name: marginal sea biome
+is_a: marine biome
+name: mediterranean sea biome
+is_a: marine biome
+name: ocean biome
+is_a: marine biome
+name: marine coral reef biome
+is_a: marine reef biome
+name: marine subtidal rocky reef biome
+is_a: marine reef biome
+name: marine black smoker biome
+is_a: marine hydrothermal vent biome
+name: marine white smoker biome
+is_a: marine hydrothermal vent biome
+name: marine ultramafic hydrothermal vent biome
+is_a: marine hydrothermal vent biome
+name: marine basaltic hydrothermal vent biome
+is_a: marine hydrothermal vent biome
+name: marine sponge reef biome
+is_a: marine reef biome
+name: neritic supra-littoral zone biome
+is_a: marine neritic benthic zone biome
+name: nertic littoral zone biome
+is_a: marine neritic benthic zone biome
+name: neritic sub-littoral zone biome
+is_a: marine neritic benthic zone biome
+name: marine cold seep biome
+is_a: marine benthic biome
+name: dilution basin mediterranean sea biome
+is_a: mediterranean sea biome
+name: forest biome
+is_a: terrestrial biome
+name: woodland biome
+is_a: terrestrial biome
+name: shrubland biome
+is_a: terrestrial biome
+name: grassland biome
+is_a: terrestrial biome
+name: savanna biome
+is_a: woodland biome
+name: desert biome
+is_a: terrestrial biome
+name: tundra biome
+is_a: terrestrial biome
+name: mangrove biome
+is_a: terrestrial biome
+name: temperate desert biome
+is_a: desert biome
+name: tropical desert biome
+is_a: desert biome
+name: subtropical desert biome
+is_a: desert biome
+name: montane desert biome
+is_a: desert biome
+name: polar desert biome
+is_a: desert biome
+name: subtropical savanna biome
+is_a: savanna biome
+name: tropical savanna biome
+is_a: savanna biome
+name: temperate savanna biome
+is_a: savanna biome
+name: flooded savanna biome
+is_a: savanna biome
+name: subtropical grassland biome
+is_a: grassland biome
+name: tropical grassland biome
+is_a: grassland biome
+name: temperate grassland biome
+is_a: grassland biome
+name: montane grassland biome
+is_a: grassland biome
+name: flooded grassland biome
+is_a: grassland biome
+name: coniferous forest biome
+is_a: forest biome
+name: broadleaf forest biome
+is_a: forest biome
+name: mixed forest biome
+is_a: forest biome
+name: mediterranean forest biome
+is_a: forest biome
+name: tropical broadleaf forest biome
+is_a: broadleaf forest biome
+name: subtropical broadleaf forest biome
+is_a: broadleaf forest biome
+name: temperate broadleaf forest biome
+is_a: broadleaf forest biome
+name: mediterranean woodland biome
+is_a: subtropical woodland biome
+name: subtropical coniferous forest biome
+is_a: coniferous forest biome
+name: tropical coniferous forest biome
+is_a: coniferous forest biome
+name: temperate coniferous forest biome
+is_a: coniferous forest biome
+name: temperate mixed forest biome
+is_a: mixed forest biome
+name: subtropical shrubland biome
+is_a: shrubland biome
+name: tropical shrubland biome
+is_a: shrubland biome
+name: temperate shrubland biome
+is_a: shrubland biome
+name: montane shrubland biome
+is_a: shrubland biome
+name: mediterranean shrubland biome
+is_a: subtropical shrubland biome
+name: xeric shrubland biome
+is_a: shrubland biome
+name: anthropogenic terrestrial biome
+is_a: terrestrial biome
+name: tropical woodland biome
+is_a: woodland biome
+name: temperate woodland biome
+is_a: woodland biome
+name: subtropical woodland biome
+is_a: woodland biome
+name: montane savanna biome
+is_a: savanna biome
+name: mediterranean grassland biome
+is_a: subtropical grassland biome
+name: subtropical dry broadleaf forest biome
+is_a: subtropical broadleaf forest biome
+name: subtropical moist broadleaf forest biome
+is_a: subtropical broadleaf forest biome
+name: tropical dry broadleaf forest biome
+is_a: tropical broadleaf forest biome
+name: tropical moist broadleaf forest biome
+is_a: tropical broadleaf forest biome
+name: mediterranean savanna biome
+is_a: subtropical savanna biome
+name: cropland biome
+is_a: anthropogenic terrestrial biome
+name: village biome
+is_a: anthropogenic terrestrial biome
+name: rangeland biome
+is_a: anthropogenic terrestrial biome
+name: dense settlement biome
+is_a: anthropogenic terrestrial biome
+name: urban biome
+is_a: dense settlement biome
+name: subpolar coniferous forest biome
+is_a: coniferous forest biome
+name: freshwater lake biome
+is_a: freshwater biome
+name: freshwater river biome
+is_a: freshwater biome

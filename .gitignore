@@ -52,13 +52,21 @@ per_study_alpha_diversity_even.tgz
 .*.swp
 
 # ipynb checkpoints 
-code/.ipynb_checkpoints
 code/01-metadata/.ipynb_checkpoints
 code/02-sequence-processing/.ipynb_checkpoints
-code/04-rarefaction-and-subsets/.ipynb_checkpoints
-code/07-entropy-and-covariation/.ipynb_checkpoints/
-code/08-cooccurrence-and-nestedness/.ipynb_checkpoints
-code/predicted-rrna-copy-number/.ipynb_checkpoints
+code/03-otu-picking-trees/.ipynb_checkpoints
+code/03-otu-picking-trees/closed-ref/.ipynb_checkpoints
+code/03-otu-picking-trees/open-ref/.ipynb_checkpoints
+code/04-subsets-prevalence/.ipynb_checkpoints
+code/05-alpha-diversity/.ipynb_checkpoints
+code/06-beta-diversity/.ipynb_checkpoints
+code/07-env-effects-corr/.ipynb_checkpoints
+code/08-cooccurrence-nestedness/.ipynb_checkpoints
+code/09-specificity-entropy/.ipynb_checkpoints
+code/10-sequence-lookup/.ipynb_checkpoints
+code/10-sequence-lookup/trading-card-latex/.ipynb_checkpoints
+code/colors-styles/.ipynb_checkpoints
+code/download-sequences/.ipynb_checkpoints
 
 # emacs files
 scripts/sequence-lookup/get_v4_region.py~
