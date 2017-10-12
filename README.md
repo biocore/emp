@@ -5,7 +5,7 @@ Earth Microbiome Project
 
 The Earth Microbiome Project (EMP) is a systematic attempt to characterize global microbial taxonomic and functional diversity for the benefit of the planet and humankind. Most of the data generated to this point are from 16S rRNA amplicon surveys, but the project also includes data from 18S and ITS amplicons, metagenomics, and metabolomics. For more information about the EMP -- people, publications, news, protocols and standards, and more -- please see the [EMP website](http://www.earthmicrobiome.org/).
 
-This GitHub repository describes the EMP catalogue and how to use it. The EMP dataset is generated from samples that individual researchers have compiled and contributed to the EMP. Samples from each group of researchers represent individual EMP studies. In addition to analyses being done by contributing researchers on the individual studies, we are performing cross-study meta-analyses. A meta-analysis of the first 97 16S rRNA amplicon studies in the EMP (Release 1) is currently in press (Thompson et al., *Nature*, 2017, [doi:10.1038/nature24621](http://doi.org/10.1038/nature24621)).
+This GitHub repository describes the EMP catalogue and how to use it. The EMP dataset is generated from samples that individual researchers have compiled and contributed to the EMP. Samples from each group of researchers represent individual EMP studies. In addition to analyses being done by contributing researchers on the individual studies, we are performing cross-study meta-analyses. A meta-analysis of the first 97 16S rRNA amplicon studies -- EMP 16S Release 1 -- is currently in press (Thompson et al., *Nature*, 2017, [doi:10.1038/nature24621](http://doi.org/10.1038/nature24621)); the analysis code for that manuscript is provided here.
 
 Getting involved
 ----------------
@@ -86,5 +86,3 @@ Finding older data
 ------------------
 
 If you're looking for data generated and used for the ISME 14 EMP presentations, look [here](https://github.com/EarthMicrobiomeProject/emp/tree/isme14).
-
-
