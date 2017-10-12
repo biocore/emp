@@ -322,4 +322,3 @@ Deblur sequence utility scripts are also in `code/10-sequence-lookup`:
 
 * `get_v4_region.py` (extract the V4 region of an input 16S sequence, specifying the desired length, e.g., to match 90-bp or 150-bp Deblur sequences)
 * `verify_amplicon_type.py` (guess the amplicon type, e.g., 16S V4, using the first few basepairs of a multi-FASTA file)
-
