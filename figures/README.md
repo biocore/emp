@@ -2,12 +2,12 @@
 
 Instructions to generate the figures in Thompson et al., "A communal catalogue reveals Earth’s multiscale microbial diversity" (*Nature*, 2017, [doi:10.1038/nature24621](http://doi.org/10.1038/nature24621)). This manuscript describes the meta-analysis of EMP 16S Release 1, the first 97 studies subjected to 16S rRNA amplicon sequencing through the [Earth Microbiome Project](http://www.earthmicrobiome.org).
 
-Source data (ready-to-plot) for the main figures (and notebooks for isolating the source data from other processed files) are in `figures/figure-data`.
+Source data (ready-to-plot) for the main figures -- and notebooks for isolating source data from other processed files -- are in `figures/figure-data`.
 
 Raw and processed data files for generating the figures are found in several places:
 
 * All data files (except sequences) required to generate the figures are in `data` and/or available from ftp://ftp.microbio.me/emp/release1. FTP directory contents are listed in `data/ftp_contents.txt`.
-* For archival purposes, sample metadata, observation tables and information (trees and taxonomies), alpha- and beta-diversity results, and observation summaries for trading cards are archived at Zenodo with DOI [XXX](http://doi.org/XXX).
+* For archival purposes, sample metadata, observation tables and information (trees and taxonomies), alpha- and beta-diversity results, and observation summaries for trading cards are archived at Zenodo with DOI [10.5281/zenodo.890000](http://doi.org/10.5281/zenodo.890000).
 * Sequence files are available directly from EBI (see below).
 * The mapping file (metadata) for analyses, unless otherwise noted, is `emp_qiime_mapping_qc_filtered.tsv` in `data/mapping_files`.
 
@@ -307,7 +307,7 @@ IPython notebooks for generating sequence/OTU distribution statistics, LaTeX mac
 * `otu_entropy.ipynb` (determine which sequences have the most skewed environment distributions)
 * `otu_trading_cards.ipynb` (generate LaTeX macros and charts for trading cards)
 
-Python code and HTML and TeX markup for rendering EMP Trading Cards as webpages or PDF are provided in these folders:
+Python code and TeX and HTML markup for rendering EMP Trading Cards as PDFs or webpages are provided in these folders:
 
 * `trading-card-latex`
 * `trading-card-html`
