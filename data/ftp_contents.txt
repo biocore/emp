@@ -5,17 +5,20 @@ about_mapping_files.md
 about_otu_tables.pdf
 
 emp_ontology/empo_v3.csv
+emp_ontology/envoEmpo_graph_v3.vue
 
-mapping_files/emp_qiime_mapping_all_emp.tsv       mapping_files/emp_qiime_mapping_subset_5k.tsv
+mapping_files/emp_qiime_mapping_release1.tsv      mapping_files/emp_qiime_mapping_subset_5k.tsv
 mapping_files/emp_qiime_mapping_qc_filtered.tsv   mapping_files/emp_qiime_mapping_subset_10k.tsv
 mapping_files/emp_qiime_mapping_subset_2k.tsv
 
 otu_distributions/otu_summary.emp_deblur_90bp.subset_2k.rare_5000.tsv
+otu_distributions/otu_summary_no_chl.emp_deblur_90bp.subset_2k.rare_5000.tsv
+otu_distributions/emp_2k_subset_blank_stats.tsv
 
 otu_info/deblur:
+emp.90.min25.deblur.seq.fa                        emp90.5000_1000_rxbl_placement_pruned75.tog.tre
 emp.100.min25.deblur.seq.fa                       emp100.5000_1000_rxbl_placement_pruned75.tog.tre
 emp.150.min25.deblur.seq.fa                       emp150.5000_1000_rxbl_placement_pruned75.tog.tre
-emp.90.min25.deblur.seq.fa                        emp90.5000_1000_rxbl_placement_pruned75.tog.tre
 
 otu_info/greengenes_13_8:
 97_otu_map.txt           97_otus.fasta            97_otus_aligned.fasta
@@ -25,13 +28,19 @@ otu_info/greengenes_sepp_pipeline:
 sepp-package.zip
 
 otu_info/open_ref:
-rep_set_ms2.fna rep_set_ms2.tre
+rep_set.fna (excludes sample singletons)          rep_set.incl_sample_singletons.fna
+rep_set.tre (excludes sample singletons)
 
 otu_info/silva_123:
-97_otus.tre                   Silva_123_notes.txt           taxonomy/
+97_otus.tre                   Silva_123_notes.txt               taxonomy/
 97_otus_16S.fasta             core_alignment_SILVA123.fasta
 
 otu_tables/closed_ref_greengenes:
+(unfiltered tables:)
+emp_cr_gg_13_8.release1.biom
+emp_cr_gg_13_8.release1.summary.txt
+
+(subsets:)
 emp_cr_gg_13_8.qc_filtered.biom                   emp_cr_gg_13_8.subset_2k.biom
 emp_cr_gg_13_8.qc_filtered.rare_10000.biom        emp_cr_gg_13_8.subset_2k.rare_10000.biom
 emp_cr_gg_13_8.qc_filtered.rare_10000.summary.txt emp_cr_gg_13_8.subset_2k.rare_10000.summary.txt
@@ -42,6 +51,11 @@ emp_cr_gg_13_8.subset_10k.rare_10000.summary.txt  emp_cr_gg_13_8.subset_5k.rare_
 emp_cr_gg_13_8.subset_10k.summary.txt             emp_cr_gg_13_8.subset_5k.summary.txt
 
 otu_tables/closed_ref_silva:
+(unfiltered tables:)
+emp_cr_silva_16S_123.release1.biom
+emp_cr_silva_16S_123.release1.summary.txt
+
+(subsets:)
 emp_cr_silva_16S_123.qc_filtered.biom                   emp_cr_silva_16S_123.subset_2k.biom
 emp_cr_silva_16S_123.qc_filtered.rare_10000.biom        emp_cr_silva_16S_123.subset_2k.rare_10000.biom
 emp_cr_silva_16S_123.qc_filtered.rare_10000.summary.txt emp_cr_silva_16S_123.subset_2k.rare_10000.summary.txt
@@ -52,6 +66,15 @@ emp_cr_silva_16S_123.subset_10k.rare_10000.summary.txt  emp_cr_silva_16S_123.sub
 emp_cr_silva_16S_123.subset_10k.summary.txt             emp_cr_silva_16S_123.subset_5k.summary.txt
 
 otu_tables/deblur:
+(unfiltered tables:)
+emp_deblur_90bp.release1.biom
+emp_deblur_90bp.release1.summary.txt
+emp_deblur_100bp.release1.biom
+emp_deblur_100bp.release1.summary.txt
+emp_deblur_150bp.release1.biom
+emp_deblur_150bp.release1.summary.txt
+
+(subsets:)
 emp_deblur_100bp.qc_filtered.biom                  emp_deblur_150bp.subset_2k.biom
 emp_deblur_100bp.qc_filtered.rare_5000.biom        emp_deblur_150bp.subset_2k.rare_5000.biom
 emp_deblur_100bp.qc_filtered.rare_5000.summary.txt emp_deblur_150bp.subset_2k.rare_5000.summary.txt
@@ -78,26 +101,20 @@ emp_deblur_150bp.subset_10k.rare_5000.summary.txt  emp_deblur_90bp.subset_5k.rar
 emp_deblur_150bp.subset_10k.summary.txt            emp_deblur_90bp.subset_5k.summary.txt
 
 otu_tables/open_ref_greengenes:
-emp_or_gg_13_8.qc_filtered.biom                   emp_or_gg_13_8.subset_2k.biom
-emp_or_gg_13_8.qc_filtered.rare_10000.biom        emp_or_gg_13_8.subset_2k.rare_10000.biom
-emp_or_gg_13_8.qc_filtered.rare_10000.summary.txt emp_or_gg_13_8.subset_2k.rare_10000.summary.txt
-emp_or_gg_13_8.qc_filtered.summary.txt            emp_or_gg_13_8.subset_2k.summary.txt
-emp_or_gg_13_8.subset_10k.biom                    emp_or_gg_13_8.subset_5k.biom
-emp_or_gg_13_8.subset_10k.rare_10000.biom         emp_or_gg_13_8.subset_5k.rare_10000.biom
-emp_or_gg_13_8.subset_10k.rare_10000.summary.txt  emp_or_gg_13_8.subset_5k.rare_10000.summary.txt
-emp_or_gg_13_8.subset_10k.summary.txt             emp_or_gg_13_8.subset_5k.summary.txt
+(unfiltered tables:)
+emp_or_gg_13_8.release1.biom (excludes sample singletons)  emp_or_gg_13_8.release1.summary.txt
+emp_or_gg_13_8.incl_sample_singletons.biom                 emp_or_gg_13_8.incl_sample_singletons.summary.txt
+
+(subsets: can be generated manually using QIIME)
 
 otu_tables/picrust:
 README_PICRUSt.txt             emp_cr_gg_13_8.normalized.biom nsti_per_sample.tsv
 cog_predictions.biom           ko_predictions.biom            rfam_predictions.biom
 
-otu_tables/unfiltered_tables:
-emp.100.min25.deblur.withtax.onlytree.biom        emp_cr_gg_13_8.biom
-emp.100.min25.deblur.withtax.onlytree.summary.txt emp_cr_gg_13_8.summary.txt
-emp.150.min25.deblur.withtax.onlytree.biom        emp_cr_silva_16S_123.biom
-emp.150.min25.deblur.withtax.onlytree.summary.txt emp_cr_silva_16S_123.summary.txt
-emp.90.min25.deblur.withtax.onlytree.biom         emp_or_gg_13_8.biom
-emp.90.min25.deblur.withtax.onlytree.summary.txt  emp_or_gg_13_8.summary.txt
+results/alpha_diversity/deblur/emp.90:
+emp.90.min25.deblur.withtax.onlytree_1000.txt     emp.90.min25.deblur.withtax.onlytree_30000.txt
+emp.90.min25.deblur.withtax.onlytree_10000.txt    emp.90.min25.deblur.withtax.onlytree_5000.txt
+emp.90.min25.deblur.withtax.onlytree_100000.txt
 
 results/alpha_diversity/deblur/emp.100:
 emp.100.min25.deblur.withtax.onlytree_1000.txt    emp.100.min25.deblur.withtax.onlytree_30000.txt
@@ -109,11 +126,7 @@ emp.150.min25.deblur.withtax.onlytree_1000.txt    emp.150.min25.deblur.withtax.o
 emp.150.min25.deblur.withtax.onlytree_10000.txt   emp.150.min25.deblur.withtax.onlytree_5000.txt
 emp.150.min25.deblur.withtax.onlytree_100000.txt
 
-results/alpha_diversity/deblur/emp.90:
-emp.90.min25.deblur.withtax.onlytree_1000.txt     emp.90.min25.deblur.withtax.onlytree_30000.txt
-emp.90.min25.deblur.withtax.onlytree_10000.txt    emp.90.min25.deblur.withtax.onlytree_5000.txt
-emp.90.min25.deblur.withtax.onlytree_100000.txt
-
 results/beta_diversity/deblur:
-emp_deblur_unifrac_dist.tar.gz                    emp_deblur_unifrac_pc.tar.gz
-md5sum.txt
+emp_deblur_unifrac_dist.tar.gz                    emp_90_gg_1k_unweighted_unifrac.txt.gz
+emp_deblur_unifrac_pc.tar.gz			  emp_150_gg_1k_unweighted_unifrac.txt.gz
+emp_deblur_unifrac_emperor.tar.gz
