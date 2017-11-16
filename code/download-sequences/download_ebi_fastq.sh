@@ -20,7 +20,7 @@ for study_accession in ERP021896 ERP020023 ERP020508 ERP017166 ERP020507 ERP0172
 do
     count=-1
 
-    curl -s "http://www.ebi.ac.uk/ena/data/warehouse/filereport?accession=${study_accession}&result=read_run&fields=secondary_sample_accession,submitted_ftp" | grep -v "^secondary_sample_accession" > ${study_accession}.details.txt
+    curl -s "https://www.ebi.ac.uk/ena/data/warehouse/filereport?accession=${study_accession}&result=read_run&fields=secondary_sample_accession,submitted_ftp" | grep -v "^secondary_sample_accession" > ${study_accession}.details.txt
 
     for fq in `awk '{print $1, $2}' ${study_accession}.details.txt`
     do
