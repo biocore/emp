@@ -1,6 +1,6 @@
 ## data
 
-Data files (excluding DNA sequence files) required to run the scripts and notebooks in `code` and generate the figures in `figures`.
+Data files (excluding DNA sequence files) required to run the scripts and notebooks in `code` and generate the figures described in `methods`.
 
 Additional data files not in this directory are available from ftp://ftp.microbio.me/emp/release1. FTP directory contents are listed in `ftp_contents.txt`.
 
