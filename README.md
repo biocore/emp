@@ -10,13 +10,13 @@ This GitHub repository describes the EMP catalogue -- how it is generated and ho
 
 This repository contains the following directories:
 
+* `protocols` Laboratory protocols and SOPs for sample and metadata collection, sample tracking, amplicon sequencing, shotgun sequencing, and metabolomics.
+* `methods` Computational methods and step-by-step instructions for performing analyses and generating figures for meta-analyses of the EMP dataset.
 * `code` IPython notebooks and scripts (Python, Java, R, Bash) developed for meta-analysis of EMP data; this code is used in the top-level directory `methods`.
-* `data` Data files used for processing and downstream analysis.
-* `legacy` Early code, results, and website documents from the initial phase of the EMP (2010-2013).
-* `methods` Computation methods and step-by-step instructions for performing analyses and generating figures for meta-analyses of the EMP dataset.
+* `data` Data files resulting from or used in processing and analysis.
 * `papers` Preprints of major meta-analyses of the EMP dataset and links to papers about individual studies.
 * `presentations` Links to slide decks from presentations on the EMP.
-* `protocols` Laboratory protocols and SOPs for sample and metadata collection, sample tracking, amplicon sequencing, shotgun sequencing, and metabolomics.
+* `legacy` Early code, results, and website documents from the initial phase of the EMP (2010-2013).
 
 ## Getting involved
 
