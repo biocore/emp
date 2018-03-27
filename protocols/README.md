@@ -10,7 +10,7 @@ The second phase of the EMP (2016–present), a multi-omics effort informally ca
 
 Samples for EMP500 were collected with standardized methods, in most cases divided into 10 aliquots per sample (please refer to the EMP500 [sample submission guide](http://www.earthmicrobiome.org/in-progress/emp500-sample-submission-guide/)). To track the provenance of these aliquots, we devised a QR barcoding scheme. Ideally, labels should be affixed to aliquot tubes before shipping, and 2-mL screw-cap bead beater tubes should be used to enable direct use in DNA extraction.
 
-QR codes had the format `doe.99.s003.a05` (where "doe" is the PI name, "99" is the study ID, "s003" is the sample number, and "a05" is the aliquot number). Code for generating these codes and other label information in an Excel spreadsheet is in notebooks "s4" and "s5" below. QR codes were printed on XX by XX labels and cap labels (part number XXX) using the XXX printer and ZebraDesigner Pro software for Windows, and scanned into a sample inventory spreadsheet using the BADDASS scanner.
+QR codes had the format `doe.99.s003.a05` (where "doe" is the PI name, "99" is the study ID, "s003" is the sample number, and "a05" is the aliquot number). Code for generating these codes and other label information in an Excel spreadsheet is in notebooks "s4" and "s5" below. QR codes were printed on Cryogenic Direct Thermal Labels, 1.125" x 0.75" rectangluar labels and 0.437" circular cap labels (GA International, part no. DFP-70) using the XXX printer and ZebraDesigner Pro software for Windows, and scanned into a sample inventory spreadsheet using a QR scanner.
 
 ### Metadata collection, curation, and processing
 

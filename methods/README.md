@@ -4,8 +4,8 @@ Description of computational methods used in analysis of EMP data. Code is provi
 
 ### Release 1
 
-`./methods_release1.md`
+`methods_release1.md` - information for reproducing analyses and figures in Thompson et al. (2017)
 
-### Subsequent releases
+### Release 2
 
-`./methods_emp500.md`
+`methods_release2.md` - primary data processing for the EMP500 project
