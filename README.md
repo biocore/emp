@@ -8,9 +8,13 @@ This GitHub repository describes the EMP catalogue -- how it is generated and ho
 
 ## Organization of this repository
 
+## Quick links
+
 This repository contains the following directories:
 
 * [`methods`](https://github.com/biocore/emp/tree/master/methods) Methods used in EMP analyses. Includes sample processing for extraction and sequencing, and computational methods for performing analyses and generating figures for meta-analyses of the EMP dataset.
+    - [📓 Release 1](https://github.com/biocore/emp/tree/methods/methods_release1.md) (Thompson et al., 2017)
+    - [📓 Release 2](https://github.com/biocore/emp/tree/methods/methods_release2.md) ("EMP500", unpublished)
 * [`protocols`](https://github.com/biocore/emp/tree/master/protocols) Laboratory protocols and SOPs for sample and metadata collection, sample tracking, amplicon sequencing, shotgun sequencing, and metabolomics.
 * [`code`](https://github.com/biocore/emp/tree/master/code) IPython notebooks and scripts (Python, Java, R, Bash) developed for meta-analysis of EMP data; this code is used in `methods`.
 * [`data`](https://github.com/biocore/emp/tree/master/data) Data files resulting from or used in processing and analysis.

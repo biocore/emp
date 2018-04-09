@@ -6,6 +6,6 @@ Code for reproducing the sequence processing, data analysis, and figure generati
 
 Code in this directory that was used in [Thompson et al., *Nature*, 2017](http://doi.org/10.1038/nature24621) (Release 1) is described in `methods/README.md`.
 
-### Subsequent releases
+### Release 2
 
 Additional code in this directory is being used in the EMP500 project.
