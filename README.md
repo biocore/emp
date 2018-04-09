@@ -8,8 +8,6 @@ This GitHub repository describes the EMP catalogue -- how it is generated and ho
 
 ## Organization of this repository
 
-## Quick links
-
 This repository contains the following directories:
 
 * [`methods`](https://github.com/biocore/emp/tree/master/methods) Methods used in EMP analyses. Includes sample processing for extraction and sequencing, and computational methods for performing analyses and generating figures for meta-analyses of the EMP dataset.
