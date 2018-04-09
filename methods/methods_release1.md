@@ -13,6 +13,10 @@ Raw and processed data files for generating the figures are found in several pla
 
 Code and notebooks for data processing and figure generation are in the top-level directory `code`, as described below.
 
+### 0 Sample collection and processing
+
+Samples were solicited from the global scientific community that spanned diverse environments and captured spatial, temporal, and/or physicochemical covariation. Sample processing -- DNA extraction and sequencing -- was organized by sample type: soil samples at LBNL, water samples at ANL, and fecal and other samples at CU Boulder. The first 27,751 samples from 97 studies are contained in EMP Release 1.
+
 ### 1 Amplicon sequence processing
 
 This section describes the commands to download the raw sequence data from EBI and perform OTU picking using different methods, including generating phylogenetic trees and taxonomies for reference sequences, if necessary.
@@ -68,6 +72,11 @@ Open-reference OTU picking against Greengenes 13.8 was done using the QIIME 1 sc
 Deblur sequences were inserted into the Greengenes reference tree using [SEPP](https://github.com/smirarab/sepp). The code for this method is in `code/03-otu-picking-trees/deblur`:
 
 * `run_sepp.sh`
+
+The output trees are available on the FTP site and the Zenodo archive:
+
+* ftp://ftp.microbio.me/emp/release1/otu_info/deblur/
+* https://zenodo.org/record/890000/files/emp_observation_info_deblur.tar.gz
 
 ##### 1.3.2 Closed-reference Greengenes 13.8
 
