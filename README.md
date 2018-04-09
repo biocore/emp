@@ -10,13 +10,13 @@ This GitHub repository describes the EMP catalogue -- how it is generated and ho
 
 This repository contains the following directories:
 
-* [`methods`](https://github.com/cuttlefishh/emp/tree/emp500/methods) Methods used in EMP analyses. Includes sample processing for extraction and sequencing, and computational methods for performing analyses and generating figures for meta-analyses of the EMP dataset.
-* [`protocols`](https://github.com/cuttlefishh/emp/tree/emp500/protocols) Laboratory protocols and SOPs for sample and metadata collection, sample tracking, amplicon sequencing, shotgun sequencing, and metabolomics.
-* [`code`](https://github.com/cuttlefishh/emp/tree/emp500/code) IPython notebooks and scripts (Python, Java, R, Bash) developed for meta-analysis of EMP data; this code is used in `methods`.
-* [`data`](https://github.com/cuttlefishh/emp/tree/emp500/data) Data files resulting from or used in processing and analysis.
-* [`papers`](https://github.com/cuttlefishh/emp/tree/emp500/papers) Preprints of major meta-analyses of the EMP dataset and links to papers about individual studies.
-* [`presentations`](https://github.com/cuttlefishh/emp/tree/emp500/presentations) Links to slide decks from presentations on the EMP.
-* [`legacy`](https://github.com/cuttlefishh/emp/tree/emp500/legacy) Early code, results, and website documents from the initial phase of the EMP (2010-2013).
+* [`methods`](https://github.com/cuttlefishh/emp/tree/master/methods) Methods used in EMP analyses. Includes sample processing for extraction and sequencing, and computational methods for performing analyses and generating figures for meta-analyses of the EMP dataset.
+* [`protocols`](https://github.com/cuttlefishh/emp/tree/master/protocols) Laboratory protocols and SOPs for sample and metadata collection, sample tracking, amplicon sequencing, shotgun sequencing, and metabolomics.
+* [`code`](https://github.com/cuttlefishh/emp/tree/master/code) IPython notebooks and scripts (Python, Java, R, Bash) developed for meta-analysis of EMP data; this code is used in `methods`.
+* [`data`](https://github.com/cuttlefishh/emp/tree/master/data) Data files resulting from or used in processing and analysis.
+* [`papers`](https://github.com/cuttlefishh/emp/tree/master/papers) Preprints of major meta-analyses of the EMP dataset and links to papers about individual studies.
+* [`presentations`](https://github.com/cuttlefishh/emp/tree/master/presentations) Links to slide decks from presentations on the EMP.
+* [`legacy`](https://github.com/cuttlefishh/emp/tree/master/legacy) Early code, results, and website documents from the initial phase of the EMP (2010-2013).
 
 ## Getting involved
 
