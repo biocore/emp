@@ -26,11 +26,11 @@ Replicates 2 and 3 were used for xxx.
 
 The metadata workflow -- from individual study metadata files, general sample information, and prep information -- to mapping files, sample information files, and prep information files -- is summarized by these IPython notebooks:
 
-* `emp500_s1_merge_sample_info.ipynb` - merge individual study metadata files, add general prep information (including plate and well numbers for the initial DNA extraction), generate sample information file
-* `emp500_s2_add_prep_info_sample_names.ipynb` - add prep information (16S, 18S, ITS) and sample information (sample names, study information, EMPO categories, etc.)
-* `emp500_s3_make_mapping_files_prep_info.ipynb` - generate mapping files and prep information files
-* `emp500_s4_project_summary.ipynb` - generate project summary and list of samples (for labels)
-* `emp500_s5_labels.ipynb` - generate label spreadsheet with QR codes (not encoded)
+* `emp500_s1_merge_sample_info.ipynb` Merge individual study metadata files, add general prep information (including plate and well numbers for the initial DNA extraction), generate sample information file.
+* `emp500_s2_add_prep_info_sample_names.ipynb` Add prep information (16S, 18S, ITS) and sample information (sample names, study information, EMPO categories, etc.).
+* `emp500_s3_make_mapping_files_prep_info.ipynb` Generate mapping files and prep information files.
+* `emp500_s4_project_summary.ipynb` Generate project summary and list of samples (for labels).
+* `emp500_s5_labels.ipynb` Generate label spreadsheet with QR codes (not encoded).
 
 ### 3 Processing rounds - DNA/metabolite extraction and sequencing/mass spec
 
