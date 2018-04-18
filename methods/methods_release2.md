@@ -6,41 +6,39 @@ Computational methods for Release 2 and the EMP500 project are described here. F
 
 #### 1.1 Solicitation of samples and EMPO
 
-We had funding to do metagenomic sequencing on ~500 samples. We solicited samples from the EMP consortium spanning a wide range of microbial environments. To achieve even coverage across microbial environments, we devised sample ontology of sample types (microbial environments), which would eventually become the EMP ontology ([EMPO](http://www.earthmicrobiome.org/protocols-and-standards/empo/)). Around 800 samples were ultimately collected, which allows for reshaping of the dataset to deal with poorly performing samples.
+We had funding to do metagenomic sequencing on ~500 samples. We solicited samples from the EMP consortium spanning a wide range of microbial environments. To achieve even coverage across microbial environments, we devised sample ontology of sample types (microbial environments), which would eventually become the [EMP ontology (EMPO)](http://www.earthmicrobiome.org/protocols-and-standards/empo/). Around 800 samples were ultimately collected, which allows for reshaping of the dataset to deal with poorly performing samples.
 
-#### 1.3 Metadata
+#### 1.2 Metadata
 
-Metadata were requested to comply with MIMS and Qiita standards (please refer to the EMP500 [metadata guide](http://press.igsb.anl.gov/earthmicrobiome/protocols-and-standards/metadata-guide/)). Excel templates were provided corresponding to 15 MIxS environmental packages. The completed spreadsheets were collected from collaborators and checked for completeness and standardized. Individual metadata files are merged in notebook "s1", EMPO and other sample metadata are added in notebook "s2", and prep information and mapping files are added in notebook "s3", below.
+Metadata were requested to comply with MIMS and Qiita standards; please refer to the EMP500 [metadata guide](http://press.igsb.anl.gov/earthmicrobiome/protocols-and-standards/metadata-guide/). Excel templates were provided corresponding to 15 MIxS environmental packages. The completed spreadsheets were collected from collaborators and checked for completeness and standardized. Individual metadata files are merged, then EMPO and other sample metadata were added, and finally prep information and mapping files were generated.
 
-#### 1.2 Replicates
+#### 1.3 Replicates
 
-Samples were either collected fresh or requisitioned from existing bulk samples. Aliquots (10) of each raw sample were requested. This allows for minimal freeze-thaw cycles and multiple downstream processing protocols in the future. Instructions were provided in the EMP500 [sample submission guide](http://www.earthmicrobiome.org/in-progress/emp500-sample-submission-guide/). QR barcodes were added subsequently as described in [`protocols`](https://github.com/biocore/emp/tree/master/protocols). Code for generating these codes and other label information in an Excel spreadsheet is in notebooks "s4" and "s5" below.
+Samples were either collected fresh or requisitioned from existing bulk samples. Aliquots (10) of each raw sample were requested. This allows for minimal freeze-thaw cycles and multiple downstream processing protocols in the future. Instructions were provided in the EMP500 [sample submission guide](http://www.earthmicrobiome.org/in-progress/emp500-sample-submission-guide/). QR barcodes were added subsequently as described in [`protocols`](https://github.com/biocore/emp/tree/master/protocols).
 
 #### 1.4 Processing rounds
 
-Replicate 1 was used for xxx.
+Because samples were collected in sets of 10 aliquots, individual aliquots can be processed on-demand as more material is needed.
 
-Replicates 2 and 3 were used for xxx.
+##### DNA Extraction Round 1
 
-### 2 Metadata
+One aliquot was used for DNA extractions performed at UCSD in June/July 2016 (Plates 1-5) and December 2016 (Plates 6-7), and at PNNL in September 2016 (Plates 8-9). Plate and well information is contained in the metadata files under the following columns: plate_no_round1, well_no_round1, well_id_round1, well_row_round1, well_column_round1.
 
-The metadata workflow -- from individual study metadata files, general sample information, and prep information -- to mapping files, sample information files, and prep information files -- is summarized by these IPython notebooks:
+##### Metabolite Extraction Round 1
 
-* `emp500_s1_merge_sample_info.ipynb` Merge individual study metadata files, add general prep information (including plate and well numbers for the initial DNA extraction), generate sample information file.
-* `emp500_s2_add_prep_info_sample_names.ipynb` Add prep information (16S, 18S, ITS) and sample information (sample names, study information, EMPO categories, etc.).
-* `emp500_s3_make_mapping_files_prep_info.ipynb` Generate mapping files and prep information files.
-* `emp500_s4_project_summary.ipynb` Generate project summary and list of samples (for labels).
-* `emp500_s5_labels.ipynb` Generate label spreadsheet with QR codes (not encoded).
+One aliquot was used for metabolite extractions performed at UCSD in July 2016 (Plates 2-5). Data were collected in April 2017. Sample IDs for metabolomics are contained in the metadata files under the following column: metab_id_2017.
 
-### 3 Processing rounds - DNA/metabolite extraction and sequencing/mass spec
+##### DNA Extraction Round 2
 
-### Amplicon sequencing
+Two aliquots (for most samples) were used for DNA extractions performated at UCSD in February 2018 (corresponding to Round 1 Plates 1-7).
 
-#### Sequence file demultiplexing
+### 2 Amplicon sequencing
+
+#### 2.1 Sequence file demultiplexing
 
 (Do we have a script for this or just manual?)
 
-#### QIIME 2 workflow
+#### 2.2 QIIME 2 workflow
 
 Demultiplexed amplicon sequence files are run through [QIIME 2](http://qiime2.org), which wraps many popular amplicon analysis tools, including Deblur, UniFrac, and Emperor.
 
@@ -77,15 +75,13 @@ qiime feature-table tabulate-seqs \
   --o-visualization DIRECTORY/rep-seqs.qzv
 ```
 
-### Shotgun sequencing
+### 3 Shotgun sequencing
 
-#### Sequence file demultiplexing
+#### 3.1 Sequence file demultiplexing
 
-Shotgun sequence files from Illumina are demultiplexed using bcl2fastq and custom sample sheets, which direct demultiplexed files to directories designated for each PI–study combination. 
+Shotgun sequence files from Illumina were demultiplexed using bcl2fastq and custom sample sheets, with demultiplexed files placed in directories designated for each PI–study combination. 
 
-* `emp500_s6_sample_sheets.ipynb` - fix sample sheets for four trial shotgun sequencing runs
-
-#### Oecophylla workflow
+#### 3.2 Oecophylla workflow
 
 Demultiplexed shotgun sequence files are run through [Oecophylla](https://github.com/biocore/oecophylla), which is a Snakemake wrapper for a suite of metagenomic analysis and assembly tools.
 
@@ -93,6 +89,6 @@ Demultiplexed shotgun sequence files are run through [Oecophylla](https://github
 OECOPHYLLA COMMANDS HERE
 ```
 
-### Metabolomics
+### 4 Metabolomics
 
 (See notes from Fernando.)
