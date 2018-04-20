@@ -11,15 +11,17 @@ Data files used in Release 1 (Thompson et al., 2017) are found in several locati
 * All files except sequences are in the [Zenodo archive](https://zenodo.org/record/890000) for the [paper](http://doi.org/10.1038/nature24621).
 * Sequences are in the [European Nucleotide Archive](http://ebi.ac.uk/ena/), downloaded using scripts in `code/download-sequences`.
 
-### EMP500
+### Release 2 & EMP500
 
-Data generated in the EMP500 project are accessible via a Globus Endpoint, which prior to publication is accessible only to project collaborators.
+Release 2 data availability information is in preparation.
+
+Data generated in the EMP500 project are accessible via a Globus Endpoint. **Prior to publication, the Globus Endpoint is accessible only to project collaborators.**
 
 #### Globus instructions
 
 Globus is a high-speed distributed file transfer architecture that enables secure, efficient, and reliable transfers. We have set up a Globus data share for these data. 
 
-Instead of simply transferring files like FTP, Globus uses 'Endpoints' that allow for restarts of interrupted transfers and incremental updates as additional data are added. To access these data, you will need to sign up to Globus using the email address you've provided us, and the set up an endpoint on the computer to which you want to transfer the data. Globus will send you a link giving you access to this share. If you already have a Globus endpoint installed at the destination, you can select that endpoint when clicking the share link. 
+Instead of simply transferring files like FTP, Globus uses 'Endpoints' that allow for restarts of interrupted transfers and incremental updates as additional data are added. To access these data, you will need to sign up with Globus using the email address you've provided us, and the set up an endpoint on the computer to which you want to transfer the data. Globus will send you a link giving you access to this share. If you already have a Globus endpoint installed at the destination, you can select that endpoint when clicking the share link. 
 
 How to register for a globus identity and overview of transfer:
 
@@ -40,6 +42,8 @@ Additional documentation for setting up Globus:
 Within each directory of sequence data are subdirectories nammed by PI and study ID, for example "Doe99" (where "Doe" is the PI name and "99" is the EMP500 study ID). Within those subdirectories, the sequence files are named according to the sample IDs in the mapping files (periods in the mapping files are converted to underscores in the sequence file names).
 
 ```
+public/metadata/:
+
 public/amplicon/:
 
 public/shotgun/raw/:
