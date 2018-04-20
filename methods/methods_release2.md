@@ -6,15 +6,15 @@ Computational methods for Release 2 and the EMP500 project are described here. F
 
 #### 1.1 Solicitation of samples and EMPO
 
-We had funding to do metagenomic sequencing on ~500 samples. We solicited samples from the EMP consortium spanning a wide range of microbial environments. To achieve even coverage across microbial environments, we devised sample ontology of sample types (microbial environments), which would eventually become the [EMP ontology (EMPO)](http://www.earthmicrobiome.org/protocols-and-standards/empo/). Around 800 samples were ultimately collected, which allows for reshaping of the dataset to deal with poorly performing samples.
+We had funding to do metagenomic sequencing on ~500 samples. We solicited samples from the EMP consortium spanning a wide range of microbial environments. To achieve even coverage across microbial environments, we devised sample ontology of sample types (microbial environments), which would eventually become the [EMP ontology (EMPO)](http://www.earthmicrobiome.org/protocols-and-standards/empo/). Around 800 samples were ultimately collected, which allows for culling and reshaping of the dataset to deal with poorly performing samples.
 
 #### 1.2 Metadata
 
-Metadata were requested to comply with MIMS and Qiita standards; please refer to the EMP500 [metadata guide](http://press.igsb.anl.gov/earthmicrobiome/protocols-and-standards/metadata-guide/). Excel templates were provided corresponding to 15 MIxS environmental packages. The completed spreadsheets were collected from collaborators and checked for completeness and standardized. Individual metadata files are merged, then EMPO and other sample metadata were added, and finally prep information and mapping files were generated.
+Metadata were requested to comply with MIMS and Qiita standards. Please refer to the [EMP Metadata Guide](http://press.igsb.anl.gov/earthmicrobiome/protocols-and-standards/metadata-guide/) for more information. Excel templates were provided corresponding to 15 MIxS environmental packages. The completed spreadsheets were collected from collaborators and checked for completeness and standardized. Individual metadata files were merged, then EMPO and other sample metadata were added, and finally prep information and mapping files were generated.
 
 #### 1.3 Replicates
 
-Samples were either collected fresh or requisitioned from existing bulk samples. Aliquots (10) of each raw sample were requested. This allows for minimal freeze-thaw cycles and multiple downstream processing protocols in the future. Instructions were provided in the EMP500 [sample submission guide](http://www.earthmicrobiome.org/in-progress/emp500-sample-submission-guide/). QR barcodes were added subsequently as described in [`protocols`](https://github.com/biocore/emp/tree/master/protocols).
+Samples were either collected fresh or requisitioned from existing bulk samples. Aliquots (10) of each raw sample were requested. This allows for minimal freeze-thaw cycles and multiple downstream processing protocols in the future. Instructions were provided in the [EMP Sample Submission Guide](https://dx.doi.org/10.17504/protocols.io.pfqdjmw). QR barcodes were added subsequently as described in [`protocols`](https://github.com/biocore/emp/tree/master/protocols).
 
 #### 1.4 Processing rounds
 
@@ -36,13 +36,13 @@ Two aliquots (for most samples) were used for DNA extractions performated at UCS
 
 #### 2.1 Sequence file demultiplexing
 
-(Do we have a script for this or just manual?)
+Illumina HiSeq sequence files were demultiplexed using Qiita.
 
 #### 2.2 QIIME 2 workflow
 
-Demultiplexed amplicon sequence files are run through [QIIME 2](http://qiime2.org), which wraps many popular amplicon analysis tools, including Deblur, UniFrac, and Emperor.
+Demultiplexed amplicon sequence files were run through [QIIME 2](http://qiime2.org), which wraps many popular amplicon analysis tools, including Deblur, UniFrac, and Emperor.
 
-Initial processing is done using these these QIIME 2 commands:
+Initial processing was done using these these QIIME 2 commands:
 
 ```bash
 # calling ASVs
@@ -85,10 +85,6 @@ Shotgun sequence files from Illumina were demultiplexed using bcl2fastq and cust
 
 Demultiplexed shotgun sequence files are run through [Oecophylla](https://github.com/biocore/oecophylla), which is a Snakemake wrapper for a suite of metagenomic analysis and assembly tools.
 
-```bash
-OECOPHYLLA COMMANDS HERE
-```
-
 ### 4 Metabolomics
 
-(See notes from Fernando.)
+(to be provided)
