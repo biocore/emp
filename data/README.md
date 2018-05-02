@@ -39,20 +39,14 @@ Additional documentation for setting up Globus:
 
 #### Globus directory structure
 
-Within each directory of sequence data are subdirectories nammed by PI and study ID, for example "Doe99" (where "Doe" is the PI name and "99" is the EMP500 study ID). Within those subdirectories, the sequence files are named according to the sample IDs in the mapping files (periods in the mapping files are converted to underscores in the sequence file names).
+##### Data type
 
-```
-public/metadata/:
+The first level in the directory structure indicates the type of data: `metadata`, `amplicon`, `shotgun`, `metabolomics`. Within these categories there many be an additional level to distinguish `raw` and `processed` data.
 
-public/amplicon/:
+##### Analysis round
 
-public/shotgun/raw/:
-  160805_K00180_0231_AHCTHWBBXX_NexteraXT_HiSeq
-  161220_K00180_0292_BHG5H3BBXX_KapaHP_HiSeq
-  170418_K00180_0352_AHHVLVBBXX_KapaHP_HiSeq
-  170703_ILUM_NA_HMWGDMCVY_NexteraXT_NovaSeq
-  170721_K00180_0403_AHKNLJBBXX_KapaHP_HiSeq
+Data have been generated in multiple rounds, for example, as new samples are included, deeper sequencing is needed, or different sequencing methods are tried. The directory name will indicate the date on which the analysis (sequencing, mass spec, etc.) was done.
 
-public/metabolomics/:
+##### Principal investigator and study ID
 
-```
+Within each directory of sequence data are subdirectories named by PI and study ID, for example `Doe99` (where "Doe" is the PI name and "99" is the EMP500 study ID). Within those subdirectories, the sequence files are named according to the sample IDs in the mapping files (periods in the mapping files are converted to underscores in the sequence file names).
