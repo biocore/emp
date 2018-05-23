@@ -22,7 +22,7 @@ To track the provenance of these aliquots, we employ the following QR barcoding 
 
 ### Metadata collection, curation, and processing
 
-Metadata should comply with MIMS and Qiita standards. Please refer to the EMP500 [metadata guide](http://press.igsb.anl.gov/earthmicrobiome/protocols-and-standards/metadata-guide/).
+Metadata should comply with MIMS and Qiita standards. Please refer to the EMP500 [metadata guide](http://www.earthmicrobiome.org/protocols-and-standards/metadata-guide/).
 
 ### Amplicon sequencing
 
