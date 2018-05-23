@@ -20,9 +20,9 @@ Samples were either collected fresh or requisitioned from existing bulk samples.
 
 Because samples were collected in sets of 10 aliquots, individual aliquots can be processed on-demand as more material is needed.
 
-##### DNA Extraction Round 1
+##### DNA Extraction and Amplicon PCR Round 1
 
-One aliquot was used for DNA extractions performed at UCSD in June/July 2016 (Plates 1-5) and December 2016 (Plates 6-7), and at PNNL in September 2016 (Plates 8-9). Plate and well information is contained in the metadata files under the following columns: plate_no_round1, well_no_round1, well_id_round1, well_row_round1, well_column_round1.
+One aliquot was used for DNA extractions performed at UCSD in June/July 2016 (Plates 1-5) and December 2016 (Plates 6-7), and at PNNL in September 2016 (Plates 8-9). Amplicon PCR was done on these plates in the same order, and those data files are indicated with "pcr1" and the plate number. Plate and well information is contained in the metadata files under the following columns: plate_no_pcr1, well_no_pcr1, well_id_pcr1, well_row_pcr1, well_column_pcr1.
 
 ##### Metabolite Extraction Round 1
 

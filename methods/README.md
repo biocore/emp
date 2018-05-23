@@ -10,8 +10,8 @@ Accompanying information to `methods`:
 
 ### Release 1
 
-* [`methods_release1.md`]() Information for reproducing analyses and figures in Thompson et al. (2017).
+* [`methods_release1.md`](https://github.com/biocore/emp/blob/master/methods/methods_release1.md) Information for reproducing analyses and figures in Thompson et al. (2017).
 
 ### Release 2
 
-* [`methods_release2.md`]() Primary data processing for the EMP500 project.
+* [`methods_release2.md`](https://github.com/biocore/emp/blob/master/methods/methods_release2.md) Primary data processing for the EMP500 project.
