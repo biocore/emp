@@ -10,7 +10,7 @@ The second phase of the EMP (2016-present), a multi-omics effort informally call
 
 ### Sample collection and aliquot tracking
 
-Maintaining multiple (~10) individual frozen aliquots of each raw sample is suggested. This minimizes freeze-thaw cycles and permits multiple future downstream processing protocols. 
+Maintaining multiple (~10) individual frozen aliquots of each raw bulk sample is suggested. This minimizes freeze-thaw cycles and permits multiple future downstream processing protocols. Instructions are provided in the [EMP Sample Submission Guide](https://dx.doi.org/10.17504/protocols.io.pfqdjmw). 
 
 To track the provenance of these aliquots, we employ the following QR barcoding scheme:
 
@@ -22,7 +22,7 @@ To track the provenance of these aliquots, we employ the following QR barcoding 
 
 ### Metadata collection, curation, and processing
 
-Metadata should comply with MIMS and Qiita standards. Please refer to the EMP500 [metadata guide](http://press.igsb.anl.gov/earthmicrobiome/protocols-and-standards/metadata-guide/).
+Metadata should comply with MIMS and Qiita standards. Please refer to the EMP500 [metadata guide](http://www.earthmicrobiome.org/protocols-and-standards/metadata-guide/).
 
 ### Amplicon sequencing
 
