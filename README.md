@@ -1,23 +1,34 @@
-Earth Microbiome Project
-========================
+# Earth Microbiome Project
 
 <div style="float: right; margin-left: 30px;"><img title="The EMP logo was designed by Eamonn Maguire of Antarctic Design." style="float: right;margin-left: 30px;" src="http://www.earthmicrobiome.org/files/2011/01/EMP-green-small.png" align=right /></div>
 
 The Earth Microbiome Project (EMP) is a systematic attempt to characterize global microbial taxonomic and functional diversity for the benefit of the planet and humankind. Most of the data generated to this point are from 16S rRNA amplicon surveys, but the project also includes data from 18S and ITS amplicons, metagenomics, and metabolomics. For more information about the EMP -- people, publications, news, protocols and standards, and more -- please see the [EMP website](http://www.earthmicrobiome.org/).
 
-This GitHub repository describes the EMP catalogue and how to use it. The EMP dataset is generated from samples that individual researchers have compiled and contributed to the EMP. Samples from each group of researchers represent individual EMP studies. In addition to analyses being done by contributing researchers on the individual studies, we are performing cross-study meta-analyses. EMP 16S Release 1, a meta-analysis of the first 97 16S rRNA amplicon studies, has been published ([article](http://doi.org/10.1038/nature24621), [preprint](https://github.com/biocore/emp/tree/master/papers)). The analysis code used for that manuscript is provided in this GitHub repository.
+This GitHub repository describes the EMP catalogue -- how it is generated and how to use it. The EMP dataset is generated from samples that individual researchers have compiled and contributed to the EMP. Samples from each group of researchers represent individual EMP studies. In addition to analyses by contributing researchers on individual studies, we perform cross-study meta-analyses. EMP 16S Release 1, a meta-analysis of the first 97 16S rRNA amplicon studies, has been published ([article](http://doi.org/10.1038/nature24621), [preprint](https://github.com/biocore/emp/tree/master/papers)), and the code and methods used for that manuscript are provided here. Methods and standard operating procedures (SOPs) for additional amplicon sequencing, shotgun sequencing, and metabolomics are provided here as well.
 
-Getting involved
-----------------
+## Organization of this repository
+
+This repository contains the following directories:
+
+* [`methods`](https://github.com/biocore/emp/tree/master/methods) Methods used in EMP analyses. Includes sample processing for extraction and sequencing, and computational methods for performing analyses and generating figures for meta-analyses of the EMP dataset.
+    - [📓 Release 1](https://github.com/biocore/emp/tree/methods/methods_release1.md) (Thompson et al., 2017)
+    - [📓 Release 2](https://github.com/biocore/emp/tree/methods/methods_release2.md) ("EMP500", unpublished)
+* [`protocols`](https://github.com/biocore/emp/tree/master/protocols) Laboratory protocols and SOPs for sample and metadata collection, sample tracking, amplicon sequencing, shotgun sequencing, and metabolomics.
+* [`code`](https://github.com/biocore/emp/tree/master/code) IPython notebooks and scripts (Python, Java, R, Bash) developed for meta-analysis of EMP data; this code is used in `methods`.
+* [`data`](https://github.com/biocore/emp/tree/master/data) Data files resulting from or used in processing and analysis.
+* [`papers`](https://github.com/biocore/emp/tree/master/papers) Preprints of major meta-analyses of the EMP dataset and links to papers about individual studies.
+* [`presentations`](https://github.com/biocore/emp/tree/master/presentations) Links to slide decks from presentations on the EMP.
+* [`legacy`](https://github.com/biocore/emp/tree/master/legacy) Early code, results, and website documents from the initial phase of the EMP (2010-2013).
+
+## Getting involved
 
 There are several ways to get involved with the EMP:
 
 * **Use the EMP catalogue in your own research.** Download the whole catalogue or just a few studies, merge and analyze them with your own data, or query the catalogue. Please skip to the next section for detailed instructions.
 * **Join the analysis team.** If you are interested in getting involved with EMP meta-analyses, you can begin by reviewing the open [issues](https://github.com/biocore/emp/issues) on this GitHub page. You can add comments to an existing issue to propose your ideas, or create a new issue entirely. Note that the initial meta-analysis of the EMP has been [published](http://doi.org/10.1038/nature24621). You can view the existing [code](https://github.com/biocore/emp/tree/master/code) and [methods](https://github.com/biocore/emp/tree/master/methods) (instructions) for generating figures for the meta-analysis.
-* **Contribute samples.** We are not currently soliciting samples for the EMP. If you have an idea for samples you might like to submit in the future, you may [email](mailto:lukethompson@gmail.com) the project leader for the EMP, Dr. Luke Thompson.
+* **Contribute samples.** We are not currently soliciting samples for the EMP. If you have an idea for samples you might like to submit in the future, you may [email](mailto:luke.thompson@noaa.gov) the project leader for the EMP, [Dr. Luke Thompson](https://swfsc.noaa.gov/staff.aspx?id=22360).
 
-Using the EMP catalogue
------------------------
+## Using the EMP catalogue
 
 The EMP catalogue is a diverse and standardized set of thousands of microbiomes for use by the public. Here are some of the ways you can use this resource:
 
@@ -59,19 +70,13 @@ The EMP catalogue is a diverse and standardized set of thousands of microbiomes 
     --output g__Pyrobaculum_metadata.txt; cut g__Pyrobaculum_metadata.txt -f 10,11
     ```
 
-Organization of this repository
--------------------------------
+## Citing the EMP
 
-This repository contains the following directories:
+If you use the EMP Release 1 data in your research, please cite Thompson et al., "A communal catalogue reveals Earth's multiscale microbial diversity", *Nature*, 2017 ([article](http://doi.org/10.1038/nature24621)).
 
-* `code` IPython notebooks and scripts (Python, Java, R, Bash) developed for meta-analysis of EMP data; this code is used in the top-level directory `methods`.
-* `data` Data files used for processing and downstream analysis.
-* `methods` Instructions to generate the figures in the EMP 16S Release 1 meta-analysis (in press).
-* `legacy` Early code, results, and website documents from the initial phase of the EMP (2010-2013).
-* `presentations` Collection of presentations on the EMP.
+If you use EMP protocols in your research, please cite [earthmicrobiome.org](earthmicrobiome.org) and the relevant papers referenced therein.
 
-File name abbreviation conventions
-----------------------------------
+## File name abbreviation conventions
 
 Some abbreviations used in this repository:
 
@@ -82,7 +87,6 @@ Some abbreviations used in this repository:
 * `refseqs` refers to reference sequence collections that could be used in reference-based OTU picking.
 * `mc2` refers to minimum sequence count in an OTU to be included equals to 2.
 
-Finding older data
-------------------
+## Finding older data
 
 If you're looking for data generated and used for the ISME 14 EMP presentations, look [here](https://github.com/EarthMicrobiomeProject/emp/tree/isme14).
