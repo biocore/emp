@@ -4,7 +4,7 @@ This directory contains laboratory protocols and SOPs (or links to them) for sam
 
 ### Overview
 
-The first phase of the EMP (2010-2017) explicitly used the DNA extraction and amplicon sequencing protocols, but not necessarily the other protocols, described here. The 16S rRNA amplicon protocol in particular is described in detail by Caporaso et al. ([*PNAS*, 2011](http://doi.org/10.1073/pnas.1000080107)). The full methods used in the meta-analysis of this first phase (Release 1) are described by Thompson et al. ([*Nature*, 2017](http://doi.org/10.1038/nature24621)).
+The first phase of the EMP (2010-2017) explicitly used the DNA extraction and amplicon sequencing protocols—but not necessarily the other protocols—described here. The 16S rRNA amplicon protocol in particular is described in detail by Caporaso et al. ([*PNAS*, 2011](http://doi.org/10.1073/pnas.1000080107)). The full methods used in the meta-analysis of this first phase (Release 1) are described by Thompson et al. ([*Nature*, 2017](http://doi.org/10.1038/nature24621)).
 
 The second phase of the EMP (2016-present), a multi-omics effort informally called "EMP500", uses all of the protocols and SOPs presented here. EMP500 involves the metagenomic sequencing and metabolomic profiling, in addition to amplicon sequencing, of ~500 freshly collected environmental samples from diverse sites on our planet. This multi-omics dataset will be used to address multiple technical and ecological questions in microbial ecology. A biobank of frozen aliquots of samples are being maintained at UCSD and PNNL for future methods testing and analysis.
 
