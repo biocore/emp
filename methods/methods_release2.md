@@ -6,8 +6,12 @@ Computational methods for Release 2 and the EMP500 project are described here. F
 
 The metadata workflow—from individual study metadata files, general sample information, and prep information to mapping files, sample information files, and prep information files—is summarized by these IPython notebooks:
 
-* `emp500_s1_merge_sample_info.ipynb` Merge individual study metadata files, add general prep information (including plate and well numbers for the initial DNA extraction), generate sample information file.
-* `emp500_s2_add_prep_info_sample_names.ipynb` Add prep information (16S, 18S, ITS) and sample information (sample names, study information, EMPO categories, etc.).
+* `emp500_s1_merge_sample_info.ipynb` Merge individual study metadata Excel files, add general prep information (including plate and well numbers for the initial DNA extraction), generate sample information file and basic mapping file. Outputs:
+    - `emp500_sample_information.tsv`
+    - `emp500_basic_map.tsv`
+* `emp500_s2_add_prep_info_sample_names.ipynb` Add prep information (16S, 18S, ITS) and sample information (sample names, study information, EMPO categories, etc.). Outputs:
+    - `emp500_prep_information_general.xlsx`
+    - `emp500_prep_information_*.xlsx` (prep info files for each of Round 1 runs)
 * `emp500_s3_make_mapping_files_prep_info.ipynb` Generate mapping files and prep information files.
 * `emp500_s4_project_summary.ipynb` Generate project summary and list of samples (for labels).
 * `emp500_s5_labels.ipynb` Generate label spreadsheet with QR codes (not encoded).
