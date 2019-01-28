@@ -4,7 +4,7 @@ Code for reproducing the sequence processing, data analysis, and figure generati
 
 ### Release 1
 
-Code in this directory that was used in [Thompson et al., *Nature*, 2017](http://doi.org/10.1038/nature24621) (Release 1) is described in `methods/README.md`.
+Code in this directory that was used in [Thompson et al., *Nature*, 2017](http://doi.org/10.1038/nature24621) (Release 1) is described in [`methods/methods_release1.md`](https://github.com/biocore/emp/blob/master/methods/methods_release1.md).
 
 ### Release 2
 
