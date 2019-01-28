@@ -2,6 +2,30 @@
 
 Computational methods for Release 2 and the EMP500 project are described here. For laboratory methods, see [`protocols`](https://github.com/biocore/emp/tree/master/protocols).
 
+### 0 Metadata
+
+The metadata workflow takes individual study metadata files, general sample information, and prep information, then converts this to mapping files, sample information files, and prep information files.
+
+Note: files with the words "manual" or "prepandas" in the title are curated manually and are not output by a notebook or script.
+
+Processing is done by these IPython notebooks:
+
+* `emp500_s1_merge_sample_info.ipynb` Merge individual study metadata Excel files, add general prep information (including plate and well numbers for the initial DNA extraction), generate sample information file and basic mapping file. 
+    - Inputs: `emp500_sample_information_manual.xlsx`, `STUDY_XX_METADATA.xlsx` (sample metadata for each individual study)
+    - Outputs: `emp500_sample_information.tsv`, `emp500_full_map.tsv`, `emp500_basic_map.tsv`
+* `emp500_s2_add_prep_info_sample_names.ipynb` Add prep information (16S, 18S, ITS) and sample information (sample names, study information, EMPO categories, etc.).
+    - Inputs: `emp500_sample_information_manual.xlsx`, `emp500_prep_information_general_prepandas.xlsx`, `emp500_prep_information_*_prepandas.xlsx` (prep info files for each of Round 1 runs)
+    - Outputs: `emp500_prep_information_general.xlsx`, `emp500_prep_information_*.xlsx` (prep info files for each of Round 1 runs)
+* `emp500_s3_make_mapping_files_prep_info.ipynb` Generate mapping files and prep information files.
+    - Inputs: `emp500_sample_information.tsv`, `emp500_prep_information_general.xlsx`, `emp500_prep_information_*.xlsx `
+    - Outputs: `emp500_*_prep_info_*.tsv`, `emp500_*_mapping_file_*.tsv`
+* `emp500_s4_project_summary.ipynb` Generate project summary and list of samples (for labels).
+    - Inputs: `emp500_basic_map.tsv`
+    - Outputs: `emp500_project_summary.csv`, `emp500_sample_names.csv`
+* `emp500_s5_labels.ipynb` Generate label spreadsheet with QR codes (not encoded).
+    - Inputs: `emp500_project_summary.csv`, `emp500_per_study_indexes.xlsx`
+    - Outputs: `emp500_labels.xlsx`, `emp500_labels_extra.xlsx`, `emp500_gsheet.xlsx`, `emp500_gsheet_extra.xlsx`, `emp500_box_labels.xlsx`
+
 ### 1 Amplicon sequencing
 
 #### 1.1 Sequence file demultiplexing

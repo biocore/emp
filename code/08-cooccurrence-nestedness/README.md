@@ -1,6 +1,6 @@
 ## code/08-cooccurrence-nestedness
 
-Code is used in the following section numbers of `figures/README.md`.
+This code is described in the following section(s) of [`methods/methods_release1.md`](https://github.com/biocore/emp/blob/master/methods/methods_release1.md):
 
 **3.3.2:**
 
