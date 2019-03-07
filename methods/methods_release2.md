@@ -82,5 +82,3 @@ Demultiplexed shotgun sequence files are run through [Oecophylla](https://github
 ### 3 Metabolomics
 
 (to be provided)
-
-Test for editing (Justin)
