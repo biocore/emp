@@ -152,7 +152,7 @@ Putative structures were generated with CSI:FingerID and chemical classes were p
 
 #### 3.2 Non-targeted mass spectrometry analysis by GC-MS
 
-Untargeted analyses of polar metabolites was performed by GC-MS (electronic ionisation source).
+Untargeted analyses of polar metabolites was performed by GC-MS (electronic ionisation source) The data were collected by Sneha Couvillion (sneha.couvillion@pnnl.gov) from the [Metz lab at PNNL](https://omics.pnl.gov/staff-page/Metz/Tom).
 
 ##### Data conversion, preparation and desposition
 The GC-MS data were converted from the proprietary file format (.d format) to the netCDF file format (.cdf format) using using [ProteoWizard](http://proteowizard.sourceforge.net/download.html) (ver. 3.0.19, MSConvert tool). Citation: [(Chambers et al. _Nature Biotech._, 2012)](https://www.nature.com/articles/nbt.2377).
@@ -164,12 +164,19 @@ The files were deposited on MassIVE under the following accession number ([MSV00
 The data were processed and annotated by Sneha Couvillion (sneha.couvillion@pnnl.gov) from the [Metz lab at PNNL](https://omics.pnl.gov/staff-page/Metz/Tom).
 
 ###### Data Processing
-The GC-MS data files (.netCDF format) were processed using MetaboliteDetector ([Hiller et al., Anal. Chem. 2009](https://pubs.acs.org/doi/10.1021/ac802689c)).
+The GC-MS data files (.netCDF format) were processed using MetaboliteDetector ([Hiller et al., Anal. Chem. 2009](https://pubs.acs.org/doi/10.1021/ac802689c)) in order to detect, align and measure the metabolites intensities accross samples.
 
 ###### Annotation
 Retention indices (RI) of detected metabolites were calculated based on the analysis of the FAME standard mixture, followed by their chromatographic alignment across all analyses after deconvolution. Metabolites were then identified by matching GC-MS features (characterized by measured retention indices and mass spectra) to an augmented version of the Agilent Fiehn Metabolomics Retention Time Locked (RTL) Library ([Kind et al., Anal. Chem. 2009](https://pubs.acs.org/doi/10.1021/ac9019522)), which contains spectra and validated retention indices for over 700 metabolites. All metabolite identifications were manually validated to reduce deconvolution errors during automated data-processing and to eliminate false identifications. The NIST 08 GC-MS library was also used to cross-validate the spectral matching scores obtained using the Agilent library.
 
-###### Results 
+###### Result files
 
-`EMP_GCMSmetabolitedata_blocksABCD_080919.xlsx`: Excel file (.xlsx) with manually validated metabolite identifications and concentration tables, generated using MetaboliteDetector.
+`EMP_GCMSmetabolitedata_blocksABCD_080919.xlsx`: This excel file (.xlsx) contains the metabolites concentration and identification that were manually validated. The file can be accessed on the MassIVE at [ftp://massive.ucsd.edu/MSV000083743/updates/2019-08-22_lfnothias_7cc043bc/other/](ftp://massive.ucsd.edu/MSV000083743/updates/2019-08-22_lfnothias_7cc043bc/other/)
 
+QC files for each samples accessible at [ftp://massive.ucsd.edu/MSV000083743/other/](ftp://massive.ucsd.edu/MSV000083743/other/):
+
+- The `_GC_DatasetInfo.xml`: contains informations on the sample acquisition.
+- The `_GC_BPI_MS.png`: contains an image of the sample's base peak chromatogram.
+- The `_GC_GC_TIC.png`: contains an image of the sample's total ion chromatogram.
+- The `_GC_LCMS.png`: contains an image of the sample's 2D chromatogram.
+- The `_GC_HighAbu_LCMS.png`: contains an image of the sample's 2D chromatogram.
