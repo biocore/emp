@@ -79,6 +79,87 @@ Shotgun sequence files from Illumina were demultiplexed using bcl2fastq and cust
 
 Demultiplexed shotgun sequence files are run through [Oecophylla](https://github.com/biocore/oecophylla), which is a Snakemake wrapper for a suite of metagenomic analysis and assembly tools.
 
-### 3 Metabolomics
+### 3 Metabolomics data analysis
 
-(to be provided)
+#### 3.1 Non-targeted mass spectrometry analysis by LC-MS/MS
+
+##### Data conversion, preparation and desposition
+The mass spectrometry data were centroided and converted from the proprietary format (.raw) to the m/z extensible markup language format (.mzML) using [ProteoWizard](http://proteowizard.sourceforge.net/download.html) (ver. 3.0.19, MSConvert tool). Citation: [(Chambers et al. _Nature Biotech._, 2012)](https://www.nature.com/articles/nbt.2377).
+ 
+The data were visualized and inspected with the [OpenMS TOPPAS tool](https://github.com/OpenMS/OpenMS) (ver 2.4.0). Citation: [Rost et al. Nat. Methods, 2016](https://www.nature.com/articles/nmeth.3959)
+
+The mass spectrometry data (.RAW and .mzML) have been deposited on the MassIVE public repository and are available under the dataset accession number MSV000083475 and accessible on this page: [https://massive.ucsd.edu/ProteoSAFe/dataset.jsp?task=3de2b5de5c274ca6b689977d08d84195](https://massive.ucsd.edu/ProteoSAFe/dataset.jsp?task=3de2b5de5c274ca6b689977d08d84195).
+
+
+##### Processing: LC-MS/MS feature detection with MZmine (version 2.40)
+The mzML files were then processed with a custom build of MZmine toolbox (vers.2.37corr17.7kaimerge2 at [https://github.com/robinschmid/mzmine2/releases](https://github.com/robinschmid/mzmine2/releases)) that includes advanced modules for adduct/isotopologue annotations. Citations [Pluskal et al., _BMC Bioinf._ 2010](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-11-395) and Schmid et al (under preparation).
+
+The MZmine processing was performed on Ubuntu 18.04 LTS 64-bits workstation (Intel Xeon 5E-2637, 3.5 GHz, 8 cores, 64 Go of RAM) and took 3 days. 
+
+The MZmine project, the MZmine batch file (.XML format), and results files (.MGF and .CSV) are available in the MassIVE dataset (MSV000083475). The MZmine batch file contains all the parameters used during the processing. In brief, feature detection and deconvolution was performed with the ADAP chromatogram builder, and local minimum search algorithm. The isotopologues were regrouped, and the features (peaks) were aligned accross samples. The peaklist was gap filled and only peaks with an associated fragmentation spectrum (MS2) and occuring in a minimum of 3 files were conserved. Peak shape correlation analysis was used to group peaks originating from the same molecule, and used for adduct/isotopologue annotations. Finally the feature table results (.CSV) and spectral information (.MGF) were exported for subsquent analysis on GNPS and with SIRIUS export.
+
+* `emp500_s5_labels.ipynb` Generate label spreadsheet with QR codes (not encoded).
+    - Inputs: `the project .mzML files`, `1907_Benchmarking_dataset_EMP_batch_v9_MinimumLocal_QE_v6_INN_v4.xml`
+    - Outputs: `1907_EMPv2_INN_GNPS.mgf`, `1907_EMPv2_INN_GNPS_quant.csv`, `1907_EMPv2_SIRIUS.mgf`, `1907_EMPv2_v3.mzmine`,`1907_EMPv2_INN_GNPS_edges_msannotation.csv` 
+
+    Updating the batch for GNPS/SIRIUS output
+ 
+ 
+ 
+ 
+ 
+##### Normalization of the feature table
+
+Tbc
+
+##### Annotation with Global Natural Products Social Molecular Networking (GNPS)
+
+The results files of MZmine (.MGF and .CSV files) were uploaded to GNPS [http://gnps.ucsd.edu] and analyzed with the Feature-Based Molecular Networking workflow ([https://ccms-ucsd.github.io/GNPSDocumentation/featurebasedmolecularnetworking/](https://ccms-ucsd.github.io/GNPSDocumentation/featurebasedmolecularnetworking)). The metadata were also inputed in the job.
+
+###### Spectral Library search and molecular networking analysis
+
+Spectral library matching was performed against public spectral library and NIST17 to obtain putative level 2 annotation based on MSI standards ([Schymanski et al., Anal. Chem. 2014](https://pubs.acs.org/doi/abs/10.1021/es5002105)). The job, paramaters and results can be consulted at the following address: [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=d9c4449a61d645fca21ef3761e75a058](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=d9c4449a61d645fca21ef3761e75a058). The search was also performed in analogue mode: [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=effc2876c7644c709f08762bff7d422f](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=effc2876c7644c709f08762bff7d422f).
+
+###### Putative annotation of Small peptides with the DEREPLICATOR 
+
+For the putative annotation of small peptides (level 2/3 annotation based on MSI standards [Schymanski et al., Anal. Chem. 2014](https://pubs.acs.org/doi/abs/10.1021/es5002105)), the DEREPLICATOR algorithm was used on GNPS. The
+DEREPLICATOR+ job can be accessed here: [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=0a392ef93919475c9fbfc1534234d0a2](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=0a392ef93919475c9fbfc1534234d0a2) and the DEREPLICATOR VarQuest job can be accessed here: [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=c09ee787c3b448bbb1ddd081bd2193cd](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=c09ee787c3b448bbb1ddd081bd2193cd). While DEREPLICATOR+ annotates known structures, the DEREPLICATOR VarQuest can search analogues of known molecules and that are differing by one amino acid residue.
+
+    
+##### Putative annotation of small molecules with SIRIUS
+
+The spectra were further annotated with SIRIUS 4.0.1 (ver. 4.0.1, Build 9 CL, Linux 64 bit). The resulting SIRIUS workspace and results are available on MassIVE (MSV000083475). The processing was performed on a linux cluster computer (32 cpu with 500 GB or RAM)
+
+###### Molecular formula
+Molecular formula were predicted using the isotopic pattern and the fragmentation trees analysis with SIRIUS and improved with the Zodiac algorithm (unpublished). 
+
+###### Structural annotations
+Putative structures were generated with CSI:FingerID and chemical classes were predicted with CANOPUS. The following parameters were used: SIRIUS: database (all), candidate molecular formula (100), max m/z (650), profile (qtof), m/z window (12 ppm); ZODIAC: thresholdfilter 0.99; CSI:FingerID: database (bio), m/z window (12 ppm).
+
+###### Unsupervised analysis by Principal Coordinates Analysis (PCoA) 
+
+Tbc
+
+#### 3.2 Non-targeted mass spectrometry analysis by GC-MS
+
+Untargeted analyses of polar metabolites was performed by GC-MS (electronic ionisation source).
+
+##### Data conversion, preparation and desposition
+The GC-MS data were converted from the proprietary file format (.d format) to the netCDF file format (.cdf format) using using [ProteoWizard](http://proteowizard.sourceforge.net/download.html) (ver. 3.0.19, MSConvert tool). Citation: [(Chambers et al. _Nature Biotech._, 2012)](https://www.nature.com/articles/nbt.2377).
+The files were deposited on MassIVE under the following accession number ([MSV000083743](https://massive.ucsd.edu/ProteoSAFe/dataset.jsp?task=948bad7011a544eab485d2114cac22f0)). Every batch of samples that are run on the GC-MS have accompanying blanks and a FAMES file.
+
+
+##### PNNL GC-MS pipeline
+###### Data Processing
+The GC-MS data files (.netCDF format) were processed using MetaboliteDetector ([Hiller et al., Anal. Chem. 2009](https://pubs.acs.org/doi/10.1021/ac802689c)). Parameters used have to be indicated.
+
+###### Annotation
+Retention indices (RI) of detected metabolites were calculated based on the analysis of the FAME standard mixture, followed by their chromatographic alignment across all analyses after deconvolution. Metabolites were then identified by matching GC-MS features (characterized by measured retention indices and mass spectra) to an augmented version of the Agilent Fiehn Metabolomics Retention Time Locked (RTL) Library ([Kind et al., Anal. Chem. 2009](https://pubs.acs.org/doi/10.1021/ac9019522)), which contains spectra and validated retention indices for over 700 metabolites. All metabolite identifications were manually validated to reduce deconvolution errors during automated data-processing and to eliminate false identifications. The NIST 08 GC-MS library was also used to cross-validate the spectral matching scores obtained using the Agilent library.
+
+###### Results 
+
+ - NAME: Excel files (.xlsx) with manually validated metabolite identifications and concentration tables, generated using MetaboliteDetector.
+
+##### GNPS GC-MS pipeline
+To be provided
+
