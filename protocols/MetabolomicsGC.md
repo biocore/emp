@@ -2,6 +2,8 @@
 
 #### Extraction
 
+The extraction and mass spectrometry experiments were performed by Sneha Couvillion (sneha.couvillion@pnnl.gov) at the [Thomas Metz laboratory, Pacific Northwest National Laboratory](https://omics.pnl.gov/staff-page/Metz/Tom).
+
 Two protocols were used- one for the 105 soil samples and another for the 356 ‘fecal’ (mostly non-soil samples we received from UCSD) samples. For biosafety reasons, the batch of 356 fecal samples were processed in the biological safety cabinet, thus requiring a slightly modified protocol.
 
 #### Sample preparation protocol
@@ -48,6 +50,7 @@ Two protocols were used- one for the 105 soil samples and another for the 356 �
 
 		1. Remove top layer (polar metabolites) and bottom layer (nonpolar lipids) and transfer into ALS (Microsolv) vial.  SpeedVac to dryness and store at -20C until ready to prepare for GC-MS analysis (to be prepared by Meagan Stevens).
 		2. Discard the protein layer.
+		3. 
 
 #### Derivatization for GC-MS analysis
 

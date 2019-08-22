@@ -83,7 +83,7 @@ Demultiplexed shotgun sequence files are run through [Oecophylla](https://github
 
 #### 3.1 Non-targeted mass spectrometry analysis by LC-MS/MS
 
-The data were processed and annotated by Louis Felix Nothias (nothias@ucsd.edu) from the [Dorrestein Lab at UC San Diego](https://dorresteinlab.ucsd.edu/).
+The data were processed and annotated by Louis Felix Nothias (nothias@ucsd.edu) from the [Dorrestein Lab at University of California San Diego](https://dorresteinlab.ucsd.edu/).
 
 ##### Data conversion, preparation and desposition
 The mass spectrometry data were centroided and converted from the proprietary format (.raw) to the m/z extensible markup language format (.mzML) using [ProteoWizard](http://proteowizard.sourceforge.net/download.html) (ver. 3.0.19, MSConvert tool). Citation: [(Chambers et al. _Nature Biotech._, 2012)](https://www.nature.com/articles/nbt.2377).
@@ -159,7 +159,7 @@ Putative structures were generated with CSI:FingerID and chemical classes were p
 
 #### 3.2 Non-targeted mass spectrometry analysis by GC-MS
 
-Untargeted analyses of polar metabolites was performed by GC-MS (electronic ionisation source) The data were collected by Sneha Couvillion (sneha.couvillion@pnnl.gov) from the [Metz lab at PNNL](https://omics.pnl.gov/staff-page/Metz/Tom).
+Untargeted analyses of polar metabolites was performed by GC-MS (electronic ionisation source) The data were collected by Sneha Couvillion (sneha.couvillion@pnnl.gov) from the [Thomas Metz laboratory, Pacific Northwest National Laboratory](https://omics.pnl.gov/staff-page/Metz/Tom).
 
 ##### Data conversion, preparation and desposition
 The GC-MS data were converted from the proprietary file format (.d format) to the netCDF file format (.cdf format) using [OpenChrom](https://sourceforge.net/projects/openchrom/) (ver. win32.x86_64_1.0.0_rel). Citation: [(Wenig et al. _OpenChrom._, 2010)](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-11-405). For a detail description of the conversion, please refer to this [document pages 1-4](document/Metabolite Detector_GC-MS_PNNL_tutorial.pdf)
@@ -169,7 +169,7 @@ The GC-MS data were converted from the proprietary file format (.d format) to th
 
 ##### PNNL GC-MS pipeline
 
-The data were processed and annotated by Sneha Couvillion (sneha.couvillion@pnnl.gov) from the [Metz lab at PNNL](https://omics.pnl.gov/staff-page/Metz/Tom).
+The data were processed and annotated by Sneha Couvillion (sneha.couvillion@pnnl.gov) from the [Thomas Metz laboratory, Pacific Northwest National Laboratory](https://omics.pnl.gov/staff-page/Metz/Tom).
 
 ###### Data Processing
 The GC-MS data files (.netCDF format) were processed using MetaboliteDetector ([Hiller et al., Anal. Chem. 2009](https://pubs.acs.org/doi/10.1021/ac802689c)) in order to detect, align and measure the metabolites intensities accross samples. For a detail description of the processing, see this [document pages 4-8](document/Metabolite Detector_GC-MS_PNNL_tutorial.pdf)
