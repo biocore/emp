@@ -102,7 +102,7 @@ The mzML files were then processed with a custom build of MZmine toolbox (vers.2
 
 The MZmine processing was performed on Ubuntu 18.04 LTS 64-bits workstation (Intel Xeon 5E-2637, 3.5 GHz, 8 cores, 64 Go of RAM) and took ~3 days. 
 
-The MZmine project, the MZmine batch file (.XML format), and results files (.MGF and .CSV) are available in the MassIVE dataset (MSV000083475). The MZmine batch file contains all the parameters used during the processing. In brief, feature detection and deconvolution was performed with the ADAP chromatogram builder, and local minimum search algorithm. The isotopologues were regrouped, and the features (peaks) were aligned accross samples. The peaklist was gap filled and only peaks with an associated fragmentation spectrum (MS2) and occuring in a minimum of 3 files were conserved. Peak shape correlation analysis was used to group peaks originating from the same molecule, and used for adduct/isotopologue annotations. Finally the feature table results (.CSV) and spectral information (.MGF) were exported for subsquent analysis on GNPS and with SIRIUS export.
+The MZmine project, the MZmine batch file (.XML format), and results files (.MGF and .CSV) are available in the MassIVE dataset ([MSV000083475]((https://massive.ucsd.edu/ProteoSAFe/dataset.jsp?task=3de2b5de5c274ca6b689977d08d84195))). The MZmine batch file contains all the parameters used during the processing. In brief, feature detection and deconvolution was performed with the ADAP chromatogram builder, and local minimum search algorithm. The isotopologues were regrouped, and the features (peaks) were aligned accross samples. The peaklist was gap filled and only peaks with an associated fragmentation spectrum (MS2) and occuring in a minimum of 3 files were conserved. Peak shape correlation analysis was used to group peaks originating from the same molecule, and used for adduct/isotopologue annotations. Finally the feature table results (.CSV) and spectral information (.MGF) were exported for subsquent analysis on GNPS and with SIRIUS export.
 
 ###### Processing files:
 
@@ -129,11 +129,11 @@ The results files of MZmine (.MGF and .CSV files) were uploaded to GNPS [(http:/
 
 Spectral library matching was performed against public MS/MS spectral library and the NIST17 library to obtain putative level 2 annotation (putative structure) based on [MSI standards](https://pubs.acs.org/doi/abs/10.1021/es5002105).
 
-- The GNPS molecular networking job, paramaters and results can be consulted at the following address: [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=d9c4449a61d645fca21ef3761e75a058](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=d9c4449a61d645fca21ef3761e75a058). 
+- The GNPS molecular networking job, paramaters and results can be consulted at the following address [no metadata are included]: [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=8646e3489e724afe91dcb5ec5ac6ca78](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=8646e3489e724afe91dcb5ec5ac6ca78). 
 
-- The GNPS molecular networking job was also performed in analogue mode to obtain level 3 MSI annotations (partial/class annotation): [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=effc2876c7644c709f08762bff7d422f](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=effc2876c7644c709f08762bff7d422f).
+- The GNPS molecular networking job was also performed in analogue mode to obtain level 3 MSI annotations (partial/class annotation) [to be updated]: [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=effc2876c7644c709f08762bff7d422f](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=effc2876c7644c709f08762bff7d422f).
 
-###### Putative annotation of Small peptides with the DEREPLICATOR 
+###### Putative annotation of small peptides with the DEREPLICATOR 
 
 For the putative annotation of small peptides. These annotations can be classified as level 2/3 annotation (putative/partial structure) based on [MSI standards](https://pubs.acs.org/doi/abs/10.1021/es5002105)). The DEREPLICATOR algorithm was used on GNPS. While DEREPLICATOR+ annotates known structures, the DEREPLICATOR VarQuest can search analogues of known molecules and that are differing by one amino acid residue. Citations: 
 [(Mohimani et al Nat. Chem. Bio. 2016)](https://www.nature.com/articles/nchembio.2219) and 
@@ -144,18 +144,25 @@ For the putative annotation of small peptides. These annotations can be classifi
 
 - The DEREPLICATOR VarQuest job can be accessed here: [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=c09ee787c3b448bbb1ddd081bd2193cd](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=c09ee787c3b448bbb1ddd081bd2193cd). 
 
+###### Putative annotation of small cyclopeptides with the CycloNovo
+
+CycloNovo performs de novo cyclopeptide sequencing using employs de Bruijn graphs [See preprint](https://www.biorxiv.org/content/10.1101/521872v2). Many of these cyclopeptides are bioactive molecules produced by microbes.
+
+- The CycloNovo job results can be accessed here: [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=41267a9438f64548a914d212dfaa4ead](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=41267a9438f64548a914d212dfaa4ead)
+
 
 ###### Putative annotation of small molecules with SIRIUS
 
-The spectra were further annotated with SIRIUS 4.0.1 (ver. 4.0.1, Build 9 CL, Linux 64 bit). The resulting SIRIUS workspace and results are available on MassIVE (MSV000083475). The processing was performed on a linux cluster computer (32 cpu with 500 GB or RAM). Citation: [(Durkhop et al., _Nat. Methods_, 2019)](https://www.nature.com/articles/s41592-019-0344-8).
+The spectra were further annotated with SIRIUS 4.0.1 (ver. 4.0.1, Build 9 CL, Linux 64 bit). The resulting SIRIUS workspace and results are available on MassIVE (MSV000083475). The processing was performed on a linux cluster computer (32 cpu with 500 GB or RAM). Citation: [(Durkhop et al., Nat. Methods, 2019)](https://www.nature.com/articles/s41592-019-0344-8).
 
 Molecular formula were predicted using the isotopic pattern and the fragmentation trees analysis with SIRIUS and improved with the Zodiac algorithm (unpublished). 
 
-Putative structures were generated with CSI:FingerID and chemical classes were predicted with CANOPUS. The following parameters were used: SIRIUS: database (all), candidate molecular formula (100), max m/z (650), profile (qtof), m/z window (12 ppm); ZODIAC: thresholdfilter 0.99; CSI:FingerID: database (bio), m/z window (12 ppm). Citation: [(Durkhop et al, PNAS 2015)](https://www.pnas.org/content/112/41/12580).
-
-- Need to add the files path
+Putative structures were generated with CSI:FingerID and chemical classes were predicted with CANOPUS. The following parameters were used: SIRIUS: database (all), candidate molecular formula (100), max m/z (650), profile (qtof), m/z window (12 ppm); ZODIAC: thresholdfilter 0.99; CSI:FingerID: database (bio), m/z window (12 ppm). Citation: [(Durkhop et al., PNAS 2015)](https://www.pnas.org/content/112/41/12580).
 
 
+###### Additional annotations
+
+Additional annotation with MS2LDA, MolNetEnhancer and NAP are on going and will be added to the next release.
 
 #### 3.2 Non-targeted mass spectrometry analysis by GC-MS
 
