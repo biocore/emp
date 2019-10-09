@@ -83,7 +83,10 @@ Demultiplexed shotgun sequence files are run through [Oecophylla](https://github
 
 #### 3.1 Non-targeted mass spectrometry analysis by LC-MS/MS
 
-The data were processed and annotated by Louis Felix Nothias (nothias@ucsd.edu) from the [Dorrestein Lab at University of California San Diego](https://dorresteinlab.ucsd.edu/).
+**IMPORTANT**: The processing and annotations below were performed to study the entire EMP dataset at the dataset scale. Additionally, the feature table were not subject to normalization or "blank substraction". 
+These results could be used to investigate a specific study that is part of the EMP, but this is not recommended. Instead, this processing would have to be performed and optimized for each study. Contact Louis Felix Nothias [(nothias@ucsd.edu)](nothias@ucsd.edu) for more informations. 
+
+The data were processed and annotated by Louis Felix Nothias [(nothias@ucsd.edu)](nothias@ucsd.edu) from the [Dorrestein Lab at University of California San Diego](https://dorresteinlab.ucsd.edu/).
 
 ##### Data conversion, preparation and desposition
 The mass spectrometry data were centroided and converted from the proprietary format (.raw) to the m/z extensible markup language format (.mzML) using [ProteoWizard](http://proteowizard.sourceforge.net/download.html) (ver. 3.0.19, MSConvert tool). Citation: [(Chambers et al. _Nature Biotech._, 2012)](https://www.nature.com/articles/nbt.2377).
