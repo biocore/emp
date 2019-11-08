@@ -19,7 +19,7 @@ All solvents and reactants used were LC-MS grade. To maximise the extraction yie
 1. The samples (in plates) were solved by 300 µL of 7/3 MeOH/H2O, and put in an µLtrasound bath for 20 min. 
 2. Solid phase extraction were performed with SPE plates (Oasis HLB, Hydrophilic-Lipophilic-Balance, 30 mg with particle sizes of 30 um).
 	- 	The SPE beds were activated with 100% MeOH, and equilibrate with 100% H2O.
-	-   The samples were loaded on the SPE beds, and 100% H2O was used as wash solvent (600 µL). The eluted washing solvent was discarded. 
+	-   The samples were loaded on the SPE beds, and 100% H2O was used as wash solvent (600 µL). The eluted solution was discarded (it contains salts and very polar metabolites that are subsequent analysis are not designed for).
 	-   The sample elution was carried out sequentially with 7/3 MeOH/H2O (600 µL) and with 100% methanol (600 µL). 
 	-   The obtained plates were dried with a vaccum concentrator.
 3. Preparation for mass spectrometry analysis
