@@ -40,4 +40,6 @@ The standard EMP protocols for DNA extraction and 16S, 18S, and ITS amplicon seq
 
 ### Metabolomics
 
-(manuscript in prep)
+The protocol for [non-targeted metabolomics analysis by LC-MS/MS](MetabolomicsLC.md). 
+
+The protocol for [non-targeted metabolomics analysis by GC-MS](MetabolomicsGC.md). 
