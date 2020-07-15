@@ -155,7 +155,7 @@ These files were deposited on MassIVE (MSV000083475) and available at: [ftp://ma
 
 ##### Annotation with Global Natural Products Social Molecular Networking (GNPS)
 
-The results files of MZmine (.MGF and .CSV files) were uploaded to GNPS [(http://gnps.ucsd.edu)](http://gnps.ucsd.edu) and analyzed with the [Feature-Based Molecular Networking workflow](https://ccms-ucsd.github.io/GNPSDocumentation/featurebasedmolecularnetworking). The metadata were also inputed in the job. Citation: [(Wang et al., Nat. Biotech. 2016)](https://www.nature.com/articles/nbt.3597).
+The results files of MZmine (.MGF and .CSV files) were uploaded to GNPS [(http://gnps.ucsd.edu)](http://gnps.ucsd.edu) and analyzed with the Feature-Based Molecular Networking workflow [(Nothias, Petras, Schmid et al bioRxiv 2019)](https://www.biorxiv.org/content/10.1101/812404v1). The metadata were also inputed in the job. Citation: [(Wang et al., Nat. Biotech. 2016)](https://www.nature.com/articles/nbt.3597).
 
 Spectral library matching was performed against public MS/MS spectral library and the NIST17 library to obtain putative level 2 annotation (putative structure) based on [MSI standards](https://pubs.acs.org/doi/abs/10.1021/es5002105).
 
