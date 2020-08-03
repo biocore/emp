@@ -2,9 +2,7 @@
 
 Computational methods for Release 2 and the EMP500 project are described here. For laboratory methods, see [`protocols`](https://github.com/biocore/emp/tree/master/protocols).
 
-### Table of content
 <!--made with https://luciopaiva.com/markdown-toc/ -->
-
 
 # Table of contents
 
@@ -127,7 +125,7 @@ The mass spectrometry method and data (.RAW and .mzML) were deposited on the Mas
 - The .mzML files are accessible via FTP here: [ftp://massive.ucsd.edu/MSV000083475/raw/RAW/](ftp://massive.ucsd.edu/MSV000083475/raw/RAW/).
 
 
-##### Processing: LC-MS/MS feature detection and alignement with MZmine (version 2.40)
+##### Processing: LC-MS/MS feature detection and alignement with MZmine
 The mzML files were then processed with a custom build of MZmine toolbox (*vers.2.37corr17.7kaimerge2* at [https://github.com/robinschmid/mzmine2/releases](https://github.com/robinschmid/mzmine2/releases)) that includes advanced modules for adduct/isotopologue annotations. Citations [Pluskal et al., _BMC Bioinf._ 2010](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-11-395) and [Schmid, Petras, Nothias et al. bioRxiv, 2020, 2020.05.11.088948](https://www.biorxiv.org/content/10.1101/2020.05.11.088948v1).
 
 The MZmine processing was performed on Ubuntu 18.04 LTS 64-bits workstation (Intel Xeon 5E-2637, 3.5 GHz, 8 cores, 64 Go of RAM) and took ~3 days. 
@@ -183,7 +181,7 @@ CycloNovo performs de novo cyclopeptide sequencing using employs de Bruijn graph
 
 ###### Putative annotation of small molecules with SIRIUS
 
-Additional spectral annotation of tandem mass spectrometry data were obtained with the SIRIUS [(Durkhop et al., Nat. Methods, 2019)](https://www.nature.com/articles/s41592-019-0344-8) computational annotation tool (vers. 4.4.27, headless, linux) running on a cluster computer (32 cores, 256 Gb of RAM).
+Additional spectral annotation of tandem mass spectrometry data were obtained with the SIRIUS [(Durkhop et al., Nat. Methods, 2019)](https://www.nature.com/articles/s41592-019-0344-8) computational annotation tool (vers. 4.4.25, headless, linux) running on a cluster computer (32 cores, 256 Gb of RAM).
 
 - De novo molecular formulas were computed with the SIRIUS module by matching the experimental and predicted isotopic patterns [(Böcker, Bioinformatics 25, 218–224, 2009](https://academic.oup.com/bioinformatics/article/25/2/218/218950), and from fragmentation trees analysis of the fragment ions [(Böcker and Dührkop, J. Cheminform. 8, 5, 2016](https://jcheminf.biomedcentral.com/articles/10.1186/s13321-016-0116-8).
 - Molecular formula prediction was refined with the ZODIAC module by using Gibbs sampling [(Ludwig et al, bioRxiv, 842740, 2019)](https://www.biorxiv.org/content/10.1101/842740v1) for fragmentation spectra that were not chimeric spectra or had a poor fragmentation.
@@ -192,7 +190,7 @@ Additional spectral annotation of tandem mass spectrometry data were obtained wi
 
 Parameters were set as follows, for SIRIUS: molecular formula candidates retaine (80), molecular formula database (ALL), maximum precursor ion m/z computed (750), profile (orbitrap), m/z maximum deviation (12 ppm), ions annotated with MZmine were prioritized and other ions were considered ([M+H3N+H]+, [M+H]+, [M+K]+,[M+Na]+, [M+H-H2O]+, [M+H-H4O2]+, [M+NH4]+); for ZODIAC: the features were splitted into 10 random subsets and were computed separately with the following parameters:   treshold filter (0.95), minimum local connections (0); for CSI:FingerID: m/z maximum deviation (10 ppm) and biological database (BIO).
 
-The resulting SIRIUS workspace and results are available on MassIVE (MSV000083475). The processing was performed on a linux cluster computer (32 cpu with 256 GB of RAM).
+The resulting results are available at [../data/metabolomics/sirius/release_202007. The processing was performed on a linux cluster computer (32 cpu with 256 GB of RAM).
 
 **Citations**:
 
