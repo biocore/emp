@@ -157,9 +157,9 @@ The results files of MZmine (.MGF and .CSV files) were uploaded to GNPS [(http:/
 
 Spectral library matching was performed against public MS/MS spectral library and the NIST17 library to obtain putative level 2 annotation (putative structure) based on [MSI standards](https://pubs.acs.org/doi/abs/10.1021/es5002105).
 
-- The GNPS molecular networking job, paramaters and results can be consulted at the following address [no metadata are included]: [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=8646e3489e724afe91dcb5ec5ac6ca78](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=8646e3489e724afe91dcb5ec5ac6ca78). 
+- The GNPS molecular networking job, paramaters and results can be consulted at the following address [no metadata are included]: [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=3381f4f48f2e4cbeb0cd364b4b71a844](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=3381f4f48f2e4cbeb0cd364b4b71a844). 
 
-- The GNPS molecular networking job was also performed in analogue mode to obtain level 3 MSI annotations (partial/class annotation) [to be updated]: [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=effc2876c7644c709f08762bff7d422f](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=effc2876c7644c709f08762bff7d422f).
+- The GNPS molecular networking job was also performed in analogue mode to obtain level 3 MSI annotations (partial/class annotation) [to be updated]: [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=cd321f79ae284ef6bb183cb45122632c](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=cd321f79ae284ef6bb183cb45122632c).
 
 ###### Putative annotation of small peptides with the DEREPLICATOR 
 
@@ -190,7 +190,7 @@ Additional spectral annotation of tandem mass spectrometry data were obtained wi
 
 Parameters were set as follows, for SIRIUS: molecular formula candidates retaine (80), molecular formula database (ALL), maximum precursor ion m/z computed (750), profile (orbitrap), m/z maximum deviation (12 ppm), ions annotated with MZmine were prioritized and other ions were considered ([M+H3N+H]+, [M+H]+, [M+K]+,[M+Na]+, [M+H-H2O]+, [M+H-H4O2]+, [M+NH4]+); for ZODIAC: the features were splitted into 10 random subsets and were computed separately with the following parameters:   treshold filter (0.95), minimum local connections (0); for CSI:FingerID: m/z maximum deviation (10 ppm) and biological database (BIO).
 
-The resulting results are available at [../data/metabolomics/sirius/release_202007. The processing was performed on a linux cluster computer (32 cpu with 256 GB of RAM).
+The resulting results are available at [../data/metabolomics/sirius/release_202007](../data/metabolomics/sirius/release_202007). The processing was performed on a linux cluster computer (32 cpu with 256 GB of RAM).
 
 **Citations**:
 
