@@ -45,26 +45,26 @@ Processing is done by these IPython notebooks:
   
 ### 1 Amplicon sequencing
 
-#### 1.1 Qiita workflow
+#### 1.1 16S rRNA gene data
 
-##### 1.1.1 16S rRNA gene data
+#### Qiita workflow
 
-###### Demultiplexing:
+#### Demultiplexing:
 * Process: Split libraries FASTQ
 * Parameters: Multiplexed FASTQ, Golay 12 base pair reverse complement mapping file barcodes with reverse complement barcodes
 
-###### Sequence trimming, denoising, feature-table generation, and fragment insertion:
+#### Sequence trimming, denoising, feature-table generation, and fragment insertion:
 * Process: Trimming
 * Parameters: 150 base pair
 
 * Process: Deblur + SEPP
 * Parameters: Default settings (i.e., Fragment insertion into the GreenGenes 13_8 release phylogeny)
 
-###### Taxonomic profiling
+#### Taxonomic profiling
 * Process: Feature-classifier sklearn 
 * Parameters: Using the GreenGenes 13_8 release as a reference
 
-###### OTU clustering
+#### OTU clustering
 * Process: Closed-reference OTU picking 
 * Parameters: 97% sequence similarity threshold, using the GreenGenes 13_8 release as a reference
 
