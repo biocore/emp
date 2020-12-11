@@ -40,10 +40,10 @@ The standard EMP protocols for DNA extraction and 16S, 18S, and ITS amplicon seq
 * [18S Illumina Amplicon Protocol](http://www.earthmicrobiome.org/protocols-and-standards/18s/)
 * [ITS Illumina Amplicon Protocol](http://www.earthmicrobiome.org/protocols-and-standards/its/)
 
-Since EMP release 1 described in Thompson et al. ([*Nature*, 2017](http://doi.org/10.1038/nature24621), important updates to the EMP amplicon sequencing protocols have been made - these will be summarized soon on the EMP website linked above:
+Since EMP release 1 described in Thompson et al. ([*Nature*, 2017](http://doi.org/10.1038/nature24621)), important updates to the EMP amplicon sequencing protocols have been made - these will be summarized soon on the EMP website linked above:
 
-* [16S PCR update 1], miniaturized reactions, described in Minich et al. ([*mSystems*, 2018](https://doi.org/10.1128/mSystems.00166-18)
-* [16S PCR update 2], single reactions (i.e., vs. triplicate), described in Marotz et al. ([*BioTechniques*, 2019](https://doi.org/10.2144/btn-2018-0192)
+* [16S PCR update 1], miniaturized reactions, described in Minich et al. ([*mSystems*, 2018](https://doi.org/10.1128/mSystems.00166-18))
+* [16S PCR update 2], single reactions (i.e., vs. triplicate), described in Marotz et al. ([*BioTechniques*, 2019](https://doi.org/10.2144/btn-2018-0192))
 
 ### Shotgun sequencing
 
