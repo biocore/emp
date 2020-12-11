@@ -1,6 +1,12 @@
 ## protocols
 
-This directory contains laboratory protocols and SOPs (or links to them) for sample and metadata collection, sample tracking, amplicon sequencing, shotgun sequencing, and metabolomics.
+This directory contains laboratory protocols and SOPs (or links to them) for sample- and metadata collection, sample tracking, sample extraction, amplicon sequencing, shotgun metagenomic sequencing, and metabolomic profiling. 
+
+Accompanying information to `protocols`:
+
+* [`methods`](https://github.com/biocore/emp/blob/master/methods) Methods used in EMP analyses.
+* [`code`](https://github.com/biocore/emp/tree/master/code) Notebooks and scripts for reproducing analyses.
+* [`data`](https://github.com/biocore/emp/tree/master/data) Results of sequence processing and analyses.
 
 ### Overview
 
@@ -33,6 +39,11 @@ The standard EMP protocols for DNA extraction and 16S, 18S, and ITS amplicon seq
 * [16S Illumina Amplicon Protocol](http://www.earthmicrobiome.org/protocols-and-standards/16s/)
 * [18S Illumina Amplicon Protocol](http://www.earthmicrobiome.org/protocols-and-standards/18s/)
 * [ITS Illumina Amplicon Protocol](http://www.earthmicrobiome.org/protocols-and-standards/its/)
+
+Since EMP release 1 described in Thompson et al. ([*Nature*, 2017](http://doi.org/10.1038/nature24621), important updates to the EMP amplicon sequencing protocols have been made - these will be summarized soon on the EMP website linked above:
+
+* [16S PCR update 1], miniaturized reactions, described in Minich et al. ([*mSystems*, 2018](https://doi.org/10.1128/mSystems.00166-18)
+* [16S PCR update 2], single reactions (i.e., vs. triplicate), described in Marotz et al. ([*BioTechniques*, 2019](https://doi.org/10.2144/btn-2018-0192)
 
 ### Shotgun sequencing
 
