@@ -45,9 +45,9 @@ Processing is done by these IPython notebooks:
   
 ### 1 Amplicon sequencing
 
-#### 1.1 16S rRNA gene data
+### 1.1 16S rRNA gene data
 
-#### Qiita workflow
+### Qiita workflow
 
 #### Demultiplexing:
 * Process: Split libraries FASTQ
@@ -69,50 +69,61 @@ Processing is done by these IPython notebooks:
 * Parameters: 97% sequence similarity threshold, using the GreenGenes 13_8 release as a reference
 
 
-18S
+### 1.2 18S rRNA gene data
 
-Demultiplexing:
-Split libraries FASTQ
-Multiplexed FASTQ, Golay 12 base pair reverse complement mapping file barcodes
+### Qiita workflow
 
-Sequence denoising, feature-table generation:
-Trimming
-150 base pair
+#### Demultiplexing:
+* Process: Split libraries FASTQ
+* Parameters: Multiplexed FASTQ, Golay 12 base pair reverse complement mapping file barcodes
 
-Deblur
-Default settings
+#### Sequence trimming, denoising, feature-table generation, and fragment insertion:
+* Process: Trimming
+* Parameters: 150 base pair
 
-Taxonomy
-Feature-classifier sklearn using the SILVA 138.1 release
+* Process: Deblur
+* Parameters: Default settings
 
-Closed-reference OTU clustering
-97% using the SILVA 119 release
+#### Taxonomic profiling
+* Process: Feature-classifier sklearn 
+* Parameters: Using the SILVA 138.1 release as a reference
+
+#### OTU clustering
+* Process: Closed-reference OTU picking 
+* Parameters: 97% sequence similarity threshold, using the SILVA 119 release as a reference
 
 
-1TS
+### 1.3 Fungal ITS data
 
-Demultiplexing:
-Split libraries FASTQ
-Multiplexed FASTQ, Golay 12 base pair reverse complement mapping file barcodes
+### Qiita workflow
 
-Sequence denoising, feature-table generation:
-Trimming
-150 base pair
+#### Demultiplexing:
+* Process: Split libraries FASTQ
+* Parameters: Multiplexed FASTQ, Golay 12 base pair reverse complement mapping file barcodes
 
-Deblur
-Default settings
+#### Sequence trimming, denoising, feature-table generation, and fragment insertion:
+* Process: Trimming
+* Parameters: 150 base pair
 
-Taxonomy
-Feature-classifier sklearn using the UNITE 8 release
+* Process: Deblur
+* Parameters: Default settings
 
-Closed-reference OTU clustering
-97% using the UNITE 8 release
+#### Taxonomic profiling
+* Process: Feature-classifier sklearn 
+* Parameters: Using the UNITE 8 release as a reference
+
+#### OTU clustering
+* Process: Closed-reference OTU picking 
+* Parameters: 97% sequence similarity threshold, using the UNITE 8 release as a reference
+
 
 ### 2 Shotgun sequencing
 
 #### 2.1 Sequence file demultiplexing
 
-Shotgun sequence files from Illumina were demultiplexed using bcl2fastq and custom sample sheets, with demultiplexed files placed in directories designated for each PI–study combination. 
+Shotgun sequence files from Illumina were demultiplexed using bcl2fastq and custom sample sheets, with demultiplexed files placed in directories designated for each PI–study combination.
+
+#### 2.2 Qiita workflow
 
 
 ### 3 Metabolomics data analysis
