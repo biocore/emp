@@ -50,24 +50,23 @@ Processing is done by these IPython notebooks:
 ##### 1.1.1 16S rRNA gene data
 
 ###### Demultiplexing:
--->Split libraries FASTQ
----->Multiplexed FASTQ, Golay 12 base pair reverse complement mapping file barcodes with reverse complement barcodes
+* Process: Split libraries FASTQ
+* Parameters: Multiplexed FASTQ, Golay 12 base pair reverse complement mapping file barcodes with reverse complement barcodes
 
 ###### Sequence trimming, denoising, feature-table generation, and fragment insertion:
--->Trimming
---->150 base pair
+* Process: Trimming
+* Parameters: 150 base pair
 
--->Deblur + SEPP
---->Default settings (i.e., Fragment insertion into the GreenGenes 13_8 release phylogeny)
+* Process: Deblur + SEPP
+* Parameters: Default settings (i.e., Fragment insertion into the GreenGenes 13_8 release phylogeny)
 
 ###### Taxonomic profiling
--->Feature-classifier sklearn 
-----> Using the GreenGenes 13_8 release as a reference
+* Process: Feature-classifier sklearn 
+* Parameters: Using the GreenGenes 13_8 release as a reference
 
 ###### OTU clustering
---> 
---> 97% sequence similarity threshold
---> using the GreenGenes 13_8 release
+* Process: Closed-reference OTU picking 
+* Parameters: 97% sequence similarity threshold, using the GreenGenes 13_8 release as a reference
 
 
 18S
