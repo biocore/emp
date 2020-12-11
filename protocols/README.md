@@ -36,7 +36,7 @@ The standard EMP protocols for DNA extraction and 16S, 18S, and ITS amplicon seq
 
 ### Shotgun sequencing
 
-(manuscript in prep)
+The standard EMP protocols for short-read shotgun metagenomic sequencing are described in Sanders et al. ([*Genome Biology*, 2019](https://doi.org/10.1186/s13059-019-1834-9)).
 
 ### Metabolomics
 
