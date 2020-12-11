@@ -8,7 +8,7 @@ This GitHub repository describes the EMP catalogue -- how it is generated and ho
 
 ## Organization of this repository
 
-This repository contains the following directories:
+This repository contains the directories listed below. Each directory will have contents related to EMP 16S Release 1 and EMP Multi-omics (EMP500).
 
 * [`methods`](https://github.com/biocore/emp/tree/master/methods) Methods used in EMP analyses. Includes sample processing for extraction and sequencing, and computational methods for performing analyses and generating figures for meta-analyses of the EMP dataset.
 * [`protocols`](https://github.com/biocore/emp/tree/master/protocols) Laboratory protocols and SOPs for sample and metadata collection, sample tracking, amplicon sequencing, shotgun sequencing, and metabolomics.
@@ -24,7 +24,7 @@ There are several ways to get involved with the EMP:
 
 * **Use the EMP catalogue in your own research.** Download the whole catalogue or just a few studies, merge and analyze them with your own data, or query the catalogue. Please skip to the next section for detailed instructions.
 * **Join the analysis team.** If you are interested in getting involved with EMP meta-analyses, you can begin by reviewing the open [issues](https://github.com/biocore/emp/issues) on this GitHub page. You can add comments to an existing issue to propose your ideas, or create a new issue entirely. Note that the initial meta-analysis of the EMP has been [published](http://doi.org/10.1038/nature24621). You can view the existing [code](https://github.com/biocore/emp/tree/master/code) and [methods](https://github.com/biocore/emp/tree/master/methods) (instructions) for generating figures for the meta-analysis.
-* **Contribute samples.** We are not currently soliciting samples for the EMP. If you have an idea for samples you might like to submit in the future, you may [email](mailto:luke.thompson@noaa.gov) the project leader for the EMP, [Dr. Luke Thompson](https://swfsc.noaa.gov/staff.aspx?id=22360).
+* **Contribute samples.** We are not currently soliciting samples for the EMP. If you have an idea for samples you might like to submit in the future, you may [email](mailto:jpshaffer@ucsd.health.edu) Dr. Justin Shaffer.
 
 ## Using the EMP catalogue
 
@@ -70,7 +70,7 @@ The EMP catalogue is a diverse and standardized set of thousands of microbiomes 
 
 ## Citing the EMP
 
-If you use the EMP Release 1 data in your research, please cite Thompson et al., "A communal catalogue reveals Earth's multiscale microbial diversity", *Nature*, 2017 ([article](http://doi.org/10.1038/nature24621)).
+If you use the EMP 16S Release 1 data in your research, please cite Thompson et al., "A communal catalogue reveals Earth's multiscale microbial diversity", *Nature*, 2017 ([article](http://doi.org/10.1038/nature24621)).
 
 If you use EMP protocols in your research, please cite [earthmicrobiome.org](earthmicrobiome.org) and the relevant papers referenced therein.
 
