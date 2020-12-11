@@ -41,49 +41,73 @@ Processing is done by these IPython notebooks:
 * `emp500_s5_labels.ipynb` Generate label spreadsheet with QR codes (not encoded).
     - Inputs: `emp500_project_summary.csv`, `emp500_per_study_indexes.xlsx`
     - Outputs: `emp500_labels.xlsx`, `emp500_labels_extra.xlsx`, `emp500_gsheet.xlsx`, `emp500_gsheet_extra.xlsx`, `emp500_box_labels.xlsx`
-
+    
+  
 ### 1 Amplicon sequencing
 
-#### 1.1 Sequence file demultiplexing
+#### 1.1 Qiita workflow
 
-Illumina HiSeq sequence files were demultiplexed using Qiita.
+##### 1.1.1 16S rRNA gene data
 
-#### 1.2 QIIME 2 workflow
+###### Demultiplexing:
+-->Split libraries FASTQ
+---->Multiplexed FASTQ, Golay 12 base pair reverse complement mapping file barcodes with reverse complement barcodes
 
-Demultiplexed amplicon sequence files were run through [QIIME 2](http://qiime2.org), which wraps many popular amplicon analysis tools, including Deblur, UniFrac, and Emperor.
+###### Sequence trimming, denoising, feature-table generation, and fragment insertion:
+-->Trimming
+--->150 base pair
 
-Initial processing was done using these these QIIME 2 commands:
+-->Deblur + SEPP
+--->Default settings (i.e., Fragment insertion into the GreenGenes 13_8 release phylogeny)
 
-```bash
-# calling ASVs
-qiime deblur denoise-16S \
-  --i-demultiplexed-seqs SEQUENCES.qza \
-  --p-trim-length 150 \
-  --output-dir DIRECTORY
+###### Taxonomic profiling
+-->Feature-classifier sklearn 
+----> Using the GreenGenes 13_8 release as a reference
 
-# merging feature tables (1..N)
-qiime feature-table merge \
-  --i-tables DIRECTORY/table-1.qza \
-  --i-tables DIRECTORY/table-2.qza \
-  --o-merged-table DIRECTORY/table.qza
-  
-# merging representative sequences (1..N)
-qiime feature-table merge-seqs \
-  --i-data DIRECTORY/rep-seqs-1.qza \
-  --i-data DIRECTORY/rep-seqs-2.qza \
-  --o-merged-data DIRECTORY/rep-seqs.qza
+###### OTU clustering
+--> 
+--> 97% sequence similarity threshold
+--> using the GreenGenes 13_8 release
 
-# summarizing feature table
-qiime feature-table summarize \
-  --i-table DIRECTORY/table.qza \
-  --m-sample-metadata-file METADATA.tsv \
-  --o-visualization DIRECTORY/table.qzv
 
-# summarizing representative sequences
-qiime feature-table tabulate-seqs \
-  --i-data DIRECTORY/rep-seqs.qza \
-  --o-visualization DIRECTORY/rep-seqs.qzv
-```
+18S
+
+Demultiplexing:
+Split libraries FASTQ
+Multiplexed FASTQ, Golay 12 base pair reverse complement mapping file barcodes
+
+Sequence denoising, feature-table generation:
+Trimming
+150 base pair
+
+Deblur
+Default settings
+
+Taxonomy
+Feature-classifier sklearn using the SILVA 138.1 release
+
+Closed-reference OTU clustering
+97% using the SILVA 119 release
+
+
+1TS
+
+Demultiplexing:
+Split libraries FASTQ
+Multiplexed FASTQ, Golay 12 base pair reverse complement mapping file barcodes
+
+Sequence denoising, feature-table generation:
+Trimming
+150 base pair
+
+Deblur
+Default settings
+
+Taxonomy
+Feature-classifier sklearn using the UNITE 8 release
+
+Closed-reference OTU clustering
+97% using the UNITE 8 release
 
 ### 2 Shotgun sequencing
 
@@ -91,9 +115,6 @@ qiime feature-table tabulate-seqs \
 
 Shotgun sequence files from Illumina were demultiplexed using bcl2fastq and custom sample sheets, with demultiplexed files placed in directories designated for each PI–study combination. 
 
-#### 2.2 Oecophylla workflow
-
-Demultiplexed shotgun sequence files are run through [Oecophylla](https://github.com/biocore/oecophylla), which is a Snakemake wrapper for a suite of metagenomic analysis and assembly tools.
 
 ### 3 Metabolomics data analysis
 
