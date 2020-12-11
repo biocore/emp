@@ -51,22 +51,21 @@ Processing is done by these IPython notebooks:
 
 #### Demultiplexing:
 * Process: Split libraries FASTQ
-* Parameters: Multiplexed FASTQ, Golay 12 base pair reverse complement mapping file barcodes with reverse complement barcodes
+** Parameters: Multiplexed FASTQ, Golay 12 base pair reverse complement mapping file barcodes with reverse complement barcodes
 
 #### Sequence trimming, denoising, feature-table generation, and fragment insertion:
 * Process: Trimming
-* Parameters: 150 base pair
-
+** Parameters: 150 base pair
 * Process: Deblur + SEPP
-* Parameters: Default settings (i.e., Fragment insertion into the GreenGenes 13_8 release phylogeny)
+** Parameters: Default settings (i.e., Fragment insertion into the GreenGenes 13_8 release phylogeny)
 
 #### Taxonomic profiling
 * Process: Feature-classifier sklearn 
-* Parameters: Using the GreenGenes 13_8 release as a reference
+** Parameters: Using the GreenGenes 13_8 release as a reference
 
 #### OTU clustering
 * Process: Closed-reference OTU picking 
-* Parameters: 97% sequence similarity threshold, using the GreenGenes 13_8 release as a reference
+** Parameters: 97% sequence similarity threshold, using the GreenGenes 13_8 release as a reference
 
 
 ### 1.2 18S rRNA gene data
@@ -75,22 +74,22 @@ Processing is done by these IPython notebooks:
 
 #### Demultiplexing:
 * Process: Split libraries FASTQ
-* Parameters: Multiplexed FASTQ, Golay 12 base pair reverse complement mapping file barcodes
+** Parameters: Multiplexed FASTQ, Golay 12 base pair reverse complement mapping file barcodes
 
 #### Sequence trimming, denoising, feature-table generation, and fragment insertion:
 * Process: Trimming
-* Parameters: 150 base pair
+** Parameters: 150 base pair
 
 * Process: Deblur
-* Parameters: Default settings
+** Parameters: Default settings
 
 #### Taxonomic profiling
 * Process: Feature-classifier sklearn 
-* Parameters: Using the SILVA 138.1 release as a reference
+** Parameters: Using the SILVA 138.1 release as a reference
 
 #### OTU clustering
 * Process: Closed-reference OTU picking 
-* Parameters: 97% sequence similarity threshold, using the SILVA 119 release as a reference
+** Parameters: 97% sequence similarity threshold, using the SILVA 119 release as a reference
 
 
 ### 1.3 Fungal ITS data
@@ -99,22 +98,22 @@ Processing is done by these IPython notebooks:
 
 #### Demultiplexing:
 * Process: Split libraries FASTQ
-* Parameters: Multiplexed FASTQ, Golay 12 base pair reverse complement mapping file barcodes
+** Parameters: Multiplexed FASTQ, Golay 12 base pair reverse complement mapping file barcodes
 
 #### Sequence trimming, denoising, feature-table generation, and fragment insertion:
 * Process: Trimming
-* Parameters: 150 base pair
+** Parameters: 150 base pair
 
 * Process: Deblur
-* Parameters: Default settings
+** Parameters: Default settings
 
 #### Taxonomic profiling
 * Process: Feature-classifier sklearn 
-* Parameters: Using the UNITE 8 release as a reference
+** Parameters: Using the UNITE 8 release as a reference
 
 #### OTU clustering
 * Process: Closed-reference OTU picking 
-* Parameters: 97% sequence similarity threshold, using the UNITE 8 release as a reference
+** Parameters: 97% sequence similarity threshold, using the UNITE 8 release as a reference
 
 
 ### 2 Shotgun sequencing
