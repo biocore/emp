@@ -1,4 +1,4 @@
-## methods – Release 2
+## methods – 16S Release 2 and Multi-omics (EMP500)
 
 Computational methods for Release 2 and the EMP Multi-omics project (EMP500) are described here. For laboratory methods, see [`protocols`](https://github.com/biocore/emp/tree/master/protocols).
 
@@ -20,7 +20,8 @@ Computational methods for Release 2 and the EMP Multi-omics project (EMP500) are
     - [2.2 Metagenomic assembly and binning](#22-metagenomic-assembly-and-binning)
       - [2.2.1 Assembly and co-assembly of EMP500 samples within each environment](#221-assembly-and-co-assembly-of-emp500-samples-within-each-environment)
       - [2.2.2 Binning of assemblies to generate MAGs for each environment](#222-binning-of-assemblies-to-generate-mags-for-each-environment)
-      - [2.2.3 Taxonomic profiling of MAGs](#223-taxonomic-profiling-of-mags)
+      - [2.2.3 Functional annotation of assemblies](#223-functional-annotation-of-assemblies)
+      - [2.2.4 Taxonomic profiling of MAGs](#224-taxonomic-profiling-of-mags)
   - [3 Metabolomics data analysis](#3-metabolomics-data-analysis)
     - [3.1 Non-targeted mass spectrometry analysis by LC-MS/MS](#31non-targeted-mass-spectrometry-analysis-by-lc-msms)
     - [3.2 Non-targeted mass spectrometry analysis by GC-MS](#32-non-targeted-mass-spectrometry-analysis-by-gc-ms)
@@ -195,9 +196,17 @@ Adapter trimming and poly-G removal were performed on per-sample FASTQ files usi
 * All MAGs with quality score > 50 were used in downstream analyses. High‐quality MAGs were defined as Completeness > 75% and Contamination < 5%, and medium‐quality MAGs were defined by Completeness > 50% and Contamination < 10%. 
 * MAG refining was carried out using RefineM v0.0.23 [(Parks, Rinke et al. 2017)](https://doi.org/10.1038/s41564-017-0012-7). Divergent taxonomic assignments from the MAG scaffolds were identified using the “call_genes” option and then searching them against the reference database available at https://data.ace.uq.edu.au/public/misc_downloads/refinem/ using the “taxon_profile” option. Potentially contaminating scaffolds were then removed from the bins using the “filter_bins” option. 
 
-#### 2.2.3 Taxonomic profiling of MAGs
+#### 2.2.3 Functional annotation of assemblies
+
+* protein-coding gene predictions were performed using Prodigal v2.6.3
+* annotation of gene predictions was performed using Diamond v2.0.5
+* carbohydrate-active-enzyme (CAZy) prediction was performed using dbCAN2 v2.0.11
+* secondary metabolite gene cluster prediction was performed using antiSMASH v5
+
+#### 2.2.4 Taxonomic profiling of MAGs
 
 * Taxonomic classification of MAGs was performed using GTDB-Tk v1.3.0 release95 [(Chaumeil, Mussig et al. 2020)](https://academic.oup.com/bioinformatics/article/36/6/1925/5626182) using the “gtdbtk classify_wf” option.
+
 
 
 ### 3 Metabolomics data analysis
