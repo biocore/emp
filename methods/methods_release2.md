@@ -1,6 +1,6 @@
 ## methods – Release 2
 
-Computational methods for Release 2 and the EMP500 project are described here. For laboratory methods, see [`protocols`](https://github.com/biocore/emp/tree/master/protocols).
+Computational methods for Release 2 and the EMP Multi-omics project (EMP500) are described here. For laboratory methods, see [`protocols`](https://github.com/biocore/emp/tree/master/protocols).
 
 <!--made with https://luciopaiva.com/markdown-toc/ -->
 
@@ -8,16 +8,24 @@ Computational methods for Release 2 and the EMP500 project are described here. F
 
   - [0 Metadata](#0-metadata)
   - [1 Amplicon sequencing](#1-amplicon-sequencing)
-    - [1.1 Sequence file demultiplexing](#11-sequence-file-demultiplexing)
-    - [1.2 QIIME 2 workflow](#12-qiime-2-workflow)
+    - [1.1 16S rRNA gene data](#11-16s-rna-gene-data)
+    - [1.2 18S rRNA gene data](#12-18s-rna-gene-data)
+    - [1.3 Fungal ITS data](#13-fungal-its-data)
   - [2 Shotgun sequencing](#2-shotgun-sequencing)
-    - [2.1 Sequence file demultiplexing](#21-sequence-file-demultiplexing)
-    - [2.2 Oecophylla workflow](#22-oecophylla-workflow)
+    - [2.1 Short-read analysis](#21-short-read-analysis)
+     - [2.1.1 Sequence file demultiplexing](#211-sequence-file-demultiplexing)
+     - [2.1.2 Adapter trimming and poly-G removal](#212-adapter-trimming-and-poly-g-removal)
+     - [2.1.3 Qiita read alignment to the Woltka reference database](#213-qiita-read-alignment-to-woltka-reference-database)
+     - [2.1.4 Woltka gOTU feature-table generation](#214-woltka-gotu-feature-table-generation)
+    - [2.2 Metagenomic assembly and binning](#22-metagenomic-assembly-and-binning)
+     - [2.2.1 Assembly and co-assembly of EMP500 samples within each environment](#221-assembly-and-co-assembly-of-emp500-samples-within-each-environment)
+     - [2.2.2 Binning of assemblies to generate MAGs for each environment](#222-binning-of-assemblies-to-generate-mags-for-each-environment)
+     - [2.2.3 Taxonomic profiling of MAGs](#223-taxonomic-profiling-of-mags)
   - [3 Metabolomics data analysis](#3-metabolomics-data-analysis)
-    - [3.1 Non-targeted mass spectrometry analysis by LC-MS/MS](#non-targeted-mass-spectrometry-analysis-by-lc-msms)
+    - [3.1 Non-targeted mass spectrometry analysis by LC-MS/MS](#31non-targeted-mass-spectrometry-analysis-by-lc-msms)
     - [3.2 Non-targeted mass spectrometry analysis by GC-MS](#32-non-targeted-mass-spectrometry-analysis-by-gc-ms)
 
-       
+
 ### 0 Metadata
 
 The metadata workflow takes individual study metadata files, general sample information, and prep information, then converts this to mapping files, sample information files, and prep information files.
