@@ -1,6 +1,6 @@
-## methods – Release 2
+## methods – 16S Release 2 and Multi-omics (EMP500)
 
-Computational methods for Release 2 and the EMP500 project are described here. For laboratory methods, see [`protocols`](https://github.com/biocore/emp/tree/master/protocols).
+Computational methods for Release 2 and the EMP Multi-omics project (EMP500) are described here. For laboratory methods, see [`protocols`](https://github.com/biocore/emp/tree/master/protocols).
 
 <!--made with https://luciopaiva.com/markdown-toc/ -->
 
@@ -8,16 +8,25 @@ Computational methods for Release 2 and the EMP500 project are described here. F
 
   - [0 Metadata](#0-metadata)
   - [1 Amplicon sequencing](#1-amplicon-sequencing)
-    - [1.1 Sequence file demultiplexing](#11-sequence-file-demultiplexing)
-    - [1.2 QIIME 2 workflow](#12-qiime-2-workflow)
+    - [1.1 16S rRNA gene data](#11-16s-rna-gene-data)
+    - [1.2 18S rRNA gene data](#12-18s-rna-gene-data)
+    - [1.3 Fungal ITS data](#13-fungal-its-data)
   - [2 Shotgun sequencing](#2-shotgun-sequencing)
-    - [2.1 Sequence file demultiplexing](#21-sequence-file-demultiplexing)
-    - [2.2 Oecophylla workflow](#22-oecophylla-workflow)
+    - [2.1 Short-read analysis](#21-short-read-analysis)
+      - [2.1.1 Sequence file demultiplexing](#211-sequence-file-demultiplexing)
+      - [2.1.2 Adapter trimming and poly-G removal](#212-adapter-trimming-and-poly-g-removal)
+      - [2.1.3 Qiita read alignment to the Woltka reference database](#213-qiita-read-alignment-to-woltka-reference-database)
+      - [2.1.4 Woltka gOTU feature-table generation](#214-woltka-gotu-feature-table-generation)
+    - [2.2 Metagenomic assembly and binning](#22-metagenomic-assembly-and-binning)
+      - [2.2.1 Assembly and co-assembly of EMP500 samples within each environment](#221-assembly-and-co-assembly-of-emp500-samples-within-each-environment)
+      - [2.2.2 Binning of assemblies to generate MAGs for each environment](#222-binning-of-assemblies-to-generate-mags-for-each-environment)
+      - [2.2.3 Functional annotation of assemblies](#223-functional-annotation-of-assemblies)
+      - [2.2.4 Taxonomic profiling of MAGs](#224-taxonomic-profiling-of-mags)
   - [3 Metabolomics data analysis](#3-metabolomics-data-analysis)
-    - [3.1 Non-targeted mass spectrometry analysis by LC-MS/MS](#non-targeted-mass-spectrometry-analysis-by-lc-msms)
+    - [3.1 Non-targeted mass spectrometry analysis by LC-MS/MS](#31non-targeted-mass-spectrometry-analysis-by-lc-msms)
     - [3.2 Non-targeted mass spectrometry analysis by GC-MS](#32-non-targeted-mass-spectrometry-analysis-by-gc-ms)
 
-       
+
 ### 0 Metadata
 
 The metadata workflow takes individual study metadata files, general sample information, and prep information, then converts this to mapping files, sample information files, and prep information files.
@@ -41,59 +50,164 @@ Processing is done by these IPython notebooks:
 * `emp500_s5_labels.ipynb` Generate label spreadsheet with QR codes (not encoded).
     - Inputs: `emp500_project_summary.csv`, `emp500_per_study_indexes.xlsx`
     - Outputs: `emp500_labels.xlsx`, `emp500_labels_extra.xlsx`, `emp500_gsheet.xlsx`, `emp500_gsheet_extra.xlsx`, `emp500_box_labels.xlsx`
-
+    
+  
 ### 1 Amplicon sequencing
 
-#### 1.1 Sequence file demultiplexing
+Demultiplexing, feature-table generation, fragment insertion, and taxonomic profiling were performed in Qiita on a per-sequencing lane basis. Final feature-tables were generated using the meta-analysis functionality in Qiita to combine multiple preps per data type.
 
-Illumina HiSeq sequence files were demultiplexed using Qiita.
+### 1.1 16S rRNA gene data
 
-#### 1.2 QIIME 2 workflow
+#### Demultiplexing:
+* Process: Split libraries FASTQ
+* Parameters: Multiplexed FASTQ, Golay 12 base pair reverse complement mapping file barcodes with reverse complement barcodes
 
-Demultiplexed amplicon sequence files were run through [QIIME 2](http://qiime2.org), which wraps many popular amplicon analysis tools, including Deblur, UniFrac, and Emperor.
+#### Sequence trimming, denoising, feature-table generation, and fragment insertion:
+* Process: Trimming
+* Parameters: 150 base pair
+* Process: Deblur + SEPP
+* Parameters: Default settings (i.e., Fragment insertion into the GreenGenes 13_8 release phylogeny)
 
-Initial processing was done using these these QIIME 2 commands:
+#### Taxonomic profiling
+* Process: Feature-classifier sklearn 
+* Parameters: Using the GreenGenes 13_8 release as a reference
 
-```bash
-# calling ASVs
-qiime deblur denoise-16S \
-  --i-demultiplexed-seqs SEQUENCES.qza \
-  --p-trim-length 150 \
-  --output-dir DIRECTORY
+#### OTU clustering
+* Process: Closed-reference OTU picking 
+* Parameters: 97% sequence similarity threshold, using the GreenGenes 13_8 release as a reference
 
-# merging feature tables (1..N)
-qiime feature-table merge \
-  --i-tables DIRECTORY/table-1.qza \
-  --i-tables DIRECTORY/table-2.qza \
-  --o-merged-table DIRECTORY/table.qza
-  
-# merging representative sequences (1..N)
-qiime feature-table merge-seqs \
-  --i-data DIRECTORY/rep-seqs-1.qza \
-  --i-data DIRECTORY/rep-seqs-2.qza \
-  --o-merged-data DIRECTORY/rep-seqs.qza
 
-# summarizing feature table
-qiime feature-table summarize \
-  --i-table DIRECTORY/table.qza \
-  --m-sample-metadata-file METADATA.tsv \
-  --o-visualization DIRECTORY/table.qzv
+### 1.2 18S rRNA gene data
 
-# summarizing representative sequences
-qiime feature-table tabulate-seqs \
-  --i-data DIRECTORY/rep-seqs.qza \
-  --o-visualization DIRECTORY/rep-seqs.qzv
-```
+#### Demultiplexing:
+* Process: Split libraries FASTQ
+* Parameters: Multiplexed FASTQ, Golay 12 base pair reverse complement mapping file barcodes
+
+#### Sequence trimming, denoising, feature-table generation, and fragment insertion:
+* Process: Trimming
+* Parameters: 150 base pair
+* Process: Deblur
+* Parameters: Default settings
+
+#### Taxonomic profiling
+* Process: Feature-classifier sklearn 
+* Parameters: Using the SILVA 138.1 release as a reference
+
+#### OTU clustering
+* Process: Closed-reference OTU picking 
+* Parameters: 97% sequence similarity threshold, using the SILVA 119 release as a reference
+
+
+### 1.3 Fungal ITS data
+
+#### Demultiplexing:
+* Process: Split libraries FASTQ
+** Parameters: Multiplexed FASTQ, Golay 12 base pair reverse complement mapping file barcodes
+
+#### Sequence trimming, denoising, feature-table generation, and fragment insertion:
+* Process: Trimming
+* Parameters: 150 base pair
+
+* Process: Deblur
+* Parameters: Default settings
+
+#### Taxonomic profiling
+* Process: Feature-classifier sklearn 
+* Parameters: Using the UNITE 8 release as a reference
+
+#### OTU clustering
+* Process: Closed-reference OTU picking 
+* Parameters: 97% sequence similarity threshold, using the UNITE 8 release as a reference
+
 
 ### 2 Shotgun sequencing
 
-#### 2.1 Sequence file demultiplexing
+Demultiplexing and adapter trimming were performed prior to processing in Qiita. Read alignment to the Web of Life Toolkit Analysis (Woltka) was performed in Qiita on a per-sequencing lane basis. Each read alignment was processed in Woltka to produce a genome-OTU (gOTU) feature-table, allowing for use of the Woltka phylogeny and taxonomy for downstream analyses. The final Woltka gOTU feature-table was generated by merging across preps using QIIME2. In parallel, metagenomic assemblies and metagenome assembled genomes (MAGs) were constructed for each of 35 major environments represented among the samples.
 
-Shotgun sequence files from Illumina were demultiplexed using bcl2fastq and custom sample sheets, with demultiplexed files placed in directories designated for each PI–study combination. 
+#### 2.1 Short-read analysis
 
-#### 2.2 Oecophylla workflow
+#### 2.1.1 Sequence file demultiplexing
 
-Demultiplexed shotgun sequence files are run through [Oecophylla](https://github.com/biocore/oecophylla), which is a Snakemake wrapper for a suite of metagenomic analysis and assembly tools.
+Shotgun sequence files from Illumina were demultiplexed using bcl2fastq and custom sample sheets, with demultiplexed files placed in directories designated for each PI–study combination.
+
+#### 2.1.2 Adapter trimming and poly-G removal
+
+Adapter trimming and poly-G removal were performed on per-sample FASTQ files using Atropos 1.1.25:
+
+`atropos \
+   -a GATCGGAAGAGCACACGTCTGAACTCCAGTCAC \
+   -A AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGT \
+   -pe1 forward.fastq.gz \
+   -pe2 reverse.fastq.gz \
+   -o forward_trimmed.fastq.gz \
+   -p reverse_trimmed.fastq.gz \
+   --nextseq-trim 30 \
+   --match-read-wildcards \
+   -e 0.1 \
+   -q 15 \
+   --insert-match-error-rate 0.2 \
+   --minimum-length 100 \
+   --pair-filter any \
+   --report-file report.txt \
+   --report-formats txt \
+   -T 16`
+
+#### 2.1.3 Qiita read alignment to the Woltka reference database
+
+* Process: Shogun v1.0.7
+* Parameters: bowtie2 as aligner tool, Web of Life (WoL) as reference database
+
+#### 2.1.4 Woltka gOTU feature-table generation
+
+`woltka classify \
+  --input bowtie2_wol_alignment.sam.xz \
+  --uniq \
+  --demux \
+  --output woltka_gotu_table.biom`
+  
+`qiime tools import \
+  --type FeatureTable[Frequency] \
+  --input-path woltka_gotu_table.biom \
+  --output-path woltka_gotu_table.qza`
+  
+`qiime feature-table merge \
+  --i-tables woltka_gotu_table.qza \
+  --i-tables woltka_gotu_table_2.qza \
+  --p-overlap-method 'sum' \
+  --o-merged-table woltka_gotu_table_merged.qza`
+
+#### 2.2 Metagenomic assembly and binning
+
+#### 2.2.1 Assembly and co-assembly of EMP500 samples within each environment
+
+* To determine which of the EMP500 environments could be co-assembled, MASH, atool employing the MinHash dimensionality reduction technique [(Ondov, Treangen et al. 2016)](https://doi.org/10.1186/s13059-016-0997-x) was used to evaluate the pairwise distances between the metagenomic data sets. 
+* Sequence‭-based grouping ‬was done by ‭Markov Clustering (MCL) [(Van Dongen and Abreu-Goodger 2012)](https://doi.org/10.1007/978-1-61779-361-5_15) of Mash. 
+* A combination of MASH distances and a Markov cluster algorithm which identifies orthology groups (OGs) in reciprocal best matches (RBM), was employed to evaluate the samples that could be grouped for co-assembly. 
+* Mash sketches were initially created using a sketch size of 10,000 and k-mer size of 32 and the sketches were combined using the “paste” option. 
+* A pairwise distance matrix was constructed using the “dist” option and the distance matrix was used in downstream analyses. 
+* Samples which had distance values below 0.1 were then co-assembled [(Karthikeyan, Rodriguez-R et al. 2020)](https://doi.org/10.1111/1462-2920.14966). ‬‬
+* Co-assembly was carried out using metaSPades v3.15.0 with the “--only-assembler” mode and the following k-mers: 21,33,55,77,99,127. Quality of the assemblies were evaluated using MetaQUAST [(Mikheenko, Saveliev et al. 2016)](https://doi.org/10.1093/bioinformatics/btv697).  
+
+#### 2.2.2 Binning of assemblies to generate MAGs for each environment
+
+* Binning was carried out using MaxBin v2.2.7 [(Wu, Simmons et al. 2016)](https://doi.org/10.1093/bioinformatics/btv638) and MetaBAT v2.12.1 [(Kang, Froula et al. 2015)](https://doi.org/10.7717/peerj.1165). 
+* For each co-assembly both the tools were employed for binning and the resulting bins were hen de-replicated at 95% gANI (genome-aggregate average nucleotide identity) to remove redundancy using FastANI v1.1 [(Jain, Rodriguez-R et al. 2018)](https://doi.org/10.1038/s41467-018-07641-9). 
+* Only scaffolds larger than 1000bp were used for MAG generation. Completeness and contamination were estimated using CheckM (Parks, Imelfort et al. 2015). MAG (Metagenome-assembled genome) quality was determined as [Completeness – 5 * (Contamination)]. 
+* All MAGs with quality score > 50 were used in downstream analyses. High‐quality MAGs were defined as Completeness > 75% and Contamination < 5%, and medium‐quality MAGs were defined by Completeness > 50% and Contamination < 10%. 
+* MAG refining was carried out using RefineM v0.0.23 [(Parks, Rinke et al. 2017)](https://doi.org/10.1038/s41564-017-0012-7). Divergent taxonomic assignments from the MAG scaffolds were identified using the “call_genes” option and then searching them against the reference database available at https://data.ace.uq.edu.au/public/misc_downloads/refinem/ using the “taxon_profile” option. Potentially contaminating scaffolds were then removed from the bins using the “filter_bins” option. 
+
+#### 2.2.3 Functional annotation of assemblies
+
+* protein-coding gene predictions were performed using Prodigal v2.6.3
+* annotation of gene predictions was performed using Diamond v2.0.5
+* carbohydrate-active-enzyme (CAZy) prediction was performed using dbCAN2 v2.0.11
+* secondary metabolite gene cluster prediction was performed using antiSMASH v5
+
+#### 2.2.4 Taxonomic profiling of MAGs
+
+* Taxonomic classification of MAGs was performed using GTDB-Tk v1.3.0 release95 [(Chaumeil, Mussig et al. 2020)](https://academic.oup.com/bioinformatics/article/36/6/1925/5626182) using the “gtdbtk classify_wf” option.
+
+
 
 ### 3 Metabolomics data analysis
 
