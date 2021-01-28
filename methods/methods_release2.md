@@ -23,12 +23,12 @@ Computational methods for Release 2 and the EMP Multi-omics project (EMP500) are
       - [2.2.3 Functional annotation of assemblies](#223-functional-annotation-of-assemblies)
       - [2.2.4 Taxonomic profiling of MAGs](#224-taxonomic-profiling-of-mags)
   - [3 Metabolomics data analysis](#3-metabolomics-data-analysis)
-    - [3.1 Non targeted mass spectrometry analysis by LC-MS/MS](#31non-targeted-mass-spectrometry-analysis-by-lc-msms)
+    - [3.1 Non targeted mass spectrometry analysis by LC-MS ](#31non-targeted-mass-spectrometry-analysis-by-lc-ms)
       - [3.1.1 Data conversion and desposition](#311-data-conversion-and-desposition)
       - [3.1.2 Feature detection and alignement](#312-feature-detection-and-alignement)
       - [3.1.3 Data analysis and annotation with GNPS](#313-data-analysis-and-annotation-with-GNPS)
-            - [3.1.3.1 Feature based molecular networking workflow](#3131-feature-based-molecular-networking-workflow)
-            - [3.1.3.2 Classical molecular networking workflow](#3132-classical-molecular-networking-workflow)
+        - [3.1.3.1 Feature based molecular networking workflow](#3131-feature-based-molecular-networking-workflow)
+        - [3.1.3.2 Classical molecular networking workflow](#3132-classical-molecular-networking-workflow)
     - [3.2 Non-targeted mass spectrometry analysis by GC-MS](#32-non-targeted-mass-spectrometry-analysis-by-gc-ms)
 
 
@@ -218,7 +218,7 @@ Adapter trimming and poly-G removal were performed on per-sample FASTQ files usi
 
 **Table of contents**
 
-#### 3.1. Non targeted mass spectrometry analysis by LC-MS/MS
+#### 3.1. Non targeted mass spectrometry analysis by LC-MS
 
 For detailed information on the sample preparation and LC-MS/MS-based non-targeted mass spectrometry acquisition see the following page: [https://github.com/biocore/emp/blob/master/protocols/MetabolomicsLC.md](https://github.com/lfnothias/emp/blob/master/protocols/MetabolomicsLC.md).
 
