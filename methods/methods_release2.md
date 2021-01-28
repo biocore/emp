@@ -216,8 +216,6 @@ Adapter trimming and poly-G removal were performed on per-sample FASTQ files usi
 
 ### 3 Metabolomics data analysis
 
-**Table of contents**
-
 #### 3.1. Non targeted mass spectrometry analysis by LC-MS
 
 For detailed information on the sample preparation and LC-MS/MS-based non-targeted mass spectrometry acquisition see the following page: [https://github.com/biocore/emp/blob/master/protocols/MetabolomicsLC.md](https://github.com/lfnothias/emp/blob/master/protocols/MetabolomicsLC.md).
