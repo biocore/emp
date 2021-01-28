@@ -318,7 +318,7 @@ The SIRIUS results are presently available at this address: [https://ucsdcloud-m
 - `Annotation_Networks`: this folder contains the SIRIUS results files formatted for direct FBMN import/mapping.
 
 
-##### 3.1.3.2 Classical Molecular Networking
+##### 3.1.3.2 Classical Molecular Networking workflow
 
 ###### [CMN] Classical molecular networking
 
