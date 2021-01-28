@@ -23,11 +23,11 @@ Computational methods for Release 2 and the EMP Multi-omics project (EMP500) are
       - [2.2.3 Functional annotation of assemblies](#223-functional-annotation-of-assemblies)
       - [2.2.4 Taxonomic profiling of MAGs](#224-taxonomic-profiling-of-mags)
   - [3 Metabolomics data analysis](#3-metabolomics-data-analysis)
-    - [3.1 Non-targeted mass spectrometry analysis by LC-MS/MS](#31non-targeted-mass-spectrometry-analysis-by-lc-msms)
+    - [3.1 Non targeted mass spectrometry analysis by LC-MS/MS](#31non-targeted-mass-spectrometry-analysis-by-lc-msms)
       - [3.1.1 Data conversion and desposition](#311-data-conversion-and-desposition)
       - [3.1.2 Feature detection and alignement](#312-feature-detection-and-alignement)
       - [3.1.3 Data analysis and annotation with GNPS](#313-data-analysis-and-annotation-with-GNPS)
-            - [3.1.3.1 Feature-based molecular networking workflow](#3131-feature-based-molecular-networking-workflow)
+            - [3.1.3.1 Feature based molecular networking workflow](#3131-feature-based-molecular-networking-workflow)
             - [3.1.3.2 Classical molecular networking workflow](#3132-classical-molecular-networking-workflow)
     - [3.2 Non-targeted mass spectrometry analysis by GC-MS](#32-non-targeted-mass-spectrometry-analysis-by-gc-ms)
 
@@ -218,7 +218,7 @@ Adapter trimming and poly-G removal were performed on per-sample FASTQ files usi
 
 **Table of contents**
 
-#### 3.1. Non-targeted mass spectrometry analysis by LC-MS/MS
+#### 3.1. Non targeted mass spectrometry analysis by LC-MS/MS
 
 For detailed information on the sample preparation and LC-MS/MS-based non-targeted mass spectrometry acquisition see the following page: [https://github.com/biocore/emp/blob/master/protocols/MetabolomicsLC.md](https://github.com/lfnothias/emp/blob/master/protocols/MetabolomicsLC.md).
 
@@ -226,7 +226,7 @@ For detailed information on the sample preparation and LC-MS/MS-based non-target
 
 The data were processed and annotated by Louis-Felix Nothias [(nothias@health.ucsd.edu)](nothias@health.ucsd.edu) from the [Dorrestein Lab at University of California San Diego](https://dorresteinlab.ucsd.edu/).
 
-##### 3.1.1 Data conversion, preparation and desposition
+##### 3.1.1 Data conversion and desposition
 The mass spectrometry data were centroided and converted from the proprietary format (.raw) to the m/z extensible markup language format (.mzML) using [ProteoWizard](http://proteowizard.sourceforge.net/download.html) (ver. 3.0.19, MSConvert tool). Citation: [(Chambers et al. _Nature Biotech._, 2012)](https://www.nature.com/articles/nbt.2377).
  
 The data were visualized and inspected with the [OpenMS TOPPAS tool](https://github.com/OpenMS/OpenMS) (ver 2.4.0). Citation: [Rost et al. Nat. Methods, 2016](https://www.nature.com/articles/nmeth.3959)
@@ -272,7 +272,7 @@ Two different workflows were used on GNPS [(http://gnps.ucsd.edu)](http://gnps.u
 
 - Classical Molecular Networking (CMN): qualitative and sensitive.
 
-##### 3.1.3.1 Feature-Based Molecular Networking workflow
+##### 3.1.3.1 Feature Based Molecular Networking workflow
 
 ###### [FBMN] Feature-Based Molecular Networking
 
