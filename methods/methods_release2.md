@@ -289,7 +289,7 @@ For the putative annotation of small peptides. These annotations can be classifi
 [(Mohimani et al, Nat. Com. 2018)]
 (https://www.nature.com/articles/s41467-018-06082-8?_ga=2.258351242.188697708.1538611200-1366481109.1538611200).
 
-- The DEREPLICATOR+ job can be accessed here: [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=71970b5049ed494a937c8578225b3e7c](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=71970b5049ed494a937c8578225b3e7c).
+- The DEREPLICATOR+ job can be accessed here: [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=fe308e1596a740a58b8a5380d74e22dc](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=fe308e1596a740a58b8a5380d74e22dc).
 
 - The DEREPLICATOR VarQuest job can be accessed here: [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=1fafd4d4fe7e47dd9dd0b3d8bb0e6606](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=1fafd4d4fe7e47dd9dd0b3d8bb0e6606).
 
