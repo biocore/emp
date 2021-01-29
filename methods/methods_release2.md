@@ -311,7 +311,7 @@ Additional spectral annotation of tandem mass spectrometry data were obtained wi
 
 Parameters were set as follows, for SIRIUS: molecular formula candidates retaine (80), molecular formula database (ALL), maximum precursor ion m/z computed (750), profile (orbitrap), m/z maximum deviation (10 ppm), ions annotated with MZmine were prioritized and other ions were considered ([M+H3N+H]+, [M+H]+, [M+K]+,[M+Na]+, [M+H-H2O]+, [M+H-H4O2]+, [M+NH4]+); for ZODIAC: the features were splitted into 10 random subsets and were computed separately with the following parameters: treshold filter (0.9), minimum local connections (0); for CSI:FingerID: m/z maximum deviation (10 ppm) and biological database (BIO). The computation was performed on a linux cluster computer (32 cpu with 256 GB of RAM).
 
-The SIRIUS results are presently available at this address: [https://ucsdcloud-my.sharepoint.com/:f:/r/personal/lnothiasscaglia_ucsd_edu/Documents/202101_EMP_MZmine_SIRIUS_results?csf=1&web=1&e=Eb1yCX](https://ucsdcloud-my.sharepoint.com/:f:/r/personal/lnothiasscaglia_ucsd_edu/Documents/202101_EMP_MZmine_SIRIUS_results?csf=1&web=1&e=Eb1yCX).
+The SIRIUS results are presently available at [**this address**](https://ucsdcloud-my.sharepoint.com/:f:/g/personal/lnothiasscaglia_ucsd_edu/Evs_5ZSNsI9Fp5aVJ4DoGvMBbYKaxjwvrkNMQQuAirIDSQ?e%3DJ6OVON&sa=D&source=hangouts&ust=1612034721315000&usg=AFQjCNGV0EUKepqDgxKK3hVHY8XaFt0vxQ).
 
 - `Annotation_Results`: this folder contains the SIRIUS results files.
 
