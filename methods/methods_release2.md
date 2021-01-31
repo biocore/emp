@@ -326,9 +326,9 @@ The mzML were uploaded to GNPS [(http://gnps.ucsd.edu)](http://gnps.ucsd.edu) an
 
 Spectral library matching was performed against public MS/MS spectral library and the NIST17 library to obtain putative level 2 annotation (putative structure) based on [MSI standards](https://pubs.acs.org/doi/abs/10.1021/es5002105).
 
-- The GNPS molecular networking job, paramaters and results can be consulted at the following address: [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=ce4f631e7a2b4ea9b7696878e83684c4](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=ce4f631e7a2b4ea9b7696878e83684c4).
+- The GNPS molecular networking job, paramaters and results can be consulted at the following address: [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=b6e15e30aea24ded9a413379dee0b4eb](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=b6e15e30aea24ded9a413379dee0b4eb).
 
-- The GNPS molecular networking job was also performed in analogue mode to obtain level 3 MSI annotations (partial/class annotation): [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=58735a5358f94b66a5192037288618f3](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=58735a5358f94b66a5192037288618f3).
+- The GNPS molecular networking job was also performed in analogue mode to obtain level 3 MSI annotations (partial/class annotation): [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=9a6208b0c20f4a45a8a1b30df14cbeb6](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=9a6208b0c20f4a45a8a1b30df14cbeb6).
 
 ###### [CMN] Putative annotation of small peptides with the DEREPLICATOR tools
 
@@ -337,15 +337,15 @@ For the putative annotation of small peptides. These annotations can be classifi
 [(Mohimani et al, Nat. Com. 2018)]
 (https://www.nature.com/articles/s41467-018-06082-8?_ga=2.258351242.188697708.1538611200-1366481109.1538611200).
 
-- The DEREPLICATOR+ job can be accessed here: [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=31922c2dbc2249e6a04f5f843d3264b5](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=31922c2dbc2249e6a04f5f843d3264b5) 
+- The DEREPLICATOR+ job can be accessed here: [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=532ea29acf194f859b3e67d3d0ca9980](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=532ea29acf194f859b3e67d3d0ca9980) 
 
-- The DEREPLICATOR VarQuest job can be accessed here: [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=75da4c835e2249ff8bc86abeb342fa30](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=75da4c835e2249ff8bc86abeb342fa30). 
+- The DEREPLICATOR VarQuest job can be accessed here: [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=1457a3f93e6b423b965adc313e7198ec](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=1457a3f93e6b423b965adc313e7198ec). 
 
 ###### [CMN] Putative annotation of small cyclopeptides with the CycloNovo
 
 CycloNovo performs de novo cyclopeptide sequencing using employs de Bruijn graphs [Bahar et al, Cell System, 2020](https://www.sciencedirect.com/science/article/pii/S240547121930393X). Many of these cyclopeptides are bioactive molecules produced by microbes.
 
-- The CycloNovo job results can be accessed here: [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=e383b969554f439b8996c49dabcb10f0](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=e383b969554f439b8996c49dabcb10f0)
+- The CycloNovo job results can be accessed here: [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=fbbaa7f1e3a94937a1647e25095fb76c](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=fbbaa7f1e3a94937a1647e25095fb76c)
 
 ###### [CMN] Putative annotation of small molecules with SIRIUS
 SIRIUS is not recommended to be used with CMN.
