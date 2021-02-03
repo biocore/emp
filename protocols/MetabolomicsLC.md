@@ -10,13 +10,12 @@ All solvents and reactants used were LC-MS grade. To maximise the extraction yie
 1. The swabs were transferred in a 96 well plate (polypropylene-based), and dissolved in 1.0 mL of 9/1 EtOH/H2O. The plate was put in an µLtrasonic bath for 30 min, and after 12 hours at 4°C, the swabs were removed from the wells. 
 2. The filter samples were dissolved in 1.5 mL of 7/3 MeOH/H2O, and the tubes were put in an µLtrasonic bath for 30 min. After 12 hours at 4°C, the filters were removed from the tubes, and the supernatant was collected in a 96 well plate (polypropylene-based). 
 3. The bulk samples were dissolved in 7/3 MeOH/H2O, in a volume varying from 600 µL to 1.5 mL depending on the available amounts, and homogenized in a tissue-lyser (QIAGEN) at 25 Hz for 5 min. Then, the tubes were centrifuged at 15,000 rpm for 15 min, and the supernatant was collected in a 96 well plate (polypropylene-based). 
-4. For the material control samples (bags, filters, and tubes) 3.0 mL of 20/80 MeOH/H2O were added and 1.5 mL were recovered after two minutes, and added as control wells in the 96 well plates (polypropylene-based). 
 
 	After the extraction, the plates were dried with a vaccum concentrator.
 
 #### Solid phase microextraction (SPE)
 
-1. The samples (in plates) were solved by 300 µL of 7/3 MeOH/H2O, and put in an µLtrasound bath for 20 min. 
+1. The samples (in plates) were dissolved in 300 µL of 7/3 MeOH/H2O, and put in an µLtrasound bath for 20 min. 
 2. Solid phase extraction were performed with SPE plates (Oasis HLB, Hydrophilic-Lipophilic-Balance, 30 mg with particle sizes of 30 um).
 	- 	The SPE beds were activated with 100% MeOH, and equilibrate with 100% H2O.
 	-   The samples were loaded on the SPE beds, and 100% H2O was used as wash solvent (600 µL). The eluted solution was discarded (it contains salts and very polar metabolites that are subsequent analysis are not designed for).
