@@ -267,8 +267,11 @@ These files were deposited on MassIVE (MSV000083475) and available at: [**ftp://
 Two different workflows were used on GNPS [(http://gnps.ucsd.edu)](http://gnps.ucsd.edu):
 
 - Feature-Based Molecular Networking (FBMN): quantitative and accurate.
+	- The feature metadata master table for FBMN is available at
 
 - Classical Molecular Networking (CMN): qualitative and sensitive.
+ 	- The feature metadata master table for CMN is available at
+
 
 ##### 3.1.3.1 Feature Based Molecular Networking workflow
 
@@ -310,12 +313,6 @@ Additional spectral annotation of tandem mass spectrometry data were obtained wi
 - Systematic class annotations were obtained with CANOPUS [(Dührkop, et al. Nat. Biotech. 2020)](https://www.nature.com/articles/s41587-020-0740-8).  
 
 Parameters were set as follows, for SIRIUS: molecular formula candidates retaine (80), molecular formula database (ALL), maximum precursor ion m/z computed (750), profile (orbitrap), m/z maximum deviation (10 ppm), ions annotated with MZmine were prioritized and other ions were considered ([M+H3N+H]+, [M+H]+, [M+K]+,[M+Na]+, [M+H-H2O]+, [M+H-H4O2]+, [M+NH4]+); for ZODIAC: the features were splitted into 10 random subsets and were computed separately with the following parameters: treshold filter (0.9), minimum local connections (0); for CSI:FingerID: m/z maximum deviation (10 ppm) and biological database (BIO). The computation was performed on a linux cluster computer (32 cpu with 256 GB of RAM).
-
-The SIRIUS results are presently available at [**this address**](https://ucsdcloud-my.sharepoint.com/:f:/g/personal/lnothiasscaglia_ucsd_edu/Evs_5ZSNsI9Fp5aVJ4DoGvMBbYKaxjwvrkNMQQuAirIDSQ?e%3DJ6OVON&sa=D&source=hangouts&ust=1612034721315000&usg=AFQjCNGV0EUKepqDgxKK3hVHY8XaFt0vxQ).
-
-- `Annotation_Results`: this folder contains the SIRIUS results files.
-
-- `Annotation_Networks`: this folder contains the SIRIUS results files formatted for direct FBMN import/mapping.
 
 
 ##### 3.1.3.2 Classical Molecular Networking workflow
