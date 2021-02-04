@@ -348,8 +348,7 @@ CycloNovo performs de novo cyclopeptide sequencing using employs de Bruijn graph
 - The CycloNovo job results can be accessed here: [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=fbbaa7f1e3a94937a1647e25095fb76c](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=fbbaa7f1e3a94937a1647e25095fb76c)
 
 ###### [CMN] Putative annotation of small molecules with SIRIUS
-SIRIUS is not recommended to be used with CMN.
-
+SIRIUS results for CMN are less accurate than with FBMN because the annotation is not informed by the MS1 isotopic pattern and ion annotation (i.e. adduct type). Therefor, caution is required when using these annotations. 
 
 #### 3.2 Non-targeted mass spectrometry analysis by GC-MS
 
