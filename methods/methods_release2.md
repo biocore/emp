@@ -29,7 +29,7 @@ Computational methods for Release 2 and the EMP Multi-omics project (EMP500) are
           - [3.1.2.1 Feature based molecular networking workflow](#3121-feature-based-molecular-networking-workflow)
           - [3.1.2.2 Classical molecular networking workflow](#3122-classical-molecular-networking-workflow)
       - [3.2 Non-targeted mass spectrometry analysis by GC-MS](#32-non-targeted-mass-spectrometry-analysis-by-gc-ms)
-          - [3.2.1 Data conversion and deposition](#321-data-conversion-and-deposition)
+          - [3.2.1 Data conversion and deposition](#321-gc-data-conversion-and-deposition)
           - [3.2.2 PNNL GC-MS pipeline](#322-pnnl-gc-ms-pipeline)
           - [3.2.3 GNPS GC-MS pipeline](#323-gnps-gc-ms-pipeline)
 
@@ -245,14 +245,14 @@ Two different LC-MS data processing/annotation workflows were used:
 - **Feature-Based Molecular Networking** (FBMN): quantitative and accurate.
 	- The **feature table** is available at [`emp/data/metabolomics/FBMN/feature_table`](../emp/data/metabolomics/FBMN/feature_table).
 
-	- The **feature metadata master table** for FBMN is available at [`emp/data/metabolomics/FBMN/FBMN_metabo_feature_metadata.tsv.zip`](../emp/data/metabolomics/FBMN/). This master table summarizes the results of all the annotation tools used and can be mapped to the feature quantification table. The sub-folders contain the results of each annotation tool.
+	- The **feature metadata master table** for FBMN is available at [`emp/data/metabolomics/FBMN/FBMN_metabo_feature_metadata.tsv.zip`](../emp/data/metabolomics/FBMN). This master table summarizes the results of all the annotation tools used and can be mapped to the feature quantification table. The sub-folders contain the results of each annotation tool.
 
 - **Classical Molecular Networking** (CMN): qualitative and sensitive.
 	- The **feature table** is available at [`emp/data/metabolomics/FBMN/feature_table`](../emp/data/metabolomics/FBMN/feature_table).
 
-	- The **feature metadata master table** for CMN is available at [`emp/data/metabolomics/CMN/CMN_metabo_feature_metadata.tsv.zip`](../emp/data/metabolomics/CMN/). This master table summarizes the results of all the annotation tools used and can be mapped to the GNPS bucket table. The sub-folders contain the results of each annotation tool.
+	- The **feature metadata master table** for CMN is available at [`emp/data/metabolomics/CMN/CMN_metabo_feature_metadata.tsv.zip`](../emp/data/metabolomics/CMN). This master table summarizes the results of all the annotation tools used and can be mapped to the GNPS bucket table. The sub-folders contain the results of each annotation tool.
 
-A discussion on how to use these results files is available at [`emp/data/metabolomics/`](../emp/data/metabolomics/).
+A discussion on how to use these results files is available at [`emp/data/metabolomics/`](../emp/data/metabolomics).
 
 Below are provided informations on each annotation tools used, and the links to the jobs/results.
 
