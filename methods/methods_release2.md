@@ -25,11 +25,13 @@ Computational methods for Release 2 and the EMP Multi-omics project (EMP500) are
   - [3 Metabolomics data analysis](#3-metabolomics-data-analysis)
     - [3.1 Non targeted mass spectrometry analysis by LC-MS](#31-non-targeted-mass-spectrometry-analysis-by-lc-ms)
       - [3.1.1 Data conversion and desposition](#311-data-conversion-and-desposition)
-      - [3.1.2 Feature detection and alignement](#312-feature-detection-and-alignement)
-      - [3.1.3 Data analysis and annotation with GNPS](#313-data-analysis-and-annotation-with-GNPS)
-          - [3.1.3.1 Feature based molecular networking workflow](#3131-feature-based-molecular-networking-workflow)
-          - [3.1.3.2 Classical molecular networking workflow](#3132-classical-molecular-networking-workflow)
+      - [3.1.2 Data analysis and annotation](#312-data-analysis-and-annotation)
+          - [3.1.2.1 Feature based molecular networking workflow](#3121-feature-based-molecular-networking-workflow)
+          - [3.1.2.2 Classical molecular networking workflow](#3122-classical-molecular-networking-workflow)
     - [3.2 Non-targeted mass spectrometry analysis by GC-MS](#32-non-targeted-mass-spectrometry-analysis-by-gc-ms)
+          - [3.2.1 Data conversion and deposition](#321-data-conversion-and-deposition)
+          - [3.2.2 PNNL GC-MS pipeline](#322-pnnl-gc-ms-pipeline)
+          - [3.2.3 GNPS GC-MS pipeline](#323-gnps-gc-ms-pipeline)
 
 
 ### 0 Metadata
@@ -229,29 +231,49 @@ The mass spectrometry data were centroided and converted from the proprietary fo
  
 The data were visualized and inspected with the [OpenMS TOPPAS tool](https://github.com/OpenMS/OpenMS) (ver 2.4.0). Citation: [Rost et al. Nat. Methods, 2016](https://www.nature.com/articles/nmeth.3959)
 
-The mass spectrometry method and data (.RAW and .mzML) were deposited on the MassIVE public repository and are available under the dataset accession number MSV000083475 at this page: [https://massive.ucsd.edu/ProteoSAFe/dataset.jsp?task=3de2b5de5c274ca6b689977d08d84195](https://massive.ucsd.edu/ProteoSAFe/dataset.jsp?task=3de2b5de5c274ca6b689977d08d84195).
+The mass spectrometry method and data (.RAW and .mzML) were deposited on the MassIVE public repository and are available under the dataset accession number MSV000083475 at this page: [`https://massive.ucsd.edu/ProteoSAFe/dataset.jsp?task=3de2b5de5c274ca6b689977d08d84195`](https://massive.ucsd.edu/ProteoSAFe/dataset.jsp?task=3de2b5de5c274ca6b689977d08d84195).
 
-- The .RAW files are accessible via FTP here: [**ftp://massive.ucsd.edu/MSV000083475/peak/mzML/**](ftp://massive.ucsd.edu/MSV000083475/peak/mzML/).
+- The .RAW files are accessible via FTP here: [`ftp://massive.ucsd.edu/MSV000083475/peak/mzML/`](ftp://massive.ucsd.edu/MSV000083475/peak/mzML/).
 
-- The .mzML files are accessible via FTP here: [**ftp://massive.ucsd.edu/MSV000083475/raw/RAW/**](ftp://massive.ucsd.edu/MSV000083475/raw/RAW/).
+- The .mzML files are accessible via FTP here: [`ftp://massive.ucsd.edu/MSV000083475/raw/RAW/`](ftp://massive.ucsd.edu/MSV000083475/raw/RAW/).
 
 
-##### 3.1.2 Feature detection and alignement
+##### 3.1.2 Data Analysis and Annotation
+
+Two different LC-MS data processing/annotation workflows were used:
+
+- **Feature-Based Molecular Networking** (FBMN): quantitative and accurate.
+	- The **feature table** is available at [`emp/data/metabolomics/FBMN/feature_table`](../emp/data/metabolomics/FBMN/feature_table).
+
+	- The **feature metadata master table** for FBMN is available at [`emp/data/metabolomics/FBMN/FBMN_metabo_feature_metadata.tsv.zip`](../emp/data/metabolomics/FBMN/). This master table summarizes the results of all the annotation tools used and can be mapped to the feature quantification table. The sub-folders contain the results of each annotation tool.
+
+- **Classical Molecular Networking** (CMN): qualitative and sensitive.
+	- The **feature table** is available at [`emp/data/metabolomics/FBMN/feature_table`](../emp/data/metabolomics/FBMN/feature_table).
+
+	- The **feature metadata master table** for CMN is available at [`emp/data/metabolomics/CMN/CMN_metabo_feature_metadata.tsv.zip`](../emp/data/metabolomics/CMN/). This master table summarizes the results of all the annotation tools used and can be mapped to the GNPS bucket table. The sub-folders contain the results of each annotation tool.
+
+A discussion on how to use these results files is available at [`emp/data/metabolomics/`](../emp/data/metabolomics/).
+
+Below are provided informations on each annotation tools used, and the links to the jobs/results.
+
+##### 3.1.2.1 Feature Based Molecular Networking workflow
+
+##### [FBMN] Feature detection and alignement with MZmine
 The mzML files were then processed with a custom build of MZmine toolbox (*vers.2.37corr17.7kaimerge2* at [https://github.com/robinschmid/mzmine2/releases](https://github.com/robinschmid/mzmine2/releases)) that includes advanced modules for adduct/isotopologue annotations. Citations: [Pluskal et al., _BMC Bioinf._ 2010](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-11-395) and [Schmid, Petras, Nothias et al. bioRxiv, 2020, 2020.05.11.088948](https://www.biorxiv.org/content/10.1101/2020.05.11.088948v1).
 
 The MZmine processing was performed on Ubuntu 18.04 LTS 64-bits workstation (Intel Xeon 5E-2637, 3.5 GHz, 8 cores, 64 Go of RAM) and took ~3 days. 
 
-The MZmine project, the MZmine batch file (.XML format), and results files (.MGF and .CSV) are available in the MassIVE dataset [MSV000083475](https://massive.ucsd.edu/ProteoSAFe/dataset.jsp?task=3de2b5de5c274ca6b689977d08d84195). The MZmine batch file contains all the parameters used during the processing. In brief, feature detection and deconvolution was performed with the ADAP chromatogram builder, and local minimum search algorithm. The isotopologues were regrouped, and the features (peaks) were aligned accross samples. The peaklist was gap filled and only peaks with an associated fragmentation spectrum (MS2) and occuring in a minimum of 3 files were conserved. Peak shape correlation analysis was used to group peaks originating from the same molecule, and used for adduct/isotopologue annotations. Finally the feature table results (.CSV) and spectral information (.MGF) were exported for subsquent analysis on GNPS and with the GNPS and SIRIUS export modules.
+The MZmine project, the MZmine batch file (.XML format), and results files (.MGF and .CSV) are available in the MassIVE dataset [`MSV000083475`](https://massive.ucsd.edu/ProteoSAFe/dataset.jsp?task=3de2b5de5c274ca6b689977d08d84195). The MZmine batch file contains all the parameters used during the processing. In brief, feature detection and deconvolution was performed with the ADAP chromatogram builder, and local minimum search algorithm. The isotopologues were regrouped, and the features (peaks) were aligned accross samples. The peaklist was gap filled and only peaks with an associated fragmentation spectrum (MS2) and occuring in a minimum of 3 files were conserved. Peak shape correlation analysis was used to group peaks originating from the same molecule, and used for adduct/isotopologue annotations. Finally the feature table results (.CSV) and spectral information (.MGF) were exported for subsquent analysis on GNPS and with the GNPS and SIRIUS export modules.
 
-###### Processing files:
+###### [FBMN] MZmine processing files:
 
-These files were deposited on MassIVE (MSV000083475) and available at: [**ftp://massive.ucsd.edu/MSV000083475/updates/2019-08-21_lfnothias_7cc0af40/other/1908_EMPv2_INN/**](ftp://massive.ucsd.edu/MSV000083475/updates/2019-08-21_lfnothias_7cc0af40/other/1908_EMPv2_INN/)
+These files were deposited on MassIVE (MSV000083475) and available at: [`ftp://massive.ucsd.edu/MSV000083475/updates/2019-08-21_lfnothias_7cc0af40/other/1908_EMPv2_INN/`](ftp://massive.ucsd.edu/MSV000083475/updates/2019-08-21_lfnothias_7cc0af40/other/1908_EMPv2_INN/)
     
 - `1907_Benchmarking_dataset_EMP_batch_v9_MinimumLocal_QE_v6_INN_v4.xml` : this is the MZmine batch file that was used for the procesing. It does not contains the Export step (GNPS and SIRIUS export that were employed with the default parameters).
 
 - `1907_EMPv2_v3.mzmine`: the MZmine project that contains the results. It can be open with a powerful desktop computer (see the spec) to visualize aligned chromatograms etc.
 	
-###### Result files: 
+###### [FBMN] MZmine result files: 
 
 - `1907_EMPv2_INN_GNPS_quant.csv`: the feature table generated by MZmine that contains the ion intensity (LC-MS peak area) accross the EMP samples. This feature table is the unprocessed table (no normalization or other post processing was applied to it). The ion intensity is the standard proxy to estimate the relative concentration of a metabolite accross the samples. However the intensities of different metabolites (ions) cannot be compared due to different ionisation efficiency.
   
@@ -261,29 +283,15 @@ These files were deposited on MassIVE (MSV000083475) and available at: [**ftp://
    
 - `1907_EMPv2_SIRIUS.mgf`: the MS2 spectral summary file generated by MZmine that contains the MS1 (isotopic pattern, adducts) MS2 spectra used for SIRIUS annotation (molecular formula prediction, and structure/class annotation).
 
-
-#### 3.1.3 Data Analysis and Annotation with GNPS
-
-Two different workflows were used on GNPS [(http://gnps.ucsd.edu)](http://gnps.ucsd.edu):
-
-- Feature-Based Molecular Networking (FBMN): quantitative and accurate.
-	- The feature metadata master table for FBMN is available at
-
-- Classical Molecular Networking (CMN): qualitative and sensitive.
- 	- The feature metadata master table for CMN is available at
-
-
-##### 3.1.3.1 Feature Based Molecular Networking workflow
-
-###### [FBMN] Feature-Based Molecular Networking
+###### [FBMN] Feature-Based Molecular Networking on GNPS
 
 The results files of MZmine (.MGF and .CSV files) were uploaded to GNPS [(http://gnps.ucsd.edu)](http://gnps.ucsd.edu) and analyzed with the Feature-Based Molecular Networking (FBMN) workflow [(Nothias, Petras, Schmid et al Nat., Methods 2020)](https://www.nature.com/articles/s41592-020-0933-6). The metadata were also inputed in the job. Citation: [(Wang et al., Nat. Biotech. 2016)](https://www.nature.com/articles/nbt.3597).
 
 Spectral library matching was performed against public MS/MS spectral library and the NIST17 library to obtain putative level 2 annotation (putative structure) based on [MSI standards](https://pubs.acs.org/doi/abs/10.1021/es5002105).
 
-- The GNPS molecular networking job, paramaters and results can be consulted at the following address: [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=929ce9411f684cf8abd009670b293a33](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=929ce9411f684cf8abd009670b293a33).
+- The GNPS molecular networking job, paramaters and results can be consulted at the following address: [`https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=929ce9411f684cf8abd009670b293a33`](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=929ce9411f684cf8abd009670b293a33).
 
-- The GNPS molecular networking job was also performed in analogue mode to obtain level 3 MSI annotations (partial/class annotation): [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=fafdbfc058184c2b8c87968a7c56d7aa](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=fafdbfc058184c2b8c87968a7c56d7aa).
+- The GNPS molecular networking job was also performed in analogue mode to obtain level 3 MSI annotations (partial/class annotation): [`https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=fafdbfc058184c2b8c87968a7c56d7aa`](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=fafdbfc058184c2b8c87968a7c56d7aa).
 
 ###### [FBMN] Putative annotation of small peptides with the DEREPLICATOR tools
 
@@ -292,15 +300,15 @@ For the putative annotation of small peptides. These annotations can be classifi
 [(Mohimani et al, Nat. Com. 2018)]
 (https://www.nature.com/articles/s41467-018-06082-8?_ga=2.258351242.188697708.1538611200-1366481109.1538611200).
 
-- The DEREPLICATOR+ job can be accessed here: [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=fe308e1596a740a58b8a5380d74e22dc](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=fe308e1596a740a58b8a5380d74e22dc).
+- The DEREPLICATOR+ job can be accessed here: [`https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=fe308e1596a740a58b8a5380d74e22dc`](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=fe308e1596a740a58b8a5380d74e22dc).
 
-- The DEREPLICATOR VarQuest job can be accessed here: [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=1fafd4d4fe7e47dd9dd0b3d8bb0e6606](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=1fafd4d4fe7e47dd9dd0b3d8bb0e6606).
+- The DEREPLICATOR VarQuest job can be accessed here: [`https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=1fafd4d4fe7e47dd9dd0b3d8bb0e6606`](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=1fafd4d4fe7e47dd9dd0b3d8bb0e6606).
 
 ###### [FBMN] Putative annotation of small cyclopeptides with the CycloNovo
 
 CycloNovo performs de novo cyclopeptide sequencing using employs de Bruijn graphs [Bahar et al, Cell System, 2020](https://www.sciencedirect.com/science/article/pii/S240547121930393X). Many of these cyclopeptides are bioactive molecules produced by microbes.
 
-- The CycloNovo job results can be accessed here: [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=85d371f5c8e04687838ecbc28ac2dbb6](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=85d371f5c8e04687838ecbc28ac2dbb6)
+- The CycloNovo job results can be accessed here: [`https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=85d371f5c8e04687838ecbc28ac2dbb6`](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=85d371f5c8e04687838ecbc28ac2dbb6)
 
 
 ###### [FBMN] Putative annotation of small molecules with SIRIUS
@@ -314,18 +322,19 @@ Additional spectral annotation of tandem mass spectrometry data were obtained wi
 
 Parameters were set as follows, for SIRIUS: molecular formula candidates retaine (80), molecular formula database (ALL), maximum precursor ion m/z computed (750), profile (orbitrap), m/z maximum deviation (10 ppm), ions annotated with MZmine were prioritized and other ions were considered ([M+H3N+H]+, [M+H]+, [M+K]+,[M+Na]+, [M+H-H2O]+, [M+H-H4O2]+, [M+NH4]+); for ZODIAC: the features were splitted into 10 random subsets and were computed separately with the following parameters: treshold filter (0.9), minimum local connections (0); for CSI:FingerID: m/z maximum deviation (10 ppm) and biological database (BIO). The computation was performed on a linux cluster computer (32 cpu with 256 GB of RAM).
 
+'The SIRIUS results are available at [`emp/data/metabolomics/FBMN/SIRIUS`](../emp/data/metabolomics/FBMN/SIRIUS).
 
-##### 3.1.3.2 Classical Molecular Networking workflow
+##### 3.1.2.2 Classical Molecular Networking workflow
 
-###### [CMN] Classical molecular networking
+###### [CMN] Classical molecular networking on GNPS
 
-The mzML were uploaded to GNPS [(http://gnps.ucsd.edu)](http://gnps.ucsd.edu) and analyzed with the Classical Molecular Networking (CMN) workflow. Citation: [(Wang et al., Nat. Biotech. 2016)](https://www.nature.com/articles/nbt.3597).
+The mzML files were uploaded to GNPS [(http://gnps.ucsd.edu)](http://gnps.ucsd.edu) and analyzed with the Classical Molecular Networking (CMN) workflow. Citation: [(Wang et al., Nat. Biotech. 2016)](https://www.nature.com/articles/nbt.3597).
 
 Spectral library matching was performed against public MS/MS spectral library and the NIST17 library to obtain putative level 2 annotation (putative structure) based on [MSI standards](https://pubs.acs.org/doi/abs/10.1021/es5002105).
 
-- The GNPS molecular networking job, paramaters and results can be consulted at the following address: [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=b6e15e30aea24ded9a413379dee0b4eb](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=b6e15e30aea24ded9a413379dee0b4eb).
+- The GNPS molecular networking job, paramaters and results can be consulted at the following address: [`https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=b6e15e30aea24ded9a413379dee0b4eb`](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=b6e15e30aea24ded9a413379dee0b4eb).
 
-- The GNPS molecular networking job was also performed in analogue mode to obtain level 3 MSI annotations (partial/class annotation): [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=9a6208b0c20f4a45a8a1b30df14cbeb6](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=9a6208b0c20f4a45a8a1b30df14cbeb6).
+- The GNPS molecular networking job was also performed in analogue mode to obtain level 3 MSI annotations (partial/class annotation): [`https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=9a6208b0c20f4a45a8a1b30df14cbeb6`](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=9a6208b0c20f4a45a8a1b30df14cbeb6).
 
 ###### [CMN] Putative annotation of small peptides with the DEREPLICATOR tools
 
@@ -334,15 +343,15 @@ For the putative annotation of small peptides. These annotations can be classifi
 [(Mohimani et al, Nat. Com. 2018)]
 (https://www.nature.com/articles/s41467-018-06082-8?_ga=2.258351242.188697708.1538611200-1366481109.1538611200).
 
-- The DEREPLICATOR+ job can be accessed here: [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=532ea29acf194f859b3e67d3d0ca9980](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=532ea29acf194f859b3e67d3d0ca9980) 
+- The DEREPLICATOR+ job can be accessed here: [`https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=532ea29acf194f859b3e67d3d0ca9980`](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=532ea29acf194f859b3e67d3d0ca9980) 
 
-- The DEREPLICATOR VarQuest job can be accessed here: [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=1457a3f93e6b423b965adc313e7198ec](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=1457a3f93e6b423b965adc313e7198ec). 
+- The DEREPLICATOR VarQuest job can be accessed here: [`https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=1457a3f93e6b423b965adc313e7198ec`](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=1457a3f93e6b423b965adc313e7198ec). 
 
 ###### [CMN] Putative annotation of small cyclopeptides with the CycloNovo
 
 CycloNovo performs de novo cyclopeptide sequencing using employs de Bruijn graphs [Bahar et al, Cell System, 2020](https://www.sciencedirect.com/science/article/pii/S240547121930393X). Many of these cyclopeptides are bioactive molecules produced by microbes.
 
-- The CycloNovo job results can be accessed here: [https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=fbbaa7f1e3a94937a1647e25095fb76c](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=fbbaa7f1e3a94937a1647e25095fb76c)
+- The CycloNovo job results can be accessed here: [`https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=fbbaa7f1e3a94937a1647e25095fb76c`](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=fbbaa7f1e3a94937a1647e25095fb76c)
 
 ###### [CMN] Putative annotation of small molecules with SIRIUS
 SIRIUS results for CMN are less accurate than with FBMN because the annotation is not informed by the MS1 isotopic pattern and ion annotation (i.e. adduct type). Therefor, caution is required when using these annotations. 
@@ -351,31 +360,41 @@ SIRIUS results for CMN are less accurate than with FBMN because the annotation i
 
 Untargeted analyses of polar metabolites was performed by GC-MS (electronic ionisation source) The data were collected by Sneha Couvillion (sneha.couvillion@pnnl.gov) from the [Thomas Metz laboratory, Pacific Northwest National Laboratory](https://omics.pnl.gov/staff-page/Metz/Tom).
 
-##### Data conversion, preparation and desposition
+##### 3.2.1 [GC] Data conversion and deposition
 The GC-MS data were converted from the proprietary file format (.d format) to the netCDF file format (.cdf format) using [OpenChrom](https://sourceforge.net/projects/openchrom/) (ver. win32.x86_64_1.0.0_rel). Citation: [(Wenig et al. _OpenChrom._, 2010)](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-11-405). For a detail description of the conversion, please refer to this [document pages 1-4](document/Metabolite Detector_GC-MS_PNNL_tutorial.pdf)
 
-- The files were deposited on MassIVE under the following accession number ([MSV000083743](https://massive.ucsd.edu/ProteoSAFe/dataset.jsp?task=948bad7011a544eab485d2114cac22f0)). Every batch of samples that are run on the GC-MS have accompanying blanks and a FAMES file. 
+- The files were deposited on MassIVE under the following accession number [`MSV000083743`](https://massive.ucsd.edu/ProteoSAFe/dataset.jsp?task=948bad7011a544eab485d2114cac22f0). Every batch of samples that are run on the GC-MS have accompanying blanks and a FAMES file. 
 
 
-##### PNNL GC-MS pipeline
+##### 3.2.2 PNNL GC-MS pipeline
 
 The data were processed and annotated by Sneha Couvillion (sneha.couvillion@pnnl.gov) from the [Thomas Metz laboratory, Pacific Northwest National Laboratory](https://omics.pnl.gov/staff-page/Metz/Tom).
 
-###### Data Processing
+###### [GC-PNNL] Data Processing
 The GC-MS data files (.netCDF format) were processed using MetaboliteDetector ([Hiller et al., Anal. Chem. 2009](https://pubs.acs.org/doi/10.1021/ac802689c)) in order to detect, align and measure the metabolites intensities accross samples. For a detail description of the processing, see this [document pages 4-8](document/Metabolite Detector_GC-MS_PNNL_tutorial.pdf)
 
 
-###### Annotation
+###### [GC-PNNL] Annotation
 Retention indices (RI) of detected metabolites were calculated based on the analysis of the FAME standard mixture, followed by their chromatographic alignment across all analyses after deconvolution. Metabolites were then identified by matching GC-MS features (characterized by measured retention indices and mass spectra) to an augmented version of the Agilent Fiehn Metabolomics Retention Time Locked (RTL) Library ([Kind et al., Anal. Chem. 2009](https://pubs.acs.org/doi/10.1021/ac9019522)), which contains spectra and validated retention indices for over 700 metabolites. All metabolite identifications were manually validated to reduce deconvolution errors during automated data-processing and to eliminate false identifications. The NIST 08 GC-MS library was also used to cross-validate the spectral matching scores obtained using the Agilent library.
 
-###### Result files
+###### [GC-PNNL] Result files
 
 - `EMP_GCMSmetabolitedata_blocksABCD_080919.xlsx`: This excel file (.xlsx) contains the metabolites intensities and identification that were manually validated. The file can be accessed on the MassIVE at [ftp://massive.ucsd.edu/MSV000083743/updates/2019-08-22_lfnothias_7cc043bc/other/](ftp://massive.ucsd.edu/MSV000083743/updates/2019-08-22_lfnothias_7cc043bc/other/)
 
-QC files for each samples accessible at [ftp://massive.ucsd.edu/MSV000083743/other/](ftp://massive.ucsd.edu/MSV000083743/other/):
+QC files for each samples accessible at [`ftp://massive.ucsd.edu/MSV000083743/other/`](ftp://massive.ucsd.edu/MSV000083743/other/):
 
 - The `_GC_DatasetInfo.xml`: contains informations on the sample acquisition.
 - The `_GC_BPI_MS.png`: contains an image of the sample's base peak chromatogram.
 - The `_GC_GC_TIC.png`: contains an image of the sample's total ion chromatogram.
 - The `_GC_LCMS.png`: contains an image of the sample's 2D chromatogram.
 - The `_GC_HighAbu_LCMS.png`: contains an image of the sample's 2D chromatogram.
+
+##### 3.2.3 GNPS GC-MS pipeline
+
+To be completed 
+
+###### [GC-GNPS] Data Processing
+
+###### [GC-GNPS] Annotation
+
+###### [GC-GNPS] Result files
