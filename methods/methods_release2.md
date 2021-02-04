@@ -28,7 +28,7 @@ Computational methods for Release 2 and the EMP Multi-omics project (EMP500) are
       - [3.1.2 Data analysis and annotation](#312-data-analysis-and-annotation)
           - [3.1.2.1 Feature based molecular networking workflow](#3121-feature-based-molecular-networking-workflow)
           - [3.1.2.2 Classical molecular networking workflow](#3122-classical-molecular-networking-workflow)
-    - [3.2 Non-targeted mass spectrometry analysis by GC-MS](#32-non-targeted-mass-spectrometry-analysis-by-gc-ms)
+      - [3.2 Non-targeted mass spectrometry analysis by GC-MS](#32-non-targeted-mass-spectrometry-analysis-by-gc-ms)
           - [3.2.1 Data conversion and deposition](#321-data-conversion-and-deposition)
           - [3.2.2 PNNL GC-MS pipeline](#322-pnnl-gc-ms-pipeline)
           - [3.2.3 GNPS GC-MS pipeline](#323-gnps-gc-ms-pipeline)
