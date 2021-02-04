@@ -243,7 +243,7 @@ The mass spectrometry method and data (.RAW and .mzML) were deposited on the Mas
 Two different LC-MS data processing/annotation workflows were used:
 
 - **Feature-Based Molecular Networking** (FBMN): quantitative and accurate.
-	- The **feature table** is available at [`emp/data/metabolomics/FBMN/feature_table`](/..data/metabolomics/FBMN/feature_table).
+	- The **feature table** is available at [`emp/data/metabolomics/FBMN/feature_table`](../data/metabolomics/FBMN/feature_table).
 
 	- The **feature metadata master table** for FBMN is available at [`emp/data/metabolomics/FBMN/FBMN_metabo_feature_metadata.tsv.zip`](../data/metabolomics/FBMN). This master table summarizes the results of all the annotation tools used and can be mapped to the feature quantification table. The sub-folders contain the results of each annotation tool.
 
