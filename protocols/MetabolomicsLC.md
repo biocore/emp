@@ -1,5 +1,20 @@
 ## Metabolomics protocols (LC-MS)
 
+The LC-MS-based metabolomics experiments were designed to extract and detect a large spectrum of middle polarity metabolites due to the fact that:
+
+	- The extractions were carried out with 7/3 MeOH/H2O.
+	- Solid phase extraction (SPE) was performed with a mixed polarity stationary phase. 
+	- The LC was performed in reversed-phase with a C18 stationary phase column. 
+
+It is understood that, while LC-MS based metabolomics is a sensitive method, it is NOT a universal detection method and thus is highly compositional. In the present protocol, metabolites are detected only if:
+	
+	- the metabolites are soluble in the extraction can be detected.
+	- the metabolites were recovered from the SPE process.
+	- the metabolites are eluting over C18-based column chromatography.
+	- the metabolites can be ionised in a electrospray ionisation source in positive ionisation mode.
+	- the ions formed are above the limit of detection of the intrument.
+	- the ions are annotated only if a fragmentation spectrum (MS/MS) is collected.
+
 ### Sample preparation
 
 The samples were prepared by Melissa Esposito, Kevin Ngoc, Fernando Vargas, and Louis Felix Nothias (nothias@ucsd.edu) from the [Dorrestein Lab at University of California San Diego](https://dorresteinlab.ucsd.edu/).
@@ -15,7 +30,9 @@ All solvents and reactants used were LC-MS grade. To maximise the extraction yie
 	After the extraction, the plates were dried with a vaccum concentrator.
 
 #### Solid phase microextraction (SPE)
-
+	
+This SPE step is done to remove both salts (reduce ionisation efficiency), very polar compounds (not retained by C18 LC column) as well as very apolar compounds that would carry over runs.
+	
 1. The samples (in plates) were dissolved in 300 µL of 7/3 MeOH/H2O, and put in an µLtrasound bath for 20 min. 
 2. Solid phase extraction were performed with SPE plates (Oasis HLB, Hydrophilic-Lipophilic-Balance, 30 mg with particle sizes of 30 um).
 	- 	The SPE beds were activated with 100% MeOH, and equilibrate with 100% H2O.
