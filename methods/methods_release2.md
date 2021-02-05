@@ -28,10 +28,11 @@ Computational methods for Release 2 and the EMP Multi-omics project (EMP500) are
       - [3.1.2 Data analysis and annotation](#312-data-analysis-and-annotation)
           - [3.1.2.1 Feature based molecular networking workflow](#3121-feature-based-molecular-networking-workflow)
           - [3.1.2.2 Classical molecular networking workflow](#3122-classical-molecular-networking-workflow)
-      - [3.2 Non-targeted mass spectrometry analysis by GC-MS](#32-non-targeted-mass-spectrometry-analysis-by-gc-ms)
-          - [3.2.1 Data conversion and deposition](#321-gc-data-conversion-and-deposition)
-          - [3.2.2 PNNL GC-MS pipeline](#322-pnnl-gc-ms-pipeline)
-          - [3.2.3 GNPS GC-MS pipeline](#323-gnps-gc-ms-pipeline)
+    - [3.2 Non-targeted mass spectrometry analysis by GC-MS](#32-non-targeted-mass-spectrometry-analysis-by-gc-ms)
+      - [3.2.1 Data conversion and deposition](#321-gc-data-conversion-and-deposition)
+      - [3.2.2 Data analysis and annotation](#322-data-analysis-and-annotation)
+          - [3.2.2.1 PNNL GC-MS pipeline](#3221-pnnl-gc-ms-pipeline)
+          - [3.2.2.2 GNPS GC-MS pipeline](#3222-gnps-gc-ms-pipeline)
 
 
 ### 0 Metadata
@@ -216,9 +217,9 @@ Adapter trimming and poly-G removal were performed on per-sample FASTQ files usi
 
 
 
-# 3. Metabolomics data analysis
+# 3.1 Metabolomics data analysis
 
-## 3.1 Non targeted mass spectrometry analysis by LC-MS
+## 3.1.1 Non targeted mass spectrometry analysis by LC-MS
 
 For detailed information on the sample preparation and LC-MS/MS-based non-targeted mass spectrometry acquisition see the following page: [https://github.com/biocore/emp/blob/master/protocols/MetabolomicsLC.md](https://github.com/lfnothias/emp/blob/master/protocols/MetabolomicsLC.md).
 
@@ -226,7 +227,7 @@ For detailed information on the sample preparation and LC-MS/MS-based non-target
 
 The data were processed and annotated by Louis-Felix Nothias [(nothias@health.ucsd.edu)](nothias@health.ucsd.edu) from the [Dorrestein Lab at University of California San Diego](https://dorresteinlab.ucsd.edu/).
 
-##### 3.1.1 Data conversion and desposition
+## 3.1.2 Data conversion and desposition
 The mass spectrometry data were centroided and converted from the proprietary format (.raw) to the m/z extensible markup language format (.mzML) using [ProteoWizard](http://proteowizard.sourceforge.net/download.html) (ver. 3.0.19, MSConvert tool). Citation: [(Chambers et al. _Nature Biotech._, 2012)](https://www.nature.com/articles/nbt.2377).
  
 The data were visualized and inspected with the [OpenMS TOPPAS tool](https://github.com/OpenMS/OpenMS) (ver 2.4.0). Citation: [Rost et al. Nat. Methods, 2016](https://www.nature.com/articles/nmeth.3959)
@@ -238,7 +239,7 @@ The mass spectrometry method and data (.RAW and .mzML) were deposited on the Mas
 - The .mzML files are accessible via FTP here: [`ftp://massive.ucsd.edu/MSV000083475/raw/RAW/`](ftp://massive.ucsd.edu/MSV000083475/raw/RAW/).
 
 
-## 3.1.1 Data Analysis and Annotation
+## 3.1.3 Data Analysis and Annotation
 
 Two different LC-MS data processing/annotation workflows were used:
 
@@ -256,7 +257,7 @@ A discussion on how to use these results files is available at [`emp/data/metabo
 
 Below are provided informations on each annotation tools used, and the links to the jobs/results.
 
-### 3.1.2.1 Feature Based Molecular Networking workflow
+### 3.1.3.1 Feature Based Molecular Networking workflow
 
 #### [FBMN] Feature detection and alignement with MZmine
 The mzML files were then processed with a custom build of MZmine toolbox (*vers.2.37corr17.7kaimerge2* at [https://github.com/robinschmid/mzmine2/releases](https://github.com/robinschmid/mzmine2/releases)) that includes advanced modules for adduct/isotopologue annotations. Citations: [Pluskal et al., _BMC Bioinf._ 2010](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-11-395) and [Schmid, Petras, Nothias et al. bioRxiv, 2020, 2020.05.11.088948](https://www.biorxiv.org/content/10.1101/2020.05.11.088948v1).
@@ -324,7 +325,7 @@ Parameters were set as follows, for SIRIUS: molecular formula candidates retaine
 
 'The SIRIUS results are available at [`emp/data/metabolomics/FBMN/SIRIUS`](../emp/data/metabolomics/FBMN/SIRIUS).
 
-### 3.1.2.2 Classical Molecular Networking workflow
+### 3.1.3.2 Classical Molecular Networking workflow
 
 #### [CMN] Classical molecular networking on GNPS
 
@@ -356,17 +357,18 @@ CycloNovo performs de novo cyclopeptide sequencing using employs de Bruijn graph
 #### [CMN] Putative annotation of small molecules with SIRIUS
 SIRIUS results for CMN are less accurate than with FBMN because the annotation is not informed by the MS1 isotopic pattern and ion annotation (i.e. adduct type). Therefor, caution is required when using these annotations. 
 
-## 3.2 Non-targeted mass spectrometry analysis by GC-MS
+# 3.2 Non-targeted mass spectrometry analysis by GC-MS
 
 Untargeted analyses of polar metabolites was performed by GC-MS (electronic ionisation source) The data were collected by Sneha Couvillion (sneha.couvillion@pnnl.gov) from the [Thomas Metz laboratory, Pacific Northwest National Laboratory](https://omics.pnl.gov/staff-page/Metz/Tom).
 
-### 3.2.1 [GC] Data conversion and deposition
+## 3.2.1 Data conversion and deposition
 The GC-MS data were converted from the proprietary file format (.d format) to the netCDF file format (.cdf format) using [OpenChrom](https://sourceforge.net/projects/openchrom/) (ver. win32.x86_64_1.0.0_rel). Citation: [(Wenig et al. _OpenChrom._, 2010)](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-11-405). For a detail description of the conversion, please refer to this [document pages 1-4](document/Metabolite Detector_GC-MS_PNNL_tutorial.pdf)
 
 - The files were deposited on MassIVE under the following accession number [`MSV000083743`](https://massive.ucsd.edu/ProteoSAFe/dataset.jsp?task=948bad7011a544eab485d2114cac22f0). Every batch of samples that are run on the GC-MS have accompanying blanks and a FAMES file. 
 
+## 3.2.2 Data Analysis and Annotation
 
-### 3.2.2 PNNL GC-MS pipeline
+### 3.2.2.1 PNNL GC-MS pipeline
 
 The data were processed and annotated by Sneha Couvillion (sneha.couvillion@pnnl.gov) from the [Thomas Metz laboratory, Pacific Northwest National Laboratory](https://omics.pnl.gov/staff-page/Metz/Tom).
 
@@ -377,7 +379,7 @@ The GC-MS data files (.netCDF format) were processed using MetaboliteDetector ([
 ####[GC-PNNL] Annotation
 Retention indices (RI) of detected metabolites were calculated based on the analysis of the FAME standard mixture, followed by their chromatographic alignment across all analyses after deconvolution. Metabolites were then identified by matching GC-MS features (characterized by measured retention indices and mass spectra) to an augmented version of the Agilent Fiehn Metabolomics Retention Time Locked (RTL) Library ([Kind et al., Anal. Chem. 2009](https://pubs.acs.org/doi/10.1021/ac9019522)), which contains spectra and validated retention indices for over 700 metabolites. All metabolite identifications were manually validated to reduce deconvolution errors during automated data-processing and to eliminate false identifications. The NIST 08 GC-MS library was also used to cross-validate the spectral matching scores obtained using the Agilent library.
 
-#### [GC-PNNL] Result files
+##### [GC-PNNL] Result files
 
 - `EMP_GCMSmetabolitedata_blocksABCD_080919.xlsx`: This excel file (.xlsx) contains the metabolites intensities and identification that were manually validated. The file can be accessed on the MassIVE at [ftp://massive.ucsd.edu/MSV000083743/updates/2019-08-22_lfnothias_7cc043bc/other/](ftp://massive.ucsd.edu/MSV000083743/updates/2019-08-22_lfnothias_7cc043bc/other/)
 
