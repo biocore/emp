@@ -7,8 +7,8 @@ The *feature metadata* table summarizes the results from annotation tools used. 
 
 A feature metadata table is available for each of the processing/annotation workflows used:
 
- - Feature-Based Molecular Networking (FBMN): [`FBMN/FBMN_metabo_feature_metadata.tsv.zip`](FBMN/FBMN_metabo_feature_metadata.tsv.zip`)
- - Classical Molecular Networking (CMN): [`CMN/CMN_metabo_feature_metadata.tsv.zip`](CMN/CMN_metabo_feature_metadata.tsv.zip`)
+ - Feature-Based Molecular Networking (FBMN): [`FBMN/FBMN_metabo_feature_metadata.tsv.zip`](FBMN/`)
+ - Classical Molecular Networking (CMN): [`CMN/CMN_metabo_feature_metadata.tsv.zip`](CMN/`)
 
 In the feature metadata table, the column name prefix indicates the source as indicated below:
 
