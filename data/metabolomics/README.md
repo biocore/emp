@@ -3,12 +3,12 @@
 
 ## Feature metadata
 
-The *feature metadata* table summarizes the results from annotation tools used. The tool used are described in the [methods page](../methods/methods_release2) and the results accessible from their GNPS jobs and the [`results/metabolomics`](results/metabolomics) folder. 
+The *feature metadata* table summarizes the results from annotation tools used. The tool used are described in the [methods page](../methods/methods_release2) and the results accessible from their GNPS jobs and the [`results/metabolomics`](../results/metabolomics) folder. 
 
 A feature metadata table is available for each of the processing/annotation workflows used:
 
- - Feature-Based Molecular Networking (FBMN): [`FBMN/FBMN_metabo_feature_metadata.tsv.zip`](../data/metabolomics/FBMN/FBMN_metabo_feature_metadata.tsv.zip`)
- - Classical Molecular Networking (CMN): [`CMN/CMN_metabo_feature_metadata.tsv.zip`](../data/metabolomics/CMN/CMN_metabo_feature_metadata.tsv.zip`)
+ - Feature-Based Molecular Networking (FBMN): [`FBMN/FBMN_metabo_feature_metadata.tsv.zip`](FBMN/FBMN_metabo_feature_metadata.tsv.zip`)
+ - Classical Molecular Networking (CMN): [`CMN/CMN_metabo_feature_metadata.tsv.zip`](CMN/CMN_metabo_feature_metadata.tsv.zip`)
 
 In the feature metadata table, the column name prefix indicates the source as indicated below:
 
