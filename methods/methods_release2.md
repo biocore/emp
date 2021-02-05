@@ -217,9 +217,10 @@ Adapter trimming and poly-G removal were performed on per-sample FASTQ files usi
 
 
 
-# 3.1 Metabolomics data analysis
+# 3 Metabolomics data analysis
 
-## 3.1.1 Non targeted mass spectrometry analysis by LC-MS
+
+## 3.1 Non targeted mass spectrometry analysis by LC-MS
 
 For detailed information on the sample preparation and LC-MS/MS-based non-targeted mass spectrometry acquisition see the following page: [https://github.com/biocore/emp/blob/master/protocols/MetabolomicsLC.md](https://github.com/lfnothias/emp/blob/master/protocols/MetabolomicsLC.md).
 
@@ -227,7 +228,7 @@ For detailed information on the sample preparation and LC-MS/MS-based non-target
 
 The data were processed and annotated by Louis-Felix Nothias [(nothias@health.ucsd.edu)](nothias@health.ucsd.edu) from the [Dorrestein Lab at University of California San Diego](https://dorresteinlab.ucsd.edu/).
 
-## 3.1.2 Data conversion and desposition
+## 3.1.1 Data conversion and desposition
 The mass spectrometry data were centroided and converted from the proprietary format (.raw) to the m/z extensible markup language format (.mzML) using [ProteoWizard](http://proteowizard.sourceforge.net/download.html) (ver. 3.0.19, MSConvert tool). Citation: [(Chambers et al. _Nature Biotech._, 2012)](https://www.nature.com/articles/nbt.2377).
  
 The data were visualized and inspected with the [OpenMS TOPPAS tool](https://github.com/OpenMS/OpenMS) (ver 2.4.0). Citation: [Rost et al. Nat. Methods, 2016](https://www.nature.com/articles/nmeth.3959)
@@ -239,7 +240,7 @@ The mass spectrometry method and data (.RAW and .mzML) were deposited on the Mas
 - The .mzML files are accessible via FTP here: [`ftp://massive.ucsd.edu/MSV000083475/raw/RAW/`](ftp://massive.ucsd.edu/MSV000083475/raw/RAW/).
 
 
-## 3.1.3 Data Analysis and Annotation
+## 3.1.2 Data Analysis and Annotation
 
 Two different LC-MS data processing/annotation workflows were used:
 
@@ -257,7 +258,7 @@ A discussion on how to use these results files is available at [`emp/data/metabo
 
 Below are provided informations on each annotation tools used, and the links to the jobs/results.
 
-### 3.1.3.1 Feature Based Molecular Networking workflow
+### 3.1.2.1 Feature Based Molecular Networking workflow
 
 #### [FBMN] Feature detection and alignement with MZmine
 The mzML files were then processed with a custom build of MZmine toolbox (*vers.2.37corr17.7kaimerge2* at [https://github.com/robinschmid/mzmine2/releases](https://github.com/robinschmid/mzmine2/releases)) that includes advanced modules for adduct/isotopologue annotations. Citations: [Pluskal et al., _BMC Bioinf._ 2010](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-11-395) and [Schmid, Petras, Nothias et al. bioRxiv, 2020, 2020.05.11.088948](https://www.biorxiv.org/content/10.1101/2020.05.11.088948v1).
@@ -325,7 +326,7 @@ Parameters were set as follows, for SIRIUS: molecular formula candidates retaine
 
 'The SIRIUS results are available at [`emp/data/metabolomics/FBMN/SIRIUS`](../emp/data/metabolomics/FBMN/SIRIUS).
 
-### 3.1.3.2 Classical Molecular Networking workflow
+### 3.1.2.2 Classical Molecular Networking workflow
 
 #### [CMN] Classical molecular networking on GNPS
 
