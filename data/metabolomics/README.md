@@ -3,7 +3,7 @@
 
 ## Feature metadata
 
-The *feature metadata* table summarizes the results from annotation tools used. The tool used are described in the [methods page](../methods/methods_release2) and the results accessible from their GNPS jobs and the [`results/metabolomics`](../results/metabolomics) folder. 
+The *feature metadata* table summarizes the results from annotation tools used. The tool used are described in the [methods page](../methods/methods_release2) and the results accessible from their GNPS jobs and the content of the present folder. 
 
 A feature metadata table is available for each of the processing/annotation workflows used:
 
