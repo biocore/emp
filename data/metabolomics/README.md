@@ -23,8 +23,8 @@ In the feature metadata table, the column name prefix indicates the source as in
 **SIRIUS tools**:
 
 - **ZODIAC**: Molecular formula annotation (column prefix: `SIR_MF_Zod`).
-- **CSI:FingerID**: Putative structure annotation (column prefix: `SIR_CSI_`).
-- **CANOPUS**: Putative chemical class annotation (column prefix: `SIR_CAN_`).
+- **CSI:FingerID**: Putative structure annotation (column prefix: `CSI_`).
+- **CANOPUS**: Putative chemical class annotation (column prefix: `CAN_`).
 
 The notebook used to the concatenate the annotations is available at [https://github.com/lfnothias/emp_metabolomics](https://github.com/lfnothias/emp_metabolomics).
 
