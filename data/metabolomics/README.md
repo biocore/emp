@@ -18,7 +18,7 @@ In the feature metadata table, the column name prefix indicates the source as in
 - **Spectral library search** (column prefix: `GNPS_LIB_`).
 - **Spectral library search in analogue mode** (column prefix: `GNPS_LIBA_`).
 - **DEREPLICATOR**, small peptidic molecule annotation (column prefix: `DEREP_`).
-- **DEREPLICATOR+**, putative structure annotation (column prefix: `DEREP_`).
+- **DEREPLICATOR+**, putative structure annotation (column prefix: `DEREP+_`).
 
 **SIRIUS tools**:
 
