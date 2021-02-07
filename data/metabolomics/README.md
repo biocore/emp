@@ -22,7 +22,7 @@ In the feature metadata table, the column name prefix indicates the source as in
 
 **SIRIUS tools**:
 
-- **ZODIAC**: Molecular formula annotation (column prefix: `SIR_MF_`).
+- **ZODIAC**: Molecular formula annotation (column prefix: `SIR_MF_Zod`).
 - **CSI:FingerID**: Putative structure annotation (column prefix: `SIR_CSI_`).
 - **CANOPUS**: Putative chemical class annotation (column prefix: `SIR_CAN_`).
 
