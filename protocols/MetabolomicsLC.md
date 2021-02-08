@@ -8,12 +8,12 @@ The LC-MS-based metabolomics experiments were designed to extract and detect a l
 
 It is understood that, while LC-MS based metabolomics is a sensitive method, it is NOT a universal detection method and thus is highly compositional. In the present protocol, metabolites are detected only if:
 	
-	- the metabolites are soluble in the extraction can be detected.
-	- the metabolites were recovered from the SPE process.
-	- the metabolites are eluting over C18-based column chromatography.
-	- the metabolites can be ionised in a electrospray ionisation source in positive ionisation mode.
-	- the ions formed are above the limit of detection of the intrument.
-	- the ions are annotated only if a fragmentation spectrum (MS/MS) is collected.
+	- The metabolites are soluble in the extraction can be detected.
+	- The metabolites were recovered from the SPE process.
+	- The metabolites are eluting over C18-based column chromatography.
+	- The metabolites can be ionised in a electrospray ionisation source in positive ionisation mode.
+	- The ions formed are above the limit of detection of the intrument.
+	- The ions are annotated only if a fragmentation spectrum (MS/MS) is collected.
 
 ### Sample preparation
 
