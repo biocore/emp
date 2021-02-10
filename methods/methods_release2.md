@@ -298,8 +298,8 @@ Spectral library matching was performed against public MS/MS spectral library an
 #### [FBMN] Putative annotation of small peptides with the DEREPLICATOR tools
 
 For the putative annotation of small peptides. These annotations can be classified as level 2/3 annotation (putative/partial structure) based on [MSI standards](https://pubs.acs.org/doi/abs/10.1021/es5002105)). The DEREPLICATOR algorithm was used on GNPS. While DEREPLICATOR+ annotates known structures, the DEREPLICATOR VarQuest can search analogues of known peptidic molecules and that are differing by one amino acid residue. Citations: 
-[(Mohimani et al, Nat. Chem. Bio. 2016)](https://www.nature.com/articles/nchembio.2219) and 
-[(Mohimani et al, Nat. Com. 2018)]
+[Mohimani et al, Nat. Chem. Bio. 2016](https://www.nature.com/articles/nchembio.2219) and 
+[Mohimani et al, Nat. Com. 2018]
 (https://www.nature.com/articles/s41467-018-06082-8?_ga=2.258351242.188697708.1538611200-1366481109.1538611200).
 
 - The DEREPLICATOR+ job can be accessed here: [`https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=ee40831bcc314bda928886964d853a52`](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=ee40831bcc314bda928886964d853a52).
@@ -341,8 +341,8 @@ Spectral library matching was performed against public MS/MS spectral library an
 #### [CMN] Putative annotation of small peptides with the DEREPLICATOR tools
 
 For the putative annotation of small peptides. These annotations can be classified as level 2/3 annotation (putative/partial structure) based on [MSI standards](https://pubs.acs.org/doi/abs/10.1021/es5002105)). The DEREPLICATOR algorithm was used on GNPS. While DEREPLICATOR+ annotates known structures, the DEREPLICATOR VarQuest can search analogues of known peptidic molecules and that are differing by one amino acid residue. Citations: 
-[(Mohimani et al, Nat. Chem. Bio. 2016)](https://www.nature.com/articles/nchembio.2219) and 
-[(Mohimani et al, Nat. Com. 2018)]
+[Mohimani et al, Nat. Chem. Bio. 2016](https://www.nature.com/articles/nchembio.2219) and 
+[Mohimani et al, Nat. Com. 2018]
 (https://www.nature.com/articles/s41467-018-06082-8?_ga=2.258351242.188697708.1538611200-1366481109.1538611200).
 
 - The DEREPLICATOR+ job can be accessed here: [`https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=532ea29acf194f859b3e67d3d0ca9980`](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=532ea29acf194f859b3e67d3d0ca9980) 
