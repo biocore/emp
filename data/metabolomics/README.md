@@ -26,7 +26,7 @@ In the feature metadata table, the column name prefix indicates the source as in
 - **CSI:FingerID**: Putative structure annotation (column prefix: `CSI_`).
 - **CANOPUS**: Putative chemical class annotation (column prefix: `CAN_`).
 
-The notebook used to the concatenate the annotations is available at [https://github.com/lfnothias/emp_metabolomics](https://github.com/lfnothias/emp_metabolomics).
+The notebooks used to prepare the feature metadata are available at [https://github.com/lfnothias/emp_metabolomics](https://github.com/lfnothias/emp_metabolomics).
 
 
 ### Some insight on how to use these annotations
