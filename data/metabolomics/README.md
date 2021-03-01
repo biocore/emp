@@ -7,8 +7,14 @@ The *feature metadata* table summarizes the results from annotation tools used. 
 
 A feature metadata table is available for each of the processing/annotation workflows used:
 
- - Feature-Based Molecular Networking (FBMN): [`FBMN/FBMN_metabo_feature_metadata.tsv.zip`](FBMN/)
- - Classical Molecular Networking (CMN): [`CMN/CMN_metabo_feature_metadata.tsv.zip`](CMN/)
+ - Feature-Based Molecular Networking (FBMN): [`FBMN/FBMN_metabo_feature_metadata_filtered.tsv.zip`](FBMN/)
+ - Classical Molecular Networking (CMN): [`CMN/CMN_metabo_feature_metadata_filtered.tsv.zip`](CMN/)
+
+The `_consolidated` tables have been consolidated with all the structure identifiers (InChiKey, InChI, SMILES).
+
+The `_is_microbial` tables contain extra columns about the compounds that are related to microbes.
+
+The notebooks used to prepare the feature metadata are available at [https://github.com/lfnothias/emp_metabolomics](https://github.com/lfnothias/emp_metabolomics).
 
 In the feature metadata table, the column name prefix indicates the source as indicated below:
 
@@ -24,9 +30,8 @@ In the feature metadata table, the column name prefix indicates the source as in
 
 - **ZODIAC**: Molecular formula annotation (column prefix: `SIR_MF_Zod`).
 - **CSI:FingerID**: Putative structure annotation (column prefix: `CSI_`).
-- **CANOPUS**: Putative chemical class annotation (column prefix: `CAN_`).
-
-The notebooks used to prepare the feature metadata are available at [https://github.com/lfnothias/emp_metabolomics](https://github.com/lfnothias/emp_metabolomics).
+- **CANOPUS**: Putative chemical class annotation with CANOPUS from ClassyFire ontology(column prefix: `CAN_`).
+- **CANOPUS - NPClassifier**: Putative chemical class annotation with CANOPUS from NPClassifier ontology (column prefix: `CAN_npc`).
 
 
 ### Some insight on how to use these annotations
@@ -46,7 +51,7 @@ The notebooks used to prepare the feature metadata are available at [https://git
 
 - **ZODIAC** establishes the molecular formula identity. Molecular formula annotations that have a [`Zod_ZodiacScore`] > **0.9** are more likely to be correct. **CSI:FingerID** and **CANOPUS** annotations are derived from molecular formula assignment. Thus, if the [`Zod_ZodiacScore`] < 0.9, the **CSI:FingerID** and **CANOPUS** annotations are more likely to be incorrect.
 
-- **CANOPUS** provides a putative chemical class annotation. This method is *'de novo'* (doesn't require the compound detected to be known). Note that one compound can have multiple class annotations since it uses the ClassyFire ontology. The most informative column is [`CAN_most specific class`], along with [`CAN_subclass`], [`CAN_class`]	, [`CAN_superclass`], [`CAN_all classifications`].
+- **CANOPUS** provides a putative chemical class annotation. This method is *'de novo'* (doesn't require the compound detected to be known). Note that one compound can have multiple class annotations since it uses the ClassyFire ontology. The most informative column is [`CAN_most specific class`], along with [`CAN_subclass`], [`CAN_class`]	, [`CAN_superclass`], [`CAN_all classifications`]. For CANOPUS NPClassifier results, the prefix for columns is `CAN_npc_`, and the most relevant columns are [`CAN_npc_pathway`], [`CAN_npc_superclass`], [`CAN_npc_class`].
 
 - **CSI:FingerID** provides a putative compound annotation from compound databases. The compound name is in the column [`CSI_name`]. Note that the column [`CSI_links`] contains link out to external database where the compound occur and could be use to define the type  of compound:
 	- Natural product: ['COCONUT'](https://coconut.naturalproducts.net/), 'Natural Products', ['SuperNatural'](http://bioinf-applied.charite.de/supernatural_new/index.php).
