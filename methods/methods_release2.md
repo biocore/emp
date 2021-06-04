@@ -224,9 +224,9 @@ Adapter trimming and poly-G removal were performed on per-sample FASTQ files usi
 
 For detailed information on the sample preparation and LC-MS/MS-based non-targeted mass spectrometry acquisition see the following page: [https://github.com/biocore/emp/blob/master/protocols/MetabolomicsLC.md](https://github.com/lfnothias/emp/blob/master/protocols/MetabolomicsLC.md).
 
-**IMPORTANT**: The processing and annotations below were performed to study the entire EMP dataset. These results could be used to investigate a specific study that is part of the EMP, but this is not recommended. Instead, this processing would have to be performed and optimized for each study. Contact Louis-Felix Nothias [(nothias@health.ucsd.edu)](nothias@health.ucsd.edu) for more informations. 
+**IMPORTANT**: The processing and annotations below were performed to study the entire EMP dataset. These results could be used to investigate a specific study that is part of the EMP, but this is not recommended. Instead, this processing would have to be performed and optimized for each study. Contact Louis-Felix Nothias [(lnothiasscaglia@health.ucsd.edu)](lnothiasscaglia@health.ucsd.edu) for more informations. 
 
-The data were processed and annotated by Louis-Felix Nothias [(nothias@health.ucsd.edu)](nothias@health.ucsd.edu) from the [Dorrestein Lab at University of California San Diego](https://dorresteinlab.ucsd.edu/).
+The data were processed and annotated by Louis-Felix Nothias [(lnothiasscaglia@health.ucsd.edu)](lnothiasscaglia@health.ucsd.edu) from the [Dorrestein Lab at University of California San Diego](https://dorresteinlab.ucsd.edu/).
 
 ## 3.1.1 Data conversion and desposition
 The mass spectrometry data were centroided and converted from the proprietary format (.raw) to the m/z extensible markup language format (.mzML) using [ProteoWizard](http://proteowizard.sourceforge.net/download.html) (ver. 3.0.19, MSConvert tool). Citation: [(Chambers et al. _Nature Biotech._, 2012)](https://www.nature.com/articles/nbt.2377).
@@ -245,16 +245,18 @@ The mass spectrometry method and data (.RAW and .mzML) were deposited on the Mas
 Two different LC-MS data processing/annotation workflows were used:
 
 - **Feature-Based Molecular Networking** (FBMN): quantitative and accurate.
-	- The **feature metadata master table** for FBMN is available at [`emp/data/metabolomics/FBMN/FBMN_metabo_feature_metadata.tsv.zip`](../data/metabolomics/). This master table summarizes the results of all the annotation tools used and can be mapped to the feature quantification table. The sub-folders contain the results of each annotation tool.
-
-		- The **feature table** will be available at [`emp/data/metabolomics/FBMN/feature_table`](../data/metabolomics/FBMN/feature_table) (not yet released).
+	- The **feature quantification table** of FBMN is available at [`emp/data/metabolomics/FBMN/feature_table`](../data/metabolomics/FBMN/feature_table).
 
 - **Classical Molecular Networking** (CMN): qualitative and sensitive.
-	- The **feature table** will be available at [`emp/data/metabolomics/FBMN/feature_table`](../data/metabolomics/FBMN/feature_table) (not yet released).
+	- The **MS/MS feature table** of CMN is available at [`emp/data/metabolomics/CMN/feature_table`](../data/metabolomics/CMN/feature_table).
 
-	- The **feature metadata master table** for CMN is available at [`emp/data/metabolomics/CMN/CMN_metabo_feature_metadata.tsv.zip`](../data/metabolomics/). This master table summarizes the results of all the annotation tools used and can be mapped to the GNPS bucket table. The sub-folders contain the results of each annotation tool.
+- **Metabolite feature metadata table** for CMN and FBMN **
+- The **Metabolite feature metadata table**are available at [`emp/data/metabolomics/`](../data/metabolomics/). Each metabolite feature metadata table summarizes the results of all the LC-MS/MS annotation tools used and can be mapped to the feature quantification tables of CMN and FBMN, respectively. The sub-folders contain the results of each annotation tool.
 
 A discussion on how to use these results files is available at [`emp/data/metabolomics/`](../data/metabolomics).
+
+The script that were used to process/generate the feature quantification table and feature metadata table are available at 
+[https://github.com/lfnothias/emp_metabolomics](https://github.com/lfnothias/emp_metabolomics).
 
 Below are provided informations on each annotation tools used, and the links to the jobs/results.
 
@@ -377,7 +379,7 @@ The data were processed and annotated by Sneha Couvillion (sneha.couvillion@pnnl
 The GC-MS data files (.netCDF format) were processed using MetaboliteDetector ([Hiller et al., Anal. Chem. 2009](https://pubs.acs.org/doi/10.1021/ac802689c)) in order to detect, align and measure the metabolites intensities accross samples. For a detail description of the processing, see this [document pages 4-8](document/Metabolite Detector_GC-MS_PNNL_tutorial.pdf)
 
 
-####[GC-PNNL] Annotation
+#### [GC-PNNL] Annotation
 Retention indices (RI) of detected metabolites were calculated based on the analysis of the FAME standard mixture, followed by their chromatographic alignment across all analyses after deconvolution. Metabolites were then identified by matching GC-MS features (characterized by measured retention indices and mass spectra) to an augmented version of the Agilent Fiehn Metabolomics Retention Time Locked (RTL) Library ([Kind et al., Anal. Chem. 2009](https://pubs.acs.org/doi/10.1021/ac9019522)), which contains spectra and validated retention indices for over 700 metabolites. All metabolite identifications were manually validated to reduce deconvolution errors during automated data-processing and to eliminate false identifications. The NIST 08 GC-MS library was also used to cross-validate the spectral matching scores obtained using the Agilent library.
 
 ##### [GC-PNNL] Result files
