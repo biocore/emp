@@ -325,7 +325,7 @@ Additional spectral annotation of tandem mass spectrometry data were obtained wi
 
 Parameters were set as follows, for SIRIUS: molecular formula candidates retained (80), molecular formula database (ALL), maximum precursor ion m/z computed (750), profile (orbitrap), m/z maximum deviation (10 ppm), ions annotated with MZmine were prioritized and other ions were considered ([M+H3N+H]+, [M+H]+, [M+K]+,[M+Na]+, [M+H-H2O]+, [M+H-H4O2]+, [M+NH4]+); for ZODIAC: the features were splitted into 10 random subsets and were computed separately with the following parameters: threshold filter (0.9), minimum local connections (0); for CSI:FingerID: m/z maximum deviation (10 ppm) and biological database (BIO). The computation was performed on a linux cluster computer (32 cpu with 256 GB of RAM).
 
-'The SIRIUS results are available at [`emp/data/metabolomics/FBMN/SIRIUS`](../emp/data/metabolomics/FBMN/SIRIUS).
+The SIRIUS results are available at [`emp/data/metabolomics/FBMN/SIRIUS`](../data/metabolomics/FBMN/SIRIUS).
 
 ### 3.1.2.2 Classical Molecular Networking workflow
 
