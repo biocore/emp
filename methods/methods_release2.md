@@ -245,10 +245,10 @@ The mass spectrometry method and data (.RAW and .mzML) were deposited on the Mas
 Two different LC-MS data processing/annotation workflows were used:
 
 - **Feature-Based Molecular Networking** (FBMN): quantitative and accurate.
-	- The **feature quantification table** of FBMN is available at [`emp/data/metabolomics/FBMN/feature_table`](../data/metabolomics/FBMN/feature_table).
+	- The **feature quantification table** of FBMN is available at [`emp/data/metabolomics/FBMN/feature_table/`](../data/metabolomics/FBMN/).
 
 - **Classical Molecular Networking** (CMN): qualitative and sensitive.
-	- The **MS/MS feature table** of CMN is available at [`emp/data/metabolomics/CMN/feature_table`](../data/metabolomics/CMN/feature_table).
+	- The **MS/MS feature table** of CMN is available at [`emp/data/metabolomics/CMN/feature_table/`](../data/metabolomics/CMN/).
 
 - **Metabolite feature metadata table** for CMN and FBMN **
 - The **Metabolite feature metadata table**are available at [`emp/data/metabolomics/`](../data/metabolomics/). Each metabolite feature metadata table summarizes the results of all the LC-MS/MS annotation tools used and can be mapped to the feature quantification tables of CMN and FBMN, respectively. The sub-folders contain the results of each annotation tool.
@@ -313,7 +313,6 @@ For the putative annotation of small peptides. These annotations can be classifi
 CycloNovo performs de novo cyclopeptide sequencing using employs de Bruijn graphs [Bahar et al, Cell System, 2020](https://www.sciencedirect.com/science/article/pii/S240547121930393X). Many of these cyclopeptides are bioactive molecules produced by microbes.
 
 - The CycloNovo job results can be accessed here: [`https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=85d371f5c8e04687838ecbc28ac2dbb6`](https://gnps.ucsd.edu/ProteoSAFe/status.jsp?task=85d371f5c8e04687838ecbc28ac2dbb6)
-
 
 #### [FBMN] Putative annotation of small molecules with SIRIUS
 
@@ -399,7 +398,10 @@ QC files for each samples accessible at [`ftp://massive.ucsd.edu/MSV000083743/ot
 To be completed 
 
 #### [GC-GNPS] Data Processing
+To be completed 
 
 #### [GC-GNPS] Annotation
+To be completed 
 
 #### [GC-GNPS] Result files
+To be completed
