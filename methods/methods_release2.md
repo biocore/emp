@@ -245,15 +245,15 @@ The mass spectrometry method and data (.RAW and .mzML) were deposited on the Mas
 Two different LC-MS data processing/annotation workflows were used:
 
 - **Feature-Based Molecular Networking** (FBMN): quantitative and accurate.
-	- The **feature quantification table** of FBMN is available at [`emp/data/metabolomics/FBMN/feature_table/`](../data/metabolomics/FBMN/).
+	- The **feature quantification table** of FBMN is available from the MassIVE deposition and the filtered feature quantification table at [`emp/data/metabolomics/FBMN/`](../data/metabolomics/).
 
 - **Classical Molecular Networking** (CMN): qualitative and sensitive.
-	- The **MS/MS feature table** of CMN is available at [`emp/data/metabolomics/CMN/feature_table/`](../data/metabolomics/CMN/).
+	- The **MS/MS feature table** of CMN is available directly from the GNPS job and the filtered MS/MS feature tables from [`emp/data/metabolomics/CMN/`](../data/metabolomics/).
 
-- **Metabolite feature metadata table** for CMN and FBMN **
-- The **Metabolite feature metadata table**are available at [`emp/data/metabolomics/`](../data/metabolomics/). Each metabolite feature metadata table summarizes the results of all the LC-MS/MS annotation tools used and can be mapped to the feature quantification tables of CMN and FBMN, respectively. The sub-folders contain the results of each annotation tool.
+- **Metabolite feature metadata table** for CMN and FBMN**
+- The **Metabolite feature metadata tables**are available at [`emp/data/metabolomics/`](../data/metabolomics/). Each metabolite feature metadata table summarizes the results of all the LC-MS/MS annotation tools used and can be mapped to the feature quantification tables of CMN and FBMN, respectively. The sub-folders contain the results of each annotation tool.
 
-A discussion on how to use these results files is available at [`emp/data/metabolomics/`](../data/metabolomics).
+A discussion on how to use these results files and how they were generated is available at [`emp/data/metabolomics/`](../data/metabolomics).
 
 The script that were used to process/generate the feature quantification table and feature metadata table are available at 
 [https://github.com/lfnothias/emp_metabolomics](https://github.com/lfnothias/emp_metabolomics).
