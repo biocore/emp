@@ -1,5 +1,7 @@
 ## methods – 16S Release 2 and Multi-omics (EMP500)
 
+<div style="float: right; margin-left: 30px;"><img title="The EMP logo was designed by Eamonn Maguire of Antarctic Design." style="float: right;margin-left: 30px;" src="https://upload.wikimedia.org/wikipedia/en/4/4f/EMP-green-small.png" align=right /></div>
+
 Computational methods for Release 2 and the EMP Multi-omics project (EMP500) are described here. For laboratory methods, see [`protocols`](https://github.com/biocore/emp/tree/master/protocols).
 
 <!--made with https://luciopaiva.com/markdown-toc/ -->
