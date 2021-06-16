@@ -2,9 +2,11 @@
 
 #### Extraction
 
-The extraction and mass spectrometry experiments were performed by Sneha Couvillion (sneha.couvillion@pnnl.gov) at the [Thomas Metz laboratory, Pacific Northwest National Laboratory](https://omics.pnl.gov/staff-page/Metz/Tom).
+The extraction and GC-MS mass spectrometry experiments were performed by Sneha Couvillion (sneha.couvillion@pnnl.gov) at the [Thomas Metz laboratory, Pacific Northwest National Laboratory](https://omics.pnl.gov/staff-page/Metz/Tom).
 
 Two protocols were used- one for the 105 soil samples and another for the 356 ‘fecal’ (mostly non-soil samples we received from UCSD) samples. For biosafety reasons, the batch of 356 fecal samples were processed in the biological safety cabinet, thus requiring a slightly modified protocol.
+
+The sample derivatization protocol consists of a two steps: First, methoxyamination is performed to protect ketones and aldehydes. Then trimethylsilylation (using MSTFA) to increase volatility, thermal stability and improve chromatographic separation.
 
 #### Sample preparation protocol
 
