@@ -28,17 +28,17 @@ To track the provenance of these aliquots, we employ the following QR barcoding 
 
 ### Metadata collection, curation, and processing
 
-Metadata should comply with MIMS and Qiita standards. Please refer to the EMP500 [metadata guide](http://www.earthmicrobiome.org/protocols-and-standards/metadata-guide/).
+Metadata should comply with MIMS and Qiita standards. Please refer to the EMP500 [metadata guide](http://earthmicrobiome.org/protocols-and-standards/metadata-guide/).
 
 ### Amplicon sequencing
 
-The standard EMP protocols for DNA extraction and 16S, 18S, and ITS amplicon sequencing are at [earthmicrobiome.org](http://www.earthmicrobiome.org/protocols-and-standards/), which has the following sections:
+The standard EMP protocols for DNA extraction and 16S, 18S, and ITS amplicon sequencing are at [earthmicrobiome.org](http://earthmicrobiome.org/protocols-and-standards/), which has the following sections:
 
-* [DNA Extraction Protocol](http://www.earthmicrobiome.org/protocols-and-standards/dna-extraction-protocol/)
-* [Primer Ordering and Resuspension](http://www.earthmicrobiome.org/protocols-and-standards/primer-ordering-and-resuspension/)
-* [16S Illumina Amplicon Protocol](http://www.earthmicrobiome.org/protocols-and-standards/16s/)
-* [18S Illumina Amplicon Protocol](http://www.earthmicrobiome.org/protocols-and-standards/18s/)
-* [ITS Illumina Amplicon Protocol](http://www.earthmicrobiome.org/protocols-and-standards/its/)
+* [DNA Extraction Protocol](http://earthmicrobiome.org/protocols-and-standards/dna-extraction-protocol/)
+* [Primer Ordering and Resuspension](http://earthmicrobiome.org/protocols-and-standards/primer-ordering-and-resuspension/)
+* [16S Illumina Amplicon Protocol](http://earthmicrobiome.org/protocols-and-standards/16s/)
+* [18S Illumina Amplicon Protocol](http://earthmicrobiome.org/protocols-and-standards/18s/)
+* [ITS Illumina Amplicon Protocol](http://earthmicrobiome.org/protocols-and-standards/its/)
 
 Since EMP 16S Release 1 described in Thompson et al. ([*Nature*, 2017](http://doi.org/10.1038/nature24621)), important updates to the EMP amplicon sequencing protocols have been made - these will be summarized soon on the EMP website linked above:
 
