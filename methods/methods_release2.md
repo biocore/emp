@@ -10,14 +10,14 @@ Computational methods for EMP 16S Release 2 and the EMP Multi-omics project (EMP
 
   - [0 Metadata](#0-metadata)
   - [1 Amplicon sequencing](#1-amplicon-sequencing)
-    - [1.1 16S rRNA gene data](#11-16s-rna-gene-data)
-    - [1.2 18S rRNA gene data](#12-18s-rna-gene-data)
+    - [1.1 16S rRNA gene data](#11-16s-rrna-gene-data)
+    - [1.2 18S rRNA gene data](#12-18s-rrna-gene-data)
     - [1.3 Fungal ITS data](#13-fungal-its-data)
   - [2 Shotgun sequencing](#2-shotgun-sequencing)
     - [2.1 Short-read analysis](#21-short-read-analysis)
       - [2.1.1 Sequence file demultiplexing](#211-sequence-file-demultiplexing)
       - [2.1.2 Adapter trimming and poly-G removal](#212-adapter-trimming-and-poly-g-removal)
-      - [2.1.3 Qiita read alignment to the Woltka reference database](#213-qiita-read-alignment-to-woltka-reference-database)
+      - [2.1.3 Qiita read alignment to the Woltka reference database](#213-qiita-read-alignment-to-the-woltka-reference-database)
       - [2.1.4 Woltka gOTU feature-table generation](#214-woltka-gotu-feature-table-generation)
     - [2.2 Metagenomic assembly and binning](#22-metagenomic-assembly-and-binning)
       - [2.2.1 Assembly and co-assembly of EMP500 samples within each environment](#221-assembly-and-co-assembly-of-emp500-samples-within-each-environment)
@@ -31,7 +31,7 @@ Computational methods for EMP 16S Release 2 and the EMP Multi-omics project (EMP
           - [3.1.2.1 Feature based molecular networking workflow](#3121-feature-based-molecular-networking-workflow)
           - [3.1.2.2 Classical molecular networking workflow](#3122-classical-molecular-networking-workflow)
     - [3.2 Non-targeted mass spectrometry analysis by GC-MS](#32-non-targeted-mass-spectrometry-analysis-by-gc-ms)
-      - [3.2.1 Data conversion and deposition](#321-gc-data-conversion-and-deposition)
+      - [3.2.1 Data conversion and deposition](#321-data-conversion-and-deposition)
       - [3.2.2 Data analysis and annotation](#322-data-analysis-and-annotation)
           - [3.2.2.1 PNNL GC-MS pipeline](#3221-pnnl-gc-ms-pipeline)
           - [3.2.2.2 GNPS GC-MS pipeline](#3222-gnps-gc-ms-pipeline)
@@ -421,7 +421,7 @@ QC files for each samples accessible at [`ftp://massive.ucsd.edu/MSV000083743/ot
 - The `_GC_LCMS.png`: contains an image of the sample's 2D chromatogram.
 - The `_GC_HighAbu_LCMS.png`: contains an image of the sample's 2D chromatogram.
 
-### 3.2.3 GNPS GC-MS pipeline
+### 3.2.2.2 GNPS GC-MS pipeline
 
 To be completed 
 
@@ -498,35 +498,35 @@ Compare models
   --m-metadata-file emp500_metadata_basic.txt \
   --m-metadata-column 'empo_4' \
   --p-mode 'sum' \
-  --o-grouped-table input_biom_sum_empo4.qza
+  --o-grouped-table input_biom_sum_empo4.qza`
   
-  qiime feature-table presence-absence \
+  `qiime feature-table presence-absence \
   --i-table input_biom.qza \
-  --o-presence-absence-table input_biom_binary.qza
+  --o-presence-absence-table input_biom_binary.qza`
   
-  unzip input_biom_binary.qza
+  `unzip input_biom_binary.qza`
   
-  qiime tools import \
+  `qiime tools import \
   --input-path input_biom_binary.biom \
   --type 'FeatureTable[Frequency]' \
   --input-format BIOMV210Format \
-  --output-path input_biom_binaryFreq.qza
+  --output-path input_biom_binaryFreq.qza`
   
-  qiime feature-table group \
+ `qiime feature-table group \
   --i-table input_biom_binaryFreq.qza \
   --p-axis 'sample' \
   --m-metadata-file emp500_metadata_basic.txt \
   --m-metadata-column 'empo_4' \
   --p-mode 'sum' \
-  --o-grouped-table input_biom_binaryFreq_sum_empo4.qza
+  --o-grouped-table input_biom_binaryFreq_sum_empo4.qza`
 
-qiime taxa barplot \
+`qiime taxa barplot \
   --i-table input_biom_sum_empo4.qza \
   --i-taxonomy emp500_lcms_fbmn_feature_metadata_microbial_npc_taxonomy.qza \
   --m-metadata-file emp500_metadata_grouped_empo4.txt \
-  --o-visualization input_biom_sum_empo4_taxa_barplot.qzv
+  --o-visualization input_biom_sum_empo4_taxa_barplot.qzv`
 
-qiime taxa barplot \
+`qiime taxa barplot \
   --i-table input_biom_binaryFreq_sum_empo4.qza \
   --i-taxonomy emp500_lcms_fbmn_feature_metadata_microbial_npc_taxonomy.qza \
   --m-metadata-file emp500_metadata_grouped_empo4.txt \
@@ -571,21 +571,21 @@ qiime taxa barplot \
   --p-learning-rate 1e-05 \
   --p-summary-interval 60 \
   --o-conditionals mmvec_conditionals.qza \
-  --o-conditional-biplot mmvec_biplot.qza
+  --o-conditional-biplot mmvec_biplot.qza`
 
-qiime mmvec paired-omics \
+`qiime mmvec paired-omics \
   --i-microbes input_biom_microbial_taxa.qza \
   --i-metabolites input_biom_metabolites.qza \
   --p-latent-dim 0 \
   --p-summary-interval 1 \
-  --output-dir null_summary
+  --output-dir null_summary`
 
-qiime mmvec summarize-paired \
+`qiime mmvec summarize-paired \
   --i-model-stats model_stats.qza \
   --i-baseline-stats model_stats_null.qza \
-  --o-visualization paired-summary.qzv
+  --o-visualization paired-summary.qzv`
 	
-qiime emperor biplot \
+`qiime emperor biplot \
   --i-biplot mmvec_biplot.qza \
   --m-sample-metadata-file emp500_lcms_fbmn_feature_metadata_microbial.txt \
   --m-feature-metadata-file wol_taxonomy_with_differentials.txt \
