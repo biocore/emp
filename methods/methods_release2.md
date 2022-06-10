@@ -36,12 +36,12 @@ Computational methods for EMP 16S Release 2 and the EMP Multi-omics project (EMP
           - [3.2.2.1 PNNL GC-MS pipeline](#3221-pnnl-gc-ms-pipeline)
           - [3.2.2.2 GNPS GC-MS pipeline](#3222-gnps-gc-ms-pipeline)
   - [4 Analysis of differential abundance](#4-analysis-of-differential-abundance)
-    - [4.1 Estimating log-fold changes across environments](#41-log-fold-changes-across-environments)
-    - [4.2 Visualizing broad-level patterns for metabolites](#42-broad-level-patterns-metabolites)
-    - [4.3 Comparison of normalized abundances for metabolites](#43-normalized-abundance-analysis-metabolites)
-  - [5 Analysis of co-occurrences](#5-analysis-of-cooccurrences)
-    - [5.1 Estimation of log conditional probabilities (co-occurrence ranks)](#51-log-conditional-probabilities)
-    - [5.2 Correlation with log-fold changes and sample beta-diversity](#52-correlation-with-other-results)
+    - [4.1 Estimating log-fold changes across environments](#41-estimating-log-fold-changes-across-environments)
+    - [4.2 Visualizing broad-level patterns for metabolites](#42-visualizing-broad-level-patterns-for-metabolites)
+    - [4.3 Comparison of normalized abundances for metabolites](#43-comparison-of-normalized-abundances-for-metabolites)
+  - [5 Analysis of co-occurrences](#5-analysis-of-co-occurrences)
+    - [5.1 Estimation of log conditional probabilities](#51-estimation-of-log-conditional-probabilities)
+    - [5.2 Correlation with log-fold changes and sample beta-diversity](#52-correlation-with-log-fold-changes-and-sample-beta-diversity)
 
 
 ### 0 Metadata
@@ -551,7 +551,7 @@ qiime taxa barplot \
 # 5 Analysis of co-occurrence
 
 
-## 5.1 Estimation of log conditional probabilities (co-occurrence ranks)
+## 5.1 Estimation of log conditional probabilities
 
 * Co-occurrences between feature sets were estimated using mmvec [(Morton et al. 2019)](https://www.nature.com/articles/s41592-019-0616-3).
 * The fitted model was compared against a null model (i.e., '1')
