@@ -2,7 +2,7 @@
 
 <div style="float: right; margin-left: 30px;"><img title="The EMP logo was designed by Eamonn Maguire of Antarctic Design." style="float: right;margin-left: 30px;" src="https://upload.wikimedia.org/wikipedia/en/4/4f/EMP-green-small.png" align=right /></div>
 
-Computational methods for Release 2 and the EMP Multi-omics project (EMP500) are described here. For laboratory methods, see [`protocols`](https://github.com/biocore/emp/tree/master/protocols).
+Computational methods for EMP 16S Release 2 and the EMP Multi-omics project (EMP500) are described here. For laboratory methods, see [`protocols`](https://github.com/biocore/emp/tree/master/protocols).
 
 <!--made with https://luciopaiva.com/markdown-toc/ -->
 
@@ -35,6 +35,13 @@ Computational methods for Release 2 and the EMP Multi-omics project (EMP500) are
       - [3.2.2 Data analysis and annotation](#322-data-analysis-and-annotation)
           - [3.2.2.1 PNNL GC-MS pipeline](#3221-pnnl-gc-ms-pipeline)
           - [3.2.2.2 GNPS GC-MS pipeline](#3222-gnps-gc-ms-pipeline)
+  - [4 Analysis of differential abundance](#4-analysis-of-differential-abundance)
+    - [4.1 Estimating log-fold changes across environments](#41-log-fold-changes-across-environments)
+    - [4.2 Visualizing broad-level patterns for metabolites](#42-broad-level-patterns-metabolites)
+    - [4.3 Comparison of normalized abundances for metabolites](#43-normalized-abundance-analysis-metabolites)
+  - [5 Analysis of co-occurrences](#5-analysis-of-cooccurrences)
+    - [5.1 Estimation of log conditional probabilities (co-occurrence ranks)](#51-log-conditional-probabilities)
+    - [5.2 Correlation with log-fold changes and sample beta-diversity](#52-correlation-with-other-results)
 
 
 ### 0 Metadata
@@ -167,11 +174,30 @@ Adapter trimming and poly-G removal were performed on per-sample FASTQ files usi
 * Process: Shogun v1.0.7
 * Parameters: bowtie2 as aligner tool, Web of Life (WoL) as reference database
 
+Bowtie2 2.3.2 parameters:
+
+`bowtie2 \
+  -1 forward_trimmed.fastq.gz \
+  -2 reverse_trimmed.fastq.gz
+  -p {PPN} \
+  -x {database_WoL} \
+  -q \
+  -S trimmed_aligned.sam --seed 42 \
+  --very-sensitive \
+  -k 16 \
+  --np 1 \
+  --mp "1,1" \
+  --rdg "0,1" \
+  --rfg "0,1" \
+  --score-min \
+  "L,0,-0.05" \
+  --no-head \
+  --no-unal`
+
 #### 2.1.4 Woltka gOTU feature-table generation
 
 `woltka classify \
-  --input bowtie2_wol_alignment.sam.xz \
-  --uniq \
+  --input trimmed_aligned.sam.xz \
   --demux \
   --output woltka_gotu_table.biom`
   
@@ -216,7 +242,6 @@ Adapter trimming and poly-G removal were performed on per-sample FASTQ files usi
 #### 2.2.4 Taxonomic profiling of MAGs
 
 * Taxonomic classification of MAGs was performed using GTDB-Tk v1.3.0 release95 [(Chaumeil, Mussig et al. 2020)](https://academic.oup.com/bioinformatics/article/36/6/1925/5626182) using the “gtdbtk classify_wf” option.
-
 
 
 # 3 Metabolomics data analysis
@@ -361,6 +386,7 @@ CycloNovo performs de novo cyclopeptide sequencing using employs de Bruijn graph
 #### [CMN] Putative annotation of small molecules with SIRIUS
 SIRIUS results for CMN are less accurate than with FBMN because the annotation is not informed by the MS1 isotopic pattern and ion annotation (i.e. adduct type). Therefor, caution is required when using these annotations. 
 
+
 # 3.2 Non-targeted mass spectrometry analysis by GC-MS
 
 Untargeted analyses of polar metabolites was performed by GC-MS (electronic ionisation source) The data were collected by Sneha Couvillion (sneha.couvillion@pnnl.gov) from the [Thomas Metz laboratory, Pacific Northwest National Laboratory](https://omics.pnl.gov/staff-page/Metz/Tom).
@@ -407,3 +433,168 @@ To be completed
 
 #### [GC-GNPS] Result files
 To be completed
+
+
+# 4 Analysis of differential abundance
+
+
+## 4.1 Estimation of log-fold changes across environments
+
+* Log-fold changes for each feature across environments were quantified using Songbird [(Morton et al. 2019)](https://www.nature.com/articles/s41467-019-10656-5).
+* Each sample was assigned to training or testing groups manually, using an 80/20 split at each level of EMPO 4.
+* 'Animal distal gut (non-saline)' was used as the reference group.
+* The fitted model was compared against a null model (i.e., '1')
+* Log-fold changes for each environment were merged with feature metadata for subsequent analyses
+
+Run fitted model:
+`qiime songbird multinomial \
+--i-table input_biom.qza \
+--m-metadata-file emp500_metadata_basic.txt \
+--p-formula "C(empo_4, (Treatment('Animal distal gut (non-saline)')))" \
+--p-epochs 1000000 \
+--p-differential-prior 0.5 \
+--p-learning-rate 1e-5 \
+--p-summary-interval 2 \
+--p-batch-size 400 \
+--p-min-sample-count 0 \
+--p-training-column songbird_trainTest_8020_empo_4 \
+--o-differentials differentials.qza \
+--o-regression-stats regression-stats.qza \
+--o-regression-biplot regression-biplot.qza`
+
+Run null model:
+`qiime songbird multinomial \
+--i-table input_biom.qza \
+--m-metadata-file emp500_metadata_basic.txt \
+--p-formula "1" \
+--p-epochs 1000000 \
+--p-differential-prior 0.5 \
+--p-learning-rate 1e-5 \
+--p-summary-interval 2 \
+--p-batch-size 400 \
+--p-min-sample-count 0 \
+--p-training-column songbird_trainTest_8020_empo_4 \
+--o-differentials differentials_null.qza \
+--o-regression-stats regression-stats_null.qza \
+--o-regression-biplot regression-biplot_null.qza`
+
+Compare models
+`qiime songbird summarize-paired \
+--i-regression-stats regression-stats.qza \
+--i-baseline-stats regression-stats_null.qza \
+--o-visualization paired-summary.qzv`
+
+
+## 4.2 Visualization of broad-level patterns across environments for metabolites
+
+* Metabolite intensities were summed across all samples within each environment at EMPO 4 (QIIME2)
+* A presence/absence table was generated for comparison (QIIME2)
+* Taxa bar plots were generated, and relative abundance data exported at the pathway and superclass levels, for subsequent analysis (QIIME2)
+* Presence/absence and intensity of metabolites were visualized (R)
+
+`qiime feature-table group \
+  --i-table input_biom.qza \
+  --p-axis 'sample' \
+  --m-metadata-file emp500_metadata_basic.txt \
+  --m-metadata-column 'empo_4' \
+  --p-mode 'sum' \
+  --o-grouped-table input_biom_sum_empo4.qza
+  
+  qiime feature-table presence-absence \
+  --i-table input_biom.qza \
+  --o-presence-absence-table input_biom_binary.qza
+  
+  unzip input_biom_binary.qza
+  
+  qiime tools import \
+  --input-path input_biom_binary.biom \
+  --type 'FeatureTable[Frequency]' \
+  --input-format BIOMV210Format \
+  --output-path input_biom_binaryFreq.qza
+  
+  qiime feature-table group \
+  --i-table input_biom_binaryFreq.qza \
+  --p-axis 'sample' \
+  --m-metadata-file emp500_metadata_basic.txt \
+  --m-metadata-column 'empo_4' \
+  --p-mode 'sum' \
+  --o-grouped-table input_biom_binaryFreq_sum_empo4.qza
+
+qiime taxa barplot \
+  --i-table input_biom_sum_empo4.qza \
+  --i-taxonomy emp500_lcms_fbmn_feature_metadata_microbial_npc_taxonomy.qza \
+  --m-metadata-file emp500_metadata_grouped_empo4.txt \
+  --o-visualization input_biom_sum_empo4_taxa_barplot.qzv
+
+qiime taxa barplot \
+  --i-table input_biom_binaryFreq_sum_empo4.qza \
+  --i-taxonomy emp500_lcms_fbmn_feature_metadata_microbial_npc_taxonomy.qza \
+  --m-metadata-file emp500_metadata_grouped_empo4.txt \
+  --o-visualization input_biom_binaryFreq_sum_empo4_taxa_barplot.qzv`
+
+
+## 4.3 Comparison of normalized abundances for metabolites
+
+* To account for the compositionality of the metabolite and microbial taxon data, we used log-ratios to compare groups of features across environments
+* Log-ratios were quantified for feature groups of interest using Qurro [(Fedarko et al. 2020)](https://academic.oup.com/nargab/article/2/2/lqaa023/5826153?login=true).
+* Plot data were exported from Qurro and merged with feature metadata (Python).
+* Differences in log-ratios of feature groups across environments were visualized and tested statistically (R)
+
+`qurro \
+  --ranks differentials.tsv \
+  --table input_biom.biom \
+  --sample-metadata emp500_metadata_basic.txt \
+  --feature-metadata emp500_lcms_fbmn_feature_metadata_microbial_npc_taxonomy.tsv \
+  --output-dir qurro_metabolites/`
+
+
+# 5 Analysis of co-occurrence
+
+
+## 5.1 Estimation of log conditional probabilities (co-occurrence ranks)
+
+* Co-occurrences between feature sets were estimated using mmvec [(Morton et al. 2019)](https://www.nature.com/articles/s41592-019-0616-3).
+* The fitted model was compared against a null model (i.e., '1')
+* Feature loadings from the co-occurrence ordination, as well as log conditional probabilities for each feature, were exported for subsequent analysis
+
+`qiime mmvec paired-omics \
+  --i-microbes input_biom_microbial_taxa.qza \
+  --i-metabolites input_biom_metabolites.qza \
+  --m-metadata-file emp500_metadata_basic.txt \
+  --p-training-column 'songbird_trainTest_8020_empo_3' \
+  --p-min-feature-count 10 \
+  --p-epochs 100 \
+  --p-batch-size 50 \
+  --p-latent-dim 3 \
+  --p-input-prior 1 \
+  --p-output-prior 1 \
+  --p-learning-rate 1e-05 \
+  --p-summary-interval 60 \
+  --o-conditionals mmvec_conditionals.qza \
+  --o-conditional-biplot mmvec_biplot.qza
+
+qiime mmvec paired-omics \
+  --i-microbes input_biom_microbial_taxa.qza \
+  --i-metabolites input_biom_metabolites.qza \
+  --p-latent-dim 0 \
+  --p-summary-interval 1 \
+  --output-dir null_summary
+
+qiime mmvec summarize-paired \
+  --i-model-stats model_stats.qza \
+  --i-baseline-stats model_stats_null.qza \
+  --o-visualization paired-summary.qzv
+	
+qiime emperor biplot \
+  --i-biplot mmvec_biplot.qza \
+  --m-sample-metadata-file emp500_lcms_fbmn_feature_metadata_microbial.txt \
+  --m-feature-metadata-file wol_taxonomy_with_differentials.txt \
+  --o-visualization mmvec_biplot.qzv`
+
+
+## 5.2 Correlation with log-fold changes and sample beta-diversity
+
+* Feature loadings from the first 10 axes of the co-occurrence biplot were correlated with log-fold changes in metabolite abundances for each environment (Python)
+* Feature loadings from the first 10 axes of the co-occurrence biplot were correlated with feature loadings from the first three axes, and the global magnitude, from the ordination representing sample beta-diversity based on metabolites (Python)
+* To relate co-occurrences with differential abundance across environments, for focal environments with strong relationships from the first set of correlations above, two groups of features were manually selected for additional analysis of differential abundance (R)
+* The log-ratio of the abundance of feature group 1 : group 2 were compared between the focal environment vs. all other environments (R)
