@@ -113,15 +113,15 @@ For 18S and fungal ITS data, processing was performed outside of Qiita using QII
   --p-adapter-f GTAGGTGAACCTGCAGAAGGATCA \
   --p-front-r GACGGGCGGTGTGTAC \
   --p-adapter-r TGATCCTTCTGCAGGTTCACCTAC \
-  --o-trimmed-sequences emp500_18s_demux_trimmed_1of3.qza
+  --o-trimmed-sequences emp500_18s_demux_trimmed_1of3.qza`
 
-qiime cutadapt trim-paired \
+`qiime cutadapt trim-paired \
   --i-demultiplexed-sequences emp500_18s_demux_trimmed_1of3.qza \
   --p-front-f TTAGTGAGGCCCT \
   --p-adapter-r CCAATCGGTAGTAGCGACGGGC \
-  --o-trimmed-sequences emp500_18s_demux_trimmed_2of3.qza
+  --o-trimmed-sequences emp500_18s_demux_trimmed_2of3.qza`
 
-qiime cutadapt trim-paired \
+`qiime cutadapt trim-paired \
   --i-demultiplexed-sequences emp500_18s_demux_trimmed_2of3.qza \
   --p-adapter-r AGGGCCTCACTAA \
   --o-trimmed-sequences emp500_18s_demux_trimmed_3of3.qza`
