@@ -98,16 +98,16 @@ For 18S and fungal ITS data, processing was performed outside of Qiita using QII
 ### 1.2 18S rRNA gene data
 
 #### Demultiplexing:
-qiime demux emp-paired \
+`qiime demux emp-paired \
   --i-seqs emp-paired-end-sequences.qza \
   --m-barcodes-file emp500_prep_info_18S.txt \
   --m-barcodes-column 'barcode' \
   --p-rev-comp-mapping-barcodes \
   --o-error-correction-details emp500_18s_demux.qza \
-  --o-per-sample-sequences emp500_18s_demux.qza
+  --o-per-sample-sequences emp500_18s_demux.qza`
 
 #### Trimming primers:
-qiime cutadapt trim-paired \
+`qiime cutadapt trim-paired \
   --i-demultiplexed-sequences emp500_18s_demux.qza \
   --p-front-f GTACACACCGCCCGTC \
   --p-adapter-f GTAGGTGAACCTGCAGAAGGATCA \
@@ -124,22 +124,22 @@ qiime cutadapt trim-paired \
 qiime cutadapt trim-paired \
   --i-demultiplexed-sequences emp500_18s_demux_trimmed_2of3.qza \
   --p-adapter-r AGGGCCTCACTAA \
-  --o-trimmed-sequences emp500_18s_demux_trimmed_3of3.qza
+  --o-trimmed-sequences emp500_18s_demux_trimmed_3of3.qza`
   
 #### Denoising
-qiime dada2 denoise-single \
+`qiime dada2 denoise-single \
   --i-demultiplexed-seqs emp500_18s_demux_trimmed_3of3.qza \
   --p-trunc-len 0 \
   --p-trim-left 0 \
   --p-no-hashed-feature-ids \
   --o-table emp500_18s_dada2_biom.qza \
   --o-representative-sequences emp500_18s_dada2_seqs.qza \
-  --o-denoising-stats emp500_18s_dada2_stats.qza
+  --o-denoising-stats emp500_18s_dada2_stats.qza`
 
 At this point denoised feature-tables and sequences from each sequencing lane were merged.
 
 #### Merging tables:
-qiime feature-table merge \
+`qiime feature-table merge \
   --i-tables emp500_18s_dada2_prep_8694_biom.qza \
   --i-tables emp500_18s_dada2_prep_8753_biom.qza \
   --i-tables emp500_18s_dada2_prep_8754_biom.qza \
@@ -162,80 +162,80 @@ qiime feature-table merge-seqs \
   --i-data emp500_18s_dada2_prep_9953_seqs.qza \
   --i-data emp500_18s_dada2_prep_9954_seqs.qza \
   --i-data emp500_18s_dada2_prep_9955_seqs.qza \
-  --o-merged-data emp500_18s_dada2_merged_seqs.qza
+  --o-merged-data emp500_18s_dada2_merged_seqs.qza`
 
 #### Taxonomic profiling:
-qiime feature-classifier classify-sklearn \
+`qiime feature-classifier classify-sklearn \
   --i-reads emp500_18s_dada2_merged_seqs.qza \
   --i-classifier silva-138-99-nb-classifier.qza \
-  --o-classification emp500_18s_dada2_merged_seqs_taxonomy_silva138.qza
+  --o-classification emp500_18s_dada2_merged_seqs_taxonomy_silva138.qza`
 
 #### Filtering reads classified as bacteria and archaea
-qiime feature-table filter-features \
+`qiime feature-table filter-features \
   --i-table emp500_18s_dada2_merged_biom.qza \
   --m-metadata-file emp500_18s_dada2_merged_seqs_silva138_feature_metadata.txt \
   --p-where 'Domain != "Bacteria" AND Domain != "Archaea"' \
-  --o-filtered-table emp500_18s_dada2_merged_biom_euks.qza
+  --o-filtered-table emp500_18s_dada2_merged_biom_euks.qza`
 
 #### Filtering singleton features on a per-sample basis
-qiime feature-table filter-features \
+`qiime feature-table filter-features \
   --i-table emp500_18s_dada2_merged_biom_euks.qza \
   --p-min-samples 2 \
-  --o-filtered-table emp500_18s_dada2_merged_biom_euks_noSingletons.qza
+  --o-filtered-table emp500_18s_dada2_merged_biom_euks_noSingletons.qza`
 
 #### Filtering control samples
-qiime feature-table filter-samples \
+`qiime feature-table filter-samples \
   --i-table emp500_18s_dada2_merged_biom_euks_noSingletons.qza \
   --m-metadata-file emp500_metadata_basic.txt \
   --p-where 'empo_1 != "Control"' \
-  --o-filtered-table emp500_18s_dada2_merged_biom_euks_noSingletons_noControls.qza 
+  --o-filtered-table emp500_18s_dada2_merged_biom_euks_noSingletons_noControls.qza` 
 
 #### Filtering samples with low read counts
-qiime feature-table filter-samples \
+`qiime feature-table filter-samples \
   --i-table emp500_18s_dada2_merged_biom_euks_noSingletons_noControls.qza \
   --p-min-frequency 3500 \
-  --o-filtered-table emp500_18s_dada2_merged_biom_euks_noSingletons_noControls_min3500.qza 
+  --o-filtered-table emp500_18s_dada2_merged_biom_euks_noSingletons_noControls_min3500.qza` 
 
 #### Estimate beta-diversity
-qiime deicode rpca \
+`qiime deicode rpca \
   --i-table emp500_18s_dada2_merged_biom_euks_noSingletons_noControls_min3500.qza \
   --p-min-feature-count 0 \
   --p-min-sample-count 0 \
   --o-biplot emp500_18s_dada2_merged_biom_euks_noSingletons_noControls_min3500_rpca_pca.qza \
-  --o-distance-matrix emp500_18s_dada2_merged_biom_euks_noSingletons_noControls_min3500_rpca_dist.qza
+  --o-distance-matrix emp500_18s_dada2_merged_biom_euks_noSingletons_noControls_min3500_rpca_dist.qza`
 
 ### 1.3 Fungal ITS data
 
 #### Demultiplexing:
-qiime demux emp-paired \
+`qiime demux emp-paired \
   --i-seqs emp-paired-end-sequences.qza \
   --m-barcodes-file emp500_prep_info_ITS.txt \
   --m-barcodes-column 'barcode' \
   --p-rev-comp-mapping-barcodes \
   --o-error-correction-details emp500_its_demux.qza \
-  --o-per-sample-sequences emp500_its_demux.qza
+  --o-per-sample-sequences emp500_its_demux.qza`
 
 #### Trimming primers:
-qiime cutadapt trim-paired \
+`qiime cutadapt trim-paired \
   --i-demultiplexed-sequences emp500_its_demux.qza \
   --p-adapter-f GCATCGATGAAGAACGCAGC \
   --p-front-r GCTGCGTTCTTCATCGATGC \
-  --o-trimmed-sequences emp500_its_demux_trimmed.qza
+  --o-trimmed-sequences emp500_its_demux_trimmed.qza`
   
 #### Denoising
-qiime dada2 denoise-single \
+`qiime dada2 denoise-single \
   --i-demultiplexed-seqs emp500_its_demux_trimmed.qza \
   --p-trunc-len 0 \
   --p-trim-left 0 \
   --p-no-hashed-feature-ids \
   --o-table emp500_its_dada2_biom.qza \
   --o-representative-sequences emp500_its_dada2_seqs.qza \
-  --o-denoising-stats emp500_its_dada2_stats.qza
+  --o-denoising-stats emp500_its_dada2_stats.qza`
 
 At this point denoised feature-tables and sequences from each sequencing lane were merged.
 
 #### Merging tables:
-qiime feature-table merge \
+`qiime feature-table merge \
   --i-tables emp500_its_dada2_prep_8702_biom.qza \
   --i-tables emp500_its_dada2_prep_9961_biom.qza \
   --i-tables emp500_its_dada2_prep_9962_biom.qza \
@@ -250,40 +250,40 @@ qiime feature-table merge-seqs \
   --i-data emp500_its_dada2_prep_9962_seqs.qza \
   --i-data emp500_its_dada2_prep_9963_seqs.qza \
   --i-data emp500_its_dada2_prep_9964_seqs.qza \
-  --o-merged-data emp500_its_dada2_merged_seqs.qza
+  --o-merged-data emp500_its_dada2_merged_seqs.qza`
 
 #### Taxonomic profiling:
-qiime feature-classifier classify-sklearn \
+`qiime feature-classifier classify-sklearn \
   --i-reads emp500_its_dada2_merged_seqs.qza \
   --i-classifier unite9_2022.10.27_dynamic.qza \
-  --o-classification emp500_its_dada2_merged_seqs_taxonomy_unite9.qza
+  --o-classification emp500_its_dada2_merged_seqs_taxonomy_unite9.qza`
 
 #### Filtering singleton features on a per-sample basis
-qiime feature-table filter-features \
+`qiime feature-table filter-features \
   --i-table emp500_its_dada2_merged_biom.qza \
   --p-min-samples 2 \
-  --o-filtered-table emp500_its_dada2_merged_biom_noSingletons.qza
+  --o-filtered-table emp500_its_dada2_merged_biom_noSingletons.qza`
   
 #### Filtering control samples
-qiime feature-table filter-samples \
+`qiime feature-table filter-samples \
   --i-table emp500_its_dada2_merged_biom_noSingletons.qza \
   --m-metadata-file emp500_metadata_basic.txt \
   --p-where 'empo_1 != "Control"' \
-  --o-filtered-table emp500_its_dada2_merged_biom_noSingletons_noControls.qza 
+  --o-filtered-table emp500_its_dada2_merged_biom_noSingletons_noControls.qza` 
 
 #### Filtering samples with low read counts
-qiime feature-table filter-samples \
+`qiime feature-table filter-samples \
   --i-table emp500_its_dada2_merged_biom_noSingletons_noControls.qza \
   --p-min-frequency 500 \
-  --o-filtered-table emp500_its_dada2_merged_biom_noSingletons_noControls_min500.qza 
+  --o-filtered-table emp500_its_dada2_merged_biom_noSingletons_noControls_min500.qza` 
 
 #### Estimate beta-diversity
-qiime deicode rpca \
+`qiime deicode rpca \
   --i-table emp500_its_dada2_merged_biom_noSingletons_noControls_min500.qza \
   --p-min-feature-count 0 \
   --p-min-sample-count 0 \
   --o-biplot emp500_its_dada2_merged_biom_noSingletons_noControls_min500_rpca_pca.qza \
-  --o-distance-matrix emp500_its_dada2_merged_biom_noSingletons_noControls_min500_rpca_dist.qza
+  --o-distance-matrix emp500_its_dada2_merged_biom_noSingletons_noControls_min500_rpca_dist.qza`
 
 ### References for amplicon processing and analysis:
 * Gonzalez, A., Navas-Molina, J.A., Kosciolek, T. et al. Qiita: rapid, web-enabled microbiome meta-analysis. Nat Methods 15, 796–798 (2018). https://doi.org/10.1038/s41592-018-0141-9
@@ -398,9 +398,8 @@ Dependencies:
 
 1. Create MASH sketches first (saves time before finding distances)  
   
-`cat reads_1.fastq reads_2.fastq > MG.fastq  
-
-mash sketch -k 32 -s 100000 {MG}.fastq`
+  `cat reads_1.fastq reads_2.fastq > MG.fastq`  
+  `mash sketch -k 32 -s 100000 {MG}.fastq`
   
 * k: Kmer size (1-32)  
 * s: Sketch size (each sketch will have at most this many non-redundant min-hashes, default 1000, for highly complex communities, increase the sketch size: 10,000-100,000  
@@ -408,38 +407,28 @@ mash sketch -k 32 -s 100000 {MG}.fastq`
 After this step, MASH creates output files of the format: `{MG}.fastq.msh` for each file (MG).  
   
 2. Combine the sketches using paste command:  
-
-`mash paste -l Mash_combined_sketch.msh Mash_sketchlist.txt`
+  
+  `mash paste -l Mash_combined_sketch.msh Mash_sketchlist.txt`
   
 * Mash_sketchlist.txt: file that contains the name of all the sketch files (list of MG names)
   
 3. Calculate MASH distances  
   
-`mash dist Mash_combined_sketch.msh Mash_combined_sketch.msh > pairwise_distances`
+  `mash dist Mash_combined_sketch.msh Mash_combined_sketch.msh > pairwise_distances`
   
 Expected output:  
-MG1.fastq    MG1.fastq    0       	  0       10000/10000  
-MG2.fastq    MG1.fastq    0.0815394       0       382/10000  
-MG3.fastq    MG1.fastq    0.0921571       0       269/10000  
+`MG1.fastq    MG1.fastq    0       	   0       10000/10000`  
+`MG2.fastq    MG1.fastq    0.0815394       0       382/10000`  
+`MG3.fastq    MG1.fastq    0.0921571       0       269/10000`
   
 The results are tab-delimited lists of Reference-ID, Query-ID, Mash-distance, P-value, and Matching-hashes  
   
 4. Transform pair-wise distances to a matrix for downstream analysis  
 
-`mash_pair_to_mat.py [pairwise_distances] > [distance_matrix]`
+  `mash_pair_to_mat.py [pairwise_distances] > [distance_matrix]`
 
 * Above python script can be obtained from Dr. Qiyun Zhu's Web of Life GitHub repo: https://biocore.github.io/wol/code/prototypeSelection/ 
-
-Expected output:   
-	MG1   		MG2   		MG3   		MG4   		MG5   		MG6   
-MG1   	0   		0.0815394   	0.0921571   	0.0720867   	0.0703292   	0.065906   
-MG2   	0.0815394   	0   		0.0552496   	0.0718609   	0.073421   	0.0687756   
-MG3   	0.0921571   	0.0552496   	0   		0.0750089   	0.0725437   	0.0715812   
-MG4   	0.0720867   	0.0718609   	0.0750089   	0   		0.0838339   	0.0772282   
-MG5   	0.0703292   	0.073421   	0.0725437   	0.0838339   	0   		0.0636808   
-MG6   	0.065906   	0.0687756   	0.0715812   	0.0772282   	0.0636808   	0 
-  
-  
+* Output should be a distance matrix  
 * Optional: can also plot NMDS using the MASH distance Matrix from the previous step and check clustering patterns
   
 MCL  
