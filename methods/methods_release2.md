@@ -71,7 +71,9 @@ Processing is done by these IPython notebooks:
   
 ### 1 Amplicon sequencing
 
-Demultiplexing, feature-table generation, fragment insertion, and taxonomic profiling were performed in Qiita on a per-sequencing lane basis. Final feature-tables were generated using the meta-analysis functionality in Qiita to combine multiple preps per data type.
+For 16S data, demultiplexing, feature-table generation, and fragment insertion were performed in Qiita on a per-sequencing lane basis. Final feature-tables were generated using the meta-analysis functionality in Qiita to combine multiple preps per data type. The final feature-table was processed as described below. OTU clustering is described but using Deblur sub-operational taxonomic units (sOTUs) is recommended.
+
+For 18S and fungal ITS data, processing was performed outside of Qiita using QIIME2 (v2022.2) due to unique library constructs for those amplicons that result in the primers being retained post-demultiplexing. Each step is described below. The workflow is adapted from https://benjjneb.github.io/dada2/ITS_workflow.html.
 
 ### 1.1 16S rRNA gene data
 
@@ -93,48 +95,207 @@ Demultiplexing, feature-table generation, fragment insertion, and taxonomic prof
 * Process: Closed-reference OTU picking 
 * Parameters: 97% sequence similarity threshold, using the GreenGenes 13_8 release as a reference
 
-
 ### 1.2 18S rRNA gene data
 
 #### Demultiplexing:
-* Process: Split libraries FASTQ
-* Parameters: Multiplexed FASTQ, Golay 12 base pair reverse complement mapping file barcodes
+qiime demux emp-paired \
+  --i-seqs emp-paired-end-sequences.qza \
+  --m-barcodes-file emp500_prep_info_18S.txt \
+  --m-barcodes-column 'barcode' \
+  --p-rev-comp-mapping-barcodes \
+  --o-error-correction-details emp500_18s_demux.qza \
+  --o-per-sample-sequences emp500_18s_demux.qza
 
-#### Sequence trimming, denoising, feature-table generation, and fragment insertion:
-* Process: Trimming
-* Parameters: 150 base pair
-* Process: Deblur
-* Parameters: Default settings
+#### Trimming primers:
+qiime cutadapt trim-paired \
+  --i-demultiplexed-sequences emp500_18s_demux.qza \
+  --p-front-f GTACACACCGCCCGTC \
+  --p-adapter-f GTAGGTGAACCTGCAGAAGGATCA \
+  --p-front-r GACGGGCGGTGTGTAC \
+  --p-adapter-r TGATCCTTCTGCAGGTTCACCTAC \
+  --o-trimmed-sequences emp500_18s_demux_trimmed_1of3.qza
 
-#### Taxonomic profiling
-* Process: Feature-classifier sklearn 
-* Parameters: Using the SILVA 138.1 release as a reference
+qiime cutadapt trim-paired \
+  --i-demultiplexed-sequences emp500_18s_demux_trimmed_1of3.qza \
+  --p-front-f TTAGTGAGGCCCT \
+  --p-adapter-r CCAATCGGTAGTAGCGACGGGC \
+  --o-trimmed-sequences emp500_18s_demux_trimmed_2of3.qza
 
-#### OTU clustering
-* Process: Closed-reference OTU picking 
-* Parameters: 97% sequence similarity threshold, using the SILVA 119 release as a reference
+qiime cutadapt trim-paired \
+  --i-demultiplexed-sequences emp500_18s_demux_trimmed_2of3.qza \
+  --p-adapter-r AGGGCCTCACTAA \
+  --o-trimmed-sequences emp500_18s_demux_trimmed_3of3.qza
+  
+#### Denoising
+qiime dada2 denoise-single \
+  --i-demultiplexed-seqs emp500_18s_demux_trimmed_3of3.qza \
+  --p-trunc-len 0 \
+  --p-trim-left 0 \
+  --p-no-hashed-feature-ids \
+  --o-table emp500_18s_dada2_biom.qza \
+  --o-representative-sequences emp500_18s_dada2_seqs.qza \
+  --o-denoising-stats emp500_18s_dada2_stats.qza
 
+At this point denoised feature-tables and sequences from each sequencing lane were merged.
+
+#### Merging tables:
+qiime feature-table merge \
+  --i-tables emp500_18s_dada2_prep_8694_biom.qza \
+  --i-tables emp500_18s_dada2_prep_8753_biom.qza \
+  --i-tables emp500_18s_dada2_prep_8754_biom.qza \
+  --i-tables emp500_18s_dada2_prep_9950_biom.qza \
+  --i-tables emp500_18s_dada2_prep_9951_biom.qza \
+  --i-tables emp500_18s_dada2_prep_9952_biom.qza \
+  --i-tables emp500_18s_dada2_prep_9953_biom.qza \
+  --i-tables emp500_18s_dada2_prep_9954_biom.qza \
+  --i-tables emp500_18s_dada2_prep_9955_biom.qza \
+  --p-overlap-method 'sum' \
+  --o-merged-table emp500_18s_dada2_merged_biom.qza
+
+qiime feature-table merge-seqs \
+  --i-data emp500_18s_dada2_prep_8694_seqs.qza \
+  --i-data emp500_18s_dada2_prep_8753_seqs.qza \
+  --i-data emp500_18s_dada2_prep_8754_seqs.qza \
+  --i-data emp500_18s_dada2_prep_9950_seqs.qza \
+  --i-data emp500_18s_dada2_prep_9951_seqs.qza \
+  --i-data emp500_18s_dada2_prep_9952_seqs.qza \
+  --i-data emp500_18s_dada2_prep_9953_seqs.qza \
+  --i-data emp500_18s_dada2_prep_9954_seqs.qza \
+  --i-data emp500_18s_dada2_prep_9955_seqs.qza \
+  --o-merged-data emp500_18s_dada2_merged_seqs.qza
+
+#### Taxonomic profiling:
+qiime feature-classifier classify-sklearn \
+  --i-reads emp500_18s_dada2_merged_seqs.qza \
+  --i-classifier silva-138-99-nb-classifier.qza \
+  --o-classification emp500_18s_dada2_merged_seqs_taxonomy_silva138.qza
+
+#### Filtering reads classified as bacteria and archaea
+qiime feature-table filter-features \
+  --i-table emp500_18s_dada2_merged_biom.qza \
+  --m-metadata-file emp500_18s_dada2_merged_seqs_silva138_feature_metadata.txt \
+  --p-where 'Domain != "Bacteria" AND Domain != "Archaea"' \
+  --o-filtered-table emp500_18s_dada2_merged_biom_euks.qza
+
+#### Filtering singleton features on a per-sample basis
+qiime feature-table filter-features \
+  --i-table emp500_18s_dada2_merged_biom_euks.qza \
+  --p-min-samples 2 \
+  --o-filtered-table emp500_18s_dada2_merged_biom_euks_noSingletons.qza
+
+#### Filtering control samples
+qiime feature-table filter-samples \
+  --i-table emp500_18s_dada2_merged_biom_euks_noSingletons.qza \
+  --m-metadata-file emp500_metadata_basic.txt \
+  --p-where 'empo_1 != "Control"' \
+  --o-filtered-table emp500_18s_dada2_merged_biom_euks_noSingletons_noControls.qza 
+
+#### Filtering samples with low read counts
+qiime feature-table filter-samples \
+  --i-table emp500_18s_dada2_merged_biom_euks_noSingletons_noControls.qza \
+  --p-min-frequency 3500 \
+  --o-filtered-table emp500_18s_dada2_merged_biom_euks_noSingletons_noControls_min3500.qza 
+
+#### Estimate beta-diversity
+qiime deicode rpca \
+  --i-table emp500_18s_dada2_merged_biom_euks_noSingletons_noControls_min3500.qza \
+  --p-min-feature-count 0 \
+  --p-min-sample-count 0 \
+  --o-biplot emp500_18s_dada2_merged_biom_euks_noSingletons_noControls_min3500_rpca_pca.qza \
+  --o-distance-matrix emp500_18s_dada2_merged_biom_euks_noSingletons_noControls_min3500_rpca_dist.qza
 
 ### 1.3 Fungal ITS data
 
 #### Demultiplexing:
-* Process: Split libraries FASTQ
-** Parameters: Multiplexed FASTQ, Golay 12 base pair reverse complement mapping file barcodes
+qiime demux emp-paired \
+  --i-seqs emp-paired-end-sequences.qza \
+  --m-barcodes-file emp500_prep_info_ITS.txt \
+  --m-barcodes-column 'barcode' \
+  --p-rev-comp-mapping-barcodes \
+  --o-error-correction-details emp500_its_demux.qza \
+  --o-per-sample-sequences emp500_its_demux.qza
 
-#### Sequence trimming, denoising, feature-table generation, and fragment insertion:
-* Process: Trimming
-* Parameters: 150 base pair
+#### Trimming primers:
+qiime cutadapt trim-paired \
+  --i-demultiplexed-sequences emp500_its_demux.qza \
+  --p-adapter-f GCATCGATGAAGAACGCAGC \
+  --p-front-r GCTGCGTTCTTCATCGATGC \
+  --o-trimmed-sequences emp500_its_demux_trimmed.qza
+  
+#### Denoising
+qiime dada2 denoise-single \
+  --i-demultiplexed-seqs emp500_its_demux_trimmed.qza \
+  --p-trunc-len 0 \
+  --p-trim-left 0 \
+  --p-no-hashed-feature-ids \
+  --o-table emp500_its_dada2_biom.qza \
+  --o-representative-sequences emp500_its_dada2_seqs.qza \
+  --o-denoising-stats emp500_its_dada2_stats.qza
 
-* Process: Deblur
-* Parameters: Default settings
+At this point denoised feature-tables and sequences from each sequencing lane were merged.
 
-#### Taxonomic profiling
-* Process: Feature-classifier sklearn 
-* Parameters: Using the UNITE 8 release as a reference
+#### Merging tables:
+qiime feature-table merge \
+  --i-tables emp500_its_dada2_prep_8702_biom.qza \
+  --i-tables emp500_its_dada2_prep_9961_biom.qza \
+  --i-tables emp500_its_dada2_prep_9962_biom.qza \
+  --i-tables emp500_its_dada2_prep_9963_biom.qza \
+  --i-tables emp500_its_dada2_prep_9964_biom.qza \
+  --p-overlap-method 'sum' \
+  --o-merged-table emp500_its_dada2_merged_biom.qza
 
-#### OTU clustering
-* Process: Closed-reference OTU picking 
-* Parameters: 97% sequence similarity threshold, using the UNITE 8 release as a reference
+qiime feature-table merge-seqs \
+  --i-data emp500_its_dada2_prep_8702_seqs.qza \
+  --i-data emp500_its_dada2_prep_9961_seqs.qza \
+  --i-data emp500_its_dada2_prep_9962_seqs.qza \
+  --i-data emp500_its_dada2_prep_9963_seqs.qza \
+  --i-data emp500_its_dada2_prep_9964_seqs.qza \
+  --o-merged-data emp500_its_dada2_merged_seqs.qza
+
+#### Taxonomic profiling:
+qiime feature-classifier classify-sklearn \
+  --i-reads emp500_its_dada2_merged_seqs.qza \
+  --i-classifier unite9_2022.10.27_dynamic.qza \
+  --o-classification emp500_its_dada2_merged_seqs_taxonomy_unite9.qza
+
+#### Filtering singleton features on a per-sample basis
+qiime feature-table filter-features \
+  --i-table emp500_its_dada2_merged_biom.qza \
+  --p-min-samples 2 \
+  --o-filtered-table emp500_its_dada2_merged_biom_noSingletons.qza
+  
+#### Filtering control samples
+qiime feature-table filter-samples \
+  --i-table emp500_its_dada2_merged_biom_noSingletons.qza \
+  --m-metadata-file emp500_metadata_basic.txt \
+  --p-where 'empo_1 != "Control"' \
+  --o-filtered-table emp500_its_dada2_merged_biom_noSingletons_noControls.qza 
+
+#### Filtering samples with low read counts
+qiime feature-table filter-samples \
+  --i-table emp500_its_dada2_merged_biom_noSingletons_noControls.qza \
+  --p-min-frequency 500 \
+  --o-filtered-table emp500_its_dada2_merged_biom_noSingletons_noControls_min500.qza 
+
+#### Estimate beta-diversity
+qiime deicode rpca \
+  --i-table emp500_its_dada2_merged_biom_noSingletons_noControls_min500.qza \
+  --p-min-feature-count 0 \
+  --p-min-sample-count 0 \
+  --o-biplot emp500_its_dada2_merged_biom_noSingletons_noControls_min500_rpca_pca.qza \
+  --o-distance-matrix emp500_its_dada2_merged_biom_noSingletons_noControls_min500_rpca_dist.qza
+
+### References for amplicon processing and analysis:
+* Gonzalez, A., Navas-Molina, J.A., Kosciolek, T. et al. Qiita: rapid, web-enabled microbiome meta-analysis. Nat Methods 15, 796–798 (2018). https://doi.org/10.1038/s41592-018-0141-9
+* Bolyen E, Rideout JR, Dillon MR, Bokulich NA, Abnet CC, Al-Ghalith GA, Alexander H, Alm EJ, Arumugam M, Asnicar F, Bai Y, Bisanz JE, Bittinger K, Brejnrod A, Brislawn CJ, Brown CT, Callahan BJ, Caraballo-Rodríguez AM, Chase J, Cope EK, Da Silva R, Diener C, Dorrestein PC, Douglas GM, Durall DM, Duvallet C, Edwardson CF, Ernst M, Estaki M, Fouquier J, Gauglitz JM, Gibbons SM, Gibson DL, Gonzalez A, Gorlick K, Guo J, Hillmann B, Holmes S, Holste H, Huttenhower C, Huttley GA, Janssen S, Jarmusch AK, Jiang L, Kaehler BD, Kang KB, Keefe CR, Keim P, Kelley ST, Knights D, Koester I, Kosciolek T, Kreps J, Langille MGI, Lee J, Ley R, Liu YX, Loftfield E, Lozupone C, Maher M, Marotz C, Martin BD, McDonald D, McIver LJ, Melnik AV, Metcalf JL, Morgan SC, Morton JT, Naimey AT, Navas-Molina JA, Nothias LF, Orchanian SB, Pearson T, Peoples SL, Petras D, Preuss ML, Pruesse E, Rasmussen LB, Rivers A, Robeson MS 2nd, Rosenthal P, Segata N, Shaffer M, Shiffer A, Sinha R, Song SJ, Spear JR, Swafford AD, Thompson LR, Torres PJ, Trinh P, Tripathi A, Turnbaugh PJ, Ul-Hasan S, van der Hooft JJJ, Vargas F, Vázquez-Baeza Y, Vogtmann E, von Hippel M, Walters W, Wan Y, Wang M, Warren J, Weber KC, Williamson CHD, Willis AD, Xu ZZ, Zaneveld JR, Zhang Y, Zhu Q, Knight R, Caporaso JG. Reproducible, interactive, scalable and extensible microbiome data science using QIIME 2. Nat Biotechnol. 2019 Aug;37(8):852-857. doi: 10.1038/s41587-019-0209-9. Erratum in: Nat Biotechnol. 2019 Sep;37(9):1091. PMID: 31341288; PMCID: PMC7015180.
+* Benjamin J Callahan, Paul J McMurdie, Michael J Rosen, Andrew W Han, Amy Jo A Johnson, and Susan P Holmes. Dada2: high-resolution sample inference from illumina amplicon data. Nature methods, 13(7):581, 2016. doi:10.1038/nmeth.3869
+* Marcel Martin. Cutadapt removes adapter sequences from high-throughput sequencing reads. EMBnet. journal, 17(1):pp–10, 2011. doi:10.14806/ej.17.1.200
+* Nicholas A. Bokulich, Benjamin D. Kaehler, Jai Ram Rideout, Matthew Dillon, Evan Bolyen, Rob Knight, Gavin A. Huttley, and J. Gregory Caporaso. Optimizing taxonomic classification of marker-gene amplicon sequences with qiime 2's q2-feature-classifier plugin. Microbiome, 6(1):90, 2018. URL: https://doi.org/10.1186/s40168-018-0470-z, doi:10.1186/s40168-018-0470-z
+* Michael S Robeson II, Devon R O’Rourke, Benjamin D Kaehler, Michal Ziemski, Matthew R Dillon, Jeffrey T Foster, Nicholas A Bokulich. RESCRIPt: Reproducible sequence taxonomy reference database management for the masses. bioRxiv 2020.10.05.326504; doi: https://doi.org/10.1101/2020.10.05.326504
+* Bokulich, N.A., Kaehler, B.D., Rideout, J.R. et al. Optimizing taxonomic classification of marker-gene amplicon sequences with QIIME 2’s q2-feature-classifier plugin. Microbiome 6, 90 (2018). https://doi.org/10.1186/s40168-018-0470-z
+* Quast C, Pruesse E, Yilmaz P, Gerken J, Schweer T, Yarza P, Peplies J, Glöckner FO (2013) The SILVA ribosomal RNA gene database project: improved data processing and web-based tools. Opens external link in new windowNucl. Acids Res. 41 (D1): D590-D596.
+* Abarenkov, Kessy; Zirk, Allan; Piirmann, Timo; Pöhönen, Raivo; Ivanov, Filipp; Nilsson, R. Henrik; Kõljalg, Urmas (2022): UNITE QIIME release for Fungi. Version 16.10.2022. UNITE Community. https://doi.org/10.15156/BIO/2483915
+* Martino C, Morton JT, Marotz CA, Thompson LR, Tripathi A, Knight R, Zengler K. A Novel Sparse Compositional Technique Reveals Microbial Perturbations. mSystems. 2019 Feb 12;4(1):e00016-19. doi: 10.1128/mSystems.00016-19. PMID: 30801021; PMCID: PMC6372836.
 
 
 ### 2 Shotgun sequencing
@@ -217,12 +378,84 @@ Bowtie2 2.3.2 parameters:
 #### 2.2.1 Assembly and co-assembly of EMP500 samples within each environment
 
 * To determine which of the EMP500 environments could be co-assembled, MASH, atool employing the MinHash dimensionality reduction technique [(Ondov, Treangen et al. 2016)](https://doi.org/10.1186/s13059-016-0997-x) was used to evaluate the pairwise distances between the metagenomic data sets. 
-* Sequence‭-based grouping ‬was done by ‭Markov Clustering (MCL) [(Van Dongen and Abreu-Goodger 2012)](https://doi.org/10.1007/978-1-61779-361-5_15) of Mash. 
+* Sequence‭-based grouping of MASH distances ‬was done by ‭Markov Clustering (MCL) [(Van Dongen and Abreu-Goodger 2012)](https://doi.org/10.1007/978-1-61779-361-5_15), using only values < 0.1.
 * A combination of MASH distances and a Markov cluster algorithm which identifies orthology groups (OGs) in reciprocal best matches (RBM), was employed to evaluate the samples that could be grouped for co-assembly. 
 * Mash sketches were initially created using a sketch size of 10,000 and k-mer size of 32 and the sketches were combined using the “paste” option. 
 * A pairwise distance matrix was constructed using the “dist” option and the distance matrix was used in downstream analyses. 
 * Samples which had distance values below 0.1 were then co-assembled [(Karthikeyan, Rodriguez-R et al. 2020)](https://doi.org/10.1111/1462-2920.14966). ‬‬
 * Co-assembly was carried out using metaSPades v3.15.0 with the “--only-assembler” mode and the following k-mers: 21,33,55,77,99,127. Quality of the assemblies were evaluated using MetaQUAST [(Mikheenko, Saveliev et al. 2016)](https://doi.org/10.1093/bioinformatics/btv697).  
+
+Details:
+
+mash v1.1.1
+ 
+Dependencies:   
+* gcc/4.9.0
+* capnproto-c++/0.5.3
+* autoconf/2.69
+* zlib/1.2.8
+* boost/1.57.0
+
+1. Create MASH sketches first (saves time before finding distances)  
+  
+`cat reads_1.fastq reads_2.fastq > MG.fastq  
+
+mash sketch -k 32 -s 100000 {MG}.fastq`
+  
+* k: Kmer size (1-32)  
+* s: Sketch size (each sketch will have at most this many non-redundant min-hashes, default 1000, for highly complex communities, increase the sketch size: 10,000-100,000  
+
+After this step, MASH creates output files of the format: `{MG}.fastq.msh` for each file (MG).  
+  
+2. Combine the sketches using paste command:  
+
+`mash paste -l Mash_combined_sketch.msh Mash_sketchlist.txt`
+  
+* Mash_sketchlist.txt: file that contains the name of all the sketch files (list of MG names)
+  
+3. Calculate MASH distances  
+  
+`mash dist Mash_combined_sketch.msh Mash_combined_sketch.msh > pairwise_distances`
+  
+Expected output:  
+MG1.fastq    MG1.fastq    0       	  0       10000/10000  
+MG2.fastq    MG1.fastq    0.0815394       0       382/10000  
+MG3.fastq    MG1.fastq    0.0921571       0       269/10000  
+  
+The results are tab-delimited lists of Reference-ID, Query-ID, Mash-distance, P-value, and Matching-hashes  
+  
+4. Transform pair-wise distances to a matrix for downstream analysis  
+
+`mash_pair_to_mat.py [pairwise_distances] > [distance_matrix]`
+
+* Above python script can be obtained from Dr. Qiyun Zhu's Web of Life GitHub repo: https://biocore.github.io/wol/code/prototypeSelection/ 
+
+Expected output:   
+	MG1   		MG2   		MG3   		MG4   		MG5   		MG6   
+MG1   	0   		0.0815394   	0.0921571   	0.0720867   	0.0703292   	0.065906   
+MG2   	0.0815394   	0   		0.0552496   	0.0718609   	0.073421   	0.0687756   
+MG3   	0.0921571   	0.0552496   	0   		0.0750089   	0.0725437   	0.0715812   
+MG4   	0.0720867   	0.0718609   	0.0750089   	0   		0.0838339   	0.0772282   
+MG5   	0.0703292   	0.073421   	0.0725437   	0.0838339   	0   		0.0636808   
+MG6   	0.065906   	0.0687756   	0.0715812   	0.0772282   	0.0636808   	0 
+  
+  
+* Optional: can also plot NMDS using the MASH distance Matrix from the previous step and check clustering patterns
+  
+MCL  
+* Identifies Orthology Groups (OGs) in Reciprocal Best Matches (RBM) between all pairs in a collection of genomes, using the Markov Cluster Algorithm.  
+* [(Script:)](https://github.com/lmrodriguezr/enveomics/blob/master/Scripts/ogs.mcl.rb)
+  
+`mkdir 03.mash.tmp  
+cat {distance_matrix} | awk '$3<0.1' > 03.mash.tmp/MG-MG.rbm  
+ogs.mcl.rb -o 03.mash.ogs -d 03.mash.tmp -i -I 5 -B  
+rm -r 03.mash.tmp`
+  
+ 
+metaSPades v3.15.0  
+ 
+`python spades.py -m 200 -t 16 -k 33,55,77,99,127 --only-assembler --tmp-dir <scratch> --meta -1 MG1.R1.fastq.gz -2 MG1.R2.fastq.gz -o EMP500_XXX_spadesv3.15.0`
+
 
 #### 2.2.2 Binning of assemblies to generate MAGs for each environment
 
