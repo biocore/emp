@@ -150,9 +150,9 @@ At this point denoised feature-tables and sequences from each sequencing lane we
   --i-tables emp500_18s_dada2_prep_9954_biom.qza \
   --i-tables emp500_18s_dada2_prep_9955_biom.qza \
   --p-overlap-method 'sum' \
-  --o-merged-table emp500_18s_dada2_merged_biom.qza
+  --o-merged-table emp500_18s_dada2_merged_biom.qza`
 
-qiime feature-table merge-seqs \
+`qiime feature-table merge-seqs \
   --i-data emp500_18s_dada2_prep_8694_seqs.qza \
   --i-data emp500_18s_dada2_prep_8753_seqs.qza \
   --i-data emp500_18s_dada2_prep_8754_seqs.qza \
@@ -242,9 +242,9 @@ At this point denoised feature-tables and sequences from each sequencing lane we
   --i-tables emp500_its_dada2_prep_9963_biom.qza \
   --i-tables emp500_its_dada2_prep_9964_biom.qza \
   --p-overlap-method 'sum' \
-  --o-merged-table emp500_its_dada2_merged_biom.qza
+  --o-merged-table emp500_its_dada2_merged_biom.qza`
 
-qiime feature-table merge-seqs \
+`qiime feature-table merge-seqs \
   --i-data emp500_its_dada2_prep_8702_seqs.qza \
   --i-data emp500_its_dada2_prep_9961_seqs.qza \
   --i-data emp500_its_dada2_prep_9962_seqs.qza \
