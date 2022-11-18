@@ -432,11 +432,11 @@ Bowtie2 2.3.2 parameters:
 #### 2.2.1 Assembly and co-assembly of EMP500 samples within each environment
 
 * To determine which of the EMP500 environments could be co-assembled, MASH, atool employing the MinHash dimensionality reduction technique [(Ondov, Treangen et al. 2016)](https://doi.org/10.1186/s13059-016-0997-x) was used to evaluate the pairwise distances between the metagenomic data sets. 
-* Sequence‭-based grouping of MASH distances ‬was done by ‭Markov Clustering (MCL) [(Van Dongen and Abreu-Goodger 2012)](https://doi.org/10.1007/978-1-61779-361-5_15), using only values < 0.1.
+* Sequence-based grouping of MASH distances was done by Markov Clustering (MCL) [(Van Dongen and Abreu-Goodger 2012)](https://doi.org/10.1007/978-1-61779-361-5_15), using only values < 0.1.
 * A combination of MASH distances and a Markov cluster algorithm which identifies orthology groups (OGs) in reciprocal best matches (RBM), was employed to evaluate the samples that could be grouped for co-assembly. 
 * Mash sketches were initially created using a sketch size of 10,000 and k-mer size of 32 and the sketches were combined using the “paste” option. 
 * A pairwise distance matrix was constructed using the “dist” option and the distance matrix was used in downstream analyses. 
-* Samples which had distance values below 0.1 were then co-assembled [(Karthikeyan, Rodriguez-R et al. 2020)](https://doi.org/10.1111/1462-2920.14966). ‬‬
+* Samples which had distance values below 0.1 were then co-assembled [(Karthikeyan, Rodriguez-R et al. 2020)](https://doi.org/10.1111/1462-2920.14966).
 * Co-assembly was carried out using metaSPades v3.15.0 with the “--only-assembler” mode and the following k-mers: 21,33,55,77,99,127. Quality of the assemblies were evaluated using MetaQUAST [(Mikheenko, Saveliev et al. 2016)](https://doi.org/10.1093/bioinformatics/btv697).  
 
 Details:
@@ -505,7 +505,7 @@ metaSPades v3.15.0
 * Binning was carried out using MaxBin v2.2.7 [(Wu, Simmons et al. 2016)](https://doi.org/10.1093/bioinformatics/btv638) and MetaBAT v2.12.1 [(Kang, Froula et al. 2015)](https://doi.org/10.7717/peerj.1165). 
 * For each co-assembly both the tools were employed for binning and the resulting bins were hen de-replicated at 95% gANI (genome-aggregate average nucleotide identity) to remove redundancy using FastANI v1.1 [(Jain, Rodriguez-R et al. 2018)](https://doi.org/10.1038/s41467-018-07641-9). 
 * Only scaffolds larger than 1000bp were used for MAG generation. Completeness and contamination were estimated using CheckM (Parks, Imelfort et al. 2015). MAG (Metagenome-assembled genome) quality was determined as [Completeness – 5 * (Contamination)]. 
-* All MAGs with quality score > 50 were used in downstream analyses. High‐quality MAGs were defined as Completeness > 75% and Contamination < 5%, and medium‐quality MAGs were defined by Completeness > 50% and Contamination < 10%. 
+* All MAGs with quality score >50 were used in downstream analyses. High‐quality MAGs were defined as Completeness >75% and Contamination <5%, and medium‐quality MAGs were defined by Completeness >50% and Contamination <10%. 
 * MAG refining was carried out using RefineM v0.0.23 [(Parks, Rinke et al. 2017)](https://doi.org/10.1038/s41564-017-0012-7). Divergent taxonomic assignments from the MAG scaffolds were identified using the “call_genes” option and then searching them against the reference database available at https://data.ace.uq.edu.au/public/misc_downloads/refinem/ using the “taxon_profile” option. Potentially contaminating scaffolds were then removed from the bins using the “filter_bins” option. 
 
 #### 2.2.3 Functional annotation of assemblies
