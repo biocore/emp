@@ -125,84 +125,112 @@ For 18S and fungal ITS data, processing was performed outside of Qiita using QII
   --i-demultiplexed-sequences emp500_18s_demux_trimmed_2of3.qza \
   --p-adapter-r AGGGCCTCACTAA \
   --o-trimmed-sequences emp500_18s_demux_trimmed_3of3.qza`
-  
-#### Denoising
-`qiime dada2 denoise-single \
-  --i-demultiplexed-seqs emp500_18s_demux_trimmed_3of3.qza \
-  --p-trunc-len 0 \
-  --p-trim-left 0 \
-  --p-no-hashed-feature-ids \
-  --o-table emp500_18s_dada2_biom.qza \
-  --o-representative-sequences emp500_18s_dada2_seqs.qza \
-  --o-denoising-stats emp500_18s_dada2_stats.qza`
 
+#### Export data and process for denoising with Deblur (standalone)
+Note: The sample list is a text file where each row is a unique sample identifier that corresponds to your sequence file names. For example, 'uren.s001' corresponds to the sequence files 'uren.s001_S1_L001_R1.fastq.gz' and 'uren.s001_S1_L001_R2.fastq.gz'.
+
+`qiime tools export \
+  --input-path emp500_18s_demux_trimmed_3of3.qza \
+  --output-path emp500_18s_demux_trimmed`
+  
+`input_path='emp500_18s_demux_trimmed/'`
+`output_path='emp500_18s_demux_trimmed_merged_files/'`
+`sample_list='sample_list.txt'`
+
+`for i in $(cat < "$sample_list");
+do
+cat "$input_path""$i"*R1*fastq.gz "$input_path""$i"*R2*fastq.gz > "$output_path""$i".fastq.gz
+done`
+
+#### Denoising
+`deblur workflow \
+  --seqs-fp emp500_18s_demux_trimmed_merged_files/ \
+  --output-dir emp500_18s_deblur/ \
+  --trim-length 90 \
+  --threads-per-sample 0 \
+  --overwrite`
+
+Import denoised sequences and feature-table into QIIME 2
+
+`qiime tools import \
+  --input-path emp500_18s_deblur/all.biom \
+  --type 'FeatureTable[Frequency]' \
+  --input-format BIOMV210Format \
+  --output-path emp500_18s_deblur/all_biom.qza`
+
+`qiime tools import \
+  --input-path emp500_18s_deblur/all.seqs.fa \
+  --output-path emp500_18s_deblur/all_seqs.qza \
+  --type 'FeatureData[Sequence]'`
+  
 At this point denoised feature-tables and sequences from each sequencing lane were merged.
 
 #### Merging tables:
 `qiime feature-table merge \
-  --i-tables emp500_18s_dada2_prep_8694_biom.qza \
-  --i-tables emp500_18s_dada2_prep_8753_biom.qza \
-  --i-tables emp500_18s_dada2_prep_8754_biom.qza \
-  --i-tables emp500_18s_dada2_prep_9950_biom.qza \
-  --i-tables emp500_18s_dada2_prep_9951_biom.qza \
-  --i-tables emp500_18s_dada2_prep_9952_biom.qza \
-  --i-tables emp500_18s_dada2_prep_9953_biom.qza \
-  --i-tables emp500_18s_dada2_prep_9954_biom.qza \
-  --i-tables emp500_18s_dada2_prep_9955_biom.qza \
+  --i-tables emp500_18s_deblur_prep_8694_biom.qza \
+  --i-tables emp500_18s_deblur_prep_8753_biom.qza \
+  --i-tables emp500_18s_deblur_prep_8754_biom.qza \
+  --i-tables emp500_18s_deblur_prep_9950_biom.qza \
+  --i-tables emp500_18s_deblur_prep_9951_biom.qza \
+  --i-tables emp500_18s_deblur_prep_9952_biom.qza \
+  --i-tables emp500_18s_deblur_prep_9953_biom.qza \
+  --i-tables emp500_18s_deblur_prep_9954_biom.qza \
+  --i-tables emp500_18s_deblur_prep_9955_biom.qza \
   --p-overlap-method 'sum' \
-  --o-merged-table emp500_18s_dada2_merged_biom.qza`
+  --o-merged-table emp500_18s_deblur_merged_biom.qza`
 
 `qiime feature-table merge-seqs \
-  --i-data emp500_18s_dada2_prep_8694_seqs.qza \
-  --i-data emp500_18s_dada2_prep_8753_seqs.qza \
-  --i-data emp500_18s_dada2_prep_8754_seqs.qza \
-  --i-data emp500_18s_dada2_prep_9950_seqs.qza \
-  --i-data emp500_18s_dada2_prep_9951_seqs.qza \
-  --i-data emp500_18s_dada2_prep_9952_seqs.qza \
-  --i-data emp500_18s_dada2_prep_9953_seqs.qza \
-  --i-data emp500_18s_dada2_prep_9954_seqs.qza \
-  --i-data emp500_18s_dada2_prep_9955_seqs.qza \
-  --o-merged-data emp500_18s_dada2_merged_seqs.qza`
+  --i-data emp500_18s_deblur_prep_8694_seqs.qza \
+  --i-data emp500_18s_deblur_prep_8753_seqs.qza \
+  --i-data emp500_18s_deblur_prep_8754_seqs.qza \
+  --i-data emp500_18s_deblur_prep_9950_seqs.qza \
+  --i-data emp500_18s_deblur_prep_9951_seqs.qza \
+  --i-data emp500_18s_deblur_prep_9952_seqs.qza \
+  --i-data emp500_18s_deblur_prep_9953_seqs.qza \
+  --i-data emp500_18s_deblur_prep_9954_seqs.qza \
+  --i-data emp500_18s_deblur_prep_9955_seqs.qza \
+  --o-merged-data emp500_18s_deblur_merged_seqs.qza`
 
 #### Taxonomic profiling:
 `qiime feature-classifier classify-sklearn \
-  --i-reads emp500_18s_dada2_merged_seqs.qza \
+  --i-reads emp500_18s_deblur_merged_seqs.qza \
   --i-classifier silva-138-99-nb-classifier.qza \
-  --o-classification emp500_18s_dada2_merged_seqs_taxonomy_silva138.qza`
+  --o-classification emp500_18s_deblur_merged_seqs_taxonomy_silva138.qza`
 
 #### Filtering reads classified as bacteria and archaea
 `qiime feature-table filter-features \
-  --i-table emp500_18s_dada2_merged_biom.qza \
-  --m-metadata-file emp500_18s_dada2_merged_seqs_silva138_feature_metadata.txt \
+  --i-table emp500_18s_deblur_merged_biom.qza \
+  --m-metadata-file emp500_18s_deblur_merged_seqs_silva138_feature_metadata.txt \
   --p-where 'Domain != "Bacteria" AND Domain != "Archaea"' \
-  --o-filtered-table emp500_18s_dada2_merged_biom_euks.qza`
+  --o-filtered-table emp500_18s_deblur_merged_biom_euks.qza`
 
 #### Filtering singleton features on a per-sample basis
 `qiime feature-table filter-features \
-  --i-table emp500_18s_dada2_merged_biom_euks.qza \
+  --i-table emp500_18s_deblur_merged_biom_euks.qza \
   --p-min-samples 2 \
-  --o-filtered-table emp500_18s_dada2_merged_biom_euks_noSingletons.qza`
+  --o-filtered-table emp500_18s_deblur_merged_biom_euks_noSingletons.qza`
 
 #### Filtering control samples
 `qiime feature-table filter-samples \
-  --i-table emp500_18s_dada2_merged_biom_euks_noSingletons.qza \
+  --i-table emp500_18s_deblur_merged_biom_euks_noSingletons.qza \
   --m-metadata-file emp500_metadata_basic.txt \
   --p-where 'empo_1 != "Control"' \
-  --o-filtered-table emp500_18s_dada2_merged_biom_euks_noSingletons_noControls.qza` 
+  --o-filtered-table emp500_18s_deblur_merged_biom_euks_noSingletons_noControls.qza` 
 
 #### Filtering samples with low read counts
 `qiime feature-table filter-samples \
-  --i-table emp500_18s_dada2_merged_biom_euks_noSingletons_noControls.qza \
-  --p-min-frequency 3500 \
-  --o-filtered-table emp500_18s_dada2_merged_biom_euks_noSingletons_noControls_min3500.qza` 
+  --i-table emp500_18s_deblur_merged_biom_euks_noSingletons_noControls.qza \
+  --p-min-frequency 5500 \
+  --o-filtered-table emp500_18s_deblur_merged_biom_euks_noSingletons_noControls_min5500.qza` 
 
 #### Estimate beta-diversity
 `qiime deicode rpca \
-  --i-table emp500_18s_dada2_merged_biom_euks_noSingletons_noControls_min3500.qza \
+  --i-table emp500_18s_deblur_merged_biom_euks_noSingletons_noControls_min3500.qza \
   --p-min-feature-count 0 \
+  --p-min-feature-frequency 10 \
   --p-min-sample-count 0 \
-  --o-biplot emp500_18s_dada2_merged_biom_euks_noSingletons_noControls_min3500_rpca_pca.qza \
-  --o-distance-matrix emp500_18s_dada2_merged_biom_euks_noSingletons_noControls_min3500_rpca_dist.qza`
+  --o-biplot emp500_18s_deblur_merged_biom_euks_noSingletons_noControls_min5500_rpca_pca.qza \
+  --o-distance-matrix emp500_18s_deblur_merged_biom_euks_noSingletons_noControls_min5500_rpca_dist.qza`
 
 ### 1.3 Fungal ITS data
 
@@ -222,73 +250,99 @@ At this point denoised feature-tables and sequences from each sequencing lane we
   --p-front-r GCTGCGTTCTTCATCGATGC \
   --o-trimmed-sequences emp500_its_demux_trimmed.qza`
   
-#### Denoising
-`qiime dada2 denoise-single \
-  --i-demultiplexed-seqs emp500_its_demux_trimmed.qza \
-  --p-trunc-len 0 \
-  --p-trim-left 0 \
-  --p-no-hashed-feature-ids \
-  --o-table emp500_its_dada2_biom.qza \
-  --o-representative-sequences emp500_its_dada2_seqs.qza \
-  --o-denoising-stats emp500_its_dada2_stats.qza`
+#### Export data and process for denoising with Deblur (standalone)
+Note: The sample list is a text file where each row is a unique sample identifier that corresponds to your sequence file names. For example, 'uren.s001' corresponds to the sequence files 'uren.s001_S1_L001_R1.fastq.gz' and 'uren.s001_S1_L001_R2.fastq.gz'.
 
+`qiime tools export \
+  --input-path emp500_its_demux_trimmed.qza \
+  --output-path emp500_its_demux_trimmed`
+  
+`input_path='emp500_its_demux_trimmed/'`
+`output_path='emp500_its_demux_trimmed_merged_files/'`
+`sample_list='sample_list.txt'`
+
+`for i in $(cat < "$sample_list");
+do
+cat "$input_path""$i"*R1*fastq.gz "$input_path""$i"*R2*fastq.gz > "$output_path""$i".fastq.gz
+done`
+
+#### Denoising
+`deblur workflow \
+  --seqs-fp emp500_its_demux_trimmed_merged_files/ \
+  --output-dir emp500_its_deblur/ \
+  --trim-length 150 \
+  --threads-per-sample 0 \
+  --overwrite`
+
+Import denoised sequences and feature-table into QIIME 2
+
+`qiime tools import \
+  --input-path emp500_its_deblur/all.biom \
+  --type 'FeatureTable[Frequency]' \
+  --input-format BIOMV210Format \
+  --output-path emp500_its_deblur/all_biom.qza`
+
+`qiime tools import \
+  --input-path emp500_its_deblur/all.seqs.fa \
+  --output-path emp500_its_deblur/all_seqs.qza \
+  --type 'FeatureData[Sequence]'`
+  
 At this point denoised feature-tables and sequences from each sequencing lane were merged.
 
 #### Merging tables:
 `qiime feature-table merge \
-  --i-tables emp500_its_dada2_prep_8702_biom.qza \
-  --i-tables emp500_its_dada2_prep_9961_biom.qza \
-  --i-tables emp500_its_dada2_prep_9962_biom.qza \
-  --i-tables emp500_its_dada2_prep_9963_biom.qza \
-  --i-tables emp500_its_dada2_prep_9964_biom.qza \
+  --i-tables emp500_its_deblur_prep_8702_biom.qza \
+  --i-tables emp500_its_deblur_prep_9961_biom.qza \
+  --i-tables emp500_its_deblur_prep_9962_biom.qza \
+  --i-tables emp500_its_deblur_prep_9963_biom.qza \
+  --i-tables emp500_its_deblur_prep_9964_biom.qza \
   --p-overlap-method 'sum' \
-  --o-merged-table emp500_its_dada2_merged_biom.qza`
+  --o-merged-table emp500_its_deblur_merged_biom.qza`
 
 `qiime feature-table merge-seqs \
-  --i-data emp500_its_dada2_prep_8702_seqs.qza \
-  --i-data emp500_its_dada2_prep_9961_seqs.qza \
-  --i-data emp500_its_dada2_prep_9962_seqs.qza \
-  --i-data emp500_its_dada2_prep_9963_seqs.qza \
-  --i-data emp500_its_dada2_prep_9964_seqs.qza \
-  --o-merged-data emp500_its_dada2_merged_seqs.qza`
+  --i-data emp500_its_deblur_prep_8702_seqs.qza \
+  --i-data emp500_its_deblur_prep_9961_seqs.qza \
+  --i-data emp500_its_deblur_prep_9962_seqs.qza \
+  --i-data emp500_its_deblur_prep_9963_seqs.qza \
+  --i-data emp500_its_deblur_prep_9964_seqs.qza \
+  --o-merged-data emp500_its_deblur_merged_seqs.qza`
 
 #### Taxonomic profiling:
 `qiime feature-classifier classify-sklearn \
-  --i-reads emp500_its_dada2_merged_seqs.qza \
+  --i-reads emp500_its_deblur_merged_seqs.qza \
   --i-classifier unite9_2022.10.27_dynamic.qza \
-  --o-classification emp500_its_dada2_merged_seqs_taxonomy_unite9.qza`
+  --o-classification emp500_its_deblur_merged_seqs_taxonomy_unite9.qza`
 
 #### Filtering singleton features on a per-sample basis
 `qiime feature-table filter-features \
-  --i-table emp500_its_dada2_merged_biom.qza \
+  --i-table emp500_its_deblur_merged_biom.qza \
   --p-min-samples 2 \
-  --o-filtered-table emp500_its_dada2_merged_biom_noSingletons.qza`
+  --o-filtered-table emp500_its_deblur_merged_biom_noSingletons.qza`
   
 #### Filtering control samples
 `qiime feature-table filter-samples \
-  --i-table emp500_its_dada2_merged_biom_noSingletons.qza \
+  --i-table emp500_its_deblur_merged_biom_noSingletons.qza \
   --m-metadata-file emp500_metadata_basic.txt \
   --p-where 'empo_1 != "Control"' \
-  --o-filtered-table emp500_its_dada2_merged_biom_noSingletons_noControls.qza` 
+  --o-filtered-table emp500_its_deblur_merged_biom_noSingletons_noControls.qza` 
 
 #### Filtering samples with low read counts
 `qiime feature-table filter-samples \
-  --i-table emp500_its_dada2_merged_biom_noSingletons_noControls.qza \
+  --i-table emp500_its_deblur_merged_biom_noSingletons_noControls.qza \
   --p-min-frequency 500 \
-  --o-filtered-table emp500_its_dada2_merged_biom_noSingletons_noControls_min500.qza` 
+  --o-filtered-table emp500_its_deblur_merged_biom_noSingletons_noControls_min500.qza` 
 
 #### Estimate beta-diversity
 `qiime deicode rpca \
-  --i-table emp500_its_dada2_merged_biom_noSingletons_noControls_min500.qza \
+  --i-table emp500_its_deblur_merged_biom_noSingletons_noControls_min500.qza \
   --p-min-feature-count 0 \
   --p-min-sample-count 0 \
-  --o-biplot emp500_its_dada2_merged_biom_noSingletons_noControls_min500_rpca_pca.qza \
-  --o-distance-matrix emp500_its_dada2_merged_biom_noSingletons_noControls_min500_rpca_dist.qza`
+  --o-biplot emp500_its_deblur_merged_biom_noSingletons_noControls_min500_rpca_pca.qza \
+  --o-distance-matrix emp500_its_deblur_merged_biom_noSingletons_noControls_min500_rpca_dist.qza`
 
 ### References for amplicon processing and analysis:
 * Gonzalez, A., Navas-Molina, J.A., Kosciolek, T. et al. Qiita: rapid, web-enabled microbiome meta-analysis. Nat Methods 15, 796–798 (2018). https://doi.org/10.1038/s41592-018-0141-9
 * Bolyen E, Rideout JR, Dillon MR, Bokulich NA, Abnet CC, Al-Ghalith GA, Alexander H, Alm EJ, Arumugam M, Asnicar F, Bai Y, Bisanz JE, Bittinger K, Brejnrod A, Brislawn CJ, Brown CT, Callahan BJ, Caraballo-Rodríguez AM, Chase J, Cope EK, Da Silva R, Diener C, Dorrestein PC, Douglas GM, Durall DM, Duvallet C, Edwardson CF, Ernst M, Estaki M, Fouquier J, Gauglitz JM, Gibbons SM, Gibson DL, Gonzalez A, Gorlick K, Guo J, Hillmann B, Holmes S, Holste H, Huttenhower C, Huttley GA, Janssen S, Jarmusch AK, Jiang L, Kaehler BD, Kang KB, Keefe CR, Keim P, Kelley ST, Knights D, Koester I, Kosciolek T, Kreps J, Langille MGI, Lee J, Ley R, Liu YX, Loftfield E, Lozupone C, Maher M, Marotz C, Martin BD, McDonald D, McIver LJ, Melnik AV, Metcalf JL, Morgan SC, Morton JT, Naimey AT, Navas-Molina JA, Nothias LF, Orchanian SB, Pearson T, Peoples SL, Petras D, Preuss ML, Pruesse E, Rasmussen LB, Rivers A, Robeson MS 2nd, Rosenthal P, Segata N, Shaffer M, Shiffer A, Sinha R, Song SJ, Spear JR, Swafford AD, Thompson LR, Torres PJ, Trinh P, Tripathi A, Turnbaugh PJ, Ul-Hasan S, van der Hooft JJJ, Vargas F, Vázquez-Baeza Y, Vogtmann E, von Hippel M, Walters W, Wan Y, Wang M, Warren J, Weber KC, Williamson CHD, Willis AD, Xu ZZ, Zaneveld JR, Zhang Y, Zhu Q, Knight R, Caporaso JG. Reproducible, interactive, scalable and extensible microbiome data science using QIIME 2. Nat Biotechnol. 2019 Aug;37(8):852-857. doi: 10.1038/s41587-019-0209-9. Erratum in: Nat Biotechnol. 2019 Sep;37(9):1091. PMID: 31341288; PMCID: PMC7015180.
-* Benjamin J Callahan, Paul J McMurdie, Michael J Rosen, Andrew W Han, Amy Jo A Johnson, and Susan P Holmes. Dada2: high-resolution sample inference from illumina amplicon data. Nature methods, 13(7):581, 2016. doi:10.1038/nmeth.3869
 * Marcel Martin. Cutadapt removes adapter sequences from high-throughput sequencing reads. EMBnet. journal, 17(1):pp–10, 2011. doi:10.14806/ej.17.1.200
 * Nicholas A. Bokulich, Benjamin D. Kaehler, Jai Ram Rideout, Matthew Dillon, Evan Bolyen, Rob Knight, Gavin A. Huttley, and J. Gregory Caporaso. Optimizing taxonomic classification of marker-gene amplicon sequences with qiime 2's q2-feature-classifier plugin. Microbiome, 6(1):90, 2018. URL: https://doi.org/10.1186/s40168-018-0470-z, doi:10.1186/s40168-018-0470-z
 * Michael S Robeson II, Devon R O’Rourke, Benjamin D Kaehler, Michal Ziemski, Matthew R Dillon, Jeffrey T Foster, Nicholas A Bokulich. RESCRIPt: Reproducible sequence taxonomy reference database management for the masses. bioRxiv 2020.10.05.326504; doi: https://doi.org/10.1101/2020.10.05.326504
@@ -296,7 +350,7 @@ At this point denoised feature-tables and sequences from each sequencing lane we
 * Quast C, Pruesse E, Yilmaz P, Gerken J, Schweer T, Yarza P, Peplies J, Glöckner FO (2013) The SILVA ribosomal RNA gene database project: improved data processing and web-based tools. Opens external link in new windowNucl. Acids Res. 41 (D1): D590-D596.
 * Abarenkov, Kessy; Zirk, Allan; Piirmann, Timo; Pöhönen, Raivo; Ivanov, Filipp; Nilsson, R. Henrik; Kõljalg, Urmas (2022): UNITE QIIME release for Fungi. Version 16.10.2022. UNITE Community. https://doi.org/10.15156/BIO/2483915
 * Martino C, Morton JT, Marotz CA, Thompson LR, Tripathi A, Knight R, Zengler K. A Novel Sparse Compositional Technique Reveals Microbial Perturbations. mSystems. 2019 Feb 12;4(1):e00016-19. doi: 10.1128/mSystems.00016-19. PMID: 30801021; PMCID: PMC6372836.
-
+* Amir A, McDonald D, Navas-Molina JA, Kopylova E, Morton JT, Zech Xu Z, Kightley EP, Thompson LR, Hyde ER, Gonzalez A, Knight R. Deblur Rapidly Resolves Single-Nucleotide Community Sequence Patterns. mSystems. 2017 Mar 7;2(2):e00191-16. doi: 10.1128/mSystems.00191-16. PMID: 28289731; PMCID: PMC5340863.
 
 ### 2 Shotgun sequencing
 
