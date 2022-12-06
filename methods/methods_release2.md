@@ -337,6 +337,7 @@ At this point denoised feature-tables and sequences from each sequencing lane we
 #### Estimate beta-diversity
 `qiime deicode rpca \
   --i-table emp500_its_deblur_merged_biom_noSingletons_noControls_min500.qza \
+  --p-min-feature-frequency 10 \
   --p-min-feature-count 0 \
   --p-min-sample-count 0 \
   --o-biplot emp500_its_deblur_merged_biom_noSingletons_noControls_min500_rpca_pca.qza \
