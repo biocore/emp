@@ -73,7 +73,7 @@ Processing is done by these IPython notebooks:
 
 For 16S data, demultiplexing, feature-table generation, and fragment insertion were performed in Qiita on a per-sequencing lane basis. Final feature-tables were generated using the meta-analysis functionality in Qiita to combine multiple preps per data type. The final feature-table was processed as described below. OTU clustering is described but using Deblur sub-operational taxonomic units (sOTUs) is recommended.
 
-For 18S and fungal ITS data, processing was performed outside of Qiita using QIIME2 (v2022.2) due to unique library constructs for those amplicons that result in the primers being retained post-demultiplexing. Each step is described below. The workflow is adapted from https://benjjneb.github.io/dada2/ITS_workflow.html.
+For 18S and fungal ITS data, processing was performed outside of Qiita using QIIME 2 (v2022.2) due to unique library constructs for those amplicons that result in the primers being retained post-demultiplexing. As for 16S data, processing was performed on a per-sequencing lane basis. Final feature tables and sequence files were generated using QIIME 2's 'feature-table' plugin's 'merge' method. Each step is described below. The workflow is adapted from https://benjjneb.github.io/dada2/ITS_workflow.html.
 
 ### 1.1 16S rRNA gene data
 
@@ -96,46 +96,47 @@ For 18S and fungal ITS data, processing was performed outside of Qiita using QII
 * Parameters: 97% sequence similarity threshold, using the GreenGenes 13_8 release as a reference
 
 ### 1.2 18S rRNA gene data
+* Note: Processing including demultiplexing through denoising was performed on a per-sequencing lane basis, although we only provide example code for a single example lane.
 
 #### Demultiplexing:
 `qiime demux emp-paired \
-  --i-seqs emp-paired-end-sequences.qza \
-  --m-barcodes-file emp500_prep_info_18S.txt \
+  --i-seqs prep_XXXX/emp-paired-end-sequences.qza \
+  --m-barcodes-file emp500_prep_info_18S_prep_XXXX.txt \
   --m-barcodes-column 'barcode' \
   --p-rev-comp-mapping-barcodes \
-  --o-error-correction-details emp500_18s_demux.qza \
-  --o-per-sample-sequences emp500_18s_demux.qza`
+  --o-error-correction-details emp500_18s_demux_prep_XXXX_log.qza \
+  --o-per-sample-sequences emp500_18s_demux_prep_XXXX.qza`
 
 #### Trimming primers:
 `qiime cutadapt trim-paired \
-  --i-demultiplexed-sequences emp500_18s_demux.qza \
+  --i-demultiplexed-sequences emp500_18s_demux_prep_XXXX.qza \
   --p-front-f GTACACACCGCCCGTC \
   --p-adapter-f GTAGGTGAACCTGCAGAAGGATCA \
   --p-front-r GACGGGCGGTGTGTAC \
   --p-adapter-r TGATCCTTCTGCAGGTTCACCTAC \
-  --o-trimmed-sequences emp500_18s_demux_trimmed_1of3.qza`
+  --o-trimmed-sequences emp500_18s_demux_prep_XXXX_trimmed_1of3.qza`
 
 `qiime cutadapt trim-paired \
-  --i-demultiplexed-sequences emp500_18s_demux_trimmed_1of3.qza \
+  --i-demultiplexed-sequences emp500_18s_demux_prep_XXXX_trimmed_1of3.qza \
   --p-front-f TTAGTGAGGCCCT \
   --p-adapter-r CCAATCGGTAGTAGCGACGGGC \
-  --o-trimmed-sequences emp500_18s_demux_trimmed_2of3.qza`
+  --o-trimmed-sequences emp500_18s_demux_prep_XXXX_trimmed_2of3.qza`
 
 `qiime cutadapt trim-paired \
-  --i-demultiplexed-sequences emp500_18s_demux_trimmed_2of3.qza \
+  --i-demultiplexed-sequences emp500_18s_demux_prep_XXXX_trimmed_2of3.qza \
   --p-adapter-r AGGGCCTCACTAA \
-  --o-trimmed-sequences emp500_18s_demux_trimmed_3of3.qza`
+  --o-trimmed-sequences emp500_18s_demux_prep_XXXX_trimmed_3of3.qza`
 
 #### Export data and process for denoising with Deblur (standalone)
 Note: The sample list is a text file where each row is a unique sample identifier that corresponds to your sequence file names. For example, 'uren.s001' corresponds to the sequence files 'uren.s001_S1_L001_R1.fastq.gz' and 'uren.s001_S1_L001_R2.fastq.gz'.
 
 `qiime tools export \
-  --input-path emp500_18s_demux_trimmed_3of3.qza \
-  --output-path emp500_18s_demux_trimmed`
+  --input-path emp500_18s_demux_prep_XXXX_trimmed_3of3.qza \
+  --output-path emp500_18s_demux_prep_XXXX_trimmed`
   
-`input_path='emp500_18s_demux_trimmed/'`
-`output_path='emp500_18s_demux_trimmed_merged_files/'`
-`sample_list='sample_list.txt'`
+`input_path='emp500_18s_demux_prep_XXXX_trimmed/'`
+`output_path='emp500_18s_demux_prep_XXXX_merged_fastq/'`
+`sample_list='sample_list_prep_XXXX.txt'`
 
 `for i in $(cat < "$sample_list");
 do
@@ -144,8 +145,8 @@ done`
 
 #### Denoising
 `deblur workflow \
-  --seqs-fp emp500_18s_demux_trimmed_merged_files/ \
-  --output-dir emp500_18s_deblur/ \
+  --seqs-fp emp500_18s_demux_prep_XXXX_merged_fastq/ \
+  --output-dir emp500_18s_deblur_prep_XXXX/ \
   --trim-length 90 \
   --threads-per-sample 0 \
   --overwrite`
@@ -153,42 +154,42 @@ done`
 Import denoised sequences and feature-table into QIIME 2
 
 `qiime tools import \
-  --input-path emp500_18s_deblur/all.biom \
+  --input-path emp500_18s_deblur_prep_XXXX/all.biom \
   --type 'FeatureTable[Frequency]' \
   --input-format BIOMV210Format \
-  --output-path emp500_18s_deblur/all_biom.qza`
+  --output-path emp500_18s_deblur_prep_XXXX/all_biom.qza`
 
 `qiime tools import \
-  --input-path emp500_18s_deblur/all.seqs.fa \
-  --output-path emp500_18s_deblur/all_seqs.qza \
+  --input-path emp500_18s_deblur_prep_XXXX/all.seqs.fa \
+  --output-path emp500_18s_deblur_prep_XXXX/all_seqs.qza \
   --type 'FeatureData[Sequence]'`
   
 At this point denoised feature-tables and sequences from each sequencing lane were merged.
 
 #### Merging tables:
 `qiime feature-table merge \
-  --i-tables emp500_18s_deblur_prep_8694_biom.qza \
-  --i-tables emp500_18s_deblur_prep_8753_biom.qza \
-  --i-tables emp500_18s_deblur_prep_8754_biom.qza \
-  --i-tables emp500_18s_deblur_prep_9950_biom.qza \
-  --i-tables emp500_18s_deblur_prep_9951_biom.qza \
-  --i-tables emp500_18s_deblur_prep_9952_biom.qza \
-  --i-tables emp500_18s_deblur_prep_9953_biom.qza \
-  --i-tables emp500_18s_deblur_prep_9954_biom.qza \
-  --i-tables emp500_18s_deblur_prep_9955_biom.qza \
+  --i-tables emp500_18s_deblur_prep_8694/emp500_18s_deblur_prep_8694_biom.qza \
+  --i-tables emp500_18s_deblur_prep_8753/emp500_18s_deblur_prep_8753_biom.qza \
+  --i-tables emp500_18s_deblur_prep_8754/emp500_18s_deblur_prep_8754_biom.qza \
+  --i-tables emp500_18s_deblur_prep_9950/emp500_18s_deblur_prep_9950_biom.qza \
+  --i-tables emp500_18s_deblur_prep_9951/emp500_18s_deblur_prep_9951_biom.qza \
+  --i-tables emp500_18s_deblur_prep_9952/emp500_18s_deblur_prep_9952_biom.qza \
+  --i-tables emp500_18s_deblur_prep_9953/emp500_18s_deblur_prep_9953_biom.qza \
+  --i-tables emp500_18s_deblur_prep_9954/emp500_18s_deblur_prep_9954_biom.qza \
+  --i-tables emp500_18s_deblur_prep_9955/emp500_18s_deblur_prep_9955_biom.qza \
   --p-overlap-method 'sum' \
   --o-merged-table emp500_18s_deblur_merged_biom.qza`
 
 `qiime feature-table merge-seqs \
-  --i-data emp500_18s_deblur_prep_8694_seqs.qza \
-  --i-data emp500_18s_deblur_prep_8753_seqs.qza \
-  --i-data emp500_18s_deblur_prep_8754_seqs.qza \
-  --i-data emp500_18s_deblur_prep_9950_seqs.qza \
-  --i-data emp500_18s_deblur_prep_9951_seqs.qza \
-  --i-data emp500_18s_deblur_prep_9952_seqs.qza \
-  --i-data emp500_18s_deblur_prep_9953_seqs.qza \
-  --i-data emp500_18s_deblur_prep_9954_seqs.qza \
-  --i-data emp500_18s_deblur_prep_9955_seqs.qza \
+  --i-data emp500_18s_deblur_prep_8694/emp500_18s_deblur_prep_8694_seqs.qza \
+  --i-data emp500_18s_deblur_prep_8753/emp500_18s_deblur_prep_8753_seqs.qza \
+  --i-data emp500_18s_deblur_prep_8754/emp500_18s_deblur_prep_8754_seqs.qza \
+  --i-data emp500_18s_deblur_prep_9950/emp500_18s_deblur_prep_9950_seqs.qza \
+  --i-data emp500_18s_deblur_prep_9951/emp500_18s_deblur_prep_9951_seqs.qza \
+  --i-data emp500_18s_deblur_prep_9952/emp500_18s_deblur_prep_9952_seqs.qza \
+  --i-data emp500_18s_deblur_prep_9953/emp500_18s_deblur_prep_9953_seqs.qza \
+  --i-data emp500_18s_deblur_prep_9954/emp500_18s_deblur_prep_9954_seqs.qza \
+  --i-data emp500_18s_deblur_prep_9955/emp500_18s_deblur_prep_9955_seqs.qza \
   --o-merged-data emp500_18s_deblur_merged_seqs.qza`
 
 #### Taxonomic profiling:
@@ -233,33 +234,34 @@ At this point denoised feature-tables and sequences from each sequencing lane we
   --o-distance-matrix emp500_18s_deblur_merged_biom_euks_noSingletons_noControls_min5500_rpca_dist.qza`
 
 ### 1.3 Fungal ITS data
+* Note: Processing including demultiplexing through denoising was performed on a per-sequencing lane basis, although we only provide example code for a single example lane.
 
 #### Demultiplexing:
 `qiime demux emp-paired \
-  --i-seqs emp-paired-end-sequences.qza \
-  --m-barcodes-file emp500_prep_info_ITS.txt \
+  --i-seqs prep_XXXX/emp-paired-end-sequences.qza \
+  --m-barcodes-file emp500_prep_info_ITS_prep_XXXX.txt \
   --m-barcodes-column 'barcode' \
   --p-rev-comp-mapping-barcodes \
-  --o-error-correction-details emp500_its_demux.qza \
-  --o-per-sample-sequences emp500_its_demux.qza`
+  --o-error-correction-details emp500_its_demux_prep_XXXX_log.qza \
+  --o-per-sample-sequences emp500_its_demux_prep_XXXX.qza`
 
 #### Trimming primers:
 `qiime cutadapt trim-paired \
-  --i-demultiplexed-sequences emp500_its_demux.qza \
+  --i-demultiplexed-sequences emp500_its_demux_prep_XXXX.qza \
   --p-adapter-f GCATCGATGAAGAACGCAGC \
   --p-front-r GCTGCGTTCTTCATCGATGC \
-  --o-trimmed-sequences emp500_its_demux_trimmed.qza`
+  --o-trimmed-sequences emp500_its_demux_prep_XXXX_trimmed.qza`
   
 #### Export data and process for denoising with Deblur (standalone)
 Note: The sample list is a text file where each row is a unique sample identifier that corresponds to your sequence file names. For example, 'uren.s001' corresponds to the sequence files 'uren.s001_S1_L001_R1.fastq.gz' and 'uren.s001_S1_L001_R2.fastq.gz'.
 
 `qiime tools export \
-  --input-path emp500_its_demux_trimmed.qza \
-  --output-path emp500_its_demux_trimmed`
+  --input-path emp500_its_demux_prep_XXXX_trimmed.qza \
+  --output-path emp500_its_demux_prep_XXXX_trimmed`
   
-`input_path='emp500_its_demux_trimmed/'`
-`output_path='emp500_its_demux_trimmed_merged_files/'`
-`sample_list='sample_list.txt'`
+`input_path='emp500_its_demux_prep_XXXX_trimmed/'`
+`output_path='emp500_its_demux_prep_XXXX_merged_fastq/'`
+`sample_list='sample_list_prep_XXXX.txt'`
 
 `for i in $(cat < "$sample_list");
 do
@@ -268,8 +270,8 @@ done`
 
 #### Denoising
 `deblur workflow \
-  --seqs-fp emp500_its_demux_trimmed_merged_files/ \
-  --output-dir emp500_its_deblur/ \
+  --seqs-fp emp500_its_demux_prep_XXXX_merged_fastq/ \
+  --output-dir emp500_its_deblur_prep_XXXX/ \
   --trim-length 150 \
   --threads-per-sample 0 \
   --overwrite`
@@ -277,34 +279,34 @@ done`
 Import denoised sequences and feature-table into QIIME 2
 
 `qiime tools import \
-  --input-path emp500_its_deblur/all.biom \
+  --input-path emp500_its_deblur_prep_XXXX/all.biom \
   --type 'FeatureTable[Frequency]' \
   --input-format BIOMV210Format \
-  --output-path emp500_its_deblur/all_biom.qza`
+  --output-path emp500_its_deblur_prep_XXXX/all_biom.qza`
 
 `qiime tools import \
-  --input-path emp500_its_deblur/all.seqs.fa \
-  --output-path emp500_its_deblur/all_seqs.qza \
+  --input-path emp500_its_deblur_prep_XXXX/all.seqs.fa \
+  --output-path emp500_its_deblur_prep_XXXX/all_seqs.qza \
   --type 'FeatureData[Sequence]'`
   
 At this point denoised feature-tables and sequences from each sequencing lane were merged.
 
 #### Merging tables:
 `qiime feature-table merge \
-  --i-tables emp500_its_deblur_prep_8702_biom.qza \
-  --i-tables emp500_its_deblur_prep_9961_biom.qza \
-  --i-tables emp500_its_deblur_prep_9962_biom.qza \
-  --i-tables emp500_its_deblur_prep_9963_biom.qza \
-  --i-tables emp500_its_deblur_prep_9964_biom.qza \
+  --i-tables emp500_its_deblur_prep_8702/emp500_its_deblur_prep_8702_biom.qza \
+  --i-tables emp500_its_deblur_prep_9961/emp500_its_deblur_prep_9961_biom.qza \
+  --i-tables emp500_its_deblur_prep_9962/emp500_its_deblur_prep_9962_biom.qza \
+  --i-tables emp500_its_deblur_prep_9963/emp500_its_deblur_prep_9963_biom.qza \
+  --i-tables emp500_its_deblur_prep_9964/emp500_its_deblur_prep_9964_biom.qza \
   --p-overlap-method 'sum' \
   --o-merged-table emp500_its_deblur_merged_biom.qza`
 
 `qiime feature-table merge-seqs \
-  --i-data emp500_its_deblur_prep_8702_seqs.qza \
-  --i-data emp500_its_deblur_prep_9961_seqs.qza \
-  --i-data emp500_its_deblur_prep_9962_seqs.qza \
-  --i-data emp500_its_deblur_prep_9963_seqs.qza \
-  --i-data emp500_its_deblur_prep_9964_seqs.qza \
+  --i-data emp500_its_deblur_prep_8702/emp500_its_deblur_prep_8702_seqs.qza \
+  --i-data emp500_its_deblur_prep_9961/emp500_its_deblur_prep_9961_seqs.qza \
+  --i-data emp500_its_deblur_prep_9962/emp500_its_deblur_prep_9962_seqs.qza \
+  --i-data emp500_its_deblur_prep_9963/emp500_its_deblur_prep_9963_seqs.qza \
+  --i-data emp500_its_deblur_prep_9964/emp500_its_deblur_prep_9964_seqs.qza \
   --o-merged-data emp500_its_deblur_merged_seqs.qza`
 
 #### Taxonomic profiling:
