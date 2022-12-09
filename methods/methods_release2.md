@@ -144,11 +144,13 @@ cat "$input_path""$i"*R1*fastq.gz "$input_path""$i"*R2*fastq.gz > "$output_path"
 done`
 
 #### Denoising
+Note: We recommend setting '--min-reads 1' to avoid bias towards any one sequencing run.
 `deblur workflow \
   --seqs-fp emp500_18s_demux_prep_XXXX_merged_fastq/ \
   --output-dir emp500_18s_deblur_prep_XXXX/ \
   --trim-length 90 \
   --threads-per-sample 0 \
+  --min-reads 1 \
   --overwrite`
 
 Import denoised sequences and feature-table into QIIME 2
@@ -269,11 +271,13 @@ cat "$input_path""$i"*R1*fastq.gz "$input_path""$i"*R2*fastq.gz > "$output_path"
 done`
 
 #### Denoising
+Note: We recommend setting '--min-reads 1' to avoid bias towards any one sequencing run.
 `deblur workflow \
   --seqs-fp emp500_its_demux_prep_XXXX_merged_fastq/ \
   --output-dir emp500_its_deblur_prep_XXXX/ \
   --trim-length 150 \
   --threads-per-sample 0 \
+  --min-reads 1 \
   --overwrite`
 
 Import denoised sequences and feature-table into QIIME 2
