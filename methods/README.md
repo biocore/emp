@@ -12,6 +12,6 @@ Accompanying information to `methods`:
 
 * [`methods_release1.md`](methods_release1.md) Information for reproducing analyses and figures in Thompson et al. (2017).
 
-### Release 2
+### Release 2 (EMP500)
 
 * [`methods_release2.md`](methods_release2.md) Primary data processing for the EMP500 project.
